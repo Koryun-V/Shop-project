@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
@@ -10,7 +10,7 @@ function Layout() {
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
     const [isOpenLogin, setIsOpenLogin] = useState(false)
-
+    const navigate = useNavigate();
     const [files, setFiles] = useState([])
     const [previewImg, setPreviewImg] = useState([])
 
@@ -25,7 +25,7 @@ function Layout() {
     //     console.log(x)
     // }, [files]);
 
-    console.log(files)
+
     const func = async () => {
         try {
             const params = {
@@ -75,6 +75,11 @@ function Layout() {
         setFiles([...file])
     }
 
+    const moveProducts = () => {
+        navigate("/products")
+    }
+
+
     return (
         <>
             <div className="wrapper">
@@ -97,6 +102,10 @@ function Layout() {
 
                         <div>
                             <p>...navigation...</p>
+                        </div>
+
+                        <div onClick={moveProducts} className= "products_div">
+                            <p>products</p>
                         </div>
 
                         <>

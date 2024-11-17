@@ -1,5 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getProducts} from "../actions/productsAction";
+import _ from "lodash";
 
 const initialState = {
     products: [],

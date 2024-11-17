@@ -13,7 +13,7 @@ export const getProducts = createAsyncThunk(
                     Authorization: token,
                 },
             })
-            console.log(data.products)
+
             return data.products
         } catch (err) {
             return thunkAPI.rejectWithValue(err)

@@ -23,5 +23,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+}
+.product_image_container{
+  margin-top: 10px;
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
 
+}
+
+.product_image{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.product_desc{
+  font-size: 12px;
 }

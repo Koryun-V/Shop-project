@@ -8,12 +8,7 @@ export const getProducts = createAsyncThunk(
     "products/getProducts",
     async (payload, thunkAPI) => {
         try {
-            const {data} = await axios.get("https://world-of-construction.onrender.com/admin/products", {
-                headers: {
-                    Authorization: token,
-                },
-            })
-
+            const {data} = await axios.get("https://world-of-construction.onrender.com/products/list")
             return data.products
         } catch (err) {
             return thunkAPI.rejectWithValue(err)

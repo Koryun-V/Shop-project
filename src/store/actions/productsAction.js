@@ -1,14 +1,15 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import api from "../../utills/Api"
 const token = localStorage.getItem("token");
 
 
-export const getProducts = createAsyncThunk(
 
+export const getProducts = createAsyncThunk(
     "products/getProducts",
     async (payload, thunkAPI) => {
         try {
-            const {data} = await axios.get("https://world-of-construction.onrender.com/products/list")
+            const {data} = await api.getAllProducts(payload)
             return data.products
         } catch (err) {
             return thunkAPI.rejectWithValue(err)

@@ -1,28 +1,37 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../store/actions/productsAction";
-import {productReducer} from "../../store/reducers/productsReducer";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import {Carousel} from 'react-responsive-carousel';
 import _ from 'lodash';
 import default_image from "../../assets/icon/default_image.png"
+import Pagination from "./Pagination";
 
 
 const Products = () => {
+
+
+
+
     const dispatch = useDispatch()
     const products = useSelector(state => state.productReducer.products)
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [limit, setlimit] = useState(8);
+    const lastIndex = currentPage * limit;
+    const firstIndex = lastIndex - limit;
+    const currentProducts = products.slice(firstIndex, lastIndex);
     useEffect(() => {
         dispatch(getProducts())
 
     }, []);
 
-    console.log(products)
+
 
     return (
         <div className="products_wrapper">
             <div className="products_container">
-                {products.map(({id, brandName, description, name, price, productImage, storeId, store}) => (
+                {currentProducts.map(({id, brandName, description, name, price, productImage, storeId, store}) => (
                     <div className="every_product" key={id}>
                         <Carousel showArrows={true} emulateTouch={true} showStatus={false} showIndicators={false}
                                   showThumbs={false} stopOnHover={true} transitionTime={1000} infiniteLoop={true}
@@ -56,6 +65,7 @@ const Products = () => {
 
                 ))}
             </div>
+            <Pagination totalProducts = {products.length} limit = {limit} setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
         </div>
     );
 };

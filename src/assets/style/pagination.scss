@@ -13,11 +13,17 @@
   font-size: 16px;
   margin: 0 10px;
   border-radius: 6px;
-  cursor: pointer;
   transition: all 0.3s ease;
   background: transparent;
   color: black;
   border-color: #eee;
+
+  &:hover {
+    border-color: #101010;
+    background: limegreen;
+    color: #101010;
+    cursor: pointer;
+  }
 }
 
 .active {
@@ -34,3 +40,5 @@
   background: limegreen;
   color: #101010;
 }
+
+

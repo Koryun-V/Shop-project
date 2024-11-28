@@ -25,9 +25,6 @@ const Products = () => {
         dispatch(getProducts())
 
     }, []);
-
-
-
     return (
         <div className="products_wrapper">
             <div className="products_container">
@@ -35,15 +32,9 @@ const Products = () => {
                     <div className="every_product" key={id}>
                         <Carousel showArrows={true} emulateTouch={true} showStatus={false} showIndicators={false}
                                   showThumbs={false} stopOnHover={true} transitionTime={1000} infiniteLoop={true}
-                                  autoPlay={true} interval={10000}>
-                            {_.isEmpty(productImage) ? <div style={{
-                                    width: "100%",
-                                    height: 150,
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginTop: 10
-                                }}>
+                                  autoPlay={true} interval={10000} >
+                            {_.isEmpty(productImage) ?
+                                <div className="img_container">
                                     <img src={default_image} alt="default"
                                          style={{width: "90%", height: 150, objectFit: "contain"}}/>
                                 </div> :

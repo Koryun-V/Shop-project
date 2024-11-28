@@ -10,10 +10,6 @@ import Pagination from "./Pagination";
 
 
 const Products = () => {
-
-
-
-
     const dispatch = useDispatch()
     const products = useSelector(state => state.productReducer.products)
     const [currentPage, setCurrentPage] = useState(1);

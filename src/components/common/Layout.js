@@ -3,6 +3,11 @@ import {Link, Outlet} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
+import Input from "../mini/Input";
+import Button from "../mini/Button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+
 //main
 const token = localStorage.getItem("token");
 
@@ -11,68 +16,14 @@ function Layout() {
     const [isOpenRegister, setIsOpenRegister] = useState(false)
     const [isOpenLogin, setIsOpenLogin] = useState(false)
 
-    const [files, setFiles] = useState([])
-    const [previewImg, setPreviewImg] = useState([])
 
-    //
-    // useEffect(() => {
-    //     const previewUrls = files.map((file) => URL.createObjectURL(file));
-    //     setPreviewImg(previewUrls);
-    // }, [files]);
-
-    // useEffect(() => {
-    //     let x = previewImg.forEach(url => URL.revokeObjectURL(url))
-    //     console.log(x)
-    // }, [files]);
-
-    console.log(files)
-    const func = async () => {
-        try {
-            const params = {
-                name: "sxoc",
-                size: "230 мм",
-                price: "120",
-                description: "Электрическая болгарка для резки и шлифовки различных материалов.",
-                brandName: "sovet",
-
-                productImage: files,
-            }
+    const [value, setValue] = useState("");
 
 
-            const {data} = await axios.post(`https://world-of-construction.onrender.com/admin/product/28`, params,
-
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                    // formSerializer: {indexes: true}
-                })
-            console.log(data, "products")
-            return data
-        } catch (error) {
-            console.log(error)
+    const onChange = (e) => {
+        if (e.target.value !== " ") {
+            setValue(e.target.value);
         }
-    }
-
-    const get = async () => {
-        try {
-            const {data} = await axios.get(`https://world-of-construction.onrender.com/home`,
-                {
-                    headers: {
-                        Authorization: token,
-                    }
-                })
-            console.log(data, "category")
-            return data
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const file = (e) => {
-        const file = e.target.files;
-        setFiles([...file])
     }
 
     return (
@@ -86,25 +37,45 @@ function Layout() {
                             </div>
                         </Link>
 
-                        <label htmlFor="avatar">
-                            <input type="file" id="avatar" onChange={file} multiple/>
-                        </label>
+                        <nav className="nav">
+                            <ul className="nav-list">
+                                <li className="nav-item">Store
+                                    <ul className="nav-more">
+                                        <li><img src="#"/>IDEAL</li>
+                                        <li><img src="#"/>DOMUS</li>
+                                        <li><img src="#"/>ESIM</li>
+                                    </ul>
+                                </li>
+                                <Link className="nav-item" to="/products">
+                                    <li>Products</li>
+                                </Link>
+                                <Link className="nav-item" to="/category">
+                                    <li>Category</li>
+                                </Link>
+                                <Link className="nav-item" to="/specialist">
+                                    <li>Specialist</li>
+                                </Link>
+                                <Link className="nav-item" to="/contact">
+                                    <li>Contact</li>
+                                </Link>
+                            </ul>
 
 
-                        <button onClick={get}>get</button>
+                        </nav>
 
-                        <button onClick={func}>update</button>
+                        <div className="search-block">
+                            <div className="search-field">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
+                                <Input value={value} onChange={onChange} className="search-input" placeholder="Search"/>
+                            </div>
 
-                        <div>
-                            <p>...navigation...</p>
                         </div>
 
                         <>
                             {!token ?
                                 <div className="login-block">
-                                    <button className="login" onClick={() => setIsOpenLogin(true)}>LOGIN</button>
-                                    {/*<button className="register" onClick={() => setIsOpenRegister(true)}>REGISTER*/}
-                                    {/*</button>*/}
+                                    <Button text="LOGIN" className="active-button"
+                                            onClick={() => setIsOpenLogin(true)}></Button>
                                     <Link className="register" to="/register">REGISTER
                                     </Link>
                                 </div>
@@ -114,9 +85,8 @@ function Layout() {
                                 </div>
                             }
                         </>
-
-
                     </div>
+
                 </header>
 
                 <main className="main">

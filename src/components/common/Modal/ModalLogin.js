@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginUser, setStatus} from "../../../store/actions/login";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import Input from "../../mini/Input";
+import Button from "../../mini/Button";
 
 const fields = [
     {
@@ -110,36 +112,31 @@ function ModalLogin({open, onClose}) {
                     <div className="container-login">
                         <form onSubmit={login}>
                             {fields.map((field) => (
-                                <div key={field.id} className="field-block">
-
-                                    <div className="input-block">
-                                        <div className="test"></div>
-
-                                        <input
+                                <div key={field.id} className="login">
+                                    <div style={{
+                                        height: "50px",
+                                    }}>
+                                        <Input
+                                            name={field.name}
                                             className="input"
                                             {...field}
                                             onChange={onChange}
                                             value={user[field.name]}
-                                            type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
+                                            // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
                                             id={field.id}
                                         />
-                                        <span
-                                            className={user[field.name].length ? "active" : "label"}>{field.label}</span>
-
-                                        {field.name === "password"
-                                            ?
-                                            <FontAwesomeIcon onClick={() => {
-                                                setEye(eye === faEye ? faEyeSlash : faEye)
-                                            }
-                                            } icon={eye} className="eye"/> : null}
-
-
                                     </div>
+                                    <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
+
+
                                 </div>
                             ))}
-                            <button className={isLogin ? "register" : "disabled"}
-                                    type={isLogin ? "submit" : "button"}>LOGIN
-                            </button>
+                            <div className="register-button">
+                                <Button text="LOGIN" className={isLogin ? "active-button" : "disabled"}
+                                        type={isLogin ? "submit" : "button"}>LOGIN
+                                </Button>
+                            </div>
+
 
                         </form>
                     </div>

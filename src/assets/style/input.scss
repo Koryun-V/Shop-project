@@ -1,0 +1,145 @@
+.field-block {
+  position: relative;
+  width: 320px;
+}
+
+.login {
+  position: relative;
+  width: 320px;
+  margin-bottom: 20px;
+}
+
+.field-block:nth-child(3) {
+  position: relative;
+  width: 100px;
+}
+
+.field-block:nth-child(4) {
+  position: relative;
+  width: 100px;
+}
+
+.field-block:nth-child(5) {
+  position: relative;
+  width: 100px;
+}
+
+.search-block {
+  width: 40%;
+  margin: 0 10px;
+  position: relative;
+  height: 40px;
+}
+
+.input-block {
+  height: 100%;
+  position: relative;
+  background: #e3e3e3;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+
+  .input {
+    margin-top: 5px;
+    width: 100%;
+    height: 100%;
+    font-size: 17px;
+    padding:0 30px 0 15px;
+    z-index: 5;
+    background: transparent;
+    position: absolute;
+    outline: none;
+    border: none;
+  }
+
+  .search-input {
+    height: 100%;
+    width: 100%;
+    font-size: 17px;
+    padding:0 30px 0 15px;
+    z-index: 5;
+    background: transparent;
+    position: absolute;
+    outline: none;
+    border: none;
+  }
+}
+
+.test {
+  top: 92%;
+  transition: 0.3s;
+  z-index: 2;
+  width: 0;
+  position: absolute;
+  border-radius: 0 0 3px 3px;
+  border-bottom: 4px solid rgba(4, 224, 21, 0.9);
+}
+
+.test2 {
+  width: 100%;
+  z-index: 4;
+  bottom: 100%;
+  position: absolute;
+  border-radius: 3px;
+  border-bottom: 4px solid red;
+  height: 50px;
+}
+
+.label {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  transition: 0.4s;
+  color: black;
+}
+
+.active {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  transition: 0.4s;
+  color: black;
+  z-index: 3;
+}
+
+
+.field-block:focus-within .label {
+  top: 0;
+  z-index: 3;
+}
+
+.login:focus-within .label {
+  top: 0;
+  z-index: 3;
+}
+
+.input-block:focus-within .test {
+  width: 100%;
+}
+
+.validation-info {
+  height: 40px;
+  position: relative;
+  width: 100%;
+
+  span {
+    cursor: default;
+    color: red;
+    top: 50px;
+  }
+}
+.search-field{
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .glass{
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+      z-index: 10;
+  }
+}

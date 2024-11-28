@@ -6,6 +6,8 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/material.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import Input from "../mini/Input";
+import Button from "../mini/Button";
 
 const fields = [
     {
@@ -112,7 +114,7 @@ const Register = () => {
         } else {
             setIsRegister(false)
         }
-    }, [user, inputName.length,phone]);
+    }, [user, inputName.length, phone]);
 
 
     const onChange = (event) => {
@@ -131,6 +133,7 @@ const Register = () => {
             ))
             setUserInfo({value: v, title: n})
         }
+        console.log(user)
     }
     console.log(phone.length)
     // if (status === "error") dispatch(setStatus(""))
@@ -165,11 +168,10 @@ const Register = () => {
                 <div className="container-login">
                     <form onSubmit={register}>
                         {fields.map((field) => (
-                            <div key={field.id} className="field-block">
-                                <div className="input-block">
-                                    <div className="test"></div>
-                                    <input
-                                        // ref={field.name === "password" ? inputRef : null}
+                            <div className="field-block" key={field.id}>
+                                <div style={{height: "50px"}}>
+                                    <Input
+                                        name={field.name}
                                         maxLength={field.maxLength}
                                         onBlur={test}
                                         className="input"
@@ -178,60 +180,26 @@ const Register = () => {
                                         value={user[field.name]}
                                         id={field.id}
                                         autoComplete="off"
-                                        type={field.name === "password"  && eye === faEyeSlash ? "password" :
-                                            field.name === "repeatPassword"  && eye === faEyeSlash ? "password" : "text"}
-                                    />
+                                    /></div>
 
-                                        <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
-                                    <div className="validation-info">
-                                        {inputName.map(((item, index) => (
-                                            item === field.name ?
-                                                <>
-                                                    <div className="test2"></div>
-                                                    <span>{!user[item].length ? "Field Required" : field.info}</span>
-                                                </> : null)))}
-                                    </div>
-                                    {field.name === "password"
-                                        // && user[field.name].length
-                                        ?
-                                        <FontAwesomeIcon onClick={() => {
-                                            setEye(eye === faEye
-                                                ? faEyeSlash : faEye)
-                                            // inputRef.current.focus()
 
-                                        }
-                                        } icon={eye}
-                                            // style={{color: focus ? "#0098FF" : "black"}}
-                                                         className="eye"/> : null}
+                                <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
+
+                                <div className="validation-info">
+                                    {inputName.map(((item, index) => (
+                                        item === field.name ?
+                                            <>
+                                                <div className="test2"></div>
+                                                <span>{!user[item].length ? "Field Required" : field.info}</span>
+                                            </> : null)))}
                                 </div>
-
-
                             </div>
                         ))}
 
-                        <div className="field-block">
-                            <div className="input-block-number">
-                                <div className="test"></div>
-                                <PhoneInput
-                                    id="phone"
-                                    placeholder=""
-                                    containerClass="number-container"
-                                    searchClass="number-search"
-                                    buttonClass="number-button"
-                                    inputClass="number-input"
-                                    country={'am'}
-                                    value={phone}
-                                    onChange={phone => setPhone(phone)}
-                                    countryCodeEditable={false}
 
-                                />
-                            </div>
+                        <div className="register-button">
+                            <Button text="CONTINUE"  type={isRegister ? "submit" : "button"} className={isRegister ? "active-button" : "disabled"}>Text</Button>
                         </div>
-
-
-                        <button className={isRegister ? "register" : "disabled"}
-                                type={isRegister ? "submit" : "button"}>CONTINUE
-                        </button>
                     </form>
                 </div>
             </div>

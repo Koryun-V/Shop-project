@@ -1,10 +1,10 @@
 import React from 'react';
 import "../../assets/style/pagination.scss"
 
-const Pagination = ({totalProducts, limit, setCurrentPage, currentPage}) => {
+const Pagination = ({totalProducts, perPage, setCurrentPage, currentPage}) => {
     let pages = []
 
-    for (let i = 1; i <= Math.ceil(totalProducts/limit); i++) {
+    for (let i = 1; i <= Math.ceil(totalProducts/perPage); i++) {
 pages.push(i)
     }
 

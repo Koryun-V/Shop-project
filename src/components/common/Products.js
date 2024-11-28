@@ -13,12 +13,13 @@ const Products = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.productReducer.products)
     const [currentPage, setCurrentPage] = useState(1);
-    const [limit, setlimit] = useState(8);
-    const lastIndex = currentPage * limit;
-    const firstIndex = lastIndex - limit;
+    const [limit, setlimit] = useState(40);
+    const [perPage, setPerPage] = useState(10);
+    const lastIndex = currentPage * perPage;
+    const firstIndex = lastIndex - perPage;
     const currentProducts = products.slice(firstIndex, lastIndex);
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getProducts({page: currentPage, limit}))
 
     }, []);
     return (
@@ -49,7 +50,7 @@ const Products = () => {
                     </div>
                 ))}
             </div>
-            <Pagination totalProducts = {products.length} limit = {limit} setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
+            <Pagination totalProducts = {products.length} perPage={perPage}  setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
         </div>
     );
 };

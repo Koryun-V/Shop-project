@@ -49,11 +49,8 @@ const Products = () => {
                         </Carousel>
                         <p className="product_desc">{brandName} of store {store.name}: {description}</p>
                         <p className="product_price">{price} Դ</p>
-
                         <button className="basket_button"><p className="basket_desc">basket</p></button>
-
                     </div>
-
                 ))}
             </div>
             <Pagination totalProducts = {products.length} limit = {limit} setCurrentPage={setCurrentPage} currentPage = {currentPage}/>

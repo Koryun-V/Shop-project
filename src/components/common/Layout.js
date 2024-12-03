@@ -6,7 +6,7 @@ import axios from "axios";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass,faAngleDown} from "@fortawesome/free-solid-svg-icons";
 
 //main
 const token = localStorage.getItem("token");
@@ -18,7 +18,6 @@ function Layout() {
 
 
     const [value, setValue] = useState("");
-
 
     const onChange = (e) => {
         if (e.target.value !== " ") {
@@ -40,12 +39,16 @@ function Layout() {
                         <nav className="nav">
                             <ul className="nav-list">
                                 <li className="nav-item">Store
+                                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
+
                                     <ul className="nav-more">
                                         <li><img src="#"/>IDEAL</li>
                                         <li><img src="#"/>DOMUS</li>
                                         <li><img src="#"/>ESIM</li>
                                     </ul>
+
                                 </li>
+
                                 <Link className="nav-item" to="/products">
                                     <li>Products</li>
                                 </Link>

@@ -1,65 +1,97 @@
-import React from 'react';
-import "react-multi-carousel/lib/styles.css";
+import React, {useCallback, useEffect, useState} from 'react';
+import Slider from "react-slick";
+import img from "../../esim/1.jpg"
+import img2 from "../../esim/2.jpg"
+import img3 from "../../esim/3.jpg"
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Arrow from "./Arrow";
+import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+const Home = () => {
+    const [esim, setEsim] = useState(false);
 
 
-const Home = ({deviceType}) => {
-    // const responsive = {
-    //     desktop: {
-    //         breakpoint: {max: 3000, min: 1024},
-    //         items: 1,
-    //     },
-    //     tablet: {
-    //         breakpoint: {max: 1024, min: 464},
-    //         items: 1,
-    //     },
-    //     mobile: {
-    //         breakpoint: {max: 464, min: 0},
-    //         items: 1,
-    //     }
-    // };
+    function SamplePrevArrow(props) {
+        const {onClick} = props;
+        return (
+            <div
+                className="arrow prev"
+                onClick={onClick}
+            ><FontAwesomeIcon icon={faAngleLeft} className="arrow-icon icon-prev"/></div>
+        );
+    }
+
+    function SampleNextArrow(props) {
+        const {onClick} = props;
+        return (
+            <div
+                className="arrow next"
+                onClick={onClick}
+            ><FontAwesomeIcon icon={faAngleRight} className="arrow-icon icon-next"/></div>
+        );
+    }
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 1000,
+        autoplaySpeed: 3000,
+        pauseOnHover: true,
+        // cssEase: "linear"
+        useTransform: false,
+        prevArrow: <SamplePrevArrow/>,
+        nextArrow: <SampleNextArrow/>,
+    };
+
 
     return (
-        <div className="img">
-            {/*<Carousel*/}
-            {/*    swipeable = { false }*/}
-            {/*    draggable = { true }*/}
-            {/*    showDots={true}*/}
-            {/*    responsive={responsive}*/}
-            {/*    ssr={true} // means to render carousel on server-side.*/}
-            {/*    infinite={true}*/}
-            {/*    // autoPlay={true}*/}
-            {/*    // rewindWithAnimation={true}*/}
-            {/*    keyBoardControl={true}*/}
-            {/*    transitionDuration={500}*/}
-            {/*    containerClass="carousel-container"*/}
-            {/*    removeArrowOnDeviceType={["tablet", "mobile"]}*/}
-            {/*    // deviceType={deviceType}*/}
-            {/*    dotListClass="custom-dot-list-style"*/}
-            {/*    itemClass="carousel-item-padding"*/}
-            {/*    partialVisible={true}*/}
-            {/*    shouldResetAutoplay={false}*/}
-            {/*    rewindWithAnimation*/}
+        <section className="section">
+            <div className="container-slide">
+                <Slider {...settings}>
+                    <div>
+                        <img src={img}/>
+                    </div>
+                    <div>
+                        <img src={img2}/>
+                    </div>
+                    <div>
+                        <img src={img3}/>
+                    </div>
 
+                </Slider>
+            </div>
 
-            {/*>*/}
-            {/*    <div className="img-block">*/}
-            {/*        /!*<div className="background-img"></div>*!/*/}
-            {/*        <img src={img} alt="img"/>*/}
-            {/*    </div>*/}
-            {/*    <div className="img-block">*/}
-            {/*        /!*<div className="background-img"></div>*!/*/}
-            {/*        <img src={img2} alt="img"/>*/}
+            <article className="article-home">
+                <div className="title">Shares</div>
+                <div className="article-block"></div>
+            </article>
 
-            {/*    </div>*/}
-            {/*    <div className="img-block">*/}
-            {/*        /!*<div className="background-img"></div>*!/*/}
-            {/*        <img src={img3} alt="img"/>*/}
-            {/*    </div>*/}
+            <article className="article-home">
+                <div className="title">Popular categories</div>
+                <div className="article-block"></div>
+            </article>
 
+            <article className="article-home">
+                <div className="title">Popular products</div>
+                <div className="article-block"></div>
+            </article>
 
-            {/*</Carousel>*/}
+            <article className="article-home">
+                <div className="title">Popular brands</div>
+                <div className="article-block"></div>
+            </article>
 
-        </div>
+        </section>
+
     );
 };
 

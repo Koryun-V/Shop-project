@@ -8,10 +8,12 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
 @font-face {
   font-family: UbuntuRegular;
   src: url(../fonts/Roboto-Bold.ttf);
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
@@ -23,7 +25,7 @@ input:-webkit-autofill:focus {
     background: white;
     background: rgba(0, 87, 47, 0.9);
     display: flex;
-    padding-bottom:70px;
+    padding-bottom: 70px;
 
     .container {
       justify-content: center;
@@ -62,7 +64,6 @@ input:-webkit-autofill:focus {
         font-family: "RobotoRegular", sans-serif;
 
 
-
         .nav-list {
           //border:2px solid red;
           height: 100%;
@@ -78,7 +79,7 @@ input:-webkit-autofill:focus {
 
 
           .nav-item {
-            cursor:pointer;
+            cursor: pointer;
             height: 70%;
             padding: 10px;
             position: relative;
@@ -91,7 +92,6 @@ input:-webkit-autofill:focus {
             margin-left: 10px;
             text-decoration: none;
             color: black;
-
 
 
             .nav-more {
@@ -138,11 +138,12 @@ input:-webkit-autofill:focus {
           .nav-item:hover {
           }
 
-          .store-arrow{
+          .store-arrow {
             margin-left: 5px;
             transition: 0.3s;
           }
-          .nav-item:hover .store-arrow{
+
+          .nav-item:hover .store-arrow {
             transform: rotate(180deg);
           }
 
@@ -326,50 +327,153 @@ input:-webkit-autofill:focus {
 }
 
 
-.section{
+.section {
   width: 100%;
-  margin-top:30px;
-  border:2px solid black;
-  .article-home{
+  margin-top: 30px;
+  border: 2px solid black;
+
+  .article-home {
     width: 100%;
-    height: 500px;
-    border:2px solid black;
-    margin-top:100px;
-    .title{
-      border:2px solid red;
+    border: 2px solid black;
+    margin-top: 100px;
+    justify-content: center;
+
+    .title {
+      border: 2px solid red;
       font-size: 34px;
     }
+
     .article-block {
       border: 2px solid red;
       width: 100%;
       display: flex;
       flex-wrap: wrap;
+      justify-content:space-between;
 
       .product-block {
         display: flex;
         width: 50%;
-        border:5px solid green;
+        min-width: 500px;
+        border: 5px solid green;
+
         .product-img {
-          width: 35%;
+          width: 100%;
           height: 200px;
           border: 2px solid red;
           cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding:20px;
+
+
 
           img {
-            width: 100%;
+            width:auto;
             height: 100%;
+            object-fit: cover;
+          }
+        }
+        .product-active{
+          padding: 10px;
+          border: 2px solid black;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .product-info {
+            //padding: 10px;
+            //border: 2px solid black;
+            //width: 100%;
+            //display: flex;
+            //flex-direction: column;
+            //height: 100%;
           }
         }
 
-        .product-info {
+
+      }
+
+
+      .product-block-2 {
+        display: flex;
+        width: 300px;
+        border: 5px solid red;
+        flex-direction: column;
+
+        .product-img {
+          width: 100%;
+          height: 250px;
+          border: 2px solid red;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding:20px;
+
+          img {
+            width: auto;
+            height: 100%;
+            object-fit: cover;
+            border:2px solid red;
+          }
+        }
+
+        .product-active{
+          padding: 10px;
           border: 2px solid black;
-          width: 65%;
-          height: 200px;
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          .product-info {
+            //padding: 10px;
+            //border: 2px solid black;
+            //width: 100%;
+            //display: flex;
+            //flex-direction: column;
+            //height: 100%;
+          }
         }
       }
     }
   }
 }
 
+
+.product-price {
+  border: 1px solid black;
+
+  span {
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+
+.product-name {
+  border: 1px solid black;
+  margin-top:30px;
+
+  span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.product-description {
+  border: 1px solid black;
+  margin-top:10px;
+
+  span {
+    color: #454545;
+  }
+}
+
+.product-button {
+  height: 60px;
+  width: 100%;
+  border:2px solid black;
+
+}
 
 

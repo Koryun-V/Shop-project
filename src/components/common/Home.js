@@ -13,8 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
 
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+
 
 const Home = () => {
 

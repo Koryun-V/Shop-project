@@ -1,11 +1,19 @@
 @import url("input.scss");
 @import url("button.scss");
+@import url("slide.scss");
+@import url("product.scss");
+
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: UbuntuRegular;
+  src: url(../fonts/Roboto-Bold.ttf);
 }
 
 input:-webkit-autofill,
@@ -17,19 +25,20 @@ input:-webkit-autofill:focus {
   .header {
     width: 100%;
     background: white;
-    //background: rgba(4, 224, 21, 0.9);
+    background: rgba(0, 87, 47, 0.9);
     display: flex;
+    padding-bottom: 70px;
 
     .container {
-
       justify-content: center;
       align-items: center;
       padding: 0 10px;
-      position: relative;
+      position: fixed;
+      z-index: 999;
       height: 70px;
       width: 100%;
       display: flex;
-      background: transparent;
+      background: white;
 
       .logo-block {
         background: limegreen;
@@ -54,6 +63,7 @@ input:-webkit-autofill:focus {
         padding: 5px 0;
         //border:2px solid red;
         //background: #f1f1f1;
+        font-family: "RobotoRegular", sans-serif;
 
 
         .nav-list {
@@ -71,30 +81,28 @@ input:-webkit-autofill:focus {
 
 
           .nav-item {
-            //background: white;
+            cursor: pointer;
             height: 70%;
             padding: 10px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            //border-right: 2px solid white;
+            border: 2px solid black;
             width: 100%;
             transition: 0.2s;
-            border-radius: 10px;
             margin-left: 10px;
             text-decoration: none;
-            color:black;
+            color: black;
 
 
             .nav-more {
               display: flex;
-              //justify-content: center;
               flex-direction: column;
               position: absolute;
               list-style-type: none;
               opacity: 0;
-              background: #333333;
+              background: white;
               width: 100%;
               visibility: hidden;
               transition: 0.3s;
@@ -102,7 +110,6 @@ input:-webkit-autofill:focus {
               height: 0;
               overflow: hidden;
               z-index: 999;
-              border-radius: 0 0 10px 10px;
               -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
               -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
               box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
@@ -133,9 +140,13 @@ input:-webkit-autofill:focus {
           .nav-item:hover {
           }
 
-          .nav-item:first-child {
-            border-radius: 10px 10px 0 0;
+          .store-arrow {
+            margin-left: 5px;
+            transition: 0.3s;
+          }
 
+          .nav-item:hover .store-arrow {
+            transform: rotate(180deg);
           }
 
           .nav-item:hover .nav-more {
@@ -316,68 +327,28 @@ input:-webkit-autofill:focus {
   margin: auto;
   z-index: 5;
 }
-.img{
-  top:100px;
-  position: absolute;
+
+
+.section {
   width: 100%;
-  border:2px solid red;
-  display: flex;
-  justify-content: center;
-  height: 500px;
-}
-.react-multi-carousel-list {
-  border:5px solid red;
-  width: 100%;
+  margin-top: 30px;
+  border: 2px solid black;
 
-  .react-multiple-carousel__arrow {
-    width: 50px;
-    height: 50px;
-  }
-
-  .react-multi-carousel-track {
-    border: 2px solid blue;
-    .react-multi-carousel-item {
-      position: absolute;
-      cursor: pointer;
-      padding:5px;
-      border:2px solid green;
-      display: flex;
-      justify-content: center;
-    }
-  }
-  .react-multi-carousel-dot-list{
-      .react-multi-carousel-dot{
-        button{
-          border-radius: 5px;
-          width: 50px;
-          height: 10px;
-          border:none;
-          background: #333333;
-        }
-      }
-    .react-multi-carousel-dot--active{
-      button{
-        background: #d5d5d5;
-      }
-    }
-  }
-}
-
-.img-block{
-  position: relative;
-  height: 500px;
-  border:2px solid black;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background: red;
-  pointer-events: none;
-  img{
+  .article-home {
     width: 100%;
-    height:100%;
-    background: black;
+    margin-bottom: 40px;
 
+    .title {
+      font-size: 34px;
+    }
+
+    .article-block {
+      display: flex;
+      flex-wrap: wrap;
+      margin: -10px;
+    }
   }
 }
+
+
 

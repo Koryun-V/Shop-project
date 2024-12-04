@@ -1,58 +1,55 @@
 import React, {useEffect, useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
 import RadioButton from "../common/RadioButton";
 import DatePiker from "../common/DatePiker";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import Loader from "../common/Loader";
 import {getUserProfileRequest, updateUserProfileRequest, setProfile} from "../../store/actions/users";
+import Error from "./Error";
 
 const fields = [
-  { name: 'firstName', label: 'First Name', type: 'text' },
-  { name: 'lastName', label: 'Last Name', type: 'text' },
+  {name: 'firstName', label: 'First Name', type: 'text'},
+  {name: 'lastName', label: 'Last Name', type: 'text'},
 ];
 
 const genderOptions = [
-  { value: 'Male', label: 'Male' },
-  { value: 'Female', label: 'Female' },
+  {value: 'Male', label: 'Male'},
+  {value: 'Female', label: 'Female'},
 ];
 
 const Users = () => {
   const dispatch = useDispatch();
-  const { profile, user, error,  } = useSelector((state) => state.users);
+
+  const profile = useSelector((state) => state.users.profile);
+  const user = useSelector((state) => state.users.user);
+  const error = useSelector((state) => state.users.error);
+
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loading, setLoading] = useState(false);
 
   // Fetch user profile data
-
   useEffect(() => {
-    (async (e) => {
+    (async () => {
 
       setLoading(true);
 
-      await dispatch(getUserProfileRequest());;
+      await dispatch(getUserProfileRequest());
 
       setLoading(false);
     })();
   }, []);
 
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    dispatch(setProfile({ ...profile, [name]: value }));
-  };
 
-  const onGenderChange = ({ target }) => {
-    const { value } = target;
-    dispatch(setProfile({ ...profile, gender: value }));
-  };
+  const onChange = (e, type) => {
+    const {name, value} = e.target;
 
-  const onDateChange = (date) => {
-    if (date) {
-      dispatch(setProfile({ ...profile, dateOfBirth: moment(date).format("YYYY-MM-DD") }));
-    }
+    const updatedValue = type === 'date' ? moment(value).format('YYYY-MM-DD') : value;
+
+    dispatch(setProfile({...profile, [name]: updatedValue}));
   };
 
 
@@ -66,14 +63,12 @@ const Users = () => {
   };
 
 
-  if (error) {
-    return <div>{error}</div>;
-  }
-
   return (
     <div className="user-profile-update">
-      {loading ? (
-        <Loader />
+      {error ? <Error/>
+
+        :loading ? (
+        <Loader/>
       ) : (
         <>
           <h1>Personal Data</h1>
@@ -84,7 +79,7 @@ const Users = () => {
                   label={field.label}
                   name={field.name}
                   value={profile[field.name]}
-                  onChange={handleChange}
+                  onChange={onChange}
                   type={field.type}
                 />
               </div>
@@ -94,7 +89,7 @@ const Users = () => {
               <label>Date of Birth:</label>
               <DatePiker
                 selected={profile.dateOfBirth ? new Date(profile.dateOfBirth) : null}
-                onChange={onDateChange}
+                onChange={(date) => onChange({target: {name: 'dateOfBirth', value: date}}, 'date')}
                 showYearDropdown
                 showMonthDropdown
                 minDate={new Date("09-10-1950")}
@@ -108,7 +103,7 @@ const Users = () => {
                   name="gender"
                   value={option.value}
                   checked={profile.gender === option.value}
-                  onChange={onGenderChange}
+                  onChange={onChange}
                   label={option.label}
                 />
               ))}
@@ -130,6 +125,7 @@ const Users = () => {
           </form>
         </>
       )}
+
     </div>
   );
 };

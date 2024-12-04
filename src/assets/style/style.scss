@@ -1,6 +1,8 @@
 @import url("input.scss");
 @import url("button.scss");
 @import url("slide.scss");
+@import url("product.scss");
+
 
 * {
   margin: 0;
@@ -334,146 +336,19 @@ input:-webkit-autofill:focus {
 
   .article-home {
     width: 100%;
-    border: 2px solid black;
-    margin-top: 100px;
-    justify-content: center;
+    margin-bottom: 40px;
 
     .title {
-      border: 2px solid red;
       font-size: 34px;
     }
 
     .article-block {
-      border: 2px solid red;
-      width: 100%;
       display: flex;
       flex-wrap: wrap;
-      justify-content:space-between;
-
-      .product-block {
-        display: flex;
-        width: 50%;
-        min-width: 500px;
-        border: 5px solid green;
-
-        .product-img {
-          width: 100%;
-          height: 200px;
-          border: 2px solid red;
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding:20px;
-
-
-
-          img {
-            width:auto;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-        .product-active{
-          padding: 10px;
-          border: 2px solid black;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          .product-info {
-            //padding: 10px;
-            //border: 2px solid black;
-            //width: 100%;
-            //display: flex;
-            //flex-direction: column;
-            //height: 100%;
-          }
-        }
-
-
-      }
-
-
-      .product-block-2 {
-        display: flex;
-        width: 300px;
-        border: 5px solid red;
-        flex-direction: column;
-
-        .product-img {
-          width: 100%;
-          height: 250px;
-          border: 2px solid red;
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          padding:20px;
-
-          img {
-            width: auto;
-            height: 100%;
-            object-fit: cover;
-            border:2px solid red;
-          }
-        }
-
-        .product-active{
-          padding: 10px;
-          border: 2px solid black;
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          height: 100%;
-          .product-info {
-            //padding: 10px;
-            //border: 2px solid black;
-            //width: 100%;
-            //display: flex;
-            //flex-direction: column;
-            //height: 100%;
-          }
-        }
-      }
+      margin: -10px;
     }
   }
 }
 
-
-.product-price {
-  border: 1px solid black;
-
-  span {
-    font-weight: bold;
-    font-size: 25px;
-  }
-}
-
-.product-name {
-  border: 1px solid black;
-  margin-top:30px;
-
-  span {
-    font-size: 18px;
-    font-weight: bold;
-  }
-}
-
-.product-description {
-  border: 1px solid black;
-  margin-top:10px;
-
-  span {
-    color: #454545;
-  }
-}
-
-.product-button {
-  height: 60px;
-  width: 100%;
-  border:2px solid black;
-
-}
 
 

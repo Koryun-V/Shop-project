@@ -86,7 +86,7 @@ const Home = () => {
             <article className="article-home">
                 <div className="title">Shares</div>
                 <div className="article-block">
-                    <Product products={products} className="product-block"/>
+                    <Product products={products} className="product-shares"/>
                 </div>
             </article>
 
@@ -99,7 +99,7 @@ const Home = () => {
                 <article className="article-home">
                     <div className="title">Popular products</div>
                     <div className="article-block">
-                        <Product products={products} className="product-block-2"/>
+                        <Product products={products} className="product-block"/>
                     </div>
                 </article>
 

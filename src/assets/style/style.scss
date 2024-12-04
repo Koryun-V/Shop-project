@@ -1,7 +1,7 @@
 @import url("input.scss");
 @import url("button.scss");
-@import url("slide.scss");
-@import url("product.scss");
+//@import url("slide.scss");
+//@import url("product.scss");
 
 
 * {
@@ -11,10 +11,10 @@
   scroll-behavior: smooth;
 }
 
-@font-face {
-  font-family: UbuntuRegular;
-  src: url(../fonts/Roboto-Bold.ttf);
-}
+//@font-face {
+//  font-family: UbuntuRegular;
+//  src: url(../fonts/Roboto-Bold.ttf);
+//}
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -30,19 +30,21 @@ input:-webkit-autofill:focus {
     padding-bottom: 70px;
 
     .container {
-      justify-content: center;
+      //justify-content: center;
       align-items: center;
-      padding: 0 10px;
       position: fixed;
       z-index: 999;
       height: 70px;
       width: 100%;
+      min-width: 900px;
       display: flex;
       background: white;
+      border:5px solid red;
 
       .logo-block {
         background: limegreen;
-        width: 30%;
+        border:5px solid black;
+        width: 15%;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -58,11 +60,10 @@ input:-webkit-autofill:focus {
       }
 
       .nav {
-        width: 100%;
+        width: 50%;
+        padding:10px;
         height: 100%;
-        padding: 5px 0;
-        //border:2px solid red;
-        //background: #f1f1f1;
+        border:2px solid red;
         font-family: "RobotoRegular", sans-serif;
 
 
@@ -73,25 +74,19 @@ input:-webkit-autofill:focus {
           align-items: center;
           list-style-type: none;
           display: flex;
-          justify-content: space-between;
-          //background: limegreen;
           color: black;
           width: 100%;
-          //border-radius: 5px 20px 20px 5px;
-
 
           .nav-item {
+            width: 100%;
             cursor: pointer;
-            height: 70%;
             padding: 10px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             border: 2px solid black;
-            width: 100%;
             transition: 0.2s;
-            margin-left: 10px;
             text-decoration: none;
             color: black;
 
@@ -118,7 +113,6 @@ input:-webkit-autofill:focus {
               li {
                 padding: 5px;
                 color: white;
-                //border-bottom: 1px solid #f1f1f1;
                 transition: 0.2s;
                 background: #333333;
                 border-radius: 0 0 10px 10px;
@@ -153,19 +147,10 @@ input:-webkit-autofill:focus {
             visibility: visible;
             opacity: 1;
             height: 90px;
-
-
           }
-
-
         }
       }
 
-      .login-block {
-        justify-content: flex-end;
-        display: flex;
-        align-items: center;
-        height: 40px;
 
         .register {
           background: #333333;
@@ -185,7 +170,7 @@ input:-webkit-autofill:focus {
       }
     }
   }
-}
+
 
 
 #modal_window {
@@ -352,3 +337,33 @@ input:-webkit-autofill:focus {
 
 
 
+.user-block{
+  width:15%;
+  height: 70px;
+  border:2px solid black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  .cart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+
+  }
+  .user{
+    border:2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+
+
+
+  }
+}

@@ -6,7 +6,7 @@ import axios from "axios";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass,faAngleDown} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
 
 //main
 const token = localStorage.getItem("token");
@@ -74,22 +74,26 @@ function Layout() {
 
                         </div>
 
-                        <>
+                        <div className="user-block">
                             {!token ?
-                                <div className="login-block">
+                                <>
                                     <Button text="LOGIN" className="active-button"
                                             onClick={() => setIsOpenLogin(true)}></Button>
                                     <Link className="register" to="/register">REGISTER
                                     </Link>
-                                </div>
+                                </>
                                 :
-                                <div className="user-block">
-                                    <div className="user"></div>
-                                </div>
+                                <>
+                                    <div className="cart">
+                                        <FontAwesomeIcon icon={faCartShopping}/>
+                                    </div>
+                                    <div className="user">
+                                        <FontAwesomeIcon icon={faUser}/>
+                                    </div>
+                                </>
                             }
-                        </>
+                        </div>
                     </div>
-
                 </header>
 
                 <main className="main">

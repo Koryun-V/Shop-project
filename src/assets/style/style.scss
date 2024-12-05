@@ -39,11 +39,11 @@ input:-webkit-autofill:focus {
       min-width: 900px;
       display: flex;
       background: white;
-      border:5px solid red;
+      //border:5px solid red;
 
       .logo-block {
-        background: limegreen;
-        border:5px solid black;
+        background: white;
+        //border:5px solid black;
         width: 15%;
         height: 100%;
         display: flex;
@@ -55,20 +55,19 @@ input:-webkit-autofill:focus {
         .logo {
           font-weight: bold;
           font-size: 50px;
-          color: white;
+          color: limegreen;
         }
       }
 
       .nav {
         width: 50%;
-        padding:10px;
+        //padding:10px;
         height: 100%;
         border:2px solid red;
         font-family: "RobotoRegular", sans-serif;
 
 
         .nav-list {
-          //border:2px solid red;
           height: 100%;
           font-weight: bold;
           align-items: center;
@@ -76,11 +75,16 @@ input:-webkit-autofill:focus {
           display: flex;
           color: black;
           width: 100%;
+          border: 2px solid black;
+          justify-content: space-between;
+
 
           .nav-item {
+            height: 40px;
+            padding: 1%;
+            margin: 0 1%;
             width: 100%;
             cursor: pointer;
-            padding: 10px;
             position: relative;
             display: flex;
             justify-content: center;
@@ -362,8 +366,5 @@ input:-webkit-autofill:focus {
     width: 50px;
     height: 50px;
     border-radius: 50px;
-
-
-
   }
 }

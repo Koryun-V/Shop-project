@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
@@ -12,6 +12,7 @@ import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortaweso
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
     const [isOpenLogin, setIsOpenLogin] = useState(false)
@@ -40,13 +41,11 @@ function Layout() {
                             <ul className="nav-list">
                                 <li className="nav-item">Store
                                     <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
-
                                     <ul className="nav-more">
                                         <li><img src="#"/>IDEAL</li>
                                         <li><img src="#"/>DOMUS</li>
                                         <li><img src="#"/>ESIM</li>
                                     </ul>
-
                                 </li>
 
                                 <Link className="nav-item" to="/products">
@@ -77,10 +76,15 @@ function Layout() {
                         <div className="user-block">
                             {!token ?
                                 <>
-                                    <Button text="LOGIN" className="active-button"
-                                            onClick={() => setIsOpenLogin(true)}></Button>
-                                    <Link className="register" to="/register">REGISTER
-                                    </Link>
+                                    <div className="sign-block">
+                                        <Button text="SIGN IN" className="active-button"
+                                                onClick={() => setIsOpenLogin(true)}></Button>
+                                    </div>
+                                    <div className="sign-block">
+                                        <Button text="SIGN-UP" className="sign-button"
+                                        onClick={()=>navigate("/register")}></Button>
+                                    </div>
+
                                 </>
                                 :
                                 <>

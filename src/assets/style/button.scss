@@ -1,12 +1,12 @@
-button{
-    background: limegreen;
-    color:white;
-    width:100%;
-    height: 100%;
-    border-radius: 5px;
-    border:none;
-    font-size: 20px;
-  }
+button {
+  background: limegreen;
+  color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+}
 
 .disabled {
   opacity: 0.3;
@@ -22,7 +22,6 @@ button{
   background: limegreen;
   color: white;
   font-weight: bold;
-  font-size: 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: 0.5s;
@@ -36,9 +35,37 @@ button{
   background: rgba(0, 97, 10, 0.9);
 }
 
-.register-button{
-  height:50px;
+.sign-block {
+  border: 2px solid black;
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+}
+
+.sign-button {
+  background: black;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.sign-button:hover {
+  background: #a6a6a6;
+  color: black;
+}
+
+.sign-button:active {
+  background: #4c4c4c;
+}
+
+.register-button {
+  height: 50px;
   width: 100%;
 }
+
+
+
 
 

@@ -2,10 +2,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {registrationUser} from "../../store/actions/registration";
 import _ from "lodash"
-import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/material.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
+import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 

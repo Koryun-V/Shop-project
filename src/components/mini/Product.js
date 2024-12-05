@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import img from "../../esim/1.jpg";
 import Button from "./Button";
+import {Link} from "react-router-dom";
 
 const Product = ({products, className}) => {
     const [indexImg, setIndexImg] = useState(0);
@@ -26,18 +27,19 @@ const Product = ({products, className}) => {
             {products.map((product, index) => (
                 <div className={className}>
                     <>
-                        <div className="product-img"
-                             onMouseEnter={() => {
-                                 setIsPlay(true)
-                                 setImgLength(product.productImage.length)
-                                 setTest(index)
-                             }}
-                             onMouseLeave={() => {
-                                 setIsPlay(false)
-                                 setImgLength(0)
-                                 setIndexImg(0)
-                             }}
-                        > {product.productImage.length ?
+                        <Link to="/category" className="product-link"
+                              onMouseEnter={() => {
+                                  setIsPlay(true)
+                                  setImgLength(product.productImage.length)
+                                  setTest(index)
+                              }}
+                              onMouseLeave={() => {
+                                  setIsPlay(false)
+                                  setImgLength(0)
+                                  setIndexImg(0)
+                              }}
+                        ></Link>
+                        <div className="product-img"> {product.productImage.length ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?
                                     product.productImage[indexImg].path
@@ -45,12 +47,14 @@ const Product = ({products, className}) => {
                                     product.productImage[0].path
                             } alt="img"/> : null}
                         </div>
+
                         <div className="product-active">
                             <div className="product-info">
                                 <div className="product-price"><span>{product.price} $</span></div>
                                 <div className="product-name"><span>{product.name}</span></div>
                                 <div className="product-description"><span>{product.description}</span></div>
                             </div>
+
                             <div className="product-button">
                                 <Button text="Add to cart" className="active-button"></Button>
                             </div>

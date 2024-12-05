@@ -30,9 +30,8 @@ const fields = [
         id: 3,
         name: "day",
         label: "Day",
-        validation: /^[0-9]{2}$/,
+        validation: /^(0?[1-9]|[12][0-9]|3[01])$/,
         maxLength: "2",
-
     },
     {
         id: 4,
@@ -197,7 +196,7 @@ const Register = () => {
                         ))}
 
 
-                        <div className="register-button">
+                        <div className="continue-button">
                             <Button text="CONTINUE"  type={isRegister ? "submit" : "button"} className={isRegister ? "active-button" : "disabled"}>Text</Button>
                         </div>
                     </form>

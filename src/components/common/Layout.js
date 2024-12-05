@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
@@ -12,6 +12,7 @@ import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortaweso
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const navigation = useNavigate()
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
     const [isOpenLogin, setIsOpenLogin] = useState(false)
@@ -77,10 +78,15 @@ function Layout() {
                         <div className="user-block">
                             {!token ?
                                 <>
-                                    <Button text="LOGIN" className="active-button"
-                                            onClick={() => setIsOpenLogin(true)}></Button>
-                                    <Link className="register" to="/register">REGISTER
-                                    </Link>
+                                    <div className="log-reg-block">
+                                        <Button text="SIGN IN" className="active-button"
+                                                onClick={() => setIsOpenLogin(true)}></Button>
+                                    </div>
+                                    <div className="log-reg-block">
+                                        <Button text="SIGN UP" className="register-button"
+                                                   onClick={() => navigation("/register")}></Button>
+                                    </div>
+
                                 </>
                                 :
                                 <>

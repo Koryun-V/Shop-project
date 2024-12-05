@@ -131,7 +131,7 @@ function ModalLogin({open, onClose}) {
 
                                 </div>
                             ))}
-                            <div className="register-button">
+                            <div className="login-button">
                                 <Button text="LOGIN" className={isLogin ? "active-button" : "disabled"}
                                         type={isLogin ? "submit" : "button"}>LOGIN
                                 </Button>

@@ -273,7 +273,7 @@ input:-webkit-autofill:focus {
 
 
 .section {
-  padding: 0 100px;
+  //padding: 0 100px;
 
   .container {
     width: 100%;
@@ -306,6 +306,7 @@ input:-webkit-autofill:focus {
   border: 2px solid black;
 
   .article-home {
+    padding :0 100px;
     width: 100%;
     margin-bottom: 40px;
 

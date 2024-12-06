@@ -143,9 +143,11 @@ input:-webkit-autofill:focus {
         width: 15%;
         height: 70px;
         border: 2px solid black;
-        justify-content: space-between;
+        justify-content: space-evenly;
         align-items: center;
         display: flex;
+
+
 
         .cart {
           display: flex;
@@ -154,17 +156,36 @@ input:-webkit-autofill:focus {
           font-size: 25px;
           width: 50px;
           height: 50px;
+          .cart-icon{
+            width: 30px;
+            height: 30px;
+            color:black;
+          }
         }
 
         .user {
-          border: 2px solid black;
           display: flex;
           justify-content: center;
           align-items: center;
           font-size: 25px;
           width: 50px;
           height: 50px;
-          border-radius: 50px;
+
+          .user-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border:2px solid black;
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+
+            .user-icon{
+              color:black;
+              width:20px;
+              height: 20px;
+            }
+          }
         }
       }
     }

@@ -89,10 +89,14 @@ function Layout() {
                                 :
                                 <>
                                     <div className="cart">
-                                        <FontAwesomeIcon icon={faCartShopping}/>
+                                        <Link to="/#">
+                                            <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                                        </Link>
                                     </div>
                                     <div className="user">
-                                        <FontAwesomeIcon icon={faUser}/>
+                                        <Link to="/" className="user-img">
+                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
+                                        </Link>
                                     </div>
                                 </>
                             }

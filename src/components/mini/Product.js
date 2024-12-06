@@ -2,8 +2,10 @@ import React, {useEffect, useState} from 'react';
 import img from "../../esim/1.jpg";
 import Button from "./Button";
 import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 
-const Product = ({products, className}) => {
+const Product = ({products, className,classNameImg}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
@@ -39,7 +41,7 @@ const Product = ({products, className}) => {
                                   setIndexImg(0)
                               }}
                         ></Link>
-                        <div className="product-img"> {product.productImage.length ?
+                        <div className={classNameImg}> {product.productImage.length ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?
                                     product.productImage[indexImg].path
@@ -56,7 +58,8 @@ const Product = ({products, className}) => {
                             </div>
 
                             <div className="product-button">
-                                <Button text="Add to cart" className="active-button"></Button>
+                                <Button icon={<FontAwesomeIcon style={{marginRight:10}} icon={faCartShopping}/>} text="Add to cart" className="active-button">
+                                </Button>
                             </div>
                         </div>
 

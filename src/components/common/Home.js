@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import img from "../../esim/1.jpg"
 import img2 from "../../esim/2.jpg"
 import img3 from "../../esim/3.jpg"
-
+import background from "../../assets/image/header.jpg"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Arrow from "./Arrow";
@@ -14,9 +14,7 @@ import {getProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
 
 
-
 const Home = () => {
-
 
 
     const dispatch = useDispatch();
@@ -66,21 +64,24 @@ const Home = () => {
     };
 
 
-
     return (
         <section className="section">
-            <div className="container-slide">
-                <Slider {...settings}>
-                    <div>
-                        <img src={img}/>
-                    </div>
-                    <div>
-                        <img src={img2}/>
-                    </div>
-                    <div>
-                        <img src={img3}/>
-                    </div>
-                </Slider>
+            <div className="background">
+                <img src={background}/>
+
+                <div className="container-slide">
+                    <Slider {...settings}>
+                        <div>
+                            <img src={img}/>
+                        </div>
+                        <div>
+                            <img src={img2}/>
+                        </div>
+                        <div>
+                            <img src={img3}/>
+                        </div>
+                    </Slider>
+                </div>
             </div>
 
             <article className="article-home">
@@ -90,25 +91,25 @@ const Home = () => {
                 </div>
             </article>
             <article className="article-home">
-                    <div className="title">Popular categories</div>
-                    <div className="article-block"></div>
-                </article>
+                <div className="title">Popular categories</div>
+                <div className="article-block"></div>
+            </article>
 
-                <article className="article-home">
-                    <div className="title">Popular products</div>
-                    <div className="article-block">
-                        <Product products={products} className="product-block" classNameImg="product-img"/>
-                    </div>
-                </article>
+            <article className="article-home">
+                <div className="title">Popular products</div>
+                <div className="article-block">
+                    <Product products={products} className="product-block" classNameImg="product-img"/>
+                </div>
+            </article>
 
-                <article className="article-home">
-                    <div className="title">Popular brands</div>
-                    <div className="article-block"></div>
-                </article>
+            <article className="article-home">
+                <div className="title">Popular brands</div>
+                <div className="article-block"></div>
+            </article>
 
         </section>
 
-);
+    );
 };
 
 export default Home;

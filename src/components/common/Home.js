@@ -89,8 +89,6 @@ const Home = () => {
                     <Product products={products} className="product-shares" classNameImg="shares-img"/>
                 </div>
             </article>
-
-
             <article className="article-home">
                     <div className="title">Popular categories</div>
                     <div className="article-block"></div>

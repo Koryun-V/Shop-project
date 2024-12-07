@@ -21,9 +21,13 @@ export default class Api{
   }
 
   static async updateUser({data}) {
-    return api.put(`users/update`, {...data});
+    return api.put("users/update", {...data});
   };
 
+
+  static async updateUserPassword({newPassword}) {
+    return api.put("users/password", {newPassword});
+  };
 
   static async searchProducts({page, limit, query}) {
     return await api.get('products', {

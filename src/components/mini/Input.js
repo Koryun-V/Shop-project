@@ -3,10 +3,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 
 
-const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder}) => {
+const Input = ({value, onChange, maxLength, onBlur, id, autoComplete,name, className, placeholder}) => {
     const [eye, setEye] = useState(faEyeSlash)
 
-  console.log(type)
 
     return (
         <div className="input-block">

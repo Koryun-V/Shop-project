@@ -48,16 +48,16 @@ function Layout() {
                                     </ul>
                                 </li>
 
-                                <Link className="nav-item" to="/products">
+                                <Link className="nav-item" to="/#">
                                     <li>Products</li>
                                 </Link>
-                                <Link className="nav-item" to="/category">
+                                <Link className="nav-item" to="/#">
                                     <li>Category</li>
                                 </Link>
-                                <Link className="nav-item" to="/specialist">
+                                <Link className="nav-item" to="/#">
                                     <li>Specialist</li>
                                 </Link>
-                                <Link className="nav-item" to="/contact">
+                                <Link className="nav-item" to="/#">
                                     <li>Contact</li>
                                 </Link>
                             </ul>

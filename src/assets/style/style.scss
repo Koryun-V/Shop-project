@@ -52,7 +52,6 @@ input:-webkit-autofill:focus {
       .nav {
         width: 50%;
         height: 100%;
-        border: 2px solid red;
         font-family: "RobotoRegular", sans-serif;
 
 
@@ -64,7 +63,6 @@ input:-webkit-autofill:focus {
           display: flex;
           color: black;
           width: 100%;
-          border: 2px solid black;
           justify-content: space-between;
 
           .nav-item {
@@ -77,12 +75,16 @@ input:-webkit-autofill:focus {
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 2px solid black;
             transition: 0.2s;
             text-decoration: none;
             color: black;
+            border:2px solid transparent;
+            border-radius: 5px;
 
             .nav-more {
+              //padding: 1%;
+              padding:5px;
+              //margin: 0 1%;
               display: flex;
               flex-direction: column;
               position: absolute;
@@ -96,17 +98,20 @@ input:-webkit-autofill:focus {
               height: 0;
               overflow: hidden;
               z-index: 999;
-              -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-              -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-              box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              border:2px solid limegreen;
+
+              border-radius:5px;
+              //-webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              //-moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              //box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 
               li {
                 padding: 5px;
-                color: white;
+                color: black;
                 transition: 0.2s;
-                background: #333333;
                 border-radius: 0 0 10px 10px;
                 display: flex;
+
 
                 img {
                   margin-right: 5px;
@@ -114,12 +119,25 @@ input:-webkit-autofill:focus {
               }
 
               li:hover {
-                color: black;
+                color: limegreen;
               }
             }
           }
+          //.nav-item:active{
+          //  filter: brightness(70%);
+          //}
+          .nav-item:focus-within{
+            border: 2px solid limegreen;
+            color:limegreen;
+
+          }
+
+          .nav-item:nth-child(1):hover{
+            color:limegreen;
+          }
 
           .nav-item:hover {
+            color:limegreen;
           }
 
           .store-arrow {
@@ -134,7 +152,7 @@ input:-webkit-autofill:focus {
           .nav-item:hover .nav-more {
             visibility: visible;
             opacity: 1;
-            height: 90px;
+            height: 100px;
           }
         }
 
@@ -142,7 +160,6 @@ input:-webkit-autofill:focus {
       .user-block {
         width: 15%;
         height: 70px;
-        border: 2px solid black;
         justify-content: space-evenly;
         align-items: center;
         display: flex;
@@ -324,7 +341,6 @@ input:-webkit-autofill:focus {
 .section {
   width: 100%;
   margin-top: 30px;
-  border: 2px solid black;
 
   .article-home {
     width: 100%;

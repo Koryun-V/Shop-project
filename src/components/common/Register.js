@@ -178,10 +178,12 @@ const Register = () => {
                                         value={user[field.name]}
                                         id={field.id}
                                         autoComplete="off"
+                                        label={field.label}
+                                        classNameLabel={user[field.name].length ? "active" : "label"}
                                     /></div>
 
 
-                                <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
+                                {/*<span className={user[field.name].length ? "active" : "label"}>{field.label}</span>*/}
 
                                 <div className="validation-info">
                                     {inputName.map(((item, index) => (

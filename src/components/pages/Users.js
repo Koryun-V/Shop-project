@@ -126,92 +126,98 @@ const Users = () => {
                         <Loader/>
                     ) : (
                         <>
-                        <div>
-                            <h1>Personal Data</h1>
-                            <form onSubmit={handleSubmit}>
-                                { fields.length ? fields.map((field) => (
-                                    <div className="field-block" key={field.id}>
-                                        <div key={field.name} style={{
-                                            height: 50,
-                                        }}>
-                                            <Input
-                                                name={field.name}
-                                                value={profile[field.name]}
-                                                onChange={onChange}
-                                                type={field.type}
-                                                className="input"
-                                                label={field.label}
-                                                classNameLabel={profile[field.name].length ? "active" : "label"}
-                                            />
+                            <div>
+                                <h1>Personal Data</h1>
+                                <form onSubmit={handleSubmit}>
+                                    {fields ? fields.map((field) => (
+                                        <div className="field-block" key={field.id}>
+                                            <div key={field.name} style={{
+                                                height: 50,
+                                            }}>
+                                                <Input
+                                                    name={field.name}
+                                                    value={profile[field.name]}
+                                                    onChange={onChange}
+                                                    type={field.type}
+                                                    className="input"
+                                                    label={field.label}
+                                                    classNameLabel={profile[field.name] ? "active" : "label"}
+                                                />
+                                            </div>
+
+                                            {/*stugum*/}
+                                            <div className="validation-info">
+                                                {/*{inputName.map(((item, index) => (*/}
+                                                {/*    item === field.name ?*/}
+                                                {/*        <>*/}
+                                                {/*            <div className="test2"></div>*/}
+                                                {/*            <span>{!user[item].length ? "Field Required" : field.info}</span>*/}
+                                                {/*        </> : null)))}*/}
+                                            </div>
                                         </div>
-
-                                        {/*stugum*/}
-                                        <div className="validation-info">
-                                            {/*{inputName.map(((item, index) => (*/}
-                                            {/*    item === field.name ?*/}
-                                            {/*        <>*/}
-                                            {/*            <div className="test2"></div>*/}
-                                            {/*            <span>{!user[item].length ? "Field Required" : field.info}</span>*/}
-                                            {/*        </> : null)))}*/}
-                                        </div>
-                                    </div>
-                                )) : null}
-
-                                <div>
-                                    <label>Date of Birth:</label>
-                                    <DatePiker
-                                        selected={profile.dateOfBirth ? new Date(profile.dateOfBirth) : null}
-                                        onChange={(date) => onChange({
-                                            target: {
-                                                name: 'dateOfBirth',
-                                                value: date
-                                            }
-                                        }, 'date')}
-                                        showYearDropdown
-                                        showMonthDropdown
-                                        minDate={new Date("09-10-1950")}
-                                        className="input"
-
-                                    />
-                                </div>
-
-                                <div className="gender-radio-group">
-                                    {genderOptions.length ? genderOptions.map((option) => (
-                                        <RadioButton
-                                            key={option.value}
-                                            name="gender"
-                                            value={option.value}
-                                            checked={profile.gender === option.value}
-                                            onChange={onChange}
-                                            label={option.label}
-                                        />
                                     )) : null}
-                                </div>
 
-                                <Button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    loading={isSubmitting}
-                                >
-                                    Update Profile
-                                </Button>
+                                    <div>
+                                        <label>Date of Birth:</label>
+                                        <DatePiker
+                                            selected={profile.dateOfBirth ? new Date(profile.dateOfBirth) : null}
+                                            onChange={(date) => onChange({
+                                                target: {
+                                                    name: 'dateOfBirth',
+                                                    value: date
+                                                }
+                                            }, 'date')}
+                                            showYearDropdown
+                                            showMonthDropdown
+                                            minDate={new Date("09-10-1950")}
+                                            className="input"
 
-                                {user.role === "admin" && (
-                                    <Link to={"/admin"}>Admin</Link>
-                                )}
+                                        />
+                                    </div>
+
+                                    <div className="gender-radio-group">
+                                        {genderOptions ? genderOptions.map((option) => (
+                                            <RadioButton
+                                                key={option.value}
+                                                name="gender"
+                                                value={option.value}
+                                                checked={profile.gender === option.value}
+                                                onChange={onChange}
+                                                label={option.label}
+                                            />
+                                        )) : null}
+                                    </div>
+
+                                    <div className="update-user">
+
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            loading={isSubmitting}
+                                            className="active-button"
+                                            // className active-button e ete isRegistr e kam chishte grac inputi mej paymanov ete che disabled
+
+                                        >
+                                            Update Profile
+                                        </Button>
+                                    </div>
+
+                                        {user.role === "admin" && (
+                                            <Link to={"/admin"}>Admin</Link>
+                                        )}
 
 
-                            </form>
-                        </div>
+                                </form>
+                            </div>
 
 
-                            {/*Change Password Form*/}
+                            Change Password Form
 
                             <div>
                                 <h2>Change Password</h2>
                                 <form onSubmit={handlePasswordChange}>
 
-                                    {passwordFields.length ? passwordFields.map((field) => (
+                                    {passwordFields ? passwordFields.map((field) => (
                                         <div className="field-block" key={field.id}>
                                             <div key={field.name} style={{
                                                 height: 50,
@@ -223,6 +229,8 @@ const Users = () => {
                                                     onChange={onPasswordChange}
                                                     type={field.type}
                                                     className="input"
+                                                    classNameLabel={passwordData[field.name] ? "active" : "label"}
+
                                                 />
                                             </div>
                                             {/*stugum*/}
@@ -241,10 +249,19 @@ const Users = () => {
                                     {!_.isEmpty(passwordError) &&
                                         <p style={{color: 'red'}}>{passwordError.password}</p>}
                                     {successMessage && <p style={{color: 'green'}}>{successMessage}</p>}
-                                    <Button type="submit" disabled={isSubmitting}
-                                            loading={isSubmitting}>
-                                        Change Password
-                                    </Button>
+                                    <div className="update-user">
+                                        <Button type="submit"
+                                                disabled={isSubmitting}
+                                                className="active-button"
+                                                loading={isSubmitting}>
+
+
+                                            {/*className active-button e ete isRegistr e kam chishte grac inputi mej paymanov ete che disabled*/}
+
+                                            Change Password
+                                        </Button>
+                                    </div>
+
 
                                 </form>
                             </div>

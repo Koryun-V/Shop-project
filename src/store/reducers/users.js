@@ -3,15 +3,18 @@ import {
   getUserProfileRequest,
   setProfile,
   updateUserProfileRequest,
+  updatePassword
 } from '../actions/users';
 
 const initialState = {
   profile: {},
   error: null,
   profileUpdated: {},
-  user: {}
-};
+  user: {},
 
+  passwordError: {},
+  successMessage: null
+}
 
 export const userSlice = createReducer(initialState, (builder) => {
   builder
@@ -41,4 +44,19 @@ export const userSlice = createReducer(initialState, (builder) => {
     .addCase(setProfile, (state, {payload}) => {
       state.profile = {...state.profile, ...payload};
     })
+
+
+    .addCase(updatePassword.pending, (state) => {
+      state.passwordError = {};
+      state.successMessage = null;
+    })
+    .addCase(updatePassword.fulfilled, (state, {payload}) => {
+      state.passwordError = {};
+      state.successMessage = payload.message;
+    })
+    .addCase(updatePassword.rejected, (state, {payload}) => {
+      state.passwordError = payload;
+      state.successMessage = null;
+    });
+
 });

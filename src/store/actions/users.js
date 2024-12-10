@@ -1,9 +1,9 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import Api from "../../utills/Api";
 import { toast } from 'react-toastify';
+import Utils from "../../components/helpers/Utils";
+import _ from "lodash";
 
-
-// get user profile
 export const getUserProfileRequest = createAsyncThunk(
   'profile/fetchUserProfile',
   async () => {
@@ -23,6 +23,29 @@ export const updateUserProfileRequest = createAsyncThunk(
     } catch (error) {
       toast.error("Error updating profile");
       return rejectWithValue(error.response.data );
+    }
+  }
+);
+
+
+export const updatePassword = createAsyncThunk(
+  'password/updatePassword',
+  async (payload, { rejectWithValue }) => {
+    const validationErrors = Utils.isValidatePassword(payload.newPassword, payload.confirmPassword);
+
+    if (!_.isEmpty(validationErrors)) {
+      return rejectWithValue(validationErrors);
+    }
+
+    try {
+      await Api.updateUserPassword({
+        newPassword: payload.newPassword
+      });
+      toast.success('Password updated successfully!');
+      return { message: 'Password updated successfully!' };
+    } catch (error) {
+      console.log(error);
+      return rejectWithValue('Failed to update password. Please try again.');
     }
   }
 );

@@ -119,16 +119,18 @@
 .section {
   padding: 0 100px;
 
-  .container-user {
+  .container {
     width: 100%;
     border: 2px solid black;
 
-    .container-login {
+    .container-user {
       width: 320px;
       display: flex;
+      flex-direction: column;
       justify-content: flex-start;
       align-items: center;
       height: 100%;
+      border:2px solid red;
 
       form {
         position: relative;;
@@ -136,9 +138,12 @@
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-
       }
     }
   }
 }
 
+.update-user{
+  height: 50px;
+  width: 100%;
+}

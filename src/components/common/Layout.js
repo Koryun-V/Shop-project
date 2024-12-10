@@ -1,24 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
 
 //main
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
     const [isOpenLogin, setIsOpenLogin] = useState(false)
 
 
     const [value, setValue] = useState("");
-
 
     const onChange = (e) => {
         if (e.target.value !== " ") {
@@ -40,22 +40,24 @@ function Layout() {
                         <nav className="nav">
                             <ul className="nav-list">
                                 <li className="nav-item">Store
+                                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
                                     <ul className="nav-more">
                                         <li><img src="#"/>IDEAL</li>
                                         <li><img src="#"/>DOMUS</li>
                                         <li><img src="#"/>ESIM</li>
                                     </ul>
                                 </li>
-                                <Link className="nav-item" to="/products">
+
+                                <Link className="nav-item" to="/#">
                                     <li>Products</li>
                                 </Link>
-                                <Link className="nav-item" to="/category">
+                                <Link className="nav-item" to="/#">
                                     <li>Category</li>
                                 </Link>
-                                <Link className="nav-item" to="/specialist">
+                                <Link className="nav-item" to="/#">
                                     <li>Specialist</li>
                                 </Link>
-                                <Link className="nav-item" to="/contact">
+                                <Link className="nav-item" to="/#">
                                     <li>Contact</li>
                                 </Link>
                             </ul>
@@ -71,22 +73,35 @@ function Layout() {
 
                         </div>
 
-                        <>
+                        <div className="user-block">
                             {!token ?
-                                <div className="login-block">
-                                    <Button text="LOGIN" className="active-button"
-                                            onClick={() => setIsOpenLogin(true)}></Button>
-                                    <Link className="register" to="/register">REGISTER
-                                    </Link>
-                                </div>
-                                :
-                                <div className="user-block">
-                                    <div className="user"></div>
-                                </div>
-                            }
-                        </>
-                    </div>
+                                <>
+                                    <div className="sign-block">
+                                        <Button text="SIGN IN" className="active-button"
+                                                onClick={() => setIsOpenLogin(true)}></Button>
+                                    </div>
+                                    <div className="sign-block">
+                                        <Button text="SIGN-UP" className="sign-button"
+                                        onClick={()=>navigate("/register")}></Button>
+                                    </div>
 
+                                </>
+                                :
+                                <>
+                                    <div className="cart">
+                                        <Link to="/#">
+                                            <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                                        </Link>
+                                    </div>
+                                    <div className="user">
+                                        <Link to="/user" className="user-img">
+                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
+                                        </Link>
+                                    </div>
+                                </>
+                            }
+                        </div>
+                    </div>
                 </header>
 
                 <main className="main">

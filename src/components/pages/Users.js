@@ -9,10 +9,23 @@ import {Link} from "react-router-dom";
 import Loader from "../common/Loader";
 import {getUserProfileRequest, updateUserProfileRequest, setProfile} from "../../store/actions/users";
 import Error from "./Error";
+import _ from "lodash";
 
 const fields = [
-    {name: 'firstName', label: 'First Name', type: 'text'},
-    {name: 'lastName', label: 'Last Name', type: 'text'},
+    {
+        name: 'firstName',
+        label: 'First Name',
+        type: 'text',
+        validation: /^[a-zA-Z]{2,20}$/,
+        info: "Use only Latin characters, no space, symbols, or numbers.",
+    },
+    {
+        name: 'lastName',
+        label: 'Last Name',
+        type: 'text',
+        validation: /^[a-zA-Z]{2,20}$/,
+        info: "Use only Latin characters, no space, symbols, or numbers.",
+    },
 ];
 
 const genderOptions = [
@@ -22,6 +35,9 @@ const genderOptions = [
 
 const Users = () => {
     const dispatch = useDispatch();
+
+    // const [inputName, setInputName] = useState([]);
+    // const [isRegister, setIsRegister] = useState(false)
 
     const profile = useSelector((state) => state.users.profile);
     const user = useSelector((state) => state.users.user);
@@ -53,12 +69,27 @@ const Users = () => {
     };
 
 
+    // const test = () => {
+    //     fields.forEach(({validation, name, id}) => {
+    //         if (title === name) {
+    //             let test = name !== "repeatPassword" ? validation.test(value) : null
+    //             if (test === false || !value.length || title === "repeatPassword" && user["password"] !== user["repeatPassword"]) {
+    //                 setInputName((prevState) => (_.uniq([...prevState, title])))
+    //             } else {
+    //                 const filter = inputName.filter(item => item !== title)
+    //                 setInputName(filter)
+    //             }
+    //         }
+    //     })
+    // }
+
+
     const handleSubmit = async (e) => {
+
+        //if ete isRegister
         e.preventDefault();
         setIsSubmitting(true);
-
         await dispatch(updateUserProfileRequest(profile));
-
         setIsSubmitting(false);
     };
 
@@ -68,7 +99,6 @@ const Users = () => {
             <div className="container">
                 <div className="container-user">
                     {error ? <Error/>
-
                         : loading ? (
                             <Loader/>
                         ) : (
@@ -81,13 +111,24 @@ const Users = () => {
                                                 height: 50,
                                             }}>
                                                 <Input
-                                                    label={field.label}
                                                     name={field.name}
                                                     value={profile[field.name]}
                                                     onChange={onChange}
                                                     type={field.type}
                                                     className="input"
+                                                    label={field.label}
+                                                    classNameLabel={profile[field.name].length ? "active" : "label"}
                                                 />
+                                            </div>
+
+                                            {/*stugum*/}
+                                            <div className="validation-info">
+                                                {/*{inputName.map(((item, index) => (*/}
+                                                {/*    item === field.name ?*/}
+                                                {/*        <>*/}
+                                                {/*            <div className="test2"></div>*/}
+                                                {/*            <span>{!user[item].length ? "Field Required" : field.info}</span>*/}
+                                                {/*        </> : null)))}*/}
                                             </div>
                                         </div>
                                     ))}
@@ -105,6 +146,8 @@ const Users = () => {
                                             showYearDropdown
                                             showMonthDropdown
                                             minDate={new Date("09-10-1950")}
+                                            className="input"
+
                                         />
                                     </div>
 
@@ -121,13 +164,18 @@ const Users = () => {
                                         ))}
                                     </div>
 
-                                    <Button
-                                        type="submit"
-                                        disabled={isSubmitting}
-                                        loading={isSubmitting}
-                                    >
-                                        Update Profile
-                                    </Button>
+                                    <div className="update-user">
+                                        <Button
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                            loading={isSubmitting}
+                                            className="active-button"
+                                            //className ete is register active-button ete che disabled
+                                        >
+                                            Update Profile
+                                        </Button>
+                                    </div>
+
 
                                     {user.role === "admin" && (
                                         <Link to={"/admin"}>

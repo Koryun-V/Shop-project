@@ -4,7 +4,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const DatePiker = (props) => {
-  const {showIcon, openToDate, selected,startDate,endDate,onChange, selectsRange,monthsShown,showMonthDropdown,minTime,minDate,showYearDropdown, ...p } = props
+  const {showIcon, openToDate, selected,startDate,endDate,onChange, selectsRange,monthsShown,showMonthDropdown,minTime,minDate,showYearDropdown,className, ...p } = props
 
   const changeDate = (date) =>{
     if (Array.isArray(date)){
@@ -34,6 +34,7 @@ const DatePiker = (props) => {
       openToDate={openToDate}
       minTime={minTime}
       minDate={minDate}
+      className={className}
       {...p}
 
     />

@@ -17,83 +17,78 @@ input:-webkit-autofill:focus {
   .header {
     width: 100%;
     background: white;
-    //background: rgba(4, 224, 21, 0.9);
+    background: rgba(0, 87, 47, 0.9);
     display: flex;
+    padding-bottom: 70px;
 
     .container {
-      justify-content: center;
       align-items: center;
-      padding: 0 10px;
-      position: relative;
+      position: fixed;
+      z-index: 999;
       height: 70px;
       width: 100%;
+      min-width: 900px;
       display: flex;
-      background: transparent;
+      background: white;
 
       .logo-block {
-        background: limegreen;
-        width: 30%;
+        background: white;
+        width: 15%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-decoration: none;
 
-
         .logo {
           font-weight: bold;
           font-size: 50px;
-          color: white;
+          color: limegreen;
         }
       }
 
       .nav {
-        width: 100%;
+        width: 50%;
         height: 100%;
-        padding: 5px 0;
-        //border:2px solid red;
-        //background: #f1f1f1;
+        font-family: "RobotoRegular", sans-serif;
 
 
         .nav-list {
-          //border:2px solid red;
           height: 100%;
           font-weight: bold;
           align-items: center;
           list-style-type: none;
           display: flex;
-          justify-content: space-between;
-          //background: limegreen;
           color: black;
           width: 100%;
-          //border-radius: 5px 20px 20px 5px;
-
+          justify-content: space-between;
 
           .nav-item {
-            //background: white;
-            height: 70%;
-            padding: 10px;
+            height: 40px;
+            padding: 1%;
+            margin: 0 1%;
+            width: 100%;
+            cursor: pointer;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            //border-right: 2px solid white;
-            width: 100%;
             transition: 0.2s;
-            border-radius: 10px;
-            margin-left: 10px;
             text-decoration: none;
-            color:black;
-
+            color: black;
+            border:2px solid transparent;
+            border-radius: 5px;
 
             .nav-more {
+              //padding: 1%;
+              padding:5px;
+              //margin: 0 1%;
               display: flex;
-              //justify-content: center;
               flex-direction: column;
               position: absolute;
               list-style-type: none;
               opacity: 0;
-              background: #333333;
+              background: white;
               width: 100%;
               visibility: hidden;
               transition: 0.3s;
@@ -101,79 +96,119 @@ input:-webkit-autofill:focus {
               height: 0;
               overflow: hidden;
               z-index: 999;
-              border-radius: 0 0 10px 10px;
-              -webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-              -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
-              box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              border:2px solid limegreen;
 
+              border-radius:5px;
+              //-webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              //-moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+              //box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
 
               li {
                 padding: 5px;
-                color: white;
-                //border-bottom: 1px solid #f1f1f1;
+                color: black;
                 transition: 0.2s;
-                background: #333333;
                 border-radius: 0 0 10px 10px;
                 display: flex;
+
 
                 img {
                   margin-right: 5px;
                 }
               }
 
-
               li:hover {
-                color: black;
+                color: limegreen;
               }
-
             }
+          }
+          //.nav-item:active{
+          //  filter: brightness(70%);
+          //}
+          .nav-item:focus-within{
+            border: 2px solid limegreen;
+            color:limegreen;
+
+          }
+
+          .nav-item:nth-child(1):hover{
+            color:limegreen;
           }
 
           .nav-item:hover {
+            color:limegreen;
           }
 
-          .nav-item:first-child {
-            border-radius: 10px 10px 0 0;
+          .store-arrow {
+            margin-left: 5px;
+            transition: 0.3s;
+          }
 
+          .nav-item:hover .store-arrow {
+            transform: rotate(180deg);
           }
 
           .nav-item:hover .nav-more {
             visibility: visible;
             opacity: 1;
-            height: 90px;
-
-
+            height: 100px;
           }
 
 
         }
       }
 
-      .login-block {
-        justify-content: flex-end;
-        display: flex;
+      }
+      .user-block {
+        width: 15%;
+        height: 70px;
+        justify-content: space-evenly;
         align-items: center;
-        height: 40px;
+        display: flex;
 
-        .register {
-          background: #333333;
-          margin-left: 10px;
-          text-decoration: none;
-          color: white;
+
+
+        .cart {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 100px;
-          height: 40px;
-          cursor: pointer;
-          border: none;
-          border-radius: 5px;
-          font-weight: bold;
+          font-size: 25px;
+          width: 50px;
+          height: 50px;
+          .cart-icon{
+            width: 30px;
+            height: 30px;
+            color:black;
+          }
+        }
+
+        .user {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 25px;
+          width: 50px;
+          height: 50px;
+
+          .user-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border:2px solid black;
+            border-radius: 50px;
+            width: 40px;
+            height: 40px;
+
+            .user-icon{
+              color:black;
+              width:20px;
+              height: 20px;
+            }
+          }
         }
       }
     }
   }
-}
+
 
 
 #modal_window {
@@ -299,7 +334,6 @@ input:-webkit-autofill:focus {
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
-
       }
     }
   }

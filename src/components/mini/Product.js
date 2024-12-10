@@ -19,6 +19,7 @@ const Product = ({products, className,classNameImg}) => {
             }, 700)
             return () => clearTimeout(time)
         }
+
     });
     const changeImage = () => {
         setIndexImg(indexImg === imgLength - 1 ? 0 : indexImg + 1)

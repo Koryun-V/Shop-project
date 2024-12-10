@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import img from "../../esim/1.jpg"
 import img2 from "../../esim/2.jpg"
 import img3 from "../../esim/3.jpg"
-import background from "../../assets/image/header.jpg"
+import background from "../../assets/image/home.jpg"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Arrow from "./Arrow";
@@ -67,7 +67,7 @@ const Home = () => {
     return (
         <section className="section">
             <div className="background">
-                <img src={background}/>
+                <img src={background} className="img-b"/>
 
                 <div className="container-slide">
                     <Slider {...settings}>

@@ -24,7 +24,7 @@ const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name
             <span className={classNameLabel}>{label}</span>
 
 
-            {name === "password"
+            {name === "password" || name === "repeatPassword"
                 // && user[field.name].length
                 ?
                 <FontAwesomeIcon onClick={() => {

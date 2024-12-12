@@ -1,11 +1,13 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {registrationUser} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
-import {faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
+import validator from "validator";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 const fields = [
     {
@@ -28,22 +30,21 @@ const fields = [
         id: 3,
         name: "day",
         label: "Day",
-        validation: /^[0-9]{2}$/,
+        validation: /^(0[1-9]|[12][0-9]|3[01])$/,
         maxLength: "2",
-
     },
     {
         id: 4,
         name: "month",
         label: "Month",
-        validation: /^[0-9]{2}$/,
+        validation: /^(0[1-9]|1[0-2])$/,
         maxLength: "2",
     },
     {
         id: 5,
         name: "year",
         label: "Year",
-        validation: /^[0-9]{4}$/,
+        validation: /^(19\d{2}|20(0[0-9]|1[0-4]))$/,
         maxLength: "4",
     },
     {
@@ -58,7 +59,7 @@ const fields = [
         name: "password",
         label: "Password",
         validation: /^(?=.*\d).{8,}$/,
-        info: "Your password must be at least 8 characters long.",
+        info: "Your password must be at least 8 characters long or password does not match",
     },
     {
         id: 8,
@@ -72,19 +73,16 @@ const fields = [
 
 const Register = () => {
     const dispatch = useDispatch();
-    // const status = useSelector(state => state.register.status)
-    // const token = useSelector(state => state.register.token)
+    const [isDate, setIsDate] = useState("")
     const [userInfo, setUserInfo] = useState({
         value: "",
         title: ""
     })
-    const [eye, setEye] = useState(faEyeSlash)
-    const inputRef = useRef(null)
     const {value, title} = userInfo
 
     const [inputName, setInputName] = useState([]);
     const [isRegister, setIsRegister] = useState(false)
-
+    const [date, setDate] = useState("")
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -95,10 +93,40 @@ const Register = () => {
         password: "",
         repeatPassword: ""
     })
-    const [phone, setPhone] = useState("");
+    const {email, firstName, lastName, password, repeatPassword} = user
 
 
-    const {email, firstName, lastName, password} = user
+    useEffect(() => {
+        setIsDate("")
+        setDate(`${user.day}-${user.month}-${user.year}`);
+    }, [user.day, user.month, user.year]);
+
+    useEffect(() => {
+        if (user.day.length === 2 &&
+            user.month.length === 2
+            && user.year.length === 4) {
+            validateDate(date)
+        } else if (user.day > 29 && user.month === "02") {
+            validateDate(date)
+        }
+    }, [date]);
+
+    console.log(date)
+
+    const validateDate = (value) => {
+        if (
+            validator.isDate(value, {
+                format: "DD-MM-YYYY",
+                strictMode: true
+            })
+            &&
+            user.year < 2015
+        ) {
+            setIsDate("ok");
+        } else {
+            setIsDate("no");
+        }
+    };
 
 
     useEffect(() => {
@@ -107,12 +135,12 @@ const Register = () => {
                 test()
             }
         })
-        if (email && firstName && lastName && password && phone && !inputName.length) {
+        if (email && firstName && lastName && password && repeatPassword && date && !inputName.length) {
             setIsRegister(true)
         } else {
             setIsRegister(false)
         }
-    }, [user, inputName.length, phone]);
+    }, [user, inputName.length]);
 
 
     const onChange = (event) => {
@@ -124,37 +152,42 @@ const Register = () => {
                 {...prevState, [n]: v.replace(/[^0-9+]/g, '')}
             ))
             setUserInfo({value: v.replace(/[^0-9+]/g, ''), title: n,})
-
         } else {
             setUser((prevState) => (
                 {...prevState, [event.target.name]: event.target.value}
             ))
             setUserInfo({value: v, title: n})
         }
-        console.log(user)
     }
-    console.log(phone.length)
-    // if (status === "error") dispatch(setStatus(""))
 
 
     const test = () => {
         fields.forEach(({validation, name, id}) => {
-            if (title === name) {
-                let test = name !== "repeatPassword" ? validation.test(value) : null
-                if (test === false || !value.length || title === "repeatPassword" && user["password"] !== user["repeatPassword"]) {
-                    setInputName((prevState) => (_.uniq([...prevState, title])))
-                } else {
-                    const filter = inputName.filter(item => item !== title)
-                    setInputName(filter)
+                if (title === name) {
+                    let test = name !== "repeatPassword" ? validation.test(value) : null
+
+                    if (test === false || !value.length || isDate === "no" ||
+                        user["repeatPassword"].length && user["password"] !== user["repeatPassword"]) {
+                        setInputName((prevState) => (_.uniq([...prevState, title])))
+                    } else if (title === "password" || title === "repeatPassword" && user.repeatPassword === user.password) {
+                        const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
+                        setInputName(filter)
+                    } else if (isDate === "ok") {
+                        const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
+                        setInputName(filter)
+                    } else {
+                        const filter = inputName.filter(item => item !== title)
+                        setInputName(filter)
+                    }
                 }
             }
-        })
+        )
     }
 
     const register = (e) => {
         if (isRegister) {
             e.preventDefault();
-            dispatch(registrationUser({email, firstName, lastName, password, phone}))
+            dispatch(registrationUser({email, firstName, lastName, password}))
             setIsRegister(true)
         }
     }
@@ -183,8 +216,6 @@ const Register = () => {
                                     /></div>
 
 
-                                {/*<span className={user[field.name].length ? "active" : "label"}>{field.label}</span>*/}
-
                                 <div className="validation-info">
                                     {inputName.map(((item, index) => (
                                         item === field.name ?
@@ -194,11 +225,13 @@ const Register = () => {
                                             </> : null)))}
                                 </div>
                             </div>
+
                         ))}
 
 
                         <div className="register-button">
-                            <Button text="CONTINUE"  type={isRegister ? "submit" : "button"} className={isRegister ? "active-button" : "disabled"}>Text</Button>
+                            <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
+                                    className={isRegister ? "active-button" : "disabled"}>Text</Button>
                         </div>
                     </form>
                 </div>
@@ -210,18 +243,3 @@ const Register = () => {
 
 export default Register;
 
-// {item === field.name && user[item].length ?
-//     <>
-//         <span className="validation-info">{field.validationInfo}</span>
-//         <div className="test2" ></div>
-//     </>
-//     :
-//     item === field.name && !user[item].length ?
-//         <>
-//             <span className="validation-info">Field Required</span>
-//             <div className="test2" style={{
-//                 borderBottom:item !== field.name ? "3px solid green" : "3px solid red",
-//             }}></div>
-//         </> :
-//         null
-// }

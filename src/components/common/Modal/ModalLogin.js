@@ -124,9 +124,10 @@ function ModalLogin({open, onClose}) {
                                             value={user[field.name]}
                                             // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
                                             id={field.id}
+                                            label={field.label}
+                                            classNameLabel={user[field.name].length ? "active" : "label"}
                                         />
                                     </div>
-                                    <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
 
 
                                 </div>

@@ -10,7 +10,6 @@ export const registrationUser = createAsyncThunk(
                     firstName: payload.firstName,
                     lastName: payload.lastName,
                     password: payload.password,
-                    phone: payload.phone,
                     avatar: payload.avatar,
                 },
                 {

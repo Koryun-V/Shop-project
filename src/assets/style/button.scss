@@ -12,7 +12,6 @@ button {
   opacity: 0.3;
   color: white;
   font-weight: bold;
-  font-size: 20px;
   border-radius: 10px;
   cursor: default;
   transition: 0.5s;
@@ -24,7 +23,7 @@ button {
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 .active-button:hover {

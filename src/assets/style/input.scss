@@ -1,7 +1,6 @@
 .field-block {
   position: relative;
   width: 320px;
-  border:1px solid black;
 }
 
 .login {
@@ -11,16 +10,21 @@
 }
 
 .field-block:nth-child(3) {
+  margin-top:90px;
   position: relative;
   width: 100px;
 }
 
 .field-block:nth-child(4) {
+  margin-top:90px;
+
   position: relative;
   width: 100px;
 }
 
 .field-block:nth-child(5) {
+  margin-top:90px;
+
   position: relative;
   width: 100px;
 }

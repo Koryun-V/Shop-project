@@ -8,6 +8,7 @@ import Button from "../mini/Button";
 import validator from "validator";
 
 import "react-datepicker/dist/react-datepicker.css";
+import RadioButton from "../mini/RadioButton";
 
 const fields = [
     {
@@ -70,6 +71,10 @@ const fields = [
     },
 ]
 
+const genderOptions = [
+    {value: 'male', label: 'Male'},
+    {value: 'female', label: 'Female'},
+];
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -86,6 +91,7 @@ const Register = () => {
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
+        gender: "male",
         day: "",
         month: "",
         year: "",
@@ -160,7 +166,7 @@ const Register = () => {
         }
     }
 
-
+    console.log(user)
     const test = () => {
         fields.forEach(({validation, name, id}) => {
                 if (title === name) {
@@ -228,7 +234,24 @@ const Register = () => {
 
                         ))}
 
+                        <div className="gender-radio-group">
+                            <span>Gender</span>
+                            <div className="gender-block">
+                                {genderOptions ? genderOptions.map((option) => (
 
+                                    <RadioButton
+                                        key={option.value}
+                                        name="gender"
+                                        value={option.value}
+                                        checked={user.gender === option.value}
+                                        onChange={onChange}
+                                        label={option.label}
+                                    />
+
+
+                                )) : null}
+                            </div>
+                        </div>
                         <div className="register-button">
                             <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
                                     className={isRegister ? "active-button" : "disabled"}>Text</Button>

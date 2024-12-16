@@ -77,11 +77,11 @@ function Layout() {
                             {!token ?
                                 <>
                                     <div className="sign-block">
-                                        <Button text="SIGN IN" className="active-button"
+                                        <Button text="LOGIN" className="active-button"
                                                 onClick={() => setIsOpenLogin(true)}></Button>
                                     </div>
                                     <div className="sign-block">
-                                        <Button text="SIGN-UP" className="sign-button"
+                                        <Button text="REGISTER" className="sign-button"
                                         onClick={()=>navigate("/register")}></Button>
                                     </div>
 

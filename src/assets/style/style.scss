@@ -1,6 +1,8 @@
 @import url("input.scss");
 @import url("button.scss");
 @import url("radioButton.scss");
+@import url("pinInput.scss");
+
 
 //@import url("slide.scss");
 //@import url("product.scss");
@@ -11,6 +13,94 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+
+@font-face {
+  font-family: RobotoBold;
+  src: url(../fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+  font-family: RobotoRegular;
+  src: url(../fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: RobotoMedium;
+  src: url(../fonts/Roboto-Medium.ttf);
+}
+
+
+@font-face {
+  font-family: MontserratBold;
+  src: url(../fonts/Montserrat-Bold.ttf);
+}
+
+@font-face {
+  font-family: MontserratRegular;
+  src: url(../fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+  font-family: MontserratMedium;
+  src: url(../fonts/Montserrat-Medium.ttf);
+}
+
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url(../fonts/Poppins-Bold.ttf);
+}
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url(../fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: PoppinsMedium;
+  src: url(../fonts/Poppins-Medium.ttf);
+}
+@font-face {
+  font-family: PoppinsExtra;
+  src: url(../fonts/Poppins-ExtraBold.ttf);
+}
+
+
+
+
+
+
+@font-face {
+  font-family: InterRegular;
+  src: url(../fonts/Inter_18pt-Regular.ttf);
+}
+
+@font-face {
+  font-family: InterMedium;
+  src: url(../fonts/Inter_18pt-Medium.ttf);
+}
+
+@font-face {
+  font-family: InterBold;
+  src: url(../fonts/Inter_18pt-Bold.ttf);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -54,12 +144,12 @@ input:-webkit-autofill:focus {
       .nav {
         width: 50%;
         height: 100%;
-        font-family: "RobotoRegular", sans-serif;
+        font-family: "RobotoBold", sans-serif;
+        font-size: 16px;
 
 
         .nav-list {
           height: 100%;
-          font-weight: bold;
           align-items: center;
           list-style-type: none;
           display: flex;
@@ -80,12 +170,12 @@ input:-webkit-autofill:focus {
             transition: 0.2s;
             text-decoration: none;
             color: black;
-            border:2px solid transparent;
+            border: 2px solid transparent;
             border-radius: 5px;
 
             .nav-more {
               //padding: 1%;
-              padding:5px;
+              padding: 5px;
               //margin: 0 1%;
               display: flex;
               flex-direction: column;
@@ -100,9 +190,9 @@ input:-webkit-autofill:focus {
               height: 0;
               overflow: hidden;
               z-index: 999;
-              border:2px solid limegreen;
+              border: 2px solid limegreen;
 
-              border-radius:5px;
+              border-radius: 5px;
               //-webkit-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
               //-moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
               //box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
@@ -125,21 +215,22 @@ input:-webkit-autofill:focus {
               }
             }
           }
+
           //.nav-item:active{
           //  filter: brightness(70%);
           //}
-          .nav-item:focus-within{
+          .nav-item:focus-within {
             border: 2px solid limegreen;
-            color:limegreen;
+            color: limegreen;
 
           }
 
-          .nav-item:nth-child(1):hover{
-            color:limegreen;
+          .nav-item:nth-child(1):hover {
+            color: limegreen;
           }
 
           .nav-item:hover {
-            color:limegreen;
+            color: limegreen;
           }
 
           .store-arrow {
@@ -159,13 +250,13 @@ input:-webkit-autofill:focus {
         }
 
       }
+
       .user-block {
         width: 15%;
         height: 70px;
         justify-content: space-evenly;
         align-items: center;
         display: flex;
-
 
 
         .cart {
@@ -175,10 +266,11 @@ input:-webkit-autofill:focus {
           font-size: 25px;
           width: 50px;
           height: 50px;
-          .cart-icon{
+
+          .cart-icon {
             width: 30px;
             height: 30px;
-            color:black;
+            color: black;
           }
         }
 
@@ -190,18 +282,18 @@ input:-webkit-autofill:focus {
           width: 50px;
           height: 50px;
 
-          .user-img{
+          .user-img {
             display: flex;
             justify-content: center;
             align-items: center;
-            border:2px solid black;
+            border: 2px solid black;
             border-radius: 50px;
             width: 40px;
             height: 40px;
 
-            .user-icon{
-              color:black;
-              width:20px;
+            .user-icon {
+              color: black;
+              width: 20px;
               height: 20px;
             }
           }
@@ -314,17 +406,74 @@ input:-webkit-autofill:focus {
 
 .section {
   padding: 0 100px;
+  margin-bottom: 50px;
 
   .container {
     width: 100%;
-    border: 2px solid black;
+    display: flex;justify-content: flex-end;
+    position: relative;
+    img{
+      width: 100%;
+      height: 650px;
+      object-fit: cover;
+    }
 
+    .container-register{
+      width: 400px;
+      height: 100%;
+      display: flex;
+      position: absolute;
+    }
+
+    .status-register{
+      width: 5px;
+      height: 95%;
+      background: #616161;
+      margin-right:30px;
+      position: relative;
+      .line-status{
+        width: 5px;
+        background: limegreen;
+        position: absolute;
+        height: 0;
+        transition: 1s;
+      }
+      .circle{
+        background: black;
+        width: 25px;
+        height: 25px;
+        border-radius: 50px;
+        position: absolute;
+        right: 0;
+        left: -10px;
+      }
+      .circle:nth-child(2){
+        background:limegreen;
+      }
+      .circle:nth-child(3){
+          top:50%;
+      }
+      .circle:nth-child(4){
+        top:100%;
+      }
+    }
     .container-login {
+      right: 50px;
       width: 320px;
       display: flex;
       justify-content: flex-start;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       height: 100%;
+
+
+      .title{
+        font-size: 20px;
+        font-family: "PoppinsMedium", sans-serif;
+        margin:5px 0;
+
+      }
+
 
       form {
         position: relative;;
@@ -336,8 +485,6 @@ input:-webkit-autofill:focus {
     }
   }
 }
-
-
 
 
 .section {

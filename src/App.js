@@ -1,6 +1,7 @@
 import {Route, Routes} from "react-router-dom";
 import Layout from "./components/common/Layout";
 import Register from "./components/common/Register";
+import PinInput from "./components/mini/PinInput";
 // import Home from "./components/common/Home";
 // import Products from "./components/common/Products";
 // import Category from "./components/common/Category";
@@ -12,7 +13,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Layout/>}>
                 {/*<Route index element={<Home/>}/>*/}
-                {/*<Route path="/category" element={<Category/>}/>*/}
+                <Route path="/input" element={<PinInput/>}/>
                 {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 {/*<Route path="/Contact" element={<Contact/>}/>*/}
                 <Route path="/register" element={<Register/>}/>

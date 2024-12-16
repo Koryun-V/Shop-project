@@ -11,6 +11,8 @@ export const registrationUser = createAsyncThunk(
                     lastName: payload.lastName,
                     password: payload.password,
                     avatar: payload.avatar,
+                    gender: payload.gender,
+                    dateOfBirth: payload.dateOfBirth,
                 },
                 {
                     headers: {

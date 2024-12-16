@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {registrationUser} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import validator from "validator";
+import bg from "../../assets/copy.jpg"
 
 import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "../mini/RadioButton";
+import PinInput from "../mini/PinInput";
 
 const fields = [
     {
@@ -60,12 +62,13 @@ const fields = [
         name: "password",
         label: "Password",
         validation: /^(?=.*\d).{8,}$/,
-        info: "Your password must be at least 8 characters long or password does not match",
+        info: "Your password must be at least 8 characters long, or a mismatch",
     },
+    // long or password does not match
     {
         id: 8,
         name: "repeatPassword",
-        label: "Repeat password",
+        label: "RP/password",
         validation: "",
         info: "Password don't match.",
     },
@@ -83,11 +86,13 @@ const Register = () => {
         value: "",
         title: ""
     })
+    const [isTest, setIsTest] = useState(false)
     const {value, title} = userInfo
+    const status = useSelector(state => state.registration.status)
 
     const [inputName, setInputName] = useState([]);
     const [isRegister, setIsRegister] = useState(false)
-    const [date, setDate] = useState("")
+    const [dateOfBirth, setDateOfBirth] = useState("")
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -99,25 +104,24 @@ const Register = () => {
         password: "",
         repeatPassword: ""
     })
-    const {email, firstName, lastName, password, repeatPassword} = user
+    const {firstName, lastName, gender, email, password, repeatPassword} = user
 
 
     useEffect(() => {
         setIsDate("")
-        setDate(`${user.day}-${user.month}-${user.year}`);
+        setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
     }, [user.day, user.month, user.year]);
 
     useEffect(() => {
         if (user.day.length === 2 &&
             user.month.length === 2
             && user.year.length === 4) {
-            validateDate(date)
+            validateDate(dateOfBirth)
         } else if (user.day > 29 && user.month === "02") {
-            validateDate(date)
+            validateDate(dateOfBirth)
         }
-    }, [date]);
+    }, [dateOfBirth]);
 
-    console.log(date)
 
     const validateDate = (value) => {
         if (
@@ -141,7 +145,7 @@ const Register = () => {
                 test()
             }
         })
-        if (email && firstName && lastName && password && repeatPassword && date && !inputName.length) {
+        if (email && firstName && lastName && password && repeatPassword && dateOfBirth && !inputName.length) {
             setIsRegister(true)
         } else {
             setIsRegister(false)
@@ -193,70 +197,91 @@ const Register = () => {
     const register = (e) => {
         if (isRegister) {
             e.preventDefault();
-            dispatch(registrationUser({email, firstName, lastName, password}))
+            dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
             setIsRegister(true)
         }
     }
+    useEffect(() => {
+        console.log(isTest)
 
+    }, [isTest]);
 
+    console.log(user, dateOfBirth)
     return (
         <div className="section">
+            <button onClick={() => setIsTest(true)}>Click</button>
+
             <div className="container">
-                <div className="container-login">
-                    <form onSubmit={register}>
-                        {fields.map((field) => (
-                            <div className="field-block" key={field.id}>
-                                <div style={{height: "50px"}}>
-                                    <Input
-                                        name={field.name}
-                                        maxLength={field.maxLength}
-                                        onBlur={test}
-                                        className="input"
-                                        {...field}
-                                        onChange={onChange}
-                                        value={user[field.name]}
-                                        id={field.id}
-                                        autoComplete="off"
-                                        label={field.label}
-                                        classNameLabel={user[field.name].length ? "active" : "label"}
-                                    /></div>
+                <img src={bg}/>
+                <div className="container-register">
+                    <div className="status-register">
+                        <div className="line-status" style={{height: status === "ok" ? "50%" : 0}}></div>
+                        <div className="circle"></div>
+                        <div className="circle"></div>
+                        <div className="circle"></div>
+                    </div>
+                    <div className="container-login">
+                        <div className="title">
+                            <span>Create a new Account</span>
+                        </div>
+
+                        {status !== "ok" ? <form onSubmit={register}>
+                                {fields.map((field) => (
+                                    <div className="field-block" key={field.id}>
+                                        <div style={{height: "50px"}}>
+                                            <Input
+                                                name={field.name}
+                                                maxLength={field.maxLength}
+                                                onBlur={test}
+                                                className="input"
+                                                {...field}
+                                                onChange={onChange}
+                                                value={user[field.name]}
+                                                id={field.id}
+                                                autoComplete="off"
+                                                label={field.label}
+                                                classNameLabel={user[field.name].length ? "active" : "label"}
+                                            /></div>
 
 
-                                <div className="validation-info">
-                                    {inputName.map(((item, index) => (
-                                        item === field.name ?
-                                            <>
-                                                <div className="test2"></div>
-                                                <span>{!user[item].length ? "Field Required" : field.info}</span>
-                                            </> : null)))}
+                                        <div className="validation-info">
+                                            {inputName.map(((item, index) => (
+                                                item === field.name ?
+                                                    <>
+                                                        <div className="test2"></div>
+                                                        <span>{!user[item].length ? "Field Required" : field.info}</span>
+                                                    </> : null)))}
+                                        </div>
+                                    </div>
+
+                                ))}
+
+                                <div className="gender-radio-group">
+                                    <span>Gender</span>
+                                    <div className="gender-block">
+                                        {genderOptions ? genderOptions.map((option) => (
+
+                                            <RadioButton
+                                                key={option.value}
+                                                name="gender"
+                                                value={option.value}
+                                                checked={user.gender === option.value}
+                                                onChange={onChange}
+                                                label={option.label}
+                                            />
+
+
+                                        )) : null}
+                                    </div>
                                 </div>
-                            </div>
-
-                        ))}
-
-                        <div className="gender-radio-group">
-                            <span>Gender</span>
-                            <div className="gender-block">
-                                {genderOptions ? genderOptions.map((option) => (
-
-                                    <RadioButton
-                                        key={option.value}
-                                        name="gender"
-                                        value={option.value}
-                                        checked={user.gender === option.value}
-                                        onChange={onChange}
-                                        label={option.label}
-                                    />
-
-
-                                )) : null}
-                            </div>
-                        </div>
-                        <div className="register-button">
-                            <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
-                                    className={isRegister ? "active-button" : "disabled"}>Text</Button>
-                        </div>
-                    </form>
+                                <div className="register-button">
+                                    <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
+                                            className={isRegister ? "active-button" : "disabled"}>Text</Button>
+                                </div>
+                            </form>
+                            :
+                            <PinInput/>}
+                    </div>
                 </div>
             </div>
         </div>

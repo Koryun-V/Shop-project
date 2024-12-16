@@ -6,7 +6,9 @@
 .login {
   position: relative;
   width: 320px;
-  margin-bottom: 20px;
+}
+.login:nth-child(2){
+  margin-top:20px;
 }
 
 .field-block:nth-child(3) {
@@ -153,6 +155,20 @@
     cursor: default;
     color: red;
     top: 50px;
+    font-size: 14px;
+
+  }
+}
+.validation-info-login {
+  height: 20px;
+  position: relative;
+  width: 100%;
+  font-family: "RobotoMedium", sans-serif;
+  margin-top:2px;
+
+  span {
+    cursor: default;
+    color: red;
     font-size: 14px;
 
   }

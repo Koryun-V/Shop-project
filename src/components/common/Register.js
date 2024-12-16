@@ -274,7 +274,8 @@ const Register = () => {
                                         )) : null}
                                     </div>
                                 </div>
-                                <div className="register-button">
+
+                                <div className="login-block">
                                     <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
                                             className={isRegister ? "active-button" : "disabled"}>Text</Button>
                                 </div>

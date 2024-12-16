@@ -80,8 +80,9 @@ function Layout() {
                                         <Button text="LOGIN" className="active-button"
                                                 onClick={() => setIsOpenLogin(true)}></Button>
                                     </div>
-                                    <div className="sign-block">
-                                        <Button text="REGISTER" className="sign-button"
+                                    <div className="sign-block"
+                                    >
+                                        <Button text="REGISTER" className="register-button"
                                         onClick={()=>navigate("/register")}></Button>
                                     </div>
 

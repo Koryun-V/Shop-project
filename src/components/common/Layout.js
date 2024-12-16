@@ -70,7 +70,6 @@ function Layout() {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
                                 <Input value={value} onChange={onChange} className="search-input" placeholder="Search"/>
                             </div>
-
                         </div>
 
                         <div className="user-block">

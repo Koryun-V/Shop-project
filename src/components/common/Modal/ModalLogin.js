@@ -123,7 +123,7 @@ function ModalLogin({open, onClose}) {
                     <div className="container-modal">
                         <div className="background-login"></div>
 
-                        <div className="container-login">
+                        <div className="container-form">
                             <form onSubmit={login}>
                                 {fields.map((field) => (
                                     <div key={field.id} className="login">
@@ -152,7 +152,7 @@ function ModalLogin({open, onClose}) {
                                 <div className="forgot-block">
                                 <span>Forgot password ?</span>
                                 </div>
-                                <div className="login-block">
+                                <div className="form-button-block">
                                     <Button text="LOGIN" className={isLogin ? "active-button" : "disabled"}
                                             type={isLogin ? "submit" : "button"}>LOGIN
                                     </Button>
@@ -165,7 +165,7 @@ function ModalLogin({open, onClose}) {
 
                                     </div>
 
-                                    <div className="login-block">
+                                    <div className="form-button-block">
                                         <Button
                                             text="REGISTER-NOW" className="register-button"
                                             type="button">

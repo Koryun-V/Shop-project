@@ -209,82 +209,82 @@ const Register = () => {
     console.log(user, dateOfBirth)
     return (
         <div className="section">
-            <button onClick={() => setIsTest(true)}>Click</button>
-
-            <div className="container">
-                <img src={bg}/>
-                <div className="container-register">
-                    <div className="status-register">
-                        <div className="line-status" style={{height: status === "ok" ? "50%" : 0}}></div>
-                        <div className="circle"></div>
-                        <div className="circle"></div>
-                        <div className="circle"></div>
-                    </div>
-                    <div className="container-login">
-                        <div className="title">
-                            <span>Create a new Account</span>
+            <div className="container"
+                 style={{
+                     justifyContent:"flex-end",
+                 }}
+            >
+                    <img src={bg} className="register-img"/>
+                    <div className="container-register">
+                        <div className="status-register">
+                            <div className="line-status" style={{height: status === "ok" ? "50%" : 0}}></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
+                            <div className="circle"></div>
                         </div>
+                        <div className="container-form" style={{width:320}}>
+                            <div className="title">
+                                <span>Create a new Account</span>
+                            </div>
 
-                        {status !== "ok" ? <form onSubmit={register}>
-                                {fields.map((field) => (
-                                    <div className="field-block" key={field.id}>
-                                        <div style={{height: "50px"}}>
-                                            <Input
-                                                name={field.name}
-                                                maxLength={field.maxLength}
-                                                onBlur={test}
-                                                className="input"
-                                                {...field}
-                                                onChange={onChange}
-                                                value={user[field.name]}
-                                                id={field.id}
-                                                autoComplete="off"
-                                                label={field.label}
-                                                classNameLabel={user[field.name].length ? "active" : "label"}
-                                            /></div>
+                            {status !== "ok" ? <form onSubmit={register}>
+                                    {fields.map((field) => (
+                                        <div className="field-block" key={field.id}>
+                                            <div style={{height: "50px"}}>
+                                                <Input
+                                                    name={field.name}
+                                                    maxLength={field.maxLength}
+                                                    onBlur={test}
+                                                    className="input"
+                                                    {...field}
+                                                    onChange={onChange}
+                                                    value={user[field.name]}
+                                                    id={field.id}
+                                                    autoComplete="off"
+                                                    label={field.label}
+                                                    classNameLabel={user[field.name].length ? "active" : "label"}
+                                                /></div>
 
 
-                                        <div className="validation-info">
-                                            {inputName.map(((item, index) => (
-                                                item === field.name ?
-                                                    <>
-                                                        <div className="test2"></div>
-                                                        <span>{!user[item].length ? "Field Required" : field.info}</span>
-                                                    </> : null)))}
+                                            <div className="validation-info">
+                                                {inputName.map(((item, index) => (
+                                                    item === field.name ?
+                                                        <>
+                                                            <div className="test2"></div>
+                                                            <span>{!user[item].length ? "Field Required" : field.info}</span>
+                                                        </> : null)))}
+                                            </div>
+                                        </div>
+
+                                    ))}
+
+                                    <div className="gender-radio-group">
+                                        <span>Gender</span>
+                                        <div className="gender-block">
+                                            {genderOptions ? genderOptions.map((option) => (
+
+                                                <RadioButton
+                                                    key={option.value}
+                                                    name="gender"
+                                                    value={option.value}
+                                                    checked={user.gender === option.value}
+                                                    onChange={onChange}
+                                                    label={option.label}
+                                                />
+                                            )) : null}
                                         </div>
                                     </div>
 
-                                ))}
-
-                                <div className="gender-radio-group">
-                                    <span>Gender</span>
-                                    <div className="gender-block">
-                                        {genderOptions ? genderOptions.map((option) => (
-
-                                            <RadioButton
-                                                key={option.value}
-                                                name="gender"
-                                                value={option.value}
-                                                checked={user.gender === option.value}
-                                                onChange={onChange}
-                                                label={option.label}
-                                            />
-
-
-                                        )) : null}
+                                    <div className="form-button-block" style={{marginTop:20}}>
+                                        <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
+                                                className={isRegister ? "active-button" : "disabled"}>Text</Button>
                                     </div>
-                                </div>
-
-                                <div className="login-block">
-                                    <Button text="CONTINUE" type={isRegister ? "submit" : "button"}
-                                            className={isRegister ? "active-button" : "disabled"}>Text</Button>
-                                </div>
-                            </form>
-                            :
-                            <PinInput/>}
+                                </form>
+                                :
+                                <PinInput/>}
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
     );
 }

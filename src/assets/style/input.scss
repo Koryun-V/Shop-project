@@ -1,3 +1,5 @@
+@import "variables";
+
 .field-block {
   position: relative;
   width: 320px;
@@ -93,7 +95,7 @@
   width: 0;
   position: absolute;
   border-radius: 0 0 3px 3px;
-  border-bottom: 4px solid rgba(4, 224, 21, 0.9);
+  border-bottom: 4px solid $interfaceColor;
 }
 
 .test2 {
@@ -148,7 +150,6 @@
   height: 40px;
   position: relative;
   width: 100%;
-  font-family: "RobotoMedium", sans-serif;
 
 
   span {
@@ -156,6 +157,9 @@
     color: red;
     top: 50px;
     font-size: 14px;
+    font-family:  sans-serif;
+    font-weight: 600;
+
 
   }
 }
@@ -163,13 +167,13 @@
   height: 20px;
   position: relative;
   width: 100%;
-  font-family: "RobotoMedium", sans-serif;
   margin-top:2px;
 
   span {
     cursor: default;
     color: red;
     font-size: 14px;
+    font-family: "RobotoMedium", sans-serif;
 
   }
 }
@@ -193,18 +197,7 @@
   cursor: pointer;
   position: absolute;
   right: 10px;
-  color: limegreen;
-  bottom: 0;
-  top: 0;
-  margin: auto;
-  z-index: 5;
-}
-
-.eye {
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  color: limegreen;
+  color: $interfaceColor;
   bottom: 0;
   top: 0;
   margin: auto;

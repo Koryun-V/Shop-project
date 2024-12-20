@@ -26,6 +26,13 @@ button {
   cursor: pointer;
   transition: 0.2s;
 }
+.pending-button {
+  background: $interfaceColor;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
 
 .active-button:hover {
   background: rgb(0, 143, 13);

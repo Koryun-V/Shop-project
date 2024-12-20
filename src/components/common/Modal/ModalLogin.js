@@ -147,13 +147,15 @@ function ModalLogin({open, onClose}) {
                                 <div className="validation-info-login">
                                     {status === "error" ?
                                         <span>Wrong login or password.</span>
-                                    : null}
+                                        : null}
                                 </div>
                                 <div className="forgot-block">
-                                <span>Forgot password ?</span>
+                                    <span>Forgot password ?</span>
                                 </div>
                                 <div className="form-button-block">
-                                    <Button text="LOGIN" className={isLogin ? "active-button" : "disabled"}
+                                    <Button status={status} text="LOGIN"
+                                            className={isLogin && status !== "pending" ? "active-button"
+                                                : isLogin && status === "pending" ? "pending-button" : "disabled"}
                                             type={isLogin ? "submit" : "button"}>LOGIN
                                     </Button>
                                 </div>

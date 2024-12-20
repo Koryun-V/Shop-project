@@ -5,6 +5,7 @@
 @import url("header.scss");
 @import url("loginModal.scss");
 @import url("registerPage.scss");
+@import "variables";
 
 //@import url("slide.scss");
 //@import url("product.scss");
@@ -138,6 +139,82 @@ input:-webkit-autofill:focus {
     height: 50px;
   }
 }
+
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+
+.email-text {
+  display: flex;
+  margin-top: 30px;
+
+  flex-direction: column;
+  text-align: center;
+
+  span:nth-child(1) {
+    font-size: 20px;
+    font-family: "PoppinsMedium", sans-serif;
+  }
+
+  span:nth-child(2) {
+    color: #4c4c4c;
+    margin-top: 20px;
+    font-size: 15px;
+    font-family: "PoppinsMedium", sans-serif;
+  }
+}
+
+.pin-block {
+  margin-top: 20px;
+}
+
+.email-icon-block {
+  display: flex;
+  justify-content: center;
+
+  .email-line-block {
+    width: 50px;
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+
+  .email-line {
+    width: 50px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+
+  .email-line:nth-child(2) {
+    width: 30px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+
+  .email-line:nth-child(3) {
+    width: 40px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+  .email{
+    width: 40px;
+    height: 40px;
+    rotate: -50deg;
+    color:$interfaceColor;
+  }
+}
+
+
 
 
 

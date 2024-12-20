@@ -53,7 +53,7 @@ const PinInput = () => {
                     onKeyDown={(e) => onKeyDown(e, i)}
                     autoFocus={i === 0}
                     style={{
-                        border: id === i || code[i] !== "" ? "2px solid limegreen" : "1px solid black",
+                        border: id === i || code[i] !== "" ? "2px solid limegreen" : "1px solid #d1d1d1",
                     }}
                 />
             ))}

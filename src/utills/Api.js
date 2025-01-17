@@ -27,6 +27,9 @@ export default class Api {
                 }
             })
     }
+    static activateUser({key}) {
+        return api.post(`/users/activate`, {key});
+    }
 }
 
 

@@ -38,6 +38,22 @@ export const registrationUser = createAsyncThunk(
     }
 );
 
+export const activateUser = createAsyncThunk(
+    "user/activate",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.activateUser(payload);
+            console.log(data,"key")
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
+
+
+
 export const setStatus = createAction(
     "login/status",
 )

@@ -219,13 +219,10 @@ input:-webkit-autofill:focus {
   width: 150px;
   height: 150px;
   border:5px solid limegreen;
-
   border-radius: 100px;
-  opacity: 0;
   transition: 0.4s;
 
   .check-mark{
-    width: 0;
     height: 100px;
     margin: -3px 10px 3px;
     transition: 1s;
@@ -234,12 +231,12 @@ input:-webkit-autofill:focus {
     border-width: 0 10px 10px 0;
   }
 }
-.check-circle:hover{
-  opacity: 1;
-}
-.check-circle:hover .check-mark{
-  width: 85px;
-  transform: rotate( 45deg);
+.key{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid black;
+  height: 150px;
 }
 
 

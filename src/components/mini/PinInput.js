@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {activateUser} from "../../store/actions/registration";
+import {activateUser, setStatusKey} from "../../store/actions/registration";
 
 
 const PinInput = () => {
@@ -18,7 +18,17 @@ const PinInput = () => {
             dispatch(activateUser({key: code.join("")}))
         }
     }, [code]);
+
+    useEffect(() => {
+        if (status === "error") {
+            inputRef[5].current.focus();
+        }
+    }, [status]);
+
     const onChange = (e, i) => {
+        if (status === "error") {
+            dispatch(setStatusKey(""))
+        }
         setIsFormat(false)
         setId(i)
         // if (isNaN(e.target.value)) return false
@@ -56,16 +66,20 @@ const PinInput = () => {
                     onBlur={() => setId("")}
                     onClick={() => setIsFormat(true)}
                     onFocus={() => setId(i)}
+                    disabled={status === "pending" || status === "ok"}
                     maxLength={1}
                     ref={inputRef[i]}
                     onChange={(e) => onChange(e, i)}
                     value={data}
                     onKeyDown={(e) => onKeyDown(e, i)}
-                    autoFocus={i === 0}
+                    autoFocus={i === 0 || status === "error"}
                     style={{
-                        border: id === i || code[i] !== "" && status === "" ? "2px solid blue" :
-                            status === "error" ? "2px solid red" :
-                            "1px solid #d1d1d1",
+                        border: status === "ok" ? "2px solid limegreen" :
+                            id === i && status !== "error"
+                            || code[i] !== "" && status !== "error"
+                                ? "2px solid black" :
+                                status === "error" ? "2px solid red" :
+                                    "1px solid #d1d1d1",
                     }}
                 />
             ))}

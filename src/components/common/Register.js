@@ -91,6 +91,7 @@ const Register = () => {
     const [isTest, setIsTest] = useState(false)
     const {value, title} = userInfo
     const status = useSelector(state => state.registration.status)
+    const statusKey = useSelector(state => state.registration.statusKey)
 
     const [inputName, setInputName] = useState([]);
     const [isRegister, setIsRegister] = useState(false)
@@ -108,7 +109,7 @@ const Register = () => {
     })
     const {firstName, lastName, gender, email, password, repeatPassword} = user
 
-
+    const [isCheck, setIsCheck] = useState(false)
     useEffect(() => {
         setIsDate("")
         setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
@@ -172,6 +173,15 @@ const Register = () => {
         }
     }
 
+    useEffect(() => {
+        if (statusKey === "ok") {
+            const time = setTimeout(() => {
+                setIsCheck(true)
+            }, 2000);
+            return () => clearTimeout(time)
+        }
+    }, [statusKey]);
+
     console.log(user)
     const test = () => {
         fields.forEach(({validation, name, id}) => {
@@ -208,6 +218,7 @@ const Register = () => {
 
     }, [isTest]);
 
+
     console.log(user, dateOfBirth)
     return (
         <div className="section">
@@ -219,99 +230,113 @@ const Register = () => {
                 <img src={bg} className="register-img"/>
                 <div className="container-register">
                     <div className="status-register">
-                        <div className="line-status" style={{height: status === "ok" ? "50%" : 0}}></div>
+                        <div className="line-status"
+                             style={{
+                                 height: status === "ok" && statusKey === "ok" ? "100%" :
+                                     status === "ok" ? "50%" : 0
+                             }}></div>
                         <div className="circle"></div>
-                        <div className="circle"></div>
-                        <div className="circle"></div>
+                        <div className="circle" style={{background: status === "ok" ? "limegreen" : "black"}}></div>
+                        <div className="circle" style={{background: statusKey === "ok" ? "limegreen" : "black"}}></div>
                     </div>
                     <div className="container-form" style={{width: 320}}>
                         <div className="title">
                             <span>Create a new Account</span>
                         </div>
-                        <div className="check-circle">
-                            <div className="check-mark">
-                            </div>
-                        </div>
-                        {/*{status !== "ok" ? <form onSubmit={register}>*/}
-                        {/*        {fields.map((field) => (*/}
-                        {/*            <div className="field-block" key={field.id}>*/}
-                        {/*                <div style={{height: "50px"}}>*/}
-                        {/*                    <Input*/}
-                        {/*                        name={field.name}*/}
-                        {/*                        maxLength={field.maxLength}*/}
-                        {/*                        onBlur={test}*/}
-                        {/*                        className="input"*/}
-                        {/*                        {...field}*/}
-                        {/*                        onChange={onChange}*/}
-                        {/*                        value={user[field.name]}*/}
-                        {/*                        id={field.id}*/}
-                        {/*                        autoComplete="off"*/}
-                        {/*                        label={field.label}*/}
-                        {/*                        classNameLabel={user[field.name].length ? "active" : "label"}*/}
-                        {/*                    /></div>*/}
+                        {status !== "ok" ? <form onSubmit={register}>
+                                {fields.map((field) => (
+                                    <div className="field-block" key={field.id}>
+                                        <div style={{height: "50px"}}>
+                                            <Input
+                                                name={field.name}
+                                                maxLength={field.maxLength}
+                                                onBlur={test}
+                                                className="input"
+                                                {...field}
+                                                onChange={onChange}
+                                                value={user[field.name]}
+                                                id={field.id}
+                                                autoComplete="off"
+                                                label={field.label}
+                                                classNameLabel={user[field.name].length ? "active" : "label"}
+                                            /></div>
 
 
-                        {/*                <div className="validation-info">*/}
-                        {/*                    {inputName.map(((item, index) => (*/}
-                        {/*                        item === field.name ?*/}
-                        {/*                            <>*/}
-                        {/*                                <div className="test2"></div>*/}
-                        {/*                                <span>{!user[item].length ? "Field Required" : field.info}</span>*/}
-                        {/*                            </> : null)))}*/}
-                        {/*                </div>*/}
-                        {/*            </div>*/}
+                                        <div className="validation-info">
+                                            {inputName.map(((item, index) => (
+                                                item === field.name ?
+                                                    <>
+                                                        <div className="test2"></div>
+                                                        <span>{!user[item].length ? "Field Required" : field.info}</span>
+                                                    </> : null)))}
+                                        </div>
+                                    </div>
 
-                        {/*        ))}*/}
+                                ))}
 
-                        {/*        <div className="gender-radio-group">*/}
-                        {/*            <span>Gender</span>*/}
-                        {/*            <div className="gender-block">*/}
-                        {/*                {genderOptions ? genderOptions.map((option) => (*/}
+                                <div className="gender-radio-group">
+                                    <span>Gender</span>
+                                    <div className="gender-block">
+                                        {genderOptions ? genderOptions.map((option) => (
 
-                        {/*                    <RadioButton*/}
-                        {/*                        key={option.value}*/}
-                        {/*                        name="gender"*/}
-                        {/*                        value={option.value}*/}
-                        {/*                        checked={user.gender === option.value}*/}
-                        {/*                        onChange={onChange}*/}
-                        {/*                        label={option.label}*/}
-                        {/*                    />*/}
-                        {/*                )) : null}*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
+                                            <RadioButton
+                                                key={option.value}
+                                                name="gender"
+                                                value={option.value}
+                                                checked={user.gender === option.value}
+                                                onChange={onChange}
+                                                label={option.label}
+                                            />
+                                        )) : null}
+                                    </div>
+                                </div>
 
-                        {/*        <div className="form-button-block" style={{marginTop: 20}}>*/}
-                        {/*            <Button status={status} text="CONTINUE" type={isRegister ? "submit" : "button"}*/}
-                        {/*                    className={isRegister && status !== "pending" ? "active-button"*/}
-                        {/*                        : isRegister && status === "pending" ? "pending-button" : "disabled"}>Text</Button>*/}
-                        {/*        </div>*/}
-                        {/*    </form>*/}
-                        {/*    :*/}
-                        {/*    <div className="container-form" style={{*/}
-                        {/*        marginTop:50,*/}
+                                <div className="form-button-block" style={{marginTop: 20}}>
+                                    <Button status={status} text="CONTINUE" type={isRegister ? "submit" : "button"}
+                                            className={isRegister && status !== "pending" ? "active-button"
+                                                : isRegister && status === "pending" ? "pending-button" : "disabled"}>Text</Button>
+                                </div>
+                            </form>
+                            : !isCheck  ?
+                                <div className="container-form" style={{
+                                    marginTop: 50,
 
-                        {/*    }}>*/}
+                                }}>
 
-                        {/*        <div className="email-icon-block">*/}
-                        {/*            <div className="email-line-block">*/}
-                        {/*                <div className="email-line"></div>*/}
-                        {/*                <div className="email-line"></div>*/}
-                        {/*                <div className="email-line"></div>*/}
-                        {/*            </div>*/}
-                        {/*            <FontAwesomeIcon icon={faEnvelope} className="email"/>*/}
-                        {/*        </div>*/}
+                                    <div className="email-icon-block">
+                                        <div className="email-line-block">
+                                            <div className="email-line"></div>
+                                            <div className="email-line"></div>
+                                            <div className="email-line"></div>
+                                        </div>
+                                        <FontAwesomeIcon icon={faEnvelope} className="email"/>
+                                    </div>
 
-                        {/*        <div className="email-text">*/}
-                        {/*            <span>Enter Confirmation Code</span>*/}
-                        {/*            <span>Enter the confirmation code we sent to ebba93@ethereal.email</span>*/}
-                        {/*        </div>*/}
+                                    <div className="email-text">
+                                        <span>Enter Confirmation Code</span>
+                                        <span>Enter the confirmation code we sent to ebba93@ethereal.email</span>
+                                    </div>
 
-                        {/*        <div className="pin-block">*/}
-                        {/*            <PinInput/>*/}
-                        {/*        </div>*/}
+                                    <div className="pin-block">
+                                        <PinInput/>
+                                    </div>
 
-                        {/*    </div>*/}
-                        {/*}*/}
+                                </div>
+
+                                :
+                                    <div className="key">
+                                        <div className="check-circle" style={{
+                                            opacity: statusKey === "ok" ? 1 : 0,
+                                        }}>
+                                            <div className="check-mark" style={{
+                                                width: statusKey === "ok" ? 85 : 0,
+                                                transform: "rotate(45deg)",
+
+                                            }}>
+                                            </div>
+                                        </div>
+                                    </div>
+                        }
                     </div>
                 </div>
 

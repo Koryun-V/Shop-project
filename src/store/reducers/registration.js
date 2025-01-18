@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {activateUser, registrationUser} from "../actions/registration";
+import {activateUser, registrationUser, setStatusKey} from "../actions/registration";
 
 const initialState = {
     status: "",
@@ -29,4 +29,9 @@ export const registration = createReducer(initialState, (builder) => {
         .addCase(activateUser.rejected, (state) => {
             state.statusKey = "error"
         })
+
+        .addCase(setStatusKey, (state,{payload}) => {
+            state.statusKey = payload
+        })
+
 });

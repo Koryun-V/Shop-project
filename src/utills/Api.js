@@ -9,5 +9,10 @@ export default class Api{
     static getAllProducts(params){
         return api.get(`/products/list`, {params})
     }
+
+
+    static getAllCategories(params){
+        return api.get(`/categories/list`, {params})
+    }
 }
 

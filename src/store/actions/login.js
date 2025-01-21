@@ -29,6 +29,10 @@ export const loginUser = createAsyncThunk(
         }
     }
 );
+
+export const setIsOpenLogin = createAction(
+    "login/modalOpen",
+)
 export const setStatus = createAction(
     "login/status",
 )

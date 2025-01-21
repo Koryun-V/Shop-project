@@ -53,7 +53,9 @@ export const activateUser = createAsyncThunk(
 
 
 
-
+export const setStatus = createAction(
+    "register/status",
+)
 export const setStatusKey = createAction(
-    "login/status",
+    "register/status-key",
 )

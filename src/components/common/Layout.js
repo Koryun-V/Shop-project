@@ -7,17 +7,20 @@ import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
+import {useDispatch, useSelector} from "react-redux";
+import {setIsOpenLogin} from "../../store/actions/login";
 
 //main
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const [isOpenLogin, setIsOpenLogin] = useState(false)
-
-
+    // const [isOpenLogin, setIsOpenLogin] = useState(false)
+    const statusKey = useSelector(state => state.registration.statusKey)
+    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
 
     const onChange = (e) => {
@@ -77,12 +80,12 @@ function Layout() {
                                 <>
                                     <div className="sign-block">
                                         <Button text="LOGIN" className="active-button"
-                                                onClick={() => setIsOpenLogin(true)}></Button>
+                                                onClick={() => dispatch(setIsOpenLogin(true))}></Button>
                                     </div>
                                     <div className="sign-block"
                                     >
                                         <Button text="REGISTER" className="register-button"
-                                        onClick={()=>navigate("/register")}></Button>
+                                                onClick={() => navigate("/register")}></Button>
                                     </div>
 
                                 </>
@@ -119,7 +122,7 @@ function Layout() {
             }}/>
             <ModalLogin
                 open={isOpenLogin} onClose={() => {
-                setIsOpenLogin(false)
+                dispatch(setIsOpenLogin(false))
             }}/>
         </>
 

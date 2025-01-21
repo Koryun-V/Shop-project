@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {registrationUser} from "../../store/actions/registration";
+import {registrationUser,setStatus, setStatusKey} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
@@ -13,6 +13,9 @@ import RadioButton from "../mini/RadioButton";
 import PinInput from "../mini/PinInput";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Timer from "../mini/Timer";
+import {useNavigate} from "react-router-dom";
+import {setIsOpenLogin} from "../../store/actions/login";
 
 const fields = [
     {
@@ -82,6 +85,7 @@ const genderOptions = [
 ];
 
 const Register = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const [isDate, setIsDate] = useState("")
     const [userInfo, setUserInfo] = useState({
@@ -109,7 +113,12 @@ const Register = () => {
     })
     const {firstName, lastName, gender, email, password, repeatPassword} = user
 
+
     const [isCheck, setIsCheck] = useState(false)
+    const [isAnimation, setIsAnimation] = useState(false)
+
+
+
     useEffect(() => {
         setIsDate("")
         setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
@@ -177,29 +186,57 @@ const Register = () => {
         if (statusKey === "ok") {
             const time = setTimeout(() => {
                 setIsCheck(true)
-            }, 2000);
+            }, 1000);
             return () => clearTimeout(time)
         }
     }, [statusKey]);
 
-    console.log(user)
+    useEffect(() => {
+        if (isCheck) {
+            const time = setTimeout(() => {
+                setIsAnimation(true)
+            }, 100);
+            return () => clearTimeout(time)
+        }
+    }, [isCheck]);
+
+    useEffect(() => {
+        if (isAnimation) {
+            const time = setTimeout(() => {
+                navigate("/")
+                dispatch(setStatus(""))
+                dispatch(setStatusKey(""))
+                dispatch(setIsOpenLogin(true))
+            }, 2000);
+            return () => clearTimeout(time)
+        }
+    }, [isAnimation]);
+
+
+
     const test = () => {
         fields.forEach(({validation, name, id}) => {
                 if (title === name) {
                     let test = name !== "repeatPassword" ? validation.test(value) : null
-
                     if (test === false || !value.length || isDate === "no" ||
                         user["repeatPassword"].length && user["password"] !== user["repeatPassword"]) {
                         setInputName((prevState) => (_.uniq([...prevState, title])))
+                        console.log("1in if")
                     } else if (title === "password" || title === "repeatPassword" && user.repeatPassword === user.password) {
                         const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
                         setInputName(filter)
+                        console.log("2 else if")
+
                     } else if (isDate === "ok") {
-                        const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
+                        const filter = inputName.filter(item => item === "day" && item === "month" && item === "year");
                         setInputName(filter)
+                        console.log("3 else if")
+
                     } else {
                         const filter = inputName.filter(item => item !== title)
                         setInputName(filter)
+                        console.log("else")
+
                     }
                 }
             }
@@ -213,13 +250,12 @@ const Register = () => {
             setIsRegister(true)
         }
     }
-    useEffect(() => {
-        console.log(isTest)
-
-    }, [isTest]);
 
 
-    console.log(user, dateOfBirth)
+
+
+
+
     return (
         <div className="section">
             <div className="container"
@@ -229,16 +265,22 @@ const Register = () => {
             >
                 <img src={bg} className="register-img"/>
                 <div className="container-register">
-                    <div className="status-register">
-                        <div className="line-status"
-                             style={{
-                                 height: status === "ok" && statusKey === "ok" ? "100%" :
-                                     status === "ok" ? "50%" : 0
-                             }}></div>
+                    <div className="status-block">
+                        <div className="status-register">
+                            <div className="line-status"
+                                 style={{
+                                     height: status === "ok" && isCheck && statusKey === "ok" ? "100%" :
+                                         status === "ok" ? "50%" : 0
+                                 }}></div>
+
+                        </div>
                         <div className="circle"></div>
-                        <div className="circle" style={{background: status === "ok" ? "limegreen" : "black"}}></div>
-                        <div className="circle" style={{background: statusKey === "ok" ? "limegreen" : "black"}}></div>
+                        <div className="circle"
+                             style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
+                        <div className="circle"
+                             style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
                     </div>
+
                     <div className="container-form" style={{width: 320}}>
                         <div className="title">
                             <span>Create a new Account</span>
@@ -297,7 +339,7 @@ const Register = () => {
                                                 : isRegister && status === "pending" ? "pending-button" : "disabled"}>Text</Button>
                                 </div>
                             </form>
-                            : !isCheck  ?
+                            : !isCheck ?
                                 <div className="container-form" style={{
                                     marginTop: 50,
 
@@ -321,21 +363,36 @@ const Register = () => {
                                         <PinInput/>
                                     </div>
 
+                                    <div className="timer">
+                                        <Timer/>
+                                    </div>
+
                                 </div>
 
                                 :
-                                    <div className="key">
-                                        <div className="check-circle" style={{
-                                            opacity: statusKey === "ok" ? 1 : 0,
-                                        }}>
-                                            <div className="check-mark" style={{
-                                                width: statusKey === "ok" ? 85 : 0,
-                                                transform: "rotate(45deg)",
-
-                                            }}>
+                                <div className="check-container">
+                                    <div className="check-block" style={{
+                                        opacity: isAnimation ? 1 : 0,
+                                        zIndex: isAnimation ? 1 : -1,
+                                    }}>
+                                        <div className="key">
+                                            <div className="check-circle">
+                                                <div className="check-mark" style={{
+                                                    width: isAnimation ? 85 : 0,
+                                                    transform: isAnimation ? "rotate(45deg)" : "none",
+                                                }}>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div className="check-text" style={{
+                                            opacity: statusKey === "ok" ? 1 : 0,
+                                        }}>
+                                        <span>
+                                            You have successfully registered!
+                                        </span>
+                                        </div>
                                     </div>
+                                </div>
                         }
                     </div>
                 </div>

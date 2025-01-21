@@ -55,7 +55,7 @@ const PinInput = () => {
             inputRef[i !== 5 ? i + 1 : i].current.focus()
         }
     }
-
+    console.log(status)
     // console.log(isFormat)
     return (
 
@@ -74,6 +74,8 @@ const PinInput = () => {
                     onKeyDown={(e) => onKeyDown(e, i)}
                     autoFocus={i === 0 || status === "error"}
                     style={{
+                        transition: status === "error" || status === "ok" ? "0.5s" : "0s",
+
                         border: status === "ok" ? "2px solid limegreen" :
                             id === i && status !== "error"
                             || code[i] !== "" && status !== "error"

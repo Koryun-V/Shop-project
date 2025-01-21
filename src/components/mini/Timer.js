@@ -1,8 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useSelector} from "react-redux";
+import {TailSpin} from "react-loader-spinner";
 
 const Timer = () => {
     const [start, setStart] = useState(true);
-
+    const status = useSelector(state => state.registration.statusKey);
 
     const [time, setTime] = useState(60);
 
@@ -32,10 +34,24 @@ const Timer = () => {
 
     return (
         <div className="code-again">
-            {time === 0 ?
-                <span className="span-again" onClick={() => {setStart(true)
-                    setTime(60)}}>Wll send the code again.</span> :
-                <span className="span-timer">{timer()}</span>}
+            {status === "ok" ? null : status === "pending" ?
+                <TailSpin
+                    visible={true}
+                    height="70"
+                    width="70"
+                    color="limegreen"
+                    ariaLabel="tail-spin-loading"
+                    radius="0"
+                    wrapperStyle={{}}
+                    wrapperClass="loading"
+                />
+                :
+                time === 0 ?
+                    <span className="span-again" onClick={() => {
+                        setStart(true)
+                        setTime(60)
+                    }}>Wll send the code again.</span> :
+                    <span className="span-timer">{timer()}</span>}
         </div>
     );
 };

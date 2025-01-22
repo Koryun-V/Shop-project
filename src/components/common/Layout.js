@@ -7,17 +7,20 @@ import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
+import {useDispatch, useSelector} from "react-redux";
+import {setIsOpenLogin} from "../../store/actions/login";
 
 //main
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const [isOpenLogin, setIsOpenLogin] = useState(false)
-
-
+    // const [isOpenLogin, setIsOpenLogin] = useState(false)
+    const statusKey = useSelector(state => state.registration.statusKey)
+    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
 
     const onChange = (e) => {
@@ -26,11 +29,13 @@ function Layout() {
         }
     }
 
+
+
     return (
         <>
             <div className="wrapper">
                 <header className="header">
-                    <div className="container">
+                    <div className="container-header">
                         <Link to="/" className="logo-block">
                             <div className="logo">
                                 Logo
@@ -48,16 +53,16 @@ function Layout() {
                                     </ul>
                                 </li>
 
-                                <Link className="nav-item" to="/products">
+                                <Link className="nav-item" to="/#">
                                     <li>Products</li>
                                 </Link>
-                                <Link className="nav-item" to="/category">
+                                <Link className="nav-item" to="/#">
                                     <li>Category</li>
                                 </Link>
-                                <Link className="nav-item" to="/specialist">
+                                <Link className="nav-item" to="/#">
                                     <li>Specialist</li>
                                 </Link>
-                                <Link className="nav-item" to="/contact">
+                                <Link className="nav-item" to="/#">
                                     <li>Contact</li>
                                 </Link>
                             </ul>
@@ -70,29 +75,33 @@ function Layout() {
                                 <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
                                 <Input value={value} onChange={onChange} className="search-input" placeholder="Search"/>
                             </div>
-
                         </div>
 
                         <div className="user-block">
                             {!token ?
                                 <>
                                     <div className="sign-block">
-                                        <Button text="SIGN IN" className="active-button"
-                                                onClick={() => setIsOpenLogin(true)}></Button>
+                                        <Button text="LOGIN" className="active-button"
+                                                onClick={() => dispatch(setIsOpenLogin(true))}></Button>
                                     </div>
-                                    <div className="sign-block">
-                                        <Button text="SIGN-UP" className="sign-button"
-                                        onClick={()=>navigate("/register")}></Button>
+                                    <div className="sign-block"
+                                    >
+                                        <Button text="REGISTER" className="register-button"
+                                                onClick={() => navigate("/register")}></Button>
                                     </div>
 
                                 </>
                                 :
                                 <>
                                     <div className="cart">
-                                        <FontAwesomeIcon icon={faCartShopping}/>
+                                        <Link to="/#">
+                                            <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                                        </Link>
                                     </div>
                                     <div className="user">
-                                        <FontAwesomeIcon icon={faUser}/>
+                                        <Link to="/" className="user-img">
+                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
+                                        </Link>
                                     </div>
                                 </>
                             }
@@ -115,7 +124,7 @@ function Layout() {
             }}/>
             <ModalLogin
                 open={isOpenLogin} onClose={() => {
-                setIsOpenLogin(false)
+                dispatch(setIsOpenLogin(false))
             }}/>
         </>
 

@@ -1,38 +1,45 @@
+@import "variables";
+
 button {
-  background: limegreen;
+  background: $interfaceColor;
   color: white;
   width: 100%;
   height: 100%;
   border-radius: 5px;
   border: none;
   font-size: 16px;
+  font-family: "PoppinsRegular", sans-serif;
 }
 
 .disabled {
   opacity: 0.3;
   color: white;
   font-weight: bold;
-  font-size: 20px;
-  border-radius: 10px;
   cursor: default;
   transition: 0.5s;
 }
 
 .active-button {
-  background: limegreen;
+  background: $interfaceColor;
   color: white;
   font-weight: bold;
-  border-radius: 5px;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.2s;
+}
+.pending-button {
+  background: $interfaceColor;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .active-button:hover {
-  background: rgba(0, 143, 13, 0.9);
+  background: rgb(0, 143, 13);
 }
 
 .active-button:active {
-  background: rgba(0, 97, 10, 0.9);
+  background: rgb(0, 97, 10);
 }
 
 .sign-block {
@@ -41,27 +48,27 @@ button {
   padding: 5px;
 }
 
-.sign-button {
-  background: black;
+.register-button {
+  background: rgb(50 59 67);
   color: white;
   font-weight: bold;
-  border-radius: 5px;
   cursor: pointer;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
-.sign-button:hover {
-  background: #a6a6a6;
-  color: black;
+.register-button:hover {
+  background: rgb(26, 28, 30);
 }
 
-.sign-button:active {
-  background: #4c4c4c;
-}
 
-.register-button {
-  height: 50px;
-  width: 100%;
-}
+
+//.register-button {
+//  height: 50px;
+//  width: 100%;
+//  margin-top:20px;
+//}
+
+
+
 
 

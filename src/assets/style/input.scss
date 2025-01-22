@@ -1,3 +1,5 @@
+@import "variables";
+
 .field-block {
   position: relative;
   width: 320px;
@@ -6,22 +8,39 @@
 .login {
   position: relative;
   width: 320px;
-  margin-bottom: 20px;
+}
+.login:nth-child(2){
+  margin-top:20px;
 }
 
 .field-block:nth-child(3) {
+  margin-top:90px;
   position: relative;
   width: 100px;
 }
 
 .field-block:nth-child(4) {
+  margin-top:90px;
+
   position: relative;
   width: 100px;
 }
-
 .field-block:nth-child(5) {
+  margin-top:90px;
+
   position: relative;
   width: 100px;
+}
+.field-block:nth-child(7) {
+
+  position: relative;
+  width: 155px;
+}
+
+.field-block:nth-child(8) {
+
+  position: relative;
+  width: 155px;
 }
 
 .search-block {
@@ -43,13 +62,15 @@
     margin-top: 5px;
     width: 100%;
     height: 100%;
-    font-size: 17px;
+    font-size: 15px;
     padding:0 30px 0 15px;
     z-index: 5;
     background: transparent;
     position: absolute;
     outline: none;
     border: none;
+    font-family: "PoppinsMedium", sans-serif;
+
   }
 
   .search-input {
@@ -62,6 +83,8 @@
     position: absolute;
     outline: none;
     border: none;
+    font-family: "PoppinsMedium", sans-serif;
+
   }
 }
 
@@ -72,7 +95,7 @@
   width: 0;
   position: absolute;
   border-radius: 0 0 3px 3px;
-  border-bottom: 4px solid rgba(4, 224, 21, 0.9);
+  border-bottom: 4px solid $interfaceColor;
 }
 
 .test2 {
@@ -87,19 +110,25 @@
 
 .label {
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 10px;
   transition: 0.4s;
-  color: black;
+  color: #2e2e2e;
+  font-family: "PoppinsMedium", sans-serif;
+  font-size: 15px;
+
 }
 
 .active {
+  font-size: 15px;
   position: absolute;
-  left: 10px;
+  left: 15px;
   top: 0;
   transition: 0.4s;
-  color: black;
+  color: #2e2e2e;
   z-index: 3;
+  font-family: "PoppinsMedium", sans-serif;
+
 }
 
 
@@ -122,10 +151,30 @@
   position: relative;
   width: 100%;
 
+
   span {
     cursor: default;
     color: red;
     top: 50px;
+    font-size: 14px;
+    font-family:  sans-serif;
+    font-weight: 600;
+
+
+  }
+}
+.validation-info-login {
+  height: 20px;
+  position: relative;
+  width: 100%;
+  margin-top:2px;
+
+  span {
+    cursor: default;
+    color: red;
+    font-size: 14px;
+    font-family: "RobotoMedium", sans-serif;
+
   }
 }
 .search-field{
@@ -148,18 +197,7 @@
   cursor: pointer;
   position: absolute;
   right: 10px;
-  color: limegreen;
-  bottom: 0;
-  top: 0;
-  margin: auto;
-  z-index: 5;
-}
-
-.eye {
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  color: limegreen;
+  color: $interfaceColor;
   bottom: 0;
   top: 0;
   margin: auto;

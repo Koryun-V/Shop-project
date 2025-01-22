@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 
 
-const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder}) => {
+const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder, label,classNameLabel}) => {
     const [eye, setEye] = useState(faEyeSlash)
 
     return (
@@ -21,8 +21,10 @@ const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name
                 value={value}
                 onChange={onChange}
             />
+            <span className={classNameLabel}>{label}</span>
 
-            {name === "password"
+
+            {name === "password" || name === "repeatPassword"
                 // && user[field.name].length
                 ?
                 <FontAwesomeIcon onClick={() => {

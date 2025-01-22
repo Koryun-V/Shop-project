@@ -8,7 +8,6 @@ const api = axios.create({
 
 export default class Api {
   static getAllProducts(params) {
-    console.log(params)
     return api.get(`/products/list/${params.categoryId}`);
   }
 

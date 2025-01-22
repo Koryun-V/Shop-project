@@ -5,12 +5,11 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 
-const Product = ({products, className,classNameImg}) => {
+const Product = ({products, className, classNameImg}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
     const [isPlay, setIsPlay] = useState(false);
-
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -59,13 +58,16 @@ const Product = ({products, className,classNameImg}) => {
                             </div>
 
                             <div className="product-button">
-                                <Button icon={<FontAwesomeIcon style={{marginRight:10}} icon={faCartShopping}/>} text="Add to cart" className="active-button">
+                                <Button icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
+                                        text="Add to cart" className="active-button">
                                 </Button>
                             </div>
                         </div>
 
                     </>
                 </div>
+
+                // <div>{product.id}</div>
             ))}
         </>
     );

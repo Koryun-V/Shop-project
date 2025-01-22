@@ -7,16 +7,13 @@ import {
 const initialState = {
   status: "",
   categories: [],
-  selectId: "",
 
 }
 
 
 export const productsReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(setSelectId, (state, {payload}) => {
-      state.selectId = payload.id
-    })
+
     .addCase(categoriesRequest.pending, (state) => {
       state.status = "pending"
     })

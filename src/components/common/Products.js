@@ -3,15 +3,15 @@ import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
-import {categoriesRequest, setSelectId} from "../../store/actions/products";
+import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
-import axios from "axios";
+import {categoriesRequest} from "../../store/actions/products";
 
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.products);
   const categories = useSelector(state => state.productsReducer.categories)
-  const selectId = useSelector(state => state.productsReducer.selectId)
+  const selectId = useSelector(state => state.home.selectId)
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
@@ -25,7 +25,8 @@ const Products = () => {
 
   }
   const change = (id) => {
-    dispatch(setSelectId(id))
+    dispatch(setSelectId(id.id))
+
   }
 
   useEffect(() => {
@@ -37,9 +38,8 @@ const Products = () => {
   }, [selectId]);
 
 
+  console.log(products)
 
-  console.log(selectId)
-  console.log(products["product"])
 
 
   return (<div className="wrapper">
@@ -55,14 +55,12 @@ const Products = () => {
               getOptionValue={(o) => o.id}
               getOptionLabel={(o) => o.name}
               isSearchable={false}
-
-
             />
 
           </div>
         </div>
         <div className="products_container">
-          {/*<Product products= {products} className="product-block" classNameImg="shares-img"/>*/}
+          <Product products={products} className="product-block" classNameImg="shares-img"/>
           <div className="react_pagination_div">
             <ReactPaginate
               previousLabel={"<"}

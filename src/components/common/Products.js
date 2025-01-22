@@ -3,16 +3,18 @@ import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
-import {categoriesRequest} from "../../store/actions/products";
+import {categoriesRequest, setSelectId} from "../../store/actions/products";
 import Select from "react-select";
+import axios from "axios";
 
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.products);
   const categories = useSelector(state => state.productsReducer.categories)
+  const selectId = useSelector(state => state.productsReducer.selectId)
+
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
-  const [selectId, setSelectId] = useState("")
 
 
 
@@ -22,25 +24,22 @@ const Products = () => {
     setPage(currentPage)
 
   }
-
+  const change = (id) => {
+    dispatch(setSelectId(id))
+  }
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}))
   }, []);
 
   useEffect(() => {
-    dispatch(getProducts({page, limit, categoryId: selectId}))
-  }, [page, selectId]);
+    dispatch(getProducts({categoryId: selectId}))
+  }, [selectId]);
 
-  const change = (id) => {
-    setSelectId(id.id)
-
-  }
 
 
   console.log(selectId)
-
-
+  console.log(products["product"])
 
 
   return (<div className="wrapper">
@@ -48,19 +47,22 @@ const Products = () => {
         <div className="select_container">
           <div className="select_box">
 
-              <Select
-                onChange={change}
-                placeholder= "All"
-                options={categories.categories}
-                classNamePrefix="react-select"
-                getOptionValue={(o) => o.id}
-                getOptionLabel={(o) => o.name}
-              />
+            <Select
+              onChange={change}
+              placeholder="All"
+              options={categories.categories}
+              classNamePrefix="react-select"
+              getOptionValue={(o) => o.id}
+              getOptionLabel={(o) => o.name}
+              isSearchable={false}
+
+
+            />
 
           </div>
         </div>
         <div className="products_container">
-          <Product products={products} className="product-block" classNameImg="shares-img"/>
+          {/*<Product products= {products} className="product-block" classNameImg="shares-img"/>*/}
           <div className="react_pagination_div">
             <ReactPaginate
               previousLabel={"<"}

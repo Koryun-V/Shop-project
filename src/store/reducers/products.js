@@ -1,15 +1,22 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {categoriesRequest} from "../actions/products";
-
+import {
+  setSelectId
+} from "../actions/products";
 
 const initialState = {
   status: "",
-  categories: []
+  categories: [],
+  selectId: "",
+
 }
 
 
 export const productsReducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(setSelectId, (state, {payload}) => {
+      state.selectId = payload.id
+    })
     .addCase(categoriesRequest.pending, (state) => {
       state.status = "pending"
     })

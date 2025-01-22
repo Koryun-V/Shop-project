@@ -1,6 +1,18 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
+import {createAsyncThunk, createAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import api from "../../utills/Api";
+
+
+
+export const setSelectId = createAction(
+  "products/setSelectId",
+  (payload) => ({
+    payload,
+  })
+)
+
+
+
 
 
 
@@ -16,7 +28,5 @@ export const categoriesRequest =  createAsyncThunk(
       return thunkAPI.rejectWithValue(err);
     }
   }
-
-
 
 )

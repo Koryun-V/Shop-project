@@ -12,7 +12,8 @@ export const home = createReducer(initialState, (builder) => {
         })
         .addCase(getProducts.fulfilled, (state, {payload}) => {
             state.status = "ok"
-            state.products = payload
+            state.products = payload.products
+
         })
         .addCase(getProducts.rejected, (state) => {
             state.status = "error"

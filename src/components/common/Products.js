@@ -60,7 +60,7 @@ const Products = () => {
           </div>
         </div>
         <div className="products_container">
-          <Product products={products} className="product-block" classNameImg="shares-img"/>
+          <Product products={products} className="product-block" classNameImg="product-img"/>
           <div className="react_pagination_div">
             <ReactPaginate
               previousLabel={"<"}

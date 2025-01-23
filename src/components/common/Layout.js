@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
-import axios from "axios";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -22,6 +21,8 @@ function Layout() {
     const statusKey = useSelector(state => state.registration.statusKey)
     const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
+
+
 
     const onChange = (e) => {
         if (e.target.value !== " ") {

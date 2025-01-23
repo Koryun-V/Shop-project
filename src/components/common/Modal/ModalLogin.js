@@ -7,6 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 import Input from "../../mini/Input";
 import Button from "../../mini/Button";
+import {Link} from "react-router-dom";
+import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
+
 
 const fields = [
     {
@@ -36,7 +39,7 @@ function ModalLogin({open, onClose}) {
         email: "",
         password: "",
     })
-
+    console.log(status)
 
     const {email, password} = user
 
@@ -108,38 +111,75 @@ function ModalLogin({open, onClose}) {
             <div onClick={onClose} className="shadow">
             </div>
             <div id="modal_window">
+                <div className="close">
+                    <div className="title">
+                        <span>LOGIN</span>
+                    </div>
+                    <div className="close-block" onClick={onClose}>
+                        <Close className="icon"/>
+                    </div>
+                </div>
                 <div className="modal-block">
-                    <div className="container-login">
-                        <form onSubmit={login}>
-                            {fields.map((field) => (
-                                <div key={field.id} className="login">
-                                    <div style={{
-                                        height: "50px",
-                                    }}>
-                                        <Input
-                                            name={field.name}
-                                            className="input"
-                                            {...field}
-                                            onChange={onChange}
-                                            value={user[field.name]}
-                                            // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
-                                            id={field.id}
-                                        />
-                                    </div>
-                                    <span className={user[field.name].length ? "active" : "label"}>{field.label}</span>
+                    <div className="container-modal">
+                        <div className="background-login"></div>
 
+                        <div className="container-form">
+                            <form onSubmit={login}>
+                                {fields.map((field) => (
+                                    <div key={field.id} className="login">
+                                        <div style={{
+                                            height: "50px",
+                                        }}>
+                                            <Input
+                                                name={field.name}
+                                                className="input"
+                                                {...field}
+                                                onChange={onChange}
+                                                value={user[field.name]}
+                                                // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
+                                                id={field.id}
+                                                label={field.label}
+                                                classNameLabel={user[field.name].length ? "active" : "label"}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                                <div className="validation-info-login">
+                                    {status === "error" ?
+                                        <span>Wrong login or password.</span>
+                                        : null}
+                                </div>
+                                <div className="forgot-block">
+                                    <span>Forgot password ?</span>
+                                </div>
+                                <div className="form-button-block">
+                                    <Button status={status} text="LOGIN"
+                                            className={isLogin && status !== "pending" ? "active-button"
+                                                : isLogin && status === "pending" ? "pending-button" : "disabled"}
+                                            type={isLogin ? "submit" : "button"}>LOGIN
+                                    </Button>
+                                </div>
+                                <div className="register-now">
+                                    <div className="text">
+                                        <div className="line"></div>
+                                        <span>Don't have an account ?</span>
+                                        <div className="line"></div>
+
+                                    </div>
+
+                                    <div className="form-button-block">
+                                        <Button
+                                            text="REGISTER-NOW" className="register-button"
+                                            type="button">
+                                        </Button>
+                                    </div>
 
                                 </div>
-                            ))}
-                            <div className="register-button">
-                                <Button text="LOGIN" className={isLogin ? "active-button" : "disabled"}
-                                        type={isLogin ? "submit" : "button"}>LOGIN
-                                </Button>
-                            </div>
+                            </form>
 
-
-                        </form>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>,

@@ -1,8 +1,6 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {categoriesRequest} from "../actions/products";
-import {
-  setSelectId
-} from "../actions/products";
+
 
 const initialState = {
   status: "",

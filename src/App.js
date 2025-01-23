@@ -6,7 +6,6 @@ import Register from "./components/common/Register";
 import Category from "./components/common/Category";
 // import Specialist from "./components/common/Specialist";
 // import Contact from "./components/common/Contact";
-import Home from "./components/common/Home";
 import Products from "./components/common/Products";
 
 
@@ -14,7 +13,7 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Layout/>}>
-                <Route index element={<Home/>}/>
+                {/*<Route index element={<Home/>}/>*/}
                 {/*<Route index element={<Home/>}/>*/}
                 {/*<Route path="/products" element={<Products/>}/>*/}
                 <Route path="/category" element={<Category/>}/>

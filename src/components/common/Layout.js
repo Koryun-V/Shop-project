@@ -3,128 +3,111 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
+import Input from "../mini/Input";
+import Button from "../mini/Button";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
+import {useDispatch, useSelector} from "react-redux";
+import {setIsOpenLogin} from "../../store/actions/login";
+
 //main
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const [isOpenLogin, setIsOpenLogin] = useState(false)
-    const navigate = useNavigate();
-    const [files, setFiles] = useState([])
-    const [previewImg, setPreviewImg] = useState([])
-
-    //
-    // useEffect(() => {
-    //     const previewUrls = files.map((file) => URL.createObjectURL(file));
-    //     setPreviewImg(previewUrls);
-    // }, [files]);
-
-    // useEffect(() => {
-    //     let x = previewImg.forEach(url => URL.revokeObjectURL(url))
-    //     console.log(x)
-    // }, [files]);
+    // const [isOpenLogin, setIsOpenLogin] = useState(false)
+    const statusKey = useSelector(state => state.registration.statusKey)
+    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
+    const [value, setValue] = useState("");
 
 
-    const func = async () => {
-        try {
-            const params = {
-                name: "sxoc",
-                size: "230 мм",
-                price: "120",
-                description: "Электрическая болгарка для резки и шлифовки различных материалов.",
-                brandName: "sovet",
 
-                productImage: files,
-            }
-
-
-            const {data} = await axios.post(`https://world-of-construction.onrender.com/admin/product/28`, params,
-
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                    // formSerializer: {indexes: true}
-                })
-            console.log(data, "products")
-            return data
-        } catch (error) {
-            console.log(error)
+    const onChange = (e) => {
+        if (e.target.value !== " ") {
+            setValue(e.target.value);
         }
     }
 
-    const get = async () => {
-        try {
-            const {data} = await axios.get(`https://world-of-construction.onrender.com/home`,
-                {
-                    headers: {
-                        Authorization: token,
-                    }
-                })
-            console.log(data, "category")
-            return data
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const file = (e) => {
-        const file = e.target.files;
-        setFiles([...file])
-    }
-
-    const moveProducts = () => {
-        navigate("/products")
-    }
 
 
     return (
         <>
             <div className="wrapper">
                 <header className="header">
-                    <div className="container">
+                    <div className="container-header">
                         <Link to="/" className="logo-block">
                             <div className="logo">
                                 Logo
                             </div>
                         </Link>
 
-                        <label htmlFor="avatar">
-                            <input type="file" id="avatar" onChange={file} multiple/>
-                        </label>
+                        <nav className="nav">
+                            <ul className="nav-list">
+                                <li className="nav-item">Store
+                                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
+                                    <ul className="nav-more">
+                                        <li><img src="#"/>IDEAL</li>
+                                        <li><img src="#"/>DOMUS</li>
+                                        <li><img src="#"/>ESIM</li>
+                                    </ul>
+                                </li>
+
+                <Link className="nav-item" to="/products">
+                  <li>Products</li>
+                </Link>
+                <Link className="nav-item" to="/category">
+                  <li>Category</li>
+                </Link>
+                <Link className="nav-item" to="/#">
+                  <li>Specialist</li>
+                </Link>
+                <Link className="nav-item" to="/#">
+                  <li>Contact</li>
+                </Link>
+              </ul>
 
 
-                        <button onClick={get}>get</button>
+                        </nav>
 
-                        <button onClick={func}>update</button>
-
-                        <div>
-                            <p>...navigation...</p>
+                        <div className="search-block">
+                            <div className="search-field">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
+                                <Input value={value} onChange={onChange} className="search-input" placeholder="Search"/>
+                            </div>
                         </div>
 
-                        <div onClick={moveProducts} className= "products_div">
-                            <p>products</p>
-                        </div>
-
-                        <>
+                        <div className="user-block">
                             {!token ?
-                                <div className="login-block">
-                                    <button className="login" onClick={() => setIsOpenLogin(true)}>LOGIN</button>
-                                    {/*<button className="register" onClick={() => setIsOpenRegister(true)}>REGISTER*/}
-                                    {/*</button>*/}
-                                    <Link className="register" to="/register">REGISTER
-                                    </Link>
-                                </div>
+                                <>
+                                    <div className="sign-block">
+                                        <Button text="LOGIN" className="active-button"
+                                                onClick={() => dispatch(setIsOpenLogin(true))}></Button>
+                                    </div>
+                                    <div className="sign-block"
+                                    >
+                                        <Button text="REGISTER" className="register-button"
+                                                onClick={() => navigate("/register")}></Button>
+                                    </div>
+
+                                </>
                                 :
-                                <div className="user-block">
-                                    <div className="user"></div>
-                                </div>
+                                <>
+                                    <div className="cart">
+                                        <Link to="/#">
+                                            <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                                        </Link>
+                                    </div>
+                                    <div className="user">
+                                        <Link to="/" className="user-img">
+                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
+                                        </Link>
+                                    </div>
+                                </>
                             }
-                        </>
-
-
+                        </div>
                     </div>
                 </header>
 
@@ -143,7 +126,7 @@ function Layout() {
             }}/>
             <ModalLogin
                 open={isOpenLogin} onClose={() => {
-                setIsOpenLogin(false)
+                dispatch(setIsOpenLogin(false))
             }}/>
         </>
 

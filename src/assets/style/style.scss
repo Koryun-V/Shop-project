@@ -1,10 +1,92 @@
+@import url("input.scss");
+@import url("button.scss");
+@import url("radioButton.scss");
+@import url("pinInput.scss");
+@import url("header.scss");
+@import url("loginModal.scss");
+@import url("registerPage.scss");
+@import "variables";
+
+@import url("category.scss");
+//@import url("slide.scss");
+@import url("product.scss");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
-
+  //border: 1px solid black;
 }
+
+@font-face {
+  font-family: RobotoBold;
+  src: url(../fonts/Roboto-Bold.ttf);
+}
+
+@font-face {
+  font-family: RobotoRegular;
+  src: url(../fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: RobotoMedium;
+  src: url(../fonts/Roboto-Medium.ttf);
+}
+
+
+@font-face {
+  font-family: MontserratBold;
+  src: url(../fonts/Montserrat-Bold.ttf);
+}
+
+@font-face {
+  font-family: MontserratRegular;
+  src: url(../fonts/Montserrat-Regular.ttf);
+}
+
+@font-face {
+  font-family: MontserratMedium;
+  src: url(../fonts/Montserrat-Medium.ttf);
+}
+
+
+@font-face {
+  font-family: PoppinsBold;
+  src: url(../fonts/Poppins-Bold.ttf);
+}
+
+@font-face {
+  font-family: PoppinsRegular;
+  src: url(../fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: PoppinsMedium;
+  src: url(../fonts/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: PoppinsExtra;
+  src: url(../fonts/Poppins-ExtraBold.ttf);
+}
+
+
+@font-face {
+  font-family: InterRegular;
+  src: url(../fonts/Inter_18pt-Regular.ttf);
+}
+
+@font-face {
+  font-family: InterMedium;
+  src: url(../fonts/Inter_18pt-Medium.ttf);
+}
+
+@font-face {
+  font-family: InterBold;
+  src: url(../fonts/Inter_18pt-Bold.ttf);
+}
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
@@ -12,720 +94,210 @@ input:-webkit-autofill:focus {
 }
 
 .wrapper {
-  .header {
+  .section {
+    padding: 0 100px;
     width: 100%;
-    //background: rgba(4, 224, 21, 0.9);
-    border: 1px solid black;
-
-    padding: 20px;
-
-    .container {
-      border: 1px solid black;
-      width: 100%;
-      //height: 100px;
-      //background: #aaaaaa;
-      display: flex;
-      align-items: center;
-
-      .logo-block {
-        border: 3px solid red;
-        width: 20%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .logo {
-          font-weight: bold;
-          font-size: 50px;
-        }
-      }
-
-      .login-block {
-        width: 100%;
-        border: 2px solid red;
-        justify-content: flex-end;
-        display: flex;
-
-        button {
-          width: 100px;
-          height: 40px;
-          cursor: pointer;
-          color: white;
-          border: none;
-          border-radius: 5px;
-        }
-
-
-
-        .login {
-          background: limegreen;
-          font-weight: bold;
-        }
-
-        .register {
-          background: #9a9a9a;
-          margin-left: 10px;
-          text-decoration: none;
-          color:white;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100px;
-          height: 40px;
-          cursor: pointer;
-          border: none;
-          border-radius: 5px;
-          font-weight: bold;
-
-        }
-      }
-    }
   }
-}
 
-
-#modal_window {
-  position: fixed;
-  max-width: 834px;
-  width: auto;
-  height: auto;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #fff;
-  z-index: 9998;
-  cursor: default;
-  border-radius: 10px;
-
-  .close {
+  .container {
     width: 100%;
-    height: 50px;
-    background: #00cc2c;
+    display: flex;
+    position: relative;
+  }
+
+  form {
+    width: auto;
+    height: auto;
+    position: relative;
     display: flex;
     align-items: center;
-    padding: 20px 10px;
-    border-radius: 10px 10px 0 0;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .article-home {
+    width: 100%;
 
     .title {
-      width: 100%;
-      color: white;
-
-      span {
-        font-size: 30px;
-        font-weight: bold;
-      }
+      font-size: 34px;
     }
 
-    .close-block {
-      width: 40px;
-      height: 40px;
+    .article-block {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-
-
-      .icon {
-        width: 100%;
-        height: 100%;
-
-
-      }
-
-      .icon * {
-        transition: 0.1s;
-        fill: white;
-        stroke: white;
-      }
-
-
+      flex-wrap: wrap;
+      margin: -10px;
     }
-
-    .close-block:hover .icon * {
-      fill: #005e00;
-      stroke: #005e00;
-    }
-
-    //.close-block:active .icon *{
-    //  fill: black;
-    //  stroke: black;
-    //
-    //}
   }
 }
 
-.shadow {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #0000004A;
-  z-index: 9997;
+.container-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .form-button-block {
+    width: 100%;
+    height: 50px;
+  }
 }
 
-.modal-block {
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+
+.email-text {
+  display: flex;
+  margin-top: 30px;
+
+  flex-direction: column;
+  text-align: center;
+
+  span:nth-child(1) {
+    font-size: 20px;
+    font-family: "PoppinsMedium", sans-serif;
+  }
+
+  span:nth-child(2) {
+    color: #4c4c4c;
+    margin-top: 20px;
+    font-size: 15px;
+    font-family: "PoppinsMedium", sans-serif;
+  }
+}
+
+.pin-block {
+  margin-top: 20px;
+}
+
+.email-icon-block {
+  display: flex;
+  justify-content: center;
+
+  .email-line-block {
+    width: 50px;
+    display: flex;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+
+  .email-line {
+    width: 50px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+
+  .email-line:nth-child(2) {
+    width: 30px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+
+  .email-line:nth-child(3) {
+    width: 40px;
+    height: 3px;
+    background: $interfaceColor;
+  }
+}
+
+.email {
+  width: 40px;
+  height: 40px;
+  rotate: -50deg;
+  color: $interfaceColor;
+}
+
+
+.check-circle {
+  width: 100%;
   height: 100%;
+  border: 5px solid limegreen;
+  border-radius: 100px;
+
+  .check-mark {
+    height: 100px;
+    margin: -3px 10px 3px;
+    border: solid limegreen;
+    display: inline-block;
+    border-width: 0 10px 10px 0;
+    transition: 1.5s;
+  }
+}
+
+
+.key {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 150px;
+}
+
+.check-container {
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 50px;
+
+  .check-text {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 20px;
+
+    span {
+      font-family: "PoppinsMedium", sans-serif;
+      color: $interfaceColor;
+
+    }
+  }
+}
+
+.timer {
+  margin-bottom: 50px;
+
+}
+
+.check-block {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 32px;
-  border: 1px solid black;
+  position: absolute;
+  transition: 1.5s;
+}
 
+.code-again {
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 40px;
 
-  .container-login {
-    width: 320px;
-    //border: 2px solid black;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100%;
+  span {
+    font-family: "RobotoMedium", sans-serif;
+    font-size: 18px;
+  }
 
+  .span-again {
+    text-decoration: underline;
+    cursor: pointer;
+    color: $interfaceColor;
+  }
 
-    form {
-      //justify-content: center;
-      width: auto;
-      height: auto;
-      position: relative;;
-      display: flex;
-      align-items: center;
-      //flex-direction: column;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      //border:2px solid black;
-      .field-block {
-        position: relative;
-        width: 320px;
-        height: 90px;
-      }
-      .field-block:nth-child(3) {
-        position: relative;
-        width: 100px;
-        height: 90px;
-      }
-      .field-block:nth-child(4) {
-        position: relative;
-        width: 100px;
-        height: 90px;
-      }
-      .field-block:nth-child(5) {
-        position: relative;
-        width: 100px;
-        height: 90px;
-      }
-
-
-      .input-block {
-        position: relative;
-        background: #e3e3e3;
-        height: 50px;
-        border-radius: 5px;
-        display: flex;
-        cursor: pointer;
-
-
-
-        .input {
-          width: 100%;
-          cursor: pointer;
-          height: 50px;
-          font-size: 17px;
-          padding-left: 10px;
-          padding-top: 10px;
-          z-index: 5;
-          background: transparent;
-          position: absolute;
-          outline: none;
-          border: none;
-        }
-
-        .label {
-          position: absolute;
-          left: 10px;
-          top: 10px;
-          transition: 0.4s;
-          color: black;
-
-
-
-        }
-
-        .active {
-          position: absolute;
-          left: 10px;
-          top: 0;
-          transition: 0.4s;
-          color: black;
-          z-index: 3;
-
-
-        }
-
-
-      }
-
-
-      .validation-info {
-        height: 40px;
-        position: relative;
-        width: 100%;
-        span {
-          cursor: default;
-          color: red;
-          top: 50px;
-          position: absolute;
-        }
-
-      }
-
-      .input-block:focus-within .label {
-        top: 0;
-        z-index: 3;
-      }
-
-      .input-block:focus-within .test {
-        width:100%;
-      }
-
-      button {
-        width: 320px;
-        height: 45px;
-
-
-      }
-
-      .register {
-        background: limegreen;
-        border: 3px solid limegreen;
-        color: white;
-        font-weight: bold;
-        font-size: 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.5s;
-      }
-
-      .disabled {
-        background: limegreen;
-        opacity: 0.3;
-        border: 3px solid limegreen;
-        color: white;
-        font-weight: bold;
-        font-size: 20px;
-        border-radius: 10px;
-        cursor: default;
-        transition: 0.5s;
-      }
-
-      .register:hover {
-        background: rgba(0, 143, 13, 0.9);
-      }
-
-      .register:active {
-        background: rgba(0, 97, 10, 0.9);
-      }
-
-
-      .input-block-number {
-        height: 50px;
-        position: relative;
-        width: 100%;
-        background: #e3e3e3;
-        border-radius: 3px;
-        cursor: pointer;
-      }
-
-
-      .number-input {
-        width: 300px;
-        //padding-left: 10px;
-        height: 50px;
-        font-size: 17px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-      }
-
-      .active {
-        position: absolute;
-        right: 80px;
-        top: 0;
-        transition: 0.4s;
-        color: black;
-
-      }
-
-      .input-block-number:focus-within .test {
-        width: 100%;
-      }
-
-      .input-block-number:focus-within .label-number {
-        top: 0;
-        z-index: 3;
-      }
-
-
-      .form-control:focus {
-        outline: none !important;
-        border: none !important;
-        box-shadow: none !important;
-      }
-
-      //.selected-flag .arrow{
-      //  position: relative;
-      //  top: 50%;
-      //  margin-top: -1px;
-      //  left: 29px;
-      //  width: 0;
-      //  height: 0;
-      //  border-left: 3px solid transparent;
-      //  border-right: 3px solid transparent;
-      //  border-top: 4px solid #555;
-      //}
-      .selected-flag:focus .arrow {
-        position: relative;
-        top: 50%;
-        margin-top: -1px;
-        left: 29px;
-        width: 0;
-        height: 0;
-        border-left: 3px solid transparent;
-        border-right: 3px solid transparent;
-        border-bottom: 3px solid transparent;
-        border-top: 5px solid #555;
-
-      }
-
-      .react-tel-input .special-label {
-        left: 10px;
-      }
-
-
-      //.number-button {
-      //  background: transparent;
-      //  display: flex;
-      //  .selected-flag {
-      //    background: transparent;
-      //    border-right: 4px solid white;
-      //    width: 50px;
-      //    margin-left: 5px;
-      //    height: 45px;
-      //    position: absolute;
-      //    z-index: 6;
-      //
-      //  }
-      //
-      //}
-
-      //.number-container {
-      //  background: transparent;
-      //  border: none;
-      //}
-
-      //.country-list {
-      //  position: absolute;
-      //  z-index: 7;
-      //}
-
-
-    }
+  .span-timer {
+    cursor: default;
   }
 }
 
-.test {
-
-  transition: 0.3s;
-  //bottom: 0;
-  height: 50px;
-  width: 0;
-  //border:2px solid black;
-  position: absolute;
-  border-radius: 3px;
-  border-bottom: 4px solid rgba(4, 224, 21, 0.9);
-}
-
-.test2 {
-  width: 100%;
-  z-index: 4;
-  position: absolute;
-  border-radius: 3px;
-  border-bottom: 4px solid red;
-
-  //bottom: 0;
-  height: 50px;
-  //border:2px solid black;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.section{
-  padding:0 100px;
-  .container{
-    width: 100%;
-    border:2px solid black;
-
-    .container-login {
-      width: 320px;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100%;
-
-      form {
-        position: relative;;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-
-        .field-block {
-          position: relative;
-          width: 320px;
-          height: 90px;
-
-        }
-        .field-block:nth-child(3) {
-          position: relative;
-          width: 100px;
-          height: 90px;
-        }
-        .field-block:nth-child(4) {
-          position: relative;
-          width: 100px;
-          height: 90px;
-        }
-        .field-block:nth-child(5) {
-          position: relative;
-          width: 100px;
-          height: 90px;
-        }
-
-        .input-block {
-          position: relative;
-          background: #e3e3e3;
-          height: 50px;
-          border-radius: 5px;
-          display: flex;
-          cursor: pointer;
-
-
-
-          .input {
-            width: 100%;
-            cursor: pointer;
-            height: 50px;
-            font-size: 17px;
-           padding:10px 10px 0 10px;
-            z-index: 5;
-            background: transparent;
-            position: absolute;
-            outline: none;
-            border: none;
-          }
-          .label {
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            transition: 0.4s;
-            color: black;
-          }
-
-          .active {
-            position: absolute;
-            left: 10px;
-            top: 0;
-            transition: 0.4s;
-            color: black;
-            z-index: 3;
-          }
-        }
-
-
-        .validation-info {
-          height: 40px;
-          position: relative;
-          width: 100%;
-          span {
-            cursor: default;
-            color: red;
-            top: 50px;
-            position: absolute;
-          }
-        }
-
-        .input-block:focus-within .label {
-          top: 0;
-          z-index: 3;
-        }
-
-
-
-        .input-block:focus-within .test {
-          width:100%;
-        }
-
-        button {
-          width: 320px;
-          height: 45px;
-          background: limegreen;
-          border: 3px solid limegreen;
-          color: white;
-          font-weight: bold;
-          font-size: 20px;
-          border-radius: 10px;
-          transition: 0.5s;
-        }
-
-        .register {
-          cursor: pointer;
-        }
-
-        .disabled {
-          opacity: 0.3;
-          cursor: default;
-        }
-
-        .register:hover {
-          background: rgba(0, 143, 13, 0.9);
-        }
-
-        .register:active {
-          background: rgba(0, 97, 10, 0.9);
-        }
-
-
-
-
-
-
-
-        //====================================================================== phone test
-        .input-block-number {
-          height: 50px;
-          position: relative;
-          width: 100%;
-          background: #e3e3e3;
-          border-radius: 3px;
-          cursor: pointer;
-        }
-
-
-        .number-input {
-          width: 300px;
-          height: 50px;
-          font-size: 17px;
-          background: transparent;
-          border: none;
-          cursor: pointer;
-        }
-
-        .active {
-          position: absolute;
-          right: 80px;
-          top: 0;
-          transition: 0.4s;
-          color: black;
-
-        }
-
-        .input-block-number:focus-within .test {
-          width: 100%;
-        }
-
-        .input-block-number:focus-within .label-number {
-          top: 0;
-          z-index: 3;
-        }
-
-
-        .form-control:focus {
-          outline: none !important;
-          border: none !important;
-          box-shadow: none !important;
-        }
-
-        //.selected-flag .arrow{
-        //  position: relative;
-        //  top: 50%;
-        //  margin-top: -1px;
-        //  left: 29px;
-        //  width: 0;
-        //  height: 0;
-        //  border-left: 3px solid transparent;
-        //  border-right: 3px solid transparent;
-        //  border-top: 4px solid #555;
-        //}
-        .selected-flag:focus .arrow {
-          position: relative;
-          top: 50%;
-          margin-top: -1px;
-          left: 29px;
-          width: 0;
-          height: 0;
-          border-left: 3px solid transparent;
-          border-right: 3px solid transparent;
-          border-bottom: 3px solid transparent;
-          border-top: 5px solid #555;
-
-        }
-
-        .react-tel-input .special-label {
-          left: 10px;
-        }
-
-
-        //.number-button {
-        //  background: transparent;
-        //  display: flex;
-        //  .selected-flag {
-        //    background: transparent;
-        //    border-right: 4px solid white;
-        //    width: 50px;
-        //    margin-left: 5px;
-        //    height: 45px;
-        //    position: absolute;
-        //    z-index: 6;
-        //
-        //  }
-        //
-        //}
-
-        //.number-container {
-        //  background: transparent;
-        //  border: none;
-        //}
-
-        //.country-list {
-        //  position: absolute;
-        //  z-index: 7;
-        //}
-      //===========================================================================================
-
-      }
-    }
-  }
-}
-.eye {
-  //margin:0 15px 0 0;
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
-  color: limegreen;
-  bottom:0;
-  top:0;
-  margin:auto;
-  z-index: 5;
-}

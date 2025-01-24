@@ -1,9 +1,10 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {registrationUser} from "../actions/registration";
+import {activateUser, registrationUser, setStatus, setStatusKey} from "../actions/registration";
 
 const initialState = {
     status: "",
     token:"",
+    statusKey:"",
 }
 
 export const registration = createReducer(initialState, (builder) => {
@@ -18,4 +19,24 @@ export const registration = createReducer(initialState, (builder) => {
         .addCase(registrationUser.rejected, (state) => {
             state.status = "error"
         })
+
+        .addCase(activateUser.pending, (state) => {
+            state.statusKey = "pending"
+        })
+        .addCase(activateUser.fulfilled, (state, {payload}) => {
+            state.statusKey = "ok"
+        })
+        .addCase(activateUser.rejected, (state) => {
+            state.statusKey = "error"
+        })
+
+
+        .addCase(setStatus, (state,{payload}) => {
+            state.status = payload
+        })
+
+        .addCase(setStatusKey, (state,{payload}) => {
+            state.statusKey = payload
+        })
+
 });

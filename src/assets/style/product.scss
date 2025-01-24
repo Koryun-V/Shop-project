@@ -1,0 +1,141 @@
+.product-shares {
+  min-width: 500px;
+  border-radius: 5px;
+  flex-basis: 45%;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 10px;
+  display: flex;
+  border: 1px solid #a5a5a5;
+  position: relative;
+  transition: 0.3s;
+
+}
+
+.product-shares:hover {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  border: 1px solid transparent;
+
+}
+
+.product-block {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  border: 1px solid #a5a5a5;
+  border-radius: 10px;
+  //flex-basis: 20%;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 10px;
+  position: relative;
+  transition: 0.3s;
+  //background: white;
+}
+
+.product-block:hover {
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  border: 1px solid transparent;
+}
+
+//.product-block:hover{
+//  transform: scale(1.1, 1.1);
+//  z-index: 7;
+//}
+.product-link {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+}
+
+.product-img {
+  width: 100%;
+  height: 250px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #a5a5a5;
+
+  img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.shares-img {
+  width: 100%;
+  height: 250px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-right: 1px solid #a5a5a5;
+
+  img {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+
+.product-active {
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .product-info {
+    height: 150px;
+  }
+}
+
+
+.product-price {
+
+  span {
+    font-weight: bold;
+    font-size: 25px;
+  }
+}
+
+.product-name {
+  margin-top: 30px;
+
+  span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.product-description {
+  margin-top: 10px;
+
+  span {
+    color: #454545;
+  }
+}
+
+.product-button {
+  position: relative;
+  height: 45px;
+  width: 100%;
+
+  button {
+    position: absolute;
+    z-index: 4;
+  }
+
+}

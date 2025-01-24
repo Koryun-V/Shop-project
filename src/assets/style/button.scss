@@ -1,0 +1,74 @@
+@import "variables";
+
+button {
+  background: $interfaceColor;
+  color: white;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  font-family: "PoppinsRegular", sans-serif;
+}
+
+.disabled {
+  opacity: 0.3;
+  color: white;
+  font-weight: bold;
+  cursor: default;
+  transition: 0.5s;
+}
+
+.active-button {
+  background: $interfaceColor;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.pending-button {
+  background: $interfaceColor;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.active-button:hover {
+  background: rgb(0, 143, 13);
+}
+
+.active-button:active {
+  background: rgb(0, 97, 10);
+}
+
+.sign-block {
+  width: 100%;
+  height: 50px;
+  padding: 5px;
+}
+
+.register-button {
+  background: rgb(50 59 67);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.register-button:hover {
+  background: rgb(26, 28, 30);
+}
+
+
+
+//.register-button {
+//  height: 50px;
+//  width: 100%;
+//  margin-top:20px;
+//}
+
+
+
+
+

@@ -1,10 +1,15 @@
 import {combineReducers} from "redux";
-import {login} from "./login";
+
+import {home} from "./home";
 import {registration} from "./registration";
-import {productReducer} from "./productsReducer";
+import {login} from "./login";
+import {productsReducer} from "./products"
+import {category} from "./category";
 
 export const rootReducer = combineReducers({
-    registration,
     login,
-    productReducer,
+    registration,
+    home,
+    productsReducer,
+    category,
 })

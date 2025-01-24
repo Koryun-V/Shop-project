@@ -1,0 +1,76 @@
+import React, {useEffect, useState} from 'react';
+import img from "../../esim/1.jpg";
+import Button from "./Button";
+import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
+
+const Product = ({products, className, classNameImg}) => {
+    const [indexImg, setIndexImg] = useState(0);
+    const [imgLength, setImgLength] = useState(0);
+    const [test, setTest] = useState(0);
+    const [isPlay, setIsPlay] = useState(false);
+
+    useEffect(() => {
+        if (isPlay && imgLength > 1) {
+            const time = setTimeout(() => {
+                changeImage()
+            }, 700)
+            return () => clearTimeout(time)
+        }
+
+    });
+    const changeImage = () => {
+        setIndexImg(indexImg === imgLength - 1 ? 0 : indexImg + 1)
+    }
+
+    return (
+        <>
+            {products.map((product, index) => (
+                <div className={className}>
+                    <>
+                        <Link to="/category" className="product-link"
+                              onMouseEnter={() => {
+                                  setIsPlay(true)
+                                  setImgLength(product.productImage.length)
+                                  setTest(index)
+                              }}
+                              onMouseLeave={() => {
+                                  setIsPlay(false)
+                                  setImgLength(0)
+                                  setIndexImg(0)
+                              }}
+                        ></Link>
+                        <div className={classNameImg}> {product.productImage.length ?
+                            <img src={
+                                product.productImage.length > 1 && index === test ?
+                                    product.productImage[indexImg].path
+                                    :
+                                    product.productImage[0].path
+                            } alt="img"/> : null}
+                        </div>
+
+                        <div className="product-active">
+                            <div className="product-info">
+                                <div className="product-price"><span>{product.price} $</span></div>
+                                <div className="product-name"><span>{product.name}</span></div>
+                                <div className="product-description"><span>{product.description}</span></div>
+                            </div>
+
+                            <div className="product-button">
+                                <Button icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
+                                        text="Add to cart" className="active-button">
+                                </Button>
+                            </div>
+                        </div>
+
+                    </>
+                </div>
+
+                // <div>{product.id}</div>
+            ))}
+        </>
+    );
+};
+
+export default Product;

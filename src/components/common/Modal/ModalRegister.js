@@ -231,7 +231,7 @@ function ModalRegister({open, onClose}) {
                     <div className="container-login">
                         <form onSubmit={register}>
                             {fields.map((field) => (
-                                <div key={field.id} className="field-block">
+                                <div key={field.id} className="login-block">
                                     <div className="input-block">
                                         <div className="test"></div>
                                         <input

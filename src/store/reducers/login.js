@@ -1,9 +1,10 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {loginUser, setStatus,} from "../actions/login";
+import {loginUser, setIsOpenLogin, setStatus,} from "../actions/login";
 
 const initialState = {
     status: "",
     token:"",
+    isOpenLogin:false,
 }
 export const login = createReducer(initialState, (builder) => {
     builder
@@ -22,5 +23,10 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(setStatus, (state, {payload}) => {
             state.status = payload
         })
+        .addCase(setIsOpenLogin, (state, {payload}) => {
+            state.isOpenLogin = payload
+        })
+
+
 
 });

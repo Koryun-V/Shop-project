@@ -1,58 +1,86 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,} from 'react';
+import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
-import {getProducts} from "../../store/actions/productsAction";
-
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import {Carousel} from 'react-responsive-carousel';
-import _ from 'lodash';
-import default_image from "../../assets/icon/default_image.png"
-import Pagination from "./Pagination";
-
+import {getProducts} from "../../store/actions/home";
+import ReactPaginate from "react-paginate";
+import {setSelectId} from "../../store/actions/home";
+import Select from "react-select";
+import {categoriesRequest} from "../../store/actions/products";
 
 const Products = () => {
-    const dispatch = useDispatch()
-    const products = useSelector(state => state.productReducer.products)
-    const [currentPage, setCurrentPage] = useState(1);
-    const [limit, setlimit] = useState(40);
-    const [perPage, setPerPage] = useState(10);
-    const lastIndex = currentPage * perPage;
-    const firstIndex = lastIndex - perPage;
-    const currentProducts = products.slice(firstIndex, lastIndex);
-    useEffect(() => {
-        dispatch(getProducts({page: currentPage, limit}))
+  const dispatch = useDispatch();
+  const products = useSelector(state => state.home.products);
+  const categories = useSelector(state => state.productsReducer.categories)
+  const selectId = useSelector(state => state.home.selectId)
 
-    }, []);
-    return (
-        <div className="products_wrapper">
-            <div className="products_container">
-                {currentProducts.map(({id, brandName, description, name, price, productImage, storeId, store}) => (
-                    <div className="every_product" key={id}>
-                        <Carousel showArrows={true} emulateTouch={true} showStatus={false} showIndicators={false}
-                                  showThumbs={false} stopOnHover={true} transitionTime={1000} infiniteLoop={true}
-                                  autoPlay={true} interval={10000} >
-                            {_.isEmpty(productImage) ?
-                                <div className="img_container">
-                                    <img src={default_image} alt="default"
-                                         style={{width: "90%", height: 150, objectFit: "contain"}}/>
-                                </div> :
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(12);
 
-                                productImage.map(item => (
-                                    <div className="product_image_container" key={item.id}>
 
-                                        <img src={item.path} alt="item" className="product_image"/>
-                                    </div>
-                                ))
-                            }
-                        </Carousel>
-                        <p className="product_desc">{brandName} of store {store.name}: {description}</p>
-                        <p className="product_price">{price} Դ</p>
-                        <button className="basket_button"><p className="basket_desc">basket</p></button>
-                    </div>
-                ))}
-            </div>
-            <Pagination totalProducts = {products.length} perPage={perPage}  setCurrentPage={setCurrentPage} currentPage = {currentPage}/>
+
+  const handleClick = (pageInfo) => {
+    let currentPage = pageInfo.selected + 1
+
+    setPage(currentPage)
+
+  }
+  const change = (id) => {
+    dispatch(setSelectId(id.id))
+
+  }
+
+  useEffect(() => {
+    dispatch(categoriesRequest({limit}))
+  }, []);
+
+  useEffect(() => {
+    dispatch(getProducts({categoryId: selectId}))
+  }, [selectId]);
+
+
+  console.log(products)
+
+
+
+  return (<div className="wrapper">
+      <div className="section">
+        <div className="select_container">
+          <div className="select_box">
+
+            <Select
+              onChange={change}
+              placeholder="All"
+              options={categories.categories}
+              classNamePrefix="react-select"
+              getOptionValue={(o) => o.id}
+              getOptionLabel={(o) => o.name}
+              isSearchable={false}
+            />
+
+          </div>
         </div>
-    );
+        <div className="products_container">
+          <Product products={products} className="product-block" classNameImg="product-img"/>
+          <div className="react_pagination_div">
+            <ReactPaginate
+              previousLabel={"<"}
+              nextLabel={">"}
+              pageCount={10}
+              pageRangeDisplayed={3}
+              onPageChange={handleClick}
+              containerClassName={"pagination"}
+              pageClassName={"page-item"}
+              activeClassName={"page-item--active"}
+              previousClassName={"page-item--previous"}
+              nextClassName={"page-item--next"}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  );
 };
 
 export default Products;

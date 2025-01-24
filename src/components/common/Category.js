@@ -1,32 +1,38 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getCategory} from "../../store/actions/category";
+import {setSelectId} from "../../store/actions/home";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import {Carousel} from 'react-responsive-carousel';
 import _ from 'lodash';
 import default_image from "../../assets/icon/default_image.png"
-
-
+import {useNavigate} from "react-router-dom";
 
 const Category = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const category = useSelector(state => state.category.data)
+  const selectId = useSelector(state => state.home.selectId)
 
   useEffect(() => {
-
-      dispatch(getCategory())
-
+    dispatch(getCategory())
   }, []);
 
+  const sendingId = (id) => {
 
+
+    dispatch(setSelectId(id))
+
+    navigate("/products")
+  }
 
   return (
     <div>
       <div className="category__wrapper">
         <div className="category__container">
-          {category.map(({id, name,  categoryImage}) => (
-            <div className="every__category" key={id}>
+          {category.map(({id, name, categoryImage}) => (
+            <div onClick={() => sendingId(id)} className="every__category" key={id}>
               <Carousel showArrows={true} emulateTouch={true} showStatus={false} showIndicators={false}
                         showThumbs={false} stopOnHover={true} transitionTime={6} infiniteLoop={true} autoPlay={true}
                         interval={5000}>

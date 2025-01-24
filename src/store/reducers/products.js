@@ -5,7 +5,6 @@ import {categoriesRequest} from "../actions/products";
 const initialState = {
   status: "",
   categories: [],
-
 }
 
 

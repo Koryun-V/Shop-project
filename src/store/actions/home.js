@@ -12,6 +12,7 @@ export const getProducts = createAsyncThunk(
             return thunkAPI.rejectWithValue(err)
         }
     })
+
 export const setSelectId = createAction(
     "products/setSelectId",
     (payload) => ({

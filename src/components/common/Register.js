@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {registrationUser,setStatus, setStatusKey} from "../../store/actions/registration";
+import {registrationUser, setStatus, setStatusKey} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import validator from "validator";
-import bg from "../../assets/copy.jpg"
+import bg from "../../assets/background/register.jpg"
 
-import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "../mini/RadioButton";
 import PinInput from "../mini/PinInput";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
@@ -92,7 +91,6 @@ const Register = () => {
         value: "",
         title: ""
     })
-    const [isTest, setIsTest] = useState(false)
     const {value, title} = userInfo
     const status = useSelector(state => state.registration.status)
     const statusKey = useSelector(state => state.registration.statusKey)
@@ -116,7 +114,6 @@ const Register = () => {
 
     const [isCheck, setIsCheck] = useState(false)
     const [isAnimation, setIsAnimation] = useState(false)
-
 
 
     useEffect(() => {
@@ -149,7 +146,7 @@ const Register = () => {
             setIsDate("no");
         }
     };
-
+    console.log(email)
 
     useEffect(() => {
         inputName.forEach((item) => {
@@ -213,7 +210,6 @@ const Register = () => {
     }, [isAnimation]);
 
 
-
     const test = () => {
         fields.forEach(({validation, name, id}) => {
                 if (title === name) {
@@ -251,8 +247,7 @@ const Register = () => {
         }
     }
 
-
-
+    console.log()
 
 
 
@@ -260,26 +255,17 @@ const Register = () => {
         <div className="section">
             <div className="container"
                  style={{
-                     justifyContent: "flex-end",
+                     width: "70%",
+                     border: "2px solid #e3e3e3",
+                     padding: 30,
+                     marginTop: 20,
+                     minHeight: 695,
+                     borderRadius: 5,
+
                  }}
             >
-                <img src={bg} className="register-img"/>
-                <div className="container-register">
-                    <div className="status-block">
-                        <div className="status-register">
-                            <div className="line-status"
-                                 style={{
-                                     height: status === "ok" && isCheck && statusKey === "ok" ? "100%" :
-                                         status === "ok" ? "50%" : 0
-                                 }}></div>
 
-                        </div>
-                        <div className="circle"></div>
-                        <div className="circle"
-                             style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
-                        <div className="circle"
-                             style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
-                    </div>
+                <div className="container-register">
 
                     <div className="container-form" style={{width: 320}}>
                         <div className="title">
@@ -364,7 +350,7 @@ const Register = () => {
                                     </div>
 
                                     <div className="timer">
-                                        <Timer/>
+                                        <Timer email={email}/>
                                     </div>
 
                                 </div>
@@ -395,6 +381,24 @@ const Register = () => {
                                 </div>
                         }
                     </div>
+                    <div className="status-block">
+                        <div className="status-register">
+                            <div className="line-status"
+                                 style={{
+                                     height: status === "ok" && isCheck && statusKey === "ok" ? "100%" :
+                                         status === "ok" ? "50%" : 0
+                                 }}></div>
+
+                        </div>
+                        <div className="circle"></div>
+                        <div className="circle"
+                             style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
+                        <div className="circle"
+                             style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
+                    </div>
+                </div>
+                <div className="container-register-img">
+                    <img src={bg} className="register-img"/>
                 </div>
 
 

@@ -1,8 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {TailSpin} from "react-loader-spinner";
+import {resendActivateUser} from "../../store/actions/registration";
 
-const Timer = () => {
+const Timer = ({email}) => {
+    const dispatch = useDispatch()
     const [start, setStart] = useState(true);
     const status = useSelector(state => state.registration.statusKey);
 
@@ -32,6 +34,8 @@ const Timer = () => {
     }
 
 
+    console.log(email,"email")
+
     return (
         <div className="code-again">
             {status === "ok" ? null : status === "pending" ?
@@ -50,6 +54,8 @@ const Timer = () => {
                     <span className="span-again" onClick={() => {
                         setStart(true)
                         setTime(60)
+                        dispatch(resendActivateUser({email}))
+
                     }}>Wll send the code again.</span> :
                     <span className="span-timer">{timer()}</span>}
         </div>

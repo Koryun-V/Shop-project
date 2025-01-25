@@ -36,7 +36,7 @@ function Layout() {
         <>
             <div className="wrapper">
                 <header className="header">
-                    <div className="container">
+                    <div className="container-header">
                         <Link to="/" className="logo-block">
                             <div className="logo">
                                 Logo

@@ -10,7 +10,9 @@ export default class Api {
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});
     }
-
+    static forgotPasswordUser({email}) {
+        return api.post(`/users/forgot/password`, {email});
+    }
     static registrationUser({firstName, lastName, gender, dateOfBirth, email, password}) {
         return api.post(`/users/registration`,
             {
@@ -30,6 +32,11 @@ export default class Api {
     static activateUser({key}) {
         return api.post(`/users/activate`, {key});
     }
+    static resendActivateUser({email}) {
+        return api.post(`/users/resend-activation-key`, {email});
+    }
+
+
 }
 
 

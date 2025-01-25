@@ -30,7 +30,7 @@ export const registrationUser = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.registrationUser(payload);
-            console.log(data,"data")
+            console.log(data, "data")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -43,14 +43,23 @@ export const activateUser = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.activateUser(payload);
-            console.log(data,"key")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
     }
 );
-
+export const resendActivateUser = createAsyncThunk(
+    "user/resend-activate",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.resendActivateUser(payload);
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
 
 
 export const setStatus = createAction(

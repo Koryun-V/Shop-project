@@ -96,12 +96,15 @@ input:-webkit-autofill:focus {
   .section {
     padding: 0 100px;
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .container {
     width: 100%;
     display: flex;
     position: relative;
+
   }
 
   form {
@@ -274,7 +277,10 @@ input:-webkit-autofill:focus {
   align-items: center;
   flex-direction: column;
   position: absolute;
-  transition: 1.5s;
+
+  transition: 3s;
+
+
 }
 
 .code-again {
@@ -299,3 +305,4 @@ input:-webkit-autofill:focus {
     cursor: default;
   }
 }
+

@@ -1,8 +1,9 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {loginUser, setIsOpenLogin, setStatus,} from "../actions/login";
+import {forgotPasswordUser, loginUser, setIsOpenLogin, setStatus,} from "../actions/login";
 
 const initialState = {
     status: "",
+    statusForgot:"",
     token:"",
     isOpenLogin:false,
 }
@@ -18,6 +19,15 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(loginUser.rejected, (state) => {
             state.status = "error"
         })
+        .addCase(forgotPasswordUser.pending, (state) => {
+            state.statusForgot = "pending"
+        })
+        .addCase(forgotPasswordUser.fulfilled, (state, {payload}) => {
+            state.statusForgot = "ok"
+        })
+        .addCase(forgotPasswordUser.rejected, (state) => {
+            state.statusForgot = "error"
+        })
         //-----------------------------------------------------------------------------------
 
         .addCase(setStatus, (state, {payload}) => {
@@ -26,6 +36,7 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(setIsOpenLogin, (state, {payload}) => {
             state.isOpenLogin = payload
         })
+
 
 
 

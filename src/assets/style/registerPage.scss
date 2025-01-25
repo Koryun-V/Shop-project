@@ -2,8 +2,9 @@
 
 .register-img {
   width: 100%;
-  height: 650px;
+  height: 100%;
   object-fit: cover;
+  border-radius: 0 5px 5px 0;
 }
 
 .title {
@@ -14,10 +15,21 @@
 
 .container-register {
   //width: 420px;
+  width: auto;
   height: 100%;
   display: flex;
-  position: absolute;
-  margin-right: 50px;
+  position: relative;
+
+}
+
+.container-register-img {
+  width: 100%;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+
 }
 
 .status-block {
@@ -25,8 +37,7 @@
   justify-content: center;
   width: 25px;
   position: relative;
-  margin-right: 25px;
-
+  margin: 0 30px;
 
 
   .status-register {
@@ -34,7 +45,7 @@
     height: 97%;
     background: #979797;
     position: absolute;
-    top:1%;
+    top: 1%;
 
 
     .line-status {
@@ -47,6 +58,7 @@
 
 
   }
+
   .circle {
     background: #979797;
     width: 25px;
@@ -62,7 +74,7 @@
   }
 
   .circle:nth-child(3) {
-    bottom:49%;
+    bottom: 49%;
   }
 
   .circle:nth-child(4) {

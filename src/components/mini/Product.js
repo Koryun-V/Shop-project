@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 
-const Product = ({products, className,classNameImg}) => {
+const Product = ({quantity,products, className,classNameImg}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
@@ -27,7 +27,7 @@ const Product = ({products, className,classNameImg}) => {
 
     return (
         <>
-            {products.map((product, index) => (
+            {products.slice(0,quantity).map((product, index) => (
                 <div className={className}>
                     <>
                         <Link to="/category" className="product-link"

@@ -8,7 +8,6 @@ import Button from "../mini/Button";
 import validator from "validator";
 import bg from "../../assets/copy.jpg"
 
-import "react-datepicker/dist/react-datepicker.css";
 import RadioButton from "../mini/RadioButton";
 import PinInput from "../mini/PinInput";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";

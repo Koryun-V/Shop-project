@@ -20,10 +20,7 @@ const Category = () => {
   }, []);
 
   const sendingId = (id) => {
-
-
     dispatch(setSelectId(id))
-
     navigate("/products")
   }
 

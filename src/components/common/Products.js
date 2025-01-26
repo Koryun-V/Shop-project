@@ -1,6 +1,6 @@
 import React, {useEffect, useState,} from 'react';
 import Product from "../mini/Product";
-import {useDispatch, useSelector, } from "react-redux";
+import {useDispatch, useSelector,} from "react-redux";
 import {getProducts} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
@@ -13,11 +13,10 @@ const Products = () => {
   const products = useSelector(state => state.home.products);
   const categories = useSelector(state => state.productsReducer.categories)
   const selectId = useSelector(state => state.home.selectId)
-  const [id, setId ] = useState("")
+  const [id, setId] = useState("")
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
-
 
 
   const handleClick = (pageInfo) => {
@@ -26,6 +25,8 @@ const Products = () => {
     setPage(currentPage)
 
   }
+
+
   const change = (id) => {
     dispatch(setSelectId(id.id))
 
@@ -40,8 +41,7 @@ const Products = () => {
   }, [selectId]);
 
 
-  console.log(products)
-
+  console.log(categories)
 
 
   return (<div className="wrapper">

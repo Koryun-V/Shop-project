@@ -17,7 +17,7 @@ export const home = createReducer(initialState, (builder) => {
     .addCase(getProducts.fulfilled, (state, {payload}) => {
       state.status = "ok"
       state.products = state.selectId ? payload.products.map(({product}) => product) : payload.products
-      console.log(state.products)
+
 
     })
     .addCase(getProducts.rejected, (state) => {

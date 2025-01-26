@@ -21,6 +21,7 @@ function App() {
                 {/*<Route path="/Contact" element={<Contact/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
                 <Route path= "/products" element={<Products />}/>
+                <Route path= "/products/:name" element={<Products />}/>
             </Route>
         </Routes>
     );

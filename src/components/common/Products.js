@@ -6,7 +6,7 @@ import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
 import {categoriesRequest} from "../../store/actions/products";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ const Products = () => {
   const categories = useSelector(state => state.productsReducer.categories)
   const selectId = useSelector(state => state.home.selectId)
   const [id, setId] = useState("")
+  const {name} = useParams()
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
@@ -41,7 +42,6 @@ const Products = () => {
   }, [selectId]);
 
 
-  console.log(categories)
 
 
   return (<div className="wrapper">
@@ -51,7 +51,7 @@ const Products = () => {
 
             <Select
               onChange={change}
-              placeholder="All"
+              placeholder={name ? name : "All"}
               options={categories.categories}
               classNamePrefix="react-select"
               getOptionValue={(o) => o.id}

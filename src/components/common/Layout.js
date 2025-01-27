@@ -60,9 +60,9 @@ function Layout() {
                                 <Link className="nav-item" to="/#">
                                     <li>Category</li>
                                 </Link>
-                                <Link className="nav-item" to="/#">
-                                    <li>Specialist</li>
-                                </Link>
+                                {/*<Link className="nav-item" to="/#">*/}
+                                {/*    <li>Specialist</li>*/}
+                                {/*</Link>*/}
                                 <Link className="nav-item" to="/#">
                                     <li>Contact</li>
                                 </Link>

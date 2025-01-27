@@ -98,6 +98,7 @@ input:-webkit-autofill:focus {
     width: 100%;
     display: flex;
     justify-content: center;
+    min-width: 900px;
   }
 
   .container {

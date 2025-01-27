@@ -6,6 +6,7 @@
   padding-bottom: 70px;
 
   .container-header {
+    padding:0 50px;
     align-items: center;
     position: fixed;
     z-index: 999;
@@ -16,6 +17,7 @@
     background: white;
 
     .logo-block {
+
       background: white;
       width: 15%;
       height: 100%;
@@ -45,9 +47,10 @@
         display: flex;
         color: black;
         width: 100%;
-        justify-content: space-between;
+        justify-content: flex-end;
 
         .nav-item {
+          max-width: 120px;
           height: 40px;
           padding: 1%;
           margin: 0 1%;

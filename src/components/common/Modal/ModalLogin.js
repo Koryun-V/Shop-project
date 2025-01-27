@@ -2,11 +2,12 @@ import React, {useCallback, useEffect, useState} from 'react';
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordUser, loginUser, setStatus} from "../../../store/actions/login";
+import {forgotPasswordUser, loginUser, setIsOpenLogin, setStatus} from "../../../store/actions/login";
 import Input from "../../mini/Input";
 import Button from "../../mini/Button";
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
 import _ from "lodash";
+import {useNavigate} from "react-router-dom";
 
 
 const fields = [
@@ -32,7 +33,7 @@ function ModalLogin({open, onClose}) {
     const status = useSelector(state => state.login.status)
     const token = useSelector(state => state.login.token)
     const [isLogin, setIsLogin] = useState(false)
-
+    const navigate = useNavigate()
     const [inputName, setInputName] = useState([]);
     const [isForgot, setIsForgot] = useState(false)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
@@ -257,6 +258,10 @@ function ModalLogin({open, onClose}) {
 
                                             <div className="form-button-block">
                                                 <Button
+                                                    onClick={()=> {
+                                                        dispatch(setIsOpenLogin(false))
+                                                        navigate("/register")
+                                                    }}
                                                     text="REGISTER-NOW" className="register-button"
                                                     type="button">
                                                 </Button>

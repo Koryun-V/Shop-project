@@ -7,8 +7,11 @@ const api = axios.create({
 })
 
 export default class Api {
-  static getAllProducts(params) {
-    return api.get(`/products/list/${params.categoryId}`);
+  static getAllProducts({categoryId, limit, page}) {
+    return api.get(`/products/list/${categoryId}`, {
+      limit,
+     page,
+    });
   }
 
     static loginUser({email, password}) {

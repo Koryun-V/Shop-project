@@ -15,10 +15,10 @@ const Products = () => {
   const selectId = useSelector(state => state.home.selectId)
   const [id, setId] = useState("")
   const {name} = useParams()
-
+  const total = useSelector(state => state.home.total)
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
-
+  const pageCount = Math.ceil(total / limit)
 
   const handleClick = (pageInfo) => {
     let currentPage = pageInfo.selected + 1
@@ -38,10 +38,8 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId}))
-  }, [selectId]);
-
-
+    dispatch(getProducts({categoryId: selectId, page, limit}))
+  }, [selectId, page, limit]);
 
 
   return (<div className="wrapper">
@@ -51,7 +49,7 @@ const Products = () => {
 
             <Select
               onChange={change}
-              placeholder={name ? name : "All"}
+              placeholder={name || "All"}
               options={categories.categories}
               classNamePrefix="react-select"
               getOptionValue={(o) => o.id}
@@ -67,7 +65,7 @@ const Products = () => {
             <ReactPaginate
               previousLabel={"<"}
               nextLabel={">"}
-              pageCount={10}
+              pageCount={pageCount}
               pageRangeDisplayed={3}
               onPageChange={handleClick}
               containerClassName={"pagination"}

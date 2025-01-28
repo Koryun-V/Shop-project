@@ -119,6 +119,10 @@ const Register = () => {
     useEffect(() => {
         setIsDate("")
         setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
+        return ()=>{
+            dispatch(setStatusKey(""))
+            dispatch(setStatus(""))
+        }
     }, [user.day, user.month, user.year]);
 
     useEffect(() => {
@@ -287,6 +291,7 @@ const Register = () => {
                                                 autoComplete="off"
                                                 label={field.label}
                                                 classNameLabel={user[field.name].length ? "active" : "label"}
+                                                status={status}
                                             /></div>
 
 

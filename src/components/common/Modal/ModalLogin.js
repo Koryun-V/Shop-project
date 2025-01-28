@@ -8,6 +8,7 @@ import Button from "../../mini/Button";
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
 import _ from "lodash";
 import {useNavigate} from "react-router-dom";
+import bg from "../../../assets/background/login.jpg"
 
 
 const fields = [
@@ -31,6 +32,7 @@ const fields = [
 function ModalLogin({open, onClose}) {
     const dispatch = useDispatch();
     const status = useSelector(state => state.login.status)
+    const statusForgot = useSelector(state => state.login.statusForgot)
     const token = useSelector(state => state.login.token)
     const [isLogin, setIsLogin] = useState(false)
     const navigate = useNavigate()
@@ -196,7 +198,9 @@ function ModalLogin({open, onClose}) {
                     <div className="container-modal">
                         {!isForgot ?
                             <>
-                                <div className="background-login"></div>
+                                <div className="background-login">
+                                    <img src={bg}/>
+                                </div>
                                 <div className="container-form">
                                     <form onSubmit={login}>
                                         {fields.map((field) => (
@@ -215,6 +219,7 @@ function ModalLogin({open, onClose}) {
                                                         id={field.id}
                                                         label={field.label}
                                                         classNameLabel={user[field.name].length ? "active" : "label"}
+                                                        status={status}
                                                     />
                                                 </div>
 
@@ -290,6 +295,7 @@ function ModalLogin({open, onClose}) {
                                                 autoComplete="off"
                                                 label={fields[0].label}
                                                 classNameLabel={user[fields[0].name].length ? "active" : "label"}
+                                                status={statusForgot}
                                             />
                                         </div>
                                         <div className="validation-info">

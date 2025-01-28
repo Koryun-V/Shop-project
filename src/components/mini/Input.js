@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 
 
-const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder, label,classNameLabel}) => {
+const Input = ({status,value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder, label,classNameLabel}) => {
     const [eye, setEye] = useState(faEyeSlash)
 
     return (
@@ -20,6 +20,7 @@ const Input = ({value, onChange, maxLength, onBlur, id, autoComplete, type, name
                 placeholder={placeholder}
                 value={value}
                 onChange={onChange}
+                disabled={status === "pending" || status === "ok"}
             />
             <span className={classNameLabel}>{label}</span>
 

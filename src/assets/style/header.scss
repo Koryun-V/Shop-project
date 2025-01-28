@@ -153,7 +153,7 @@
         .cart-icon {
           width: 30px;
           height: 30px;
-          color: black;
+          color: $interfaceColor;
         }
       }
 
@@ -169,13 +169,13 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          border: 2px solid black;
+          border: 2px solid $interfaceColor;
           border-radius: 50px;
           width: 40px;
           height: 40px;
 
           .user-icon {
-            color: black;
+            color: $interfaceColor;
             width: 20px;
             height: 20px;
           }

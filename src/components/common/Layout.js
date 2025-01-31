@@ -5,7 +5,7 @@ import ModalLogin from "./Modal/ModalLogin";
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
+import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faCube} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsOpenLogin} from "../../store/actions/login";
 
@@ -21,7 +21,7 @@ function Layout() {
     const statusKey = useSelector(state => state.registration.statusKey)
     const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
-
+    const [isProfile, setIsProfile] = useState(false)
 
 
     const onChange = (e) => {
@@ -29,7 +29,7 @@ function Layout() {
             setValue(e.target.value);
         }
     }
-
+    console.log(isProfile)
 
 
     return (
@@ -94,17 +94,53 @@ function Layout() {
                                 </>
                                 :
                                 <>
+
                                     <div className="cart">
                                         <Link to="/#">
                                             <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
                                         </Link>
                                     </div>
-                                    <div className="user">
-                                        <Link to="/" className="user-img">
-                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
+
+                                    <div className="cart">
+                                        <Link to="/">
+                                            <FontAwesomeIcon icon={faCube} className="cart-icon"/>
                                         </Link>
                                     </div>
+                                    <div className="user" onClick={() => {
+                                        !isProfile ? setIsProfile(true)
+                                            : setIsProfile(false)
+                                    }} onBlur={() => setIsProfile(false)}
+
+                                    >
+                                        <Link to="/" className="user-img"
+                                              style={{
+                                                  border: isProfile ? "2px solid limegreen" : "2px solid #d1d1d1",
+                                              }}>
+                                            <FontAwesomeIcon icon={faUser} className="user-icon"
+
+                                            />
+                                            <FontAwesomeIcon icon={faAngleDown} className="user-arrow"
+                                                             style={{
+                                                                 color: isProfile ? "limegreen" : "#d1d1d1",
+                                                                 transform: isProfile ? "rotate(180deg)" : "none"
+                                                             }}
+                                            />
+                                        </Link>
+
+                                    </div>
+
+
+                                    <div className="user-func"
+                                         style={{
+                                             zIndex: isProfile ? 999 : -1,
+                                             opacity: isProfile ? 1 : 0,
+                                             height: isProfile ? 200 : 0,
+                                         }}
+                                    >
+
+                                    </div>
                                 </>
+
                             }
                         </div>
                     </div>

@@ -37,7 +37,7 @@ const Product = ({products, className, classNameImg}) => {
     }
 
 
-    console.log(status)
+    // console.log(status)
 
 
     return (
@@ -77,7 +77,7 @@ const Product = ({products, className, classNameImg}) => {
                             </div>
 
                             <div className="product-button">
-                                <Button status ={status} onClick={() => sendProduct(product.id)} icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
+                                <Button  status ={status} onClick={() => sendProduct(product.id)} icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
                                         text="Add to cart" className="active-button">
                                 </Button>
                             </div>

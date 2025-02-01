@@ -59,4 +59,13 @@ export default class Api {
       );
   }
 
+  static getCards({page, limit}) {
+    return api.get(`/cards/list?page=${page}&limit=${limit}`,{
+      headers: {
+        Authorization: token
+      }
+    });
+  }
+
+
 }

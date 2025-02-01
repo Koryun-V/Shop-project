@@ -21,12 +21,25 @@ export const createCard = createAsyncThunk(
   "products/createCard",
   async (payload, thunkAPI) => {
     try {
-     const {data} =  await api.createCard(payload);
-      console.log(data,"aaaaaaaa")
-     return data;
+      const {data} = await api.createCard(payload);
+
+      return data;
 
     } catch (err) {
-      console.log(thunkAPI.rejectWithValue(err))
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+)
+
+export const getCards = createAsyncThunk(
+  "products/getCards",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await api.getCards(payload);
+      console.log(data, "cardsList")
+      return data.cards
+
+    } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
   }

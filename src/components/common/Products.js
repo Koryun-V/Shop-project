@@ -5,7 +5,7 @@ import {getProducts, setProductId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
-import {categoriesRequest} from "../../store/actions/products";
+import {categoriesRequest, getCards} from "../../store/actions/products";
 import {useNavigate, useParams} from "react-router-dom";
 
 const Products = () => {
@@ -40,6 +40,9 @@ const Products = () => {
   useEffect(() => {
     dispatch(getProducts({categoryId: selectId, page, limit}))
   }, [selectId, page, limit]);
+
+
+  dispatch(getCards({page: 1, limit: 10}))
 
 
   return (<div className="wrapper">

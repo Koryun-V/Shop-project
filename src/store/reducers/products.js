@@ -1,11 +1,12 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {categoriesRequest,  createCard} from "../actions/products";
+import {categoriesRequest, createCard, getCards} from "../actions/products";
 
 
 const initialState = {
   status: "",
   categories: [],
-  statusCard: ""
+  statusCard: "",
+  cardsList: []
 }
 
 
@@ -31,6 +32,19 @@ export const products = createReducer(initialState, (builder) => {
 
     })
     .addCase(createCard.rejected, (state) => {
+      state.statusCard = "error"
+    })
+
+    .addCase(getCards.pending, (state) => {
+      state.status = "pending"
+    })
+    .addCase(getCards.fulfilled, (state, {payload}) => {
+      state.status = "ok"
+      console.log(payload)
+      state.cardsList = payload
+    })
+
+    .addCase(getCards.rejected, (state) => {
       state.statusCard = "error"
     })
 

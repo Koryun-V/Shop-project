@@ -41,6 +41,17 @@ export const forgotPasswordUser = createAsyncThunk(
         }
     }
 );
+export const getUser = createAsyncThunk(
+    "user/profile",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getUser(payload);
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
 
 export const setIsOpenLogin = createAction(
     "login/modalOpen",

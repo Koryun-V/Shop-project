@@ -34,6 +34,7 @@
     }
 
     .nav {
+
       width: 50%;
       height: 100%;
       font-family: "RobotoBold", sans-serif;
@@ -197,10 +198,17 @@
       .user-func {
         width:100%;
         position: absolute;
-        top: 60px;
+        top: 57px;
         border-radius: 5px;
         border:2px solid $interfaceColor;
         transition: 0.3s;
+        font-family: "RobotoBold", sans-serif;
+        .user-func-item{
+          list-style-type: none;
+          li{
+            padding: 5px;
+          }
+        }
       }
     }
   }

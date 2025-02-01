@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
@@ -7,7 +7,7 @@ import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faCube} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {setIsOpenLogin} from "../../store/actions/login";
+import {getUser, setIsOpenLogin} from "../../store/actions/login";
 
 //main
 const token = localStorage.getItem("token");
@@ -15,20 +15,31 @@ const token = localStorage.getItem("token");
 function Layout() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [user, setUser] = useState({});
     const [isOpenRegister, setIsOpenRegister] = useState(false)
+    const user = useSelector(state => state.login.user)
     // const [isOpenLogin, setIsOpenLogin] = useState(false)
     const statusKey = useSelector(state => state.registration.statusKey)
     const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
     const [isProfile, setIsProfile] = useState(false)
+    const [isMouse, setIsMouse] = useState(false);
 
+    const userRef = useRef(null);
+
+    useEffect(() => {
+        if (token) {
+            dispatch(getUser())
+        }
+    }, [token]);
+    console.log(user)
 
     const onChange = (e) => {
         if (e.target.value !== " ") {
             setValue(e.target.value);
         }
     }
+
+
     console.log(isProfile)
 
 
@@ -106,11 +117,15 @@ function Layout() {
                                             <FontAwesomeIcon icon={faCube} className="cart-icon"/>
                                         </Link>
                                     </div>
-                                    <div className="user" onClick={() => {
-                                        !isProfile ? setIsProfile(true)
-                                            : setIsProfile(false)
-                                    }} onBlur={() => setIsProfile(false)}
 
+                                    <div className="user"
+                                         ref={userRef}
+                                         onClick={() => {
+                                             !isProfile ? setIsProfile(true)
+                                                 : setIsProfile(false)
+                                         }
+                                         }
+                                        // onBlur={()=>setIsProfile(false)}
                                     >
                                         <Link to="/" className="user-img"
                                               style={{
@@ -126,17 +141,23 @@ function Layout() {
                                                              }}
                                             />
                                         </Link>
-
                                     </div>
 
 
                                     <div className="user-func"
+                                         onFocus={() => setIsProfile(true)}
+                                         onBlur={() => setIsProfile(false)}
                                          style={{
                                              zIndex: isProfile ? 999 : -1,
                                              opacity: isProfile ? 1 : 0,
                                              height: isProfile ? 200 : 0,
                                          }}
                                     >
+                                        <ul className="user-func-item">
+                                            {/*<li><img src="#"/>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)}</li>*/}
+                                            {/*<li><img src="#"/>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</li>*/}
+                                            <li><img src="#"/>Profile</li>
+                                        </ul>
 
                                     </div>
                                 </>

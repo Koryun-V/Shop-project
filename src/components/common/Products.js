@@ -1,7 +1,7 @@
 import React, {useEffect, useState,} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector,} from "react-redux";
-import {getProducts} from "../../store/actions/home";
+import {getProducts, setProductId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
@@ -11,7 +11,7 @@ import {useNavigate, useParams} from "react-router-dom";
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.products);
-  const categories = useSelector(state => state.productsReducer.categories)
+  const categories = useSelector(state => state.products.categories)
   const selectId = useSelector(state => state.home.selectId)
   const [id, setId] = useState("")
   const {name} = useParams()
@@ -30,8 +30,8 @@ const Products = () => {
 
   const change = (id) => {
     dispatch(setSelectId(id.id))
-
   }
+
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}))
@@ -65,7 +65,7 @@ const Products = () => {
             <ReactPaginate
               previousLabel={"<"}
               nextLabel={">"}
-              pageCount={pageCount}
+              pageCount={pageCount ? pageCount : 1}
               pageRangeDisplayed={3}
               onPageChange={handleClick}
               containerClassName={"pagination"}

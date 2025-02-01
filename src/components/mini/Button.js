@@ -3,7 +3,7 @@ import {InfinitySpin, TailSpin} from "react-loader-spinner";
 
 const Button = ({onClick, type, className, text, status}) => {
     return (
-        <button disabled={status === "pending"} className={className} onClick={onClick}
+        <button disabled={status === "ok"} className={className} onClick={onClick}
                 type={type}>{status === "pending" ?
             <TailSpin
                 visible={true}

@@ -4,12 +4,18 @@ import Button from "./Button";
 import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
+import {addToCard, createCard} from "../../store/actions/products";
+import {setProductId} from "../../store/actions/home";
+import {useDispatch, useSelector} from "react-redux";
 
 const Product = ({products, className, classNameImg}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
     const [isPlay, setIsPlay] = useState(false);
+    const dispatch = useDispatch();
+    const productId = useSelector(state => state.home.productId);
+    const status = useSelector(state => state.products.statusCard);
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -24,23 +30,36 @@ const Product = ({products, className, classNameImg}) => {
         setIndexImg(indexImg === imgLength - 1 ? 0 : indexImg + 1)
     }
 
+    const sendProduct = (id) => {
+        dispatch(setProductId(id))
+        dispatch(createCard({productId: id, quantity: 1}))
+
+    }
+
+
+    console.log(status)
+
+
     return (
         <>
             {products.map((product, index) => (
-                <div className={className}>
+                <div className={className}
+
+                >
+
                     <>
-                        <Link to="/category" className="product-link"
-                              onMouseEnter={() => {
-                                  setIsPlay(true)
-                                  setImgLength(product.productImage.length)
-                                  setTest(index)
-                              }}
-                              onMouseLeave={() => {
-                                  setIsPlay(false)
-                                  setImgLength(0)
-                                  setIndexImg(0)
-                              }}
-                        ></Link>
+                        {/*<Link to="/category" className="product-link"*/}
+                        {/*      onMouseEnter={() => {*/}
+                        {/*          setIsPlay(true)*/}
+                        {/*          setImgLength(product.productImage.length)*/}
+                        {/*          setTest(index)*/}
+                        {/*      }}*/}
+                        {/*      onMouseLeave={() => {*/}
+                        {/*          setIsPlay(false)*/}
+                        {/*          setImgLength(0)*/}
+                        {/*          setIndexImg(0)*/}
+                        {/*      }}*/}
+                        {/*></Link>*/}
                         <div className={classNameImg}> {product.productImage.length ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?
@@ -58,7 +77,7 @@ const Product = ({products, className, classNameImg}) => {
                             </div>
 
                             <div className="product-button">
-                                <Button icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
+                                <Button status ={status} onClick={() => sendProduct(product.id)} icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
                                         text="Add to cart" className="active-button">
                                 </Button>
                             </div>

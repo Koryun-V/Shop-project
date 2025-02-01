@@ -1,13 +1,14 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getProducts} from "../actions/home";
-import {setSelectId} from "../actions/home";
+import {setSelectId, setProductId} from "../actions/home";
 import products from "../../components/common/Products";
 
 const initialState = {
   status: "",
   products: [],
   selectId: "",
-  total: ""
+  total: "",
+  productId: ""
 
 }
 export const home = createReducer(initialState, (builder) => {
@@ -20,6 +21,7 @@ export const home = createReducer(initialState, (builder) => {
       state.products = state.selectId ? payload.products.map(({product}) => product) : payload.products
       state.total = payload.total
 
+
     })
     .addCase(getProducts.rejected, (state) => {
       state.status = "error"
@@ -27,6 +29,9 @@ export const home = createReducer(initialState, (builder) => {
 
     .addCase(setSelectId, (state, {payload}) => {
       state.selectId = payload
+    })
+    .addCase(setProductId, (state, {payload}) => {
+      state.productId = payload
     })
 
 });

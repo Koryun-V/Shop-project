@@ -7,8 +7,6 @@ export const getProducts = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getAllProducts(payload)
-          console.log(payload)
-          console.log(data, "data")
             return data
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
@@ -20,4 +18,13 @@ export const setSelectId = createAction(
     (payload) => ({
         payload,
     })
+)
+
+
+export const setProductId = createAction(
+  "products/setProductId",
+  (payload) => ({
+    payload,
+  })
+
 )

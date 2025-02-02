@@ -5,7 +5,7 @@ import {getProducts, setProductId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
-import {categoriesRequest, getCards} from "../../store/actions/products";
+import {categoriesRequest, getCards, setPage} from "../../store/actions/products";
 import {useNavigate, useParams} from "react-router-dom";
 
 const Products = () => {
@@ -16,14 +16,14 @@ const Products = () => {
   const [id, setId] = useState("")
   const {name} = useParams()
   const total = useSelector(state => state.home.total)
-  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
   const pageCount = Math.ceil(total / limit)
+  const page = useSelector(state => state.products.page)
 
   const handleClick = (pageInfo) => {
     let currentPage = pageInfo.selected + 1
 
-    setPage(currentPage)
+    dispatch(setPage(currentPage));
 
   }
 
@@ -35,14 +35,14 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}))
+
   }, []);
 
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId, page, limit}))
+    dispatch(getProducts({categoryId: selectId, page , limit}))
   }, [selectId, page, limit]);
 
 
-  dispatch(getCards({page: 1, limit: 10}))
 
 
   return (<div className="wrapper">

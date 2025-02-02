@@ -3,44 +3,51 @@ import api from "../../utills/Api";
 
 
 export const categoriesRequest = createAsyncThunk(
-  "products/categoriesRequest",
+    "products/categoriesRequest",
 
-  async (payload, thunkAPI) => {
-    try {
-      const {data} = await api.getAllCategories(payload);
-      return data;
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getAllCategories(payload);
+            return data;
 
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err);
+        }
     }
-  }
 )
 
 
 export const createCard = createAsyncThunk(
-  "products/createCard",
-  async (payload, thunkAPI) => {
-    try {
-      const {data} = await api.createCard(payload);
+    "products/createCard",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.createCard(payload);
 
-      return data;
+            return data;
 
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err);
+        }
     }
-  }
 )
 
 export const getCards = createAsyncThunk(
-  "products/getCards",
-  async (payload, thunkAPI) => {
-    try {
-      const {data} = await api.getCards(payload);
-      console.log(data, "cardsList")
-      return data.cards
+    "products/getCards",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getCards(payload);
+            console.log(data)
+            return data ? data.cards : []
 
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err);
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err);
+        }
     }
-  }
+)
+
+export const setPage = createAction(
+    "products/page",
+    (payload) => ({
+        payload,
+    })
 )

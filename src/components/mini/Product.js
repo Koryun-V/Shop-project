@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import img from "../../esim/1.jpg";
 import Button from "./Button";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import {addToCard, createCard, getCards} from "../../store/actions/products";
@@ -19,6 +19,7 @@ const Product = ({products, className, classNameImg}) => {
     const cards = useSelector(state => state.products.cardsList)
     const [indexProduct, setIndexProduct] = useState("")
     const page = useSelector(state => state.products.page)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -44,6 +45,12 @@ const Product = ({products, className, classNameImg}) => {
         setIndexProduct(index)
     }
 
+    const goToProduct = (id) => {
+        dispatch(setProductId(id))
+        navigate("/one-product")
+    }
+
+
 
     return (
         <>
@@ -51,7 +58,6 @@ const Product = ({products, className, classNameImg}) => {
                     const isCard = cards ? cards.find(id => id === product.id) : false;
                     return (
                         <div className={className}>
-
                             <>
 
 
@@ -77,7 +83,7 @@ const Product = ({products, className, classNameImg}) => {
                                 </div>
 
                                 <div className="product-active">
-                                    <div className="product-info">
+                                    <div className="product-info"  onClick={() => goToProduct(product.id)}>
                                         <div className="product-price"><span>{product.price} $</span></div>
                                         <div className="product-name"><span>{product.name}</span></div>
                                         <div className="product-description"><span>{product.description}</span></div>

@@ -5,6 +5,7 @@ import {registration} from "./registration";
 import {login} from "./login";
 import {products} from "./products"
 import {category} from "./category";
+import {oneProduct} from "./oneProduct";
 
 export const rootReducer = combineReducers({
     login,
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers({
     home,
     category,
     products,
+    oneProduct,
 })

@@ -68,4 +68,7 @@ export default class Api {
   }
 
 
+  static getOneProduct({id}) {
+    return api.get(`/products/${id}`);
+  }
 }

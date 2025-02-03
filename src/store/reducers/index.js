@@ -6,6 +6,7 @@ import {login} from "./login";
 import {productsReducer} from "./products"
 import {category} from "./category";
 
+
 export const rootReducer = combineReducers({
     login,
     registration,

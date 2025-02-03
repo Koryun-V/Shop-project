@@ -19,3 +19,12 @@ export const setSelectId = createAction(
         payload,
     })
 )
+
+
+export const setProductId = createAction(
+  "products/setProductId",
+  (payload) => ({
+    payload,
+  })
+
+)

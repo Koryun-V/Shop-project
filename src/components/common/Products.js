@@ -1,45 +1,46 @@
 import React, {useEffect, useState,} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector,} from "react-redux";
-import {getProducts} from "../../store/actions/home";
+import {getProducts, setProductId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
-import {categoriesRequest} from "../../store/actions/products";
+import {categoriesRequest, getCards, setPage} from "../../store/actions/products";
 import {useNavigate, useParams} from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.products);
-  const categories = useSelector(state => state.productsReducer.categories)
+  const categories = useSelector(state => state.products.categories)
   const selectId = useSelector(state => state.home.selectId)
   const [id, setId] = useState("")
   const {name} = useParams()
-
-  const [page, setPage] = useState(1);
+  const total = useSelector(state => state.home.total)
   const [limit, setLimit] = useState(12);
-
+  const pageCount = Math.ceil(total / limit)
+  const page = useSelector(state => state.products.page)
 
   const handleClick = (pageInfo) => {
     let currentPage = pageInfo.selected + 1
 
-    setPage(currentPage)
+    dispatch(setPage(currentPage));
 
   }
 
 
   const change = (id) => {
     dispatch(setSelectId(id.id))
-
   }
+
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}))
+
   }, []);
 
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId}))
-  }, [selectId]);
+    dispatch(getProducts({categoryId: selectId, page , limit}))
+  }, [selectId, page, limit]);
 
 
 
@@ -51,7 +52,7 @@ const Products = () => {
 
             <Select
               onChange={change}
-              placeholder={name ? name : "All"}
+              placeholder={name || "All"}
               options={categories.categories}
               classNamePrefix="react-select"
               getOptionValue={(o) => o.id}
@@ -67,7 +68,7 @@ const Products = () => {
             <ReactPaginate
               previousLabel={"<"}
               nextLabel={">"}
-              pageCount={10}
+              pageCount={pageCount ? pageCount : 1}
               pageRangeDisplayed={3}
               onPageChange={handleClick}
               containerClassName={"pagination"}

@@ -53,7 +53,7 @@ const Home = () => {
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
-        autoplay: true,
+        autoplay: false,
         speed: 1000,
         autoplaySpeed: 3000,
         pauseOnHover: true,
@@ -66,21 +66,23 @@ const Home = () => {
 
     return (
         <section className="section">
-            <div className="background">
-                <img src={background} className="img-b"/>
-
-                {/*<div className="container-slide">*/}
-                {/*    <Slider {...settings}>*/}
-                {/*        <div>*/}
-                {/*            <img src={img}/>*/}
-                {/*        </div>*/}
-                {/*        <div>*/}
-                {/*            <img src={img2}/>*/}
-                {/*        </div>*/}
-                {/*        <div>*/}
-                {/*            <img src={img3}/>*/}
-                {/*        </div>*/}
-                {/*    </Slider>*/}
+            {/*<div className="background">*/}
+                <div className="container-slide">
+                    <Slider {...settings}>
+                        <div>
+                            <div className="text-slide">
+                                <h2>Special offers</h2>
+                                <p>on construction materials and goods for repair</p>
+                            </div>
+                            <img src={background} className="img-b"/>
+                        </div>
+                        <div>
+                            <img src={background} className="img-b"/>
+                        </div>
+                        <div>
+                            <img src={background} className="img-b"/>
+                        </div>
+                    </Slider>
                 {/*</div>*/}
             </div>
 

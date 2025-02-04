@@ -10,6 +10,8 @@ import PinInput from "./components/mini/PinInput";
 // import Specialist from "./components/common/Specialist";
 // import Contact from "./components/common/Contact";
 
+
+const token = localStorage.getItem("token");
 function App() {
     return (
         <Routes>

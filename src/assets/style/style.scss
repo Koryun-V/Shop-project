@@ -95,14 +95,19 @@ input:-webkit-autofill:focus {
 }
 
 .wrapper {
+  width: 100%;
+  height: 100%;
   .section {
     width: 100%;
+    justify-content: center;
+    min-width: 900px;
   }
 
   .container {
     width: 100%;
     display: flex;
     position: relative;
+
   }
 
   form {
@@ -341,6 +346,3 @@ input:-webkit-autofill:focus {
     cursor: default;
   }
 }
-
-
-

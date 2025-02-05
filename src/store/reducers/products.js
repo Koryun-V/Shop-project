@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {categoriesRequest, createCard, getCards, setPage} from "../actions/products";
+import {categoriesRequest, createCard, getCards, setPage, updateCard} from "../actions/products";
 
 
 const initialState = {
@@ -8,6 +8,8 @@ const initialState = {
     statusCard: "",
     cardsList: [],
     page: "1",
+    cardId: "",
+    updateCardStatus: "",
 }
 
 
@@ -30,17 +32,32 @@ export const products = createReducer(initialState, (builder) => {
 
         .addCase(createCard.fulfilled, (state, {payload}) => {
             state.statusCard = "ok"
+            state.cardId = payload.cards.id
 
         })
         .addCase(createCard.rejected, (state) => {
             state.statusCard = "error"
         })
 
+      .addCase(updateCard.pending, (state) => {
+          state.updateCardStatus = "pending"
+      })
+      .addCase(updateCard.fulfilled, (state, {payload}) => {
+          state.updateCardStatus = "ok"
+      })
+
+      .addCase(updateCard.rejected, (state) => {
+          state.updateCardStatus = "error"
+      })
+
+
+
         .addCase(getCards.pending, (state) => {
             state.status = "pending"
         })
         .addCase(getCards.fulfilled, (state, {payload}) => {
             state.status = "ok"
+
             state.cardsList = payload.length ? payload.map(({product}) => product.id) : []
 
 

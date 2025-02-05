@@ -256,7 +256,12 @@ const Register = () => {
 
 
     return (
-        <div className="section">
+        <div className="section"
+                style={{
+                    display:"flex",
+                    justifyContent:"center",
+                }}
+        >
             <div className="container"
                  style={{
                      width: "70%",

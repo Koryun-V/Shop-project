@@ -14,7 +14,7 @@ export const getOneProduct = createAsyncThunk(
       return data
 
 
-    }catch(error) {
+    } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
   }

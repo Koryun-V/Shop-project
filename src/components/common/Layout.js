@@ -11,11 +11,18 @@ import {
     faCartShopping,
     faUser,
     faCube,
-    faEnvelope, faAddressCard, faArrowRightFromBracket
+    faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
 import {login} from "../../store/reducers/login";
+import visa from "../../assets/icon/Visa.svg"
+import group5 from "../../assets/icon/Group_5.svg"
+import group6 from "../../assets/icon/Group_6.svg"
+import sim from "../../assets/icon/sim.svg"
+
+
+
 
 //main
 const token = localStorage.getItem("token");
@@ -60,7 +67,19 @@ function Layout() {
     //
     // }, [window.body, isProfile]);
 
+    const animUser = () => {
+        if (!isProfile) {
+            setIsProfile(true);
+            // setIsMouse(true)
 
+
+        } else {
+            setIsProfile(false);
+            // setIsMouse(false)
+
+        }
+
+    }
     return (
         <>
             <div className="wrapper">
@@ -140,13 +159,12 @@ function Layout() {
                                         </div>
 
                                         <div className="user"
-                                             onClick={() => {
-                                                 !isProfile ? setIsProfile(true)
-                                                     : setIsProfile(false)
-
-                                             }
-                                             }
-                                             onMouseLeave={() => userRef.current?.focus()}
+                                             onClick={animUser}
+                                             onMouseEnter={() => setIsMouse(false)}
+                                             onMouseLeave={() => {
+                                                 setIsMouse(true)
+                                                 userRef.current.focus()
+                                             }}
 
                                         >
                                             <Link to="/" className="user-img"
@@ -170,7 +188,9 @@ function Layout() {
                                              tabIndex={0}
                                              ref={userRef}
                                              id="user-modal"
-                                             onBlur={() => isMouse ? null : setIsProfile(false)}
+                                            // onMouseLeave={() => setIsMouse(true)}
+                                            // onMouseEnter={() => setIsMouse(false)}
+                                             onBlur={() => isMouse ? setIsProfile(false) : null}
 
                                              style={{
                                                  zIndex: isProfile ? 999 : -1,
@@ -220,10 +240,10 @@ function Layout() {
 
                                             <div className="log-out">
                                                 <div className="button-block"
-                                                     onMouseEnter={() => setIsMouse(true)}
+                                                     onMouseEnter={() => setIsMouse(false)}
                                                      onMouseLeave={() => {
-                                                         setIsMouse(false)
-                                                         userRef.current?.focus()
+                                                         setIsMouse(true)
+                                                         userRef.current.focus()
                                                      }}
 
                                                 >
@@ -246,7 +266,6 @@ function Layout() {
 
                                         </div>
                                     </>
-
                                 }
                             </div>
                         </div>
@@ -259,7 +278,56 @@ function Layout() {
                 </main>
 
                 <footer className="footer">
+                    <div className="footer-container">
+                        <div className="footer-blocks">
+                            <div className="footer-block">
+                                <div className="footer-shop-info">
+                                    <h3>Logo Story</h3>
+                                </div>
+                                <div className="footer-shop-info">
+                                    <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
+                                    <span>info@stroykastore.ru</span>
+                                </div>
+                                <div className="footer-shop-info">
+                                    <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
+                                    <span>Москва, ул. Камушкина 10</span>
+                                </div>
+                            </div>
 
+
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Profile</Link></div>
+                                <div className="footer-link"><Link>Order</Link></div>
+                                <div className="footer-link"><Link>Basket</Link></div>
+                            </div>
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Category</Link></div>
+                                <div className="footer-link"><Link>Shares</Link></div>
+                                <div className="footer-link"><Link>Contact</Link></div>
+                            </div>
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Стать продавцом</Link></div>
+                                <div className="footer-link"><Link>Shares</Link></div>
+                                <div className="footer-link"><Link>Contact</Link></div>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <div className="footer-end">
+                            <div className="footer-end-block">
+                                <span>&copy; STORY</span>
+                            </div>
+                            <div className="footer-end-block">
+                                <img src={visa} className="footer-cart"/>
+                                <img src={group5} className="footer-cart" />
+                                <img src={group6} className="footer-cart"/>
+                                <img src={sim} className="footer-cart"/>
+                            </div>
+                            <div className="footer-end-block">
+                                <span>Cделано в KRUGLOV STUDIO</span>
+                            </div>
+                        </div>
+                    </div>
                 </footer>
             </div>
 

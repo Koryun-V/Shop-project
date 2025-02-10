@@ -20,8 +20,7 @@ import visa from "../../assets/icon/Visa.svg"
 import group5 from "../../assets/icon/Group_5.svg"
 import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
-
-
+import axios from "axios";
 
 
 //main
@@ -67,6 +66,29 @@ function Layout() {
     //
     // }, [window.body, isProfile]);
 
+
+    const func = async () => {
+        try {
+            const {data} = await axios.put(`https://world-of-construction.onrender.com/users/update`, {
+                body: {
+                    firstName: "esim",
+                    lastName: "esim",
+                    gender: "male",
+                    dateOfBirth: "2000-10-10",
+                    avatar: [],
+                },
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: token,
+                    }
+                }
+            );
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const animUser = () => {
         if (!isProfile) {
             setIsProfile(true);
@@ -83,6 +105,7 @@ function Layout() {
     return (
         <>
             <div className="wrapper">
+                <button onClick={func}>click</button>
                 <header className="header">
                     <div className="nav-header">
                         <div className="container-header">
@@ -319,7 +342,7 @@ function Layout() {
                             </div>
                             <div className="footer-end-block">
                                 <img src={visa} className="footer-cart"/>
-                                <img src={group5} className="footer-cart" />
+                                <img src={group5} className="footer-cart"/>
                                 <img src={group6} className="footer-cart"/>
                                 <img src={sim} className="footer-cart"/>
                             </div>

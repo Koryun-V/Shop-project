@@ -4,7 +4,7 @@ import Button from "./Button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
-import {addToCard, createCard, getCards} from "../../store/actions/products";
+import { createCard, getCards} from "../../store/actions/products";
 import {setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
 

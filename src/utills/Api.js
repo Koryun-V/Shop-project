@@ -9,12 +9,10 @@ const api = axios.create({
 const token = localStorage.getItem("token");
 
 
-
-
 export default class Api {
   static getAllProducts({categoryId, limit, page}) {
 
-    return api.get(`/products/list/${categoryId}?limit=${limit}&page=${page}` );
+    return api.get(`/products/list/${categoryId}?limit=${limit}&page=${page}`);
   }
 
   static loginUser({email, password}) {
@@ -47,24 +45,34 @@ export default class Api {
     return api.post(`/users/activate`, {key});
   }
 
-  static createCard({productId, quantity}){
-    return api.post(`/cards/create`,  {
-      productId,
-      quantity
-    },{
-      headers: {
-        Authorization: token
+  static createCard({productId, quantity}) {
+    return api.post(`/cards/create`, {
+        productId,
+        quantity
+      }, {
+        headers: {
+          Authorization: token
+        }
       }
-      }
-      );
+    );
   }
 
   static getCards({page, limit}) {
-    return api.get(`/cards/list?page=${page}&limit=${limit}`,{
+    return api.get(`/cards/list?page=${page}&limit=${limit}`, {
       headers: {
         Authorization: token
       }
     });
+  }
+
+  static updateCard({cardId, quantity}) {
+    return api.put(`/cards/update/${cardId}`, {
+      quantity
+    }, {
+      headers: {
+        Authorization: token
+      }
+    })
   }
 
 

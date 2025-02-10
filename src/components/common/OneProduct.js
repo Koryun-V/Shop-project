@@ -4,6 +4,7 @@ import {getOneProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
+import {createCard, updateCard} from "../../store/actions/products";
 
 
 const OneProduct = () => {
@@ -19,16 +20,34 @@ const OneProduct = () => {
   const size = oneProduct?.result?.product?.size
   const store = oneProduct?.result?.product?.store.name;
 
+  const cardId = useSelector(state => state.products.cardId)
+  const statusCard = useSelector(state => state.products.statusCard)
+  const cardsList  = useSelector(state => state.products.cardsList)
 
   const updateQuantity = (value) => {
-    setQuantity((prev) => (prev + value < 0 ? prev : prev + value));
+    setQuantity((prev) => (prev + value < 1 ? prev : prev + value));
   };
 
   useEffect(() => {
     dispatch(getOneProduct({id: productId}));
   }, [productId]);
 
-  console.log(oneProduct, 22)
+
+  const addCard = () => {
+    if (quantity === 0) return;
+
+    if (statusCard === "ok" && cardId) {
+      dispatch(updateCard({ cardId, quantity }));
+    } else {
+      dispatch(createCard({productId, quantity}));
+    }
+  };
+
+
+  console.log(cardId)
+  console.log(cardsList)
+
+
   return (
     <div className="wrapper">
       <div className="product" key={id}>
@@ -67,7 +86,7 @@ const OneProduct = () => {
             <span className="product__name">{name}</span>
             <span className="product__price">{price}$</span>
           </div>
-          <button className="product__button__cart">Add to cart</button>
+          <button onClick={addCard} className="product__button__cart">Add to cart</button>
           <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
           <span className="product__price">{quantity}</span>
           <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>

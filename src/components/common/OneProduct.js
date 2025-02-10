@@ -34,9 +34,14 @@ const OneProduct = () => {
       <div className="product" key={id}>
         <div className="product__header">
           <Carousel showStatus={false} showThumbs={false}
-                    transitionTime={6} infiniteLoop={true}
+                    transitionTime={2} infiniteLoop={true}
                     autoPlay={true}
-                    interval={5000}>
+                    interval={5000}
+                    showArrows={false}
+                    emulateTouch={true}
+
+                  >
+
             {_.isEmpty(images) ? <div style={{
                 width: "100%",
                 height: 150,
@@ -57,7 +62,7 @@ const OneProduct = () => {
           </Carousel>
         </div>
 
-        <div className="product__header">
+        <div className="product__header__span">
           <div className="product_info">
             <span className="product__name">{name}</span>
             <span className="product__price">{price}$</span>

@@ -29,6 +29,7 @@ const Products = () => {
 
 
   const change = (id) => {
+    console.log(id)
     dispatch(setSelectId(id.id))
   }
 
@@ -40,7 +41,7 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getProducts({categoryId: selectId, page , limit}))
-  }, [selectId, page, limit]);
+  }, [selectId, page]);
 
 
 

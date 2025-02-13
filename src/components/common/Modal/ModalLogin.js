@@ -2,13 +2,14 @@ import React, {useCallback, useEffect, useState} from 'react';
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordUser, loginUser, setIsOpenLogin, setStatus} from "../../../store/actions/login";
+import {forgotPasswordUser, loginUser, setIsOpenLogin, setStatus, setStatusForgot} from "../../../store/actions/login";
 import Input from "../../mini/Input";
 import Button from "../../mini/Button";
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
 import _ from "lodash";
 import {useNavigate} from "react-router-dom";
 import bg from "../../../assets/background/login.jpg"
+import ModalNewPassword from "./ModalNewPassword";
 
 
 const fields = [
@@ -50,6 +51,7 @@ function ModalLogin({open, onClose}) {
         email: "",
         password: "",
     })
+
     console.log(status)
 
     const {email, password} = user
@@ -117,6 +119,7 @@ function ModalLogin({open, onClose}) {
                 title: "",
                 value: "",
             })
+            dispatch(setStatusForgot(""))
         }
     }, [open]);
 
@@ -228,8 +231,6 @@ function ModalLogin({open, onClose}) {
                                                     {status === "error" && field.name === "password" ?
                                                         <span>Wrong login or password.</span>
                                                         :
-
-
                                                         inputName.map(((item, index) => (
                                                             item === field.name ?
                                                                 <>
@@ -263,7 +264,7 @@ function ModalLogin({open, onClose}) {
 
                                             <div className="form-button-block">
                                                 <Button
-                                                    onClick={()=> {
+                                                    onClick={() => {
                                                         dispatch(setIsOpenLogin(false))
                                                         navigate("/register")
                                                     }}
@@ -277,47 +278,53 @@ function ModalLogin({open, onClose}) {
                                 </div>
 
                             </>
-                            :
-                            <div className="container-form">
-                                <form onSubmit={getForgotPassword}>
-                                    <div className="login">
-                                        <div style={{
-                                            height: "50px",
-                                        }}>
-                                            <Input
-                                                name={fields[0].name}
-                                                maxLength={fields[0].maxLength}
-                                                onBlur={test}
-                                                className="input"
-                                                onChange={onChange}
-                                                value={user[fields.name]}
-                                                id={fields[0].id}
-                                                autoComplete="off"
-                                                label={fields[0].label}
-                                                classNameLabel={user[fields[0].name].length ? "active" : "label"}
-                                                status={statusForgot}
-                                            />
+                            : statusForgot !== "ok" ?
+                                <div className="container-form">
+                                    <form onSubmit={getForgotPassword}>
+                                        <div className="login">
+                                            <div style={{
+                                                height: "50px",
+                                            }}>
+                                                <Input
+                                                    name={fields[0].name}
+                                                    maxLength={fields[0].maxLength}
+                                                    onBlur={test}
+                                                    className="input"
+                                                    onChange={onChange}
+                                                    value={user[fields.name]}
+                                                    id={fields[0].id}
+                                                    autoComplete="off"
+                                                    label={fields[0].label}
+                                                    classNameLabel={user[fields[0].name].length ? "active" : "label"}
+                                                    status={statusForgot}
+                                                />
+                                            </div>
+                                            <div className="validation-info">
+                                                {status === "error" ?
+                                                <span>Wrong login or password.</span>
+                                                :
+                                                inputName.map(((item, index) => (
+                                                    item === fields[0].name ?
+                                                        <>
+                                                            <div className="test2"></div>
+                                                            <span>{!user[item].length ? "Field Required" : fields[0].info}</span>
+                                                        </> : null)))
+                                                }
+                                            </div>
                                         </div>
-                                        <div className="validation-info">
-                                            {inputName.map(((item, index) => (
-                                                item === fields[0].name ?
-                                                    <>
-                                                        <div className="test2"></div>
-                                                        <span>{!user[item].length ? "Field Required" : fields[0].info}</span>
-                                                    </> : null)))}
+
+                                        <div className="form-button-block">
+                                            <Button status={statusForgot} text="RECEIVE CODE"
+                                                    className={isForgotPassword && status !== "pending" ? "active-button"
+                                                        : isForgotPassword && status === "pending" ? "pending-button" : "disabled"}
+                                                    type={isForgotPassword ? "submit" : "button"}>LOGIN
+                                            </Button>
                                         </div>
-                                    </div>
+                                    </form>
+                                </div>
+                                : <ModalNewPassword/>
 
-                                    <div className="form-button-block">
-                                        <Button status={status} text="CONTINUE"
-                                                className={isForgotPassword && status !== "pending" ? "active-button"
-                                                    : isForgotPassword && status === "pending" ? "pending-button" : "disabled"}
-                                                type={isForgotPassword ? "submit" : "button"}>LOGIN
-                                        </Button>
-                                    </div>
-                                </form>
 
-                            </div>
                         }
 
                     </div>

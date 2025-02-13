@@ -1,10 +1,19 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {forgotPasswordUser, getUser, loginUser, setIsOpenLogin, setStatus,} from "../actions/login";
+import {
+    changePasswordUser,
+    forgotPasswordUser,
+    getUser,
+    loginUser,
+    setIsOpenLogin,
+    setStatus,
+    setStatusForgot,
+} from "../actions/login";
 
 const initialState = {
     status: "",
     statusUser:"",
     statusForgot:"",
+    statusNewPassword:"",
     token:"",
     isOpenLogin:false,
     user:{}
@@ -30,6 +39,15 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(forgotPasswordUser.rejected, (state) => {
             state.statusForgot = "error"
         })
+        .addCase(changePasswordUser.pending, (state) => {
+            state.statusNewPassword = "pending"
+        })
+        .addCase(changePasswordUser.fulfilled, (state, {payload}) => {
+            state.statusNewPassword = "ok"
+        })
+        .addCase(changePasswordUser.rejected, (state) => {
+            state.statusNewPassword = "error"
+        })
         //-----------------------------------------------------------------------------------
         .addCase(getUser.pending, (state) => {
             state.statusUser = "pending"
@@ -43,6 +61,9 @@ export const login = createReducer(initialState, (builder) => {
         })
         .addCase(setStatus, (state, {payload}) => {
             state.status = payload
+        })
+        .addCase(setStatusForgot, (state, {payload}) => {
+            state.statusForgot = payload
         })
         .addCase(setIsOpenLogin, (state, {payload}) => {
             state.isOpenLogin = payload

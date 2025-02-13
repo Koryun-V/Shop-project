@@ -38,7 +38,7 @@ function Layout() {
     const [isProfile, setIsProfile] = useState(false)
     const [isMouse, setIsMouse] = useState(false);
     const statusUser = useSelector(state => state.login.statusUser)
-
+    const [avatar, setAvatar] = useState([])
     const userRef = useRef(null);
 
 
@@ -69,18 +69,25 @@ function Layout() {
 
     const func = async () => {
         try {
-            const {data} = await axios.put(`https://world-of-construction.onrender.com/users/update`, {
-                body: {
-                    firstName: "esim",
-                    lastName: "esim",
-                    gender: "male",
-                    dateOfBirth: "2000-10-10",
-                    avatar: [],
+            // const formData = new FormData();
+            // formData.append("firstName", "esim");
+            // formData.append("lastName", "esim");
+            // formData.append("gender", "male");
+            // formData.append("dateOfBirth", "2000-10-10");
+            // formData.append("avatar", avatar);
+            const {data} = await axios.put(`https://world-of-construction.onrender.com/users/update`,
+                {
+                    firstName:"esim",
+                    lastName:"esim",
+                    gender:"male",
+                    dateOfBirth:"2000-10-10",
+                    avatar:avatar[0],
                 },
+                {
                     headers: {
                         "Content-Type": "multipart/form-data",
                         Authorization: token,
-                    }
+                    },
                 }
             );
             return data;
@@ -102,10 +109,14 @@ function Layout() {
         }
 
     }
+    console.log(avatar)
     return (
         <>
             <div className="wrapper">
                 <button onClick={func}>click</button>
+
+                <input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>
+
                 <header className="header">
                     <div className="nav-header">
                         <div className="container-header">

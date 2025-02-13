@@ -15,6 +15,9 @@ export default class Api {
     static forgotPasswordUser({email}) {
         return api.post(`/users/forgot/password`, {email});
     }
+    static changePasswordUser({newPassword,key}) {
+        return api.post(`/users/update/password`, {newPassword,key});
+    }
 
     static registrationUser({firstName, lastName, gender, dateOfBirth, email, password}) {
         return api.post(`/users/registration`,

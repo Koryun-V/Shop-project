@@ -20,6 +20,7 @@ const Product = ({products, className, classNameImg}) => {
     const [indexProduct, setIndexProduct] = useState("")
     const page = useSelector(state => state.products.page)
     const navigate = useNavigate()
+    const total = useSelector(state=>state.home.total)
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -32,7 +33,8 @@ const Product = ({products, className, classNameImg}) => {
     });
 
     useEffect(() => {
-        dispatch(getCards({page, limit: 12}))
+        //total
+        dispatch(getCards({page, limit: 20}))
     }, [page, status]);
 
 
@@ -51,7 +53,7 @@ const Product = ({products, className, classNameImg}) => {
     }
 
 
-
+    console.log(cards,"iiiii")
     return (
         <>
             {products.map((product, index) => {

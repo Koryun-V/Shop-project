@@ -11,7 +11,7 @@ const OneProduct = () => {
   const dispatch = useDispatch();
   const productId = useSelector(state => state.home.productId);
   const oneProduct = useSelector(state => state.oneProduct.oneProduct);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const name = oneProduct?.result?.product?.name;
   const id = oneProduct?.result?.product?.id;
   const price = oneProduct?.result?.product?.price
@@ -25,8 +25,16 @@ const OneProduct = () => {
   const cardsList  = useSelector(state => state.products.cardsList)
 
   const updateQuantity = (value) => {
-    setQuantity((prev) => (prev + value < 1 ? prev : prev + value));
+    setQuantity((prev) => Math.max(1, prev + value));
   };
+
+  const onChange = (e) => {
+    const newValue = e.target.value;
+    if (/^\d*$/.test(newValue)) {
+      setQuantity(newValue === "" ? "" : Math.max(1, Number(newValue)));
+    }
+  };
+
 
   useEffect(() => {
     dispatch(getOneProduct({id: productId}));
@@ -88,7 +96,7 @@ const OneProduct = () => {
           </div>
           <button onClick={addCard} className="product__button__cart">Add to cart</button>
           <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
-          <span className="product__price">{quantity}</span>
+        <input type= "text" value={quantity} onChange={onChange}/>
           <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
         </div>
       </div>

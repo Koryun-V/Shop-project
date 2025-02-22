@@ -47,6 +47,7 @@ function Layout() {
             dispatch(getUser())
         }
     }, [token]);
+    console.log(user)
 
     const onChange = (e) => {
         if (e.target.value !== " ") {

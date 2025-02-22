@@ -11,7 +11,7 @@ const fields = [
         name: "key",
         label: "Enter 6 number code",
         validation: /^\d{6}$/,
-        maxLength:6,
+        maxLength: 6,
         info: "Verification code is incorrect",
     },
     {
@@ -25,7 +25,7 @@ const fields = [
         id: 3,
         name: "repeatPassword",
         label: "Confirm new password",
-        validation:"",
+        validation: "",
         info: "Password don't match.",
     },
 ]
@@ -41,7 +41,7 @@ const ModalNewPassword = () => {
         password: "",
         repeatPassword: "",
     })
-    const {key,password, repeatPassword} = newPassword;
+    const {key, password, repeatPassword} = newPassword;
     const [userInfo, setUserInfo] = useState({
         value: "",
         title: ""
@@ -104,17 +104,19 @@ const ModalNewPassword = () => {
     const changePassword = (e) => {
         e.preventDefault();
         if (isChangePassword) {
-            dispatch(changePasswordUser({newPassword:password,key}))
+            dispatch(changePasswordUser({newPassword: password, key}))
         }
     }
     return (
         <div className="container-form">
             <form onSubmit={changePassword}>
-                {fields.map((field) => (
+                {fields.map((field, index) => (
                     <div key={field.id} className="login">
-                        <div style={{
-                            height: "50px",
-                        }}>
+                        <div
+                            style={{
+                                height: "50px",
+                                width: index === 0 ? "200px" : "auto",
+                            }}>
                             <Input
                                 maxLength={field.maxLength}
                                 name={field.name}

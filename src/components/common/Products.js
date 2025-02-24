@@ -61,7 +61,7 @@ const Products = () => {
     dispatch(setSelectId(id.id));
   };
 
-  console.log(categories.categories);
+
 
   return (
     <div className="wrapper">
@@ -104,11 +104,12 @@ const Products = () => {
           </div>
 
 
+
           <div className="select_box">
             <Select
               onChange={change}
-              placeholder={selectId ? name: "All Products"}
-              options={categories.categories}
+              placeholder={selectId ? name: "All"}
+              options={categories}
               classNamePrefix="react-select"
               getOptionValue={(o) => o.id}
               getOptionLabel={(o) => o.name}

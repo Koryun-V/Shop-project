@@ -53,7 +53,7 @@ export const getCards = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getCards(payload);
-            // console.log(data, "cardsList")
+            console.log(data, "cardsList")
             return data ? data.cards : []
 
         } catch (err) {

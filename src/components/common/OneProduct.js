@@ -52,8 +52,6 @@ const OneProduct = () => {
   };
 
 
-  console.log(cardId)
-  console.log(cardsList)
 
 
   return (

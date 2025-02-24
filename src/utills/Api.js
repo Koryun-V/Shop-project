@@ -10,9 +10,8 @@ const token = localStorage.getItem("token");
 
 
 export default class Api {
-  static getAllProducts({categoryId, limit, page}) {
-
-    return api.get(`/products/list/${categoryId}?limit=${limit}&page=${page}`);
+  static getAllProducts({categoryId, limit, page, minPrice, maxPrice}) {
+    return api.get(`/products/list/${categoryId}?limit=${limit}&page=${page}&minPrice=${minPrice}&maxPrice=${maxPrice}`);
   }
 
   static loginUser({email, password}) {

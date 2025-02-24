@@ -1,65 +1,120 @@
-import React, {useEffect, useState,} from 'react';
+import React, {useEffect, useState} from 'react';
 import Product from "../mini/Product";
-import {useDispatch, useSelector,} from "react-redux";
-import {getProducts, setProductId} from "../../store/actions/home";
+import {useDispatch, useSelector} from "react-redux";
+import {getProducts} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {setSelectId} from "../../store/actions/home";
 import Select from "react-select";
-import {categoriesRequest, getCards, setPage} from "../../store/actions/products";
-import {useNavigate, useParams} from "react-router-dom";
+import {categoriesRequest, setMaxPrice, setMinPrice, setPage} from "../../store/actions/products";
+import {useParams} from "react-router-dom";
+import Slider from "react-slider";
 
 const Products = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.products);
-  const categories = useSelector(state => state.products.categories)
-  const selectId = useSelector(state => state.home.selectId)
-  const [id, setId] = useState("")
-  const {name} = useParams()
-  const total = useSelector(state => state.home.total)
+  const categories = useSelector(state => state.products.categories);
+  const selectId = useSelector(state => state.home.selectId);
+  const {name} = useParams();
+  const total = useSelector(state => state.home.total);
   const [limit, setLimit] = useState(12);
-  const pageCount = Math.ceil(total / limit)
-  const page = useSelector(state => state.products.page)
+  const pageCount = Math.ceil(total / limit);
+  const page = useSelector(state => state.products.page);
+  const minPrice = useSelector(state => state.products.minPrice);
+  const maxPrice = useSelector(state => state.products.maxPrice);
+
+  useEffect(() => {
+    dispatch(categoriesRequest({limit}));
+  }, [dispatch, limit]);
+
+
+  const getAllProducts = () => {
+    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice}));
+  }
+
+
+  useEffect(() => {
+    getAllProducts()
+  }, [page, limit]);
+
+
+  const clearAllOptions = () => {
+    dispatch(setMinPrice(0))
+    dispatch(setMaxPrice(2000))
+    dispatch(setSelectId(""))
+  }
+
 
   const handleClick = (pageInfo) => {
-    let currentPage = pageInfo.selected + 1
-
+    let currentPage = pageInfo.selected + 1;
     dispatch(setPage(currentPage));
+  };
 
-  }
+  const handleSliderChange = (value) => {
+
+    dispatch(setMinPrice(value[0]));
+    dispatch(setMaxPrice(value[1]));
+
+  };
 
 
   const change = (id) => {
-    console.log(id)
-    dispatch(setSelectId(id.id))
-  }
+    dispatch(setSelectId(id.id));
+  };
 
+  console.log(categories.categories);
 
-  useEffect(() => {
-    dispatch(categoriesRequest({limit}))
-
-  }, []);
-
-  useEffect(() => {
-    dispatch(getProducts({categoryId: selectId, page , limit}))
-  }, [selectId, page]);
-
-
-
-
-  return (<div className="wrapper">
+  return (
+    <div className="wrapper">
       <div className="section">
         <div className="select_container">
-          <div className="select_box">
+          <form action="#" className="price-container">
+            <span style={{marginTop: "10px", marginBottom: "15px"}}>Price</span>
+            <div>
+              <input
+                type="text"
+                className="price-input"
+                value={minPrice}
+                onChange={(e) => handleSliderChange([+e.target.value, maxPrice])}
+              />
+              <input
+                type="text"
+                className="price-input"
+                value={maxPrice}
+                onChange={(e) => handleSliderChange([minPrice, +e.target.value])}
+              />
+            </div>
 
+            <Slider
+              className="price-slider"
+              onChange={handleSliderChange}
+              value={[minPrice, maxPrice]}
+              min={0}
+              max={2000}
+            />
+          </form>
+
+          <div className="buttons-container">
+            <button onClick={() => getAllProducts()} className="agree-button">
+              Apply
+            </button>
+
+            <button onClick={() => clearAllOptions()} className="agree-button">
+              Clear All
+            </button>
+          </div>
+
+
+          <div className="select_box">
             <Select
               onChange={change}
-              placeholder={name || "All"}
+              placeholder={selectId ? name: "All Products"}
               options={categories.categories}
               classNamePrefix="react-select"
               getOptionValue={(o) => o.id}
               getOptionLabel={(o) => o.name}
               isSearchable={false}
             />
+
 
           </div>
         </div>
@@ -68,10 +123,11 @@ const Products = () => {
           <div className="react_pagination_div">
             <ReactPaginate
               previousLabel={"<"}
-              nextLabel={">"}
-              pageCount={pageCount ? pageCount : 1}
+              nextLabel={pageCount ? ">": "" }
+              pageCount={pageCount}
               pageRangeDisplayed={3}
               onPageChange={handleClick}
+              pageLinkClassName={"page-link"}
               containerClassName={"pagination"}
               pageClassName={"page-item"}
               activeClassName={"page-item--active"}
@@ -82,8 +138,6 @@ const Products = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 

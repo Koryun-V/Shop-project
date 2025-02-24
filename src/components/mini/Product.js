@@ -34,8 +34,11 @@ const Product = ({products, className, classNameImg}) => {
 
     useEffect(() => {
         //total
-        dispatch(getCards({page, limit: 20}))
+        dispatch(getCards({page, limit: total}))
     }, [page, status]);
+
+
+    console.log(cards)
 
 
     const changeImage = () => {
@@ -53,7 +56,7 @@ const Product = ({products, className, classNameImg}) => {
     }
 
 
-    console.log(cards,"iiiii")
+    // console.log(cards,"iiiii")
     return (
         <>
             {products.map((product, index) => {

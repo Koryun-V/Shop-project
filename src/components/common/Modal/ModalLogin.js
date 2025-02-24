@@ -2,7 +2,14 @@ import React, {useCallback, useEffect, useState} from 'react';
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
-import {forgotPasswordUser, loginUser, setIsOpenLogin, setStatus, setStatusForgot} from "../../../store/actions/login";
+import {
+    forgotPasswordUser,
+    loginUser,
+    setEmail,
+    setIsOpenLogin,
+    setStatus, setStatusCode,
+    setStatusForgot
+} from "../../../store/actions/login";
 import Input from "../../mini/Input";
 import Button from "../../mini/Button";
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
@@ -10,6 +17,8 @@ import _ from "lodash";
 import {useNavigate} from "react-router-dom";
 import bg from "../../../assets/background/login.jpg"
 import ModalNewPassword from "./ModalNewPassword";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCommentDots, faEnvelope, faMobileScreenButton} from "@fortawesome/free-solid-svg-icons";
 
 
 const fields = [
@@ -40,7 +49,8 @@ function ModalLogin({open, onClose}) {
     const [inputName, setInputName] = useState([]);
     const [isForgot, setIsForgot] = useState(false)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
-
+    const statusPassword = useSelector(state => state.login.statusNewPassword)
+    const [isModalClose, setIsMoadlClose] = useState(false);
     const [userInfo, setUserInfo] = useState({
         value: "",
         title: ""
@@ -108,6 +118,7 @@ function ModalLogin({open, onClose}) {
                 }
             })()
         } else {
+
             scrollModal()
             setIsForgot(false)
             setUser({
@@ -119,7 +130,10 @@ function ModalLogin({open, onClose}) {
                 title: "",
                 value: "",
             })
+            dispatch(setStatusCode(""))
             dispatch(setStatusForgot(""))
+            dispatch(setEmail(""))
+            setIsMoadlClose(false)
         }
     }, [open]);
 
@@ -147,27 +161,31 @@ function ModalLogin({open, onClose}) {
     const getForgotPassword = (e) => {
         e.preventDefault();
         if (isForgotPassword) {
+            dispatch(setEmail(email))
             dispatch(forgotPasswordUser({email}))
         }
     }
 
     const test = () => {
-
-        fields.forEach(({validation, name, id}) => {
-                if (title === name) {
-                    let test = validation.test(value)
-                    if (test === false || !value.length) {
-                        setInputName((prevState) => (_.uniq([...prevState, title])))
-                        console.log("if")
-                    } else {
-                        const filter = inputName.filter(item => item !== title)
-                        setInputName(filter)
-                        console.log("else")
+        if (!isModalClose) {
+            fields.forEach(({validation, name, id}) => {
+                    if (title === name) {
+                        let test = validation.test(value)
+                        if (test === false || !value.length) {
+                            setInputName((prevState) => (_.uniq([...prevState, title])))
+                            console.log("if")
+                        } else {
+                            const filter = inputName.filter(item => item !== title)
+                            setInputName(filter)
+                            console.log("else")
+                        }
                     }
                 }
-            }
-        )
+            )
+        }
+
     }
+    console.log(statusPassword)
 
 
     const forgotPassword = () => {
@@ -191,9 +209,11 @@ function ModalLogin({open, onClose}) {
             <div id="modal_window">
                 <div className="close">
                     <div className="title">
-                        <span>{isForgot ? "Reset password" : "LOGIN"}</span>
+                        <span>{statusPassword === "error" ? "Notification" : isForgot ? "Reset password" : "LOGIN"}</span>
                     </div>
-                    <div className="close-block" onClick={onClose}>
+                    <div className="close-block" onClick={onClose}
+                         onMouseEnter={() => setIsMoadlClose(true)}
+                         onMouseLeave={() => setIsMoadlClose(false)}>
                         <Close className="icon"/>
                     </div>
                 </div>
@@ -301,14 +321,14 @@ function ModalLogin({open, onClose}) {
                                             </div>
                                             <div className="validation-info">
                                                 {status === "error" ?
-                                                <span>Wrong login or password.</span>
-                                                :
-                                                inputName.map(((item, index) => (
-                                                    item === fields[0].name ?
-                                                        <>
-                                                            <div className="test2"></div>
-                                                            <span>{!user[item].length ? "Field Required" : fields[0].info}</span>
-                                                        </> : null)))
+                                                    <span>Wrong login or password.</span>
+                                                    :
+                                                    inputName.map(((item, index) => (
+                                                        item === fields[0].name ?
+                                                            <>
+                                                                <div className="test2"></div>
+                                                                <span>{!user[item].length ? "Field Required" : fields[0].info}</span>
+                                                            </> : null)))
                                                 }
                                             </div>
                                         </div>
@@ -322,7 +342,20 @@ function ModalLogin({open, onClose}) {
                                         </div>
                                     </form>
                                 </div>
-                                : <ModalNewPassword/>
+                                :
+                                statusPassword !== "error" ?
+                                    <ModalNewPassword isModalClose={isModalClose}/>
+
+                                    :
+                                    <div className="no-correct">
+                                        <div className="message">
+                                            <FontAwesomeIcon icon={faMobileScreenButton} className="icon"/>
+                                            <FontAwesomeIcon icon={faCommentDots} className="icon-message"/>
+                                        </div>
+
+                                        <span>OTP is not correct</span>
+
+                                    </div>
 
 
                         }

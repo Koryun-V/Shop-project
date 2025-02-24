@@ -64,6 +64,18 @@ export const getUser = createAsyncThunk(
     }
 );
 
+export const resendCode = createAsyncThunk(
+    "user/resend-code",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.resendCode(payload);
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
 export const setIsOpenLogin = createAction(
     "login/modalOpen",
 )
@@ -72,6 +84,12 @@ export const setStatus = createAction(
 )
 export const setStatusForgot = createAction(
     "login/status-forgot",
+)
+export const setStatusCode = createAction(
+    "login/status-code",
+)
+export const setEmail = createAction(
+    "login/email",
 )
 
 

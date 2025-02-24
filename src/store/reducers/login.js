@@ -3,9 +3,9 @@ import {
     changePasswordUser,
     forgotPasswordUser,
     getUser,
-    loginUser,
+    loginUser, setEmail,
     setIsOpenLogin,
-    setStatus,
+    setStatus, setStatusCode,
     setStatusForgot,
 } from "../actions/login";
 
@@ -16,7 +16,8 @@ const initialState = {
     statusNewPassword:"",
     token:"",
     isOpenLogin:false,
-    user:{}
+    user:{},
+    email:""
 }
 export const login = createReducer(initialState, (builder) => {
     builder
@@ -65,8 +66,14 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(setStatusForgot, (state, {payload}) => {
             state.statusForgot = payload
         })
+        .addCase(setStatusCode, (state, {payload}) => {
+            state.statusNewPassword = payload
+        })
         .addCase(setIsOpenLogin, (state, {payload}) => {
             state.isOpenLogin = payload
+        })
+        .addCase(setEmail, (state, {payload}) => {
+            state.email = payload
         })
 
 

@@ -27,21 +27,21 @@ const Product = ({quantity,products, className,classNameImg}) => {
 
     return (
         <>
-            {products.slice(0,quantity).map((product, index) => (
+            {products.slice(0,products.length < 12 ? 8 : 12).map((product, index) => (
                 <div className={className}>
                     <>
-                        <Link to="/category" className="product-link"
-                              onMouseEnter={() => {
-                                  setIsPlay(true)
-                                  setImgLength(product.productImage.length)
-                                  setTest(index)
-                              }}
-                              onMouseLeave={() => {
-                                  setIsPlay(false)
-                                  setImgLength(0)
-                                  setIndexImg(0)
-                              }}
-                        ></Link>
+                        {/*<Link to="/category" className="product-link"*/}
+                        {/*      onMouseEnter={() => {*/}
+                        {/*          setIsPlay(true)*/}
+                        {/*          setImgLength(product.productImage.length)*/}
+                        {/*          setTest(index)*/}
+                        {/*      }}*/}
+                        {/*      onMouseLeave={() => {*/}
+                        {/*          setIsPlay(false)*/}
+                        {/*          setImgLength(0)*/}
+                        {/*          setIndexImg(0)*/}
+                        {/*      }}*/}
+                        {/*></Link>*/}
                         <div className={classNameImg}> {product.productImage.length ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?

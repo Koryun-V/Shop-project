@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getPopularProducts} from "../store/actions/home";
 
 
 const api = axios.create({
@@ -9,7 +10,7 @@ const token = localStorage.getItem("token");
 
 
 export default class Api {
-    static getAllProducts(params) {
+    static getPopularProducts(params) {
         return api.get(`/products/list`, {params})
     }
     static loginUser({email, password}) {

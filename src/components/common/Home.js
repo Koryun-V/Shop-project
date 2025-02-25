@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
-import {getProducts} from "../../store/actions/home";
+import {getPopularProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
 import homeBackground from "../../assets/image/b-2.jpg"
 
@@ -23,7 +23,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getPopularProducts())
     }, []);
 
     console.log(products)

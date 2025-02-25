@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getProducts} from "../actions/home";
+import {getPopularProducts} from "../actions/home";
 
 const initialState = {
     status: "",
@@ -7,14 +7,14 @@ const initialState = {
 }
 export const home = createReducer(initialState, (builder) => {
     builder
-        .addCase(getProducts.pending, (state) => {
+        .addCase(getPopularProducts.pending, (state) => {
             state.status = "pending"
         })
-        .addCase(getProducts.fulfilled, (state, {payload}) => {
+        .addCase(getPopularProducts.fulfilled, (state, {payload}) => {
             state.status = "ok"
             state.products = payload
         })
-        .addCase(getProducts.rejected, (state) => {
+        .addCase(getPopularProducts.rejected, (state) => {
             state.status = "error"
         })
 

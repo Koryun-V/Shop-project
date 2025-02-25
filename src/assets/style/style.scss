@@ -325,13 +325,15 @@ input:-webkit-autofill:focus {
   height: auto;
   position: absolute;
   top:100%;
+  min-width: 900px;
+
 
   display: flex;
   justify-content: center;
   align-items: center;
   .footer-container {
     width: 100%;
-    max-width: 1170px;
+    max-width: 1440px;
     height: 100%;
     font-family: "PoppinsMedium", sans-serif;
 

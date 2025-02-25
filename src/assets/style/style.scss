@@ -326,7 +326,12 @@ input:-webkit-autofill:focus {
   position: absolute;
   top:100%;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .footer-container {
+    width: 100%;
+    max-width: 1170px;
     height: 100%;
     font-family: "PoppinsMedium", sans-serif;
 
@@ -354,7 +359,7 @@ input:-webkit-autofill:focus {
         }
 
         span {
-          font-size: 18px;
+          font-size: 16px;
 
         }
       }
@@ -367,7 +372,7 @@ input:-webkit-autofill:focus {
         margin-top: 10px;
 
         a {
-          font-size: 18px;
+          font-size: 16px;
           margin-top: 10px;
           text-decoration: none;
           color: white;
@@ -432,7 +437,7 @@ input:-webkit-autofill:focus {
       }
 
       span {
-        font-size: 18px;
+        font-size: 16px;
 
       }
     }

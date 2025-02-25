@@ -68,34 +68,34 @@ function Layout() {
     // }, [window.body, isProfile]);
 
 
-    const func = async () => {
-        try {
-            // const formData = new FormData();
-            // formData.append("firstName", "esim");
-            // formData.append("lastName", "esim");
-            // formData.append("gender", "male");
-            // formData.append("dateOfBirth", "2000-10-10");
-            // formData.append("avatar", avatar);
-            const {data} = await axios.put(`https://world-of-construction.onrender.com/users/update`,
-                {
-                    firstName:"esim",
-                    lastName:"esim",
-                    gender:"male",
-                    dateOfBirth:"2000-10-10",
-                    avatar:avatar[0],
-                },
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                }
-            );
-            return data;
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const func = async () => {
+    //     try {
+    //         // const formData = new FormData();
+    //         // formData.append("firstName", "esim");
+    //         // formData.append("lastName", "esim");
+    //         // formData.append("gender", "male");
+    //         // formData.append("dateOfBirth", "2000-10-10");
+    //         // formData.append("avatar", avatar);
+    //         const {data} = await axios.put(`https://world-of-construction.onrender.com/users/update`,
+    //             {
+    //                 firstName:"esim",
+    //                 lastName:"esim",
+    //                 gender:"male",
+    //                 dateOfBirth:"2000-10-10",
+    //                 avatar:avatar[0],
+    //             },
+    //             {
+    //                 headers: {
+    //                     "Content-Type": "multipart/form-data",
+    //                     Authorization: token,
+    //                 },
+    //             }
+    //         );
+    //         return data;
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     const animUser = () => {
         if (!isProfile) {
@@ -114,9 +114,9 @@ function Layout() {
     return (
         <>
             <div className="wrapper">
-                <button onClick={func}>click</button>
+                {/*<button onClick={func}>click</button>*/}
 
-                <input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>
+                {/*<input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>*/}
 
                 <header className="header">
                     <div className="nav-header">
@@ -342,8 +342,7 @@ function Layout() {
                             </div>
                             <div className="footer-block">
                                 <div className="footer-link"><Link>Стать продавцом</Link></div>
-                                <div className="footer-link"><Link>Shares</Link></div>
-                                <div className="footer-link"><Link>Contact</Link></div>
+
                             </div>
                         </div>
                         <hr/>

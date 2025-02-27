@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getOneProduct} from "../../store/actions/oneProduct";
+import {getOneProduct, getPopularProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
 import {createCard, updateCard} from "../../store/actions/products";
+import Product from "../mini/Product";
 
 
 const OneProduct = () => {
@@ -22,7 +23,7 @@ const OneProduct = () => {
 
   const cardId = useSelector(state => state.products.cardId)
   const statusCard = useSelector(state => state.products.statusCard)
-  const cardsList  = useSelector(state => state.products.cardsList)
+  const popularProducts = useSelector(state => state.oneProduct.popularProducts)
 
   const updateQuantity = (value) => {
     setQuantity((prev) => Math.max(1, prev + value));
@@ -52,6 +53,11 @@ const OneProduct = () => {
   };
 
 
+useEffect(() => {
+  dispatch(getPopularProduct())
+}, [productId]);
+
+  console.log(popularProducts)
 
 
   return (
@@ -90,12 +96,15 @@ const OneProduct = () => {
         <div className="product__header__span">
           <div className="product_info">
             <span className="product__name">{name}</span>
-            <span className="product__price">{price}$</span>
+            <span className="product___price">{price}$</span>
           </div>
-          <button onClick={addCard} className="product__button__cart">Add to cart</button>
-          <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
-        <input type= "text" value={quantity} onChange={onChange}/>
-          <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
+          <div className="product__quantity">
+            <button onClick={addCard} className="product__button__cart">Add to cart</button>
+            <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
+            <input className="product__price" type= "text" value={quantity} onChange={onChange}/>
+            <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
+          </div>
+
         </div>
       </div>
       <div className="product__description">
@@ -108,6 +117,12 @@ const OneProduct = () => {
       <div className="product__description">
         <h3 className="product__description__h">Similar products</h3>
       </div>
+
+
+      {/*<div className="pop_product_container">*/}
+      {/*  <Product products={popularProducts} className="product-block" classNameImg="product-img"/>*/}
+      {/*</div>*/}
+
 
     </div>
   );

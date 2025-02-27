@@ -10,11 +10,24 @@ export const getOneProduct = createAsyncThunk(
     try {
 
       const {data} = await api.getOneProduct(payload);
-
       return data
 
 
     } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+
+export const getPopularProduct = createAsyncThunk(
+  "oneProduct/getPopularProduct",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await api.getPopularProducts(payload);
+      return data
+    }
+    catch(error) {
       return thunkAPI.rejectWithValue(error)
     }
   }

@@ -38,7 +38,7 @@ const Product = ({products, className, classNameImg}) => {
     }, [ status]);
 
 
-    console.log(cards)
+
 
 
     const changeImage = () => {

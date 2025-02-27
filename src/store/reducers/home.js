@@ -20,7 +20,6 @@ export const home = createReducer(initialState, (builder) => {
       state.status = "ok"
       state.products = state.selectId ? payload.products.map(({product}) => product) : payload.products
       state.total = payload.total
-      // console.log(payload.total,"aaaa")
 
 
     })

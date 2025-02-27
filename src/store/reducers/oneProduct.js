@@ -1,11 +1,12 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getOneProduct} from "../actions/oneProduct";
-
+import {getPopularProduct} from "../actions/oneProduct";
 
 
 const initialState = {
   status: "",
-  oneProduct: {}
+  oneProduct: {},
+  popularProducts: [],
 }
 
 
@@ -23,5 +24,17 @@ export const oneProduct = createReducer(initialState, (builder) => {
     .addCase(getOneProduct.rejected, state => {
       state.status = "error"
     })
+    .addCase(getPopularProduct.pending, state => {
+      state.status = "pending"
+    })
+    .addCase(getPopularProduct.fulfilled, (state, {payload}) => {
+      state.status = "ok"
+      state.popularProducts = payload.data
+    })
+    .addCase(getPopularProduct.rejected, state => {
+      state.status = "error"
+    })
 
 })
+
+

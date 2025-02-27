@@ -11,7 +11,7 @@ const token = localStorage.getItem("token");
 
 export default class Api {
     static getPopularProducts(params) {
-        return api.get(`/products/list`, {params})
+        return api.get(`/products/popular`, {params})
     }
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});

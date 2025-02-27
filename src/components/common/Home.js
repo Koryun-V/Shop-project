@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import Slider from "react-slick";
-import img from "../../esim/1.jpg"
-import img2 from "../../esim/2.jpg"
-import img3 from "../../esim/3.jpg"
+
 import background from "../../assets/image/home.jpg"
+import background2 from "../../assets/image/home-2.jpg"
+
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
@@ -11,7 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
 import {getPopularProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
-import homeBackground from "../../assets/image/b-2.jpg"
+import about from "../../assets/image/about.jpg"
 
 
 const Home = () => {
@@ -77,14 +78,18 @@ const Home = () => {
                             <img src={background} className="img-b"/>
                         </div>
                         <div>
-                            <img src={background} className="img-b"/>
+                            <div className="text-slide">
+                                <h2>Special offers</h2>
+                                <p>on construction materials and goods for repair</p>
+                            </div>
+                            <img src={background2} className="img-b"/>
                         </div>
                         <div>
                             <img src={background} className="img-b"/>
                         </div>
                     </Slider>
-                {/*</div>*/}
-            </div>
+                    {/*</div>*/}
+                </div>
 
             <article className="article-home">
                 <div className="title">Shares</div>
@@ -127,7 +132,7 @@ const Home = () => {
                             StroykaStor is a wide range of goods for home and renovation at a low price; Possibility to
                             order construction and finishing materials for home and garden.</p>
                     </div>
-                    <img className="img" src={homeBackground}/>
+                    <img className="img" src={about}/>
                 </div>
             </article>
 

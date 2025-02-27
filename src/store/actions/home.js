@@ -7,7 +7,8 @@ export const getPopularProducts = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getPopularProducts(payload)
-            return data.products
+            console.log(data)
+            return data.data
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
         }

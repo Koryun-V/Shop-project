@@ -42,7 +42,7 @@ const Product = ({quantity,products, className,classNameImg}) => {
                         {/*          setIndexImg(0)*/}
                         {/*      }}*/}
                         {/*></Link>*/}
-                        <div className={classNameImg}> {product.productImage.length ?
+                        <div className={classNameImg}> {product.productImage  ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?
                                     product.productImage[indexImg].path

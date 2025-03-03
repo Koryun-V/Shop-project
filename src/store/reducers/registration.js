@@ -1,11 +1,19 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {activateUser, registrationUser, resendActivateUser, setStatus, setStatusKey} from "../actions/registration";
+import {
+    activateUser,
+    registrationUser,
+    resendActivateUser,
+    setDeleteEmail,
+    setStatus,
+    setStatusKey
+} from "../actions/registration";
 
 const initialState = {
     status: "",
     token:"",
     statusKey:"",
     statusResendKey:"",
+    deleteEmail:"",
 }
 
 export const registration = createReducer(initialState, (builder) => {
@@ -49,6 +57,9 @@ export const registration = createReducer(initialState, (builder) => {
 
         .addCase(setStatusKey, (state,{payload}) => {
             state.statusKey = payload
+        })
+        .addCase(setDeleteEmail, (state,{payload}) => {
+            state.deleteEmail = payload
         })
 
 });

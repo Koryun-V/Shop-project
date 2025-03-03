@@ -19,6 +19,7 @@ import bg from "../../../assets/background/login.jpg"
 import ModalNewPassword from "./ModalNewPassword";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faEnvelope, faMobileScreenButton} from "@fortawesome/free-solid-svg-icons";
+import {setDeleteEmail} from "../../../store/actions/registration";
 
 
 const fields = [
@@ -33,7 +34,7 @@ const fields = [
         id: 2,
         name: "password",
         label: "Password",
-        validation: /^(?=.*\d).{8,}$/,
+        validation: /^[a-zA-Z]{2,20}$/,
         info: "Password must be at least 8 characters long",
     },
 ]
@@ -134,6 +135,10 @@ function ModalLogin({open, onClose}) {
             dispatch(setStatusForgot(""))
             dispatch(setEmail(""))
             setIsMoadlClose(false)
+            dispatch(setEmail(""))
+            dispatch(setDeleteEmail(false))
+
+
         }
     }, [open]);
 
@@ -320,7 +325,7 @@ function ModalLogin({open, onClose}) {
                                                 />
                                             </div>
                                             <div className="validation-info">
-                                                {status === "error" ?
+                                                {status === "error"  && fields[0].name === "password" ?
                                                     <span>Wrong login or password.</span>
                                                     :
                                                     inputName.map(((item, index) => (

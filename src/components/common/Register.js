@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {registrationUser, setStatus, setStatusKey} from "../../store/actions/registration";
+import {registrationUser, setDeleteEmail, setStatus, setStatusKey} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
@@ -94,7 +94,7 @@ const Register = () => {
     const {value, title} = userInfo
     const status = useSelector(state => state.registration.status)
     const statusKey = useSelector(state => state.registration.statusKey)
-
+    const isEmail = useSelector(state => state.registration.deleteEmail)
     const [inputName, setInputName] = useState([]);
     const [isRegister, setIsRegister] = useState(false)
     const [dateOfBirth, setDateOfBirth] = useState("")
@@ -113,13 +113,14 @@ const Register = () => {
 
 
     const [isCheck, setIsCheck] = useState(false)
+
     const [isAnimation, setIsAnimation] = useState(false)
 
 
     useEffect(() => {
         setIsDate("")
         setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
-        return ()=>{
+        return () => {
             dispatch(setStatusKey(""))
             dispatch(setStatus(""))
         }
@@ -152,6 +153,14 @@ const Register = () => {
     };
     console.log(email)
 
+
+    useEffect(() => {
+        dispatch(setDeleteEmail(false))
+        if(!isEmail) {
+            return () => console.log('yes')
+        }
+    }, []);
+
     useEffect(() => {
         inputName.forEach((item) => {
             if (item === title && value.length) {
@@ -160,6 +169,8 @@ const Register = () => {
         })
         if (email && firstName && lastName && password && repeatPassword && dateOfBirth && !inputName.length) {
             setIsRegister(true)
+            dispatch(setDeleteEmail(true))
+
         } else {
             setIsRegister(false)
         }
@@ -236,7 +247,6 @@ const Register = () => {
                         const filter = inputName.filter(item => item !== title)
                         setInputName(filter)
                         console.log("else")
-
                     }
                 }
             }
@@ -245,14 +255,13 @@ const Register = () => {
 
     const register = (e) => {
         if (isRegister) {
+            dispatch(setDeleteEmail(true))
             e.preventDefault();
             dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
-            setIsRegister(true)
         }
     }
 
     console.log()
-
 
 
     return (

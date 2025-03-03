@@ -15,8 +15,9 @@ export default class Api {
     static forgotPasswordUser({email}) {
         return api.post(`/users/forgot/password`, {email});
     }
-    static changePasswordUser({newPassword,key}) {
-        return api.put(`/users/update/password`, {newPassword,key});
+
+    static changePasswordUser({newPassword, key}) {
+        return api.put(`/users/update/password`, {newPassword, key});
     }
 
     static registrationUser({firstName, lastName, gender, dateOfBirth, email, password}) {
@@ -43,8 +44,17 @@ export default class Api {
     static resendActivateUser({email}) {
         return api.post(`/users/resend-activation-key`, {email});
     }
+
     static resendCode({email}) {
         return api.post(`/users/resend-code`, {email});
+    }
+
+    static getOrder() {
+        return api.get(`/payment/history`, {
+            headers: {
+                Authorization: `${token}`
+            }
+        });
     }
 
     static getUser() {

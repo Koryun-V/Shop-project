@@ -5,6 +5,8 @@
 @import url("header.scss");
 @import url("loginModal.scss");
 @import url("registerPage.scss");
+@import url("order.scss");
+
 @import "variables";
 
 //@import url("slide.scss");
@@ -101,6 +103,7 @@ input:-webkit-autofill:focus {
   min-width: 900px;
 
   .section {
+    border:2px solid black;
     padding: 0 100px;
     width: 100%;
     height: 100%;
@@ -324,7 +327,6 @@ input:-webkit-autofill:focus {
   width: 100%;
   height: auto;
   position: absolute;
-  top:100%;
   min-width: 900px;
 
 

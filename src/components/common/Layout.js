@@ -188,7 +188,7 @@ function Layout() {
                                         </div>
 
                                         <div className="cart">
-                                            <Link to="/">
+                                            <Link to="/order">
                                                 <FontAwesomeIcon icon={faCube} className="cart-icon"/>
                                             </Link>
                                         </div>
@@ -202,7 +202,7 @@ function Layout() {
                                              }}
 
                                         >
-                                            <Link to="/" className="user-img"
+                                            <Link className="user-img"
                                                   style={{
                                                       border: isProfile ? "2px solid limegreen" : "2px solid #d1d1d1",
                                                   }}>
@@ -332,7 +332,7 @@ function Layout() {
 
                             <div className="footer-block">
                                 <div className="footer-link"><Link>Profile</Link></div>
-                                <div className="footer-link"><Link>Order</Link></div>
+                                <div className="footer-link"><Link to="/order">Order</Link></div>
                                 <div className="footer-link"><Link>Basket</Link></div>
                             </div>
                             <div className="footer-block">

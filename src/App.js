@@ -20,7 +20,6 @@ function App() {
                 <Route path="/order" element={<Order/>}/>
 
                 {/*<Route path="/specialist" element={<Specialist/>}/>*/}
-                {/*<Route path="/Contact" element={<Contact/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
             </Route>
         </Routes>

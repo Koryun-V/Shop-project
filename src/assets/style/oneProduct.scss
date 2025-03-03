@@ -1,25 +1,28 @@
 .product {
   display: flex;
-  flex-wrap: wrap; /* Allow elements to wrap on smaller screens */
+  flex-wrap: wrap;
   border: 1px solid #E8E9EA;
   margin: 0 auto;
-  max-width: 90%; /* Ensures it shrinks dynamically */
+  max-width: 90%;
+  height: 500px;
+
 }
 
 .product__header {
-  flex: 1; /* Makes it flexible */
-  min-width: 150px; /* Prevents collapsing too much */
-  max-width: 300px; /* Limits maximum size */
-  height: auto; /* Adjusts height automatically */
-  margin: 0 auto;
+  flex: 1;
+  min-width: 150px;
+  max-width: 300px;
+  height: auto;
+  margin: auto auto;
 }
 
 .product__header__span {
-  flex: 2; /* Gives it more space than the header */
+  flex: 2;
   min-width: 300px;
   max-width: 600px;
   height: auto;
-  margin: 0 auto;
+  flex-direction: column;
+
 }
 
 .product__image__container {
@@ -36,7 +39,7 @@
   object-fit: contain;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .product {
     flex-direction: column;
@@ -53,20 +56,20 @@
 }
 
 
-
 .product__button__cart {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 140px; /* Adjust size as needed */
+  width: 140px;
   height: 40px;
   font-size: 16px;
   font-family: "Manrope-Medium", sans-serif;
   font-weight: bold;
-  color: #000000; /* Black text */
-  background-color: limegreen; /* Yellow background similar to the second image */
-  border: none;
-  border-radius: 5px; /* Slightly rounded corners */
+  color: #000000;
+  background-color: limegreen;
+  border-radius: 0;
+
+
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-right: 15px;
@@ -75,24 +78,18 @@
 .product__name {
   font-family: "Manrope-Medium", sans-serif;
   font-size: 40px;
-  margin-bottom: 10px;
+
 }
 
-.product__button {
-  width: 40px;
-  height: 30px;
-  font-family: "Manrope-Medium", sans-serif;
-  padding: 2px;
-  border: 1px solid #8e8e8e;
-  background-color: white;
-  color: #000000;
-}
 
 .product___price {
   width: 40px;
   font-family: "Inter", sans-serif;
   font-size: 20px;
-  margin: 0 5px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+
 }
 
 .product__description {
@@ -116,16 +113,16 @@
 .product__quantity {
   display: flex;
   align-items: center;
-  gap: 5px;
   margin-top: 20px;
   margin-left: 100px;
+  margin-bottom: 20px;
 
 
 }
 
 .product__button {
   width: 30px;
-  height: 30px;
+  height: 40px;
   font-size: 18px;
   font-family: "Manrope-Medium", sans-serif;
   border: 1px solid #8e8e8e;
@@ -133,23 +130,107 @@
   color: #000000;
   cursor: pointer;
   text-align: center;
+  border-radius: 0;
 }
 
-.product__price {
+.product__value {
   width: 50px;
-  height: 30px;
+  height: 40px;
   text-align: center;
   font-size: 18px;
   font-family: "Inter", sans-serif;
   border: 1px solid #8e8e8e;
   background-color: white;
   color: #000000;
-  border-radius: 5px;
+
 }
 
-.pop_product_container{
+.pop_product_container {
   display: flex;
   flex-wrap: wrap;
   margin: -10px;
   width: 100%;
+}
+
+.product__store_name{
+margin: 10px;
+}
+
+.product_mini_desc{
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-top: 50px;
+
+}
+
+
+@media (max-width: 768px) {
+  .product {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .product__header,
+  .product__header__span {
+    width: 100%;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .product__image__container {
+    width: 100%;
+  }
+
+  .product__description {
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .product__quantity {
+    margin: 20px auto;
+    justify-content: center;
+  }
+
+  .product_mini_desc {
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  .product__button__cart {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .product__name {
+    font-size: 30px;
+  }
+
+  .product___price {
+    font-size: 18px;
+  }
+
+  .product__description__h {
+    font-size: 24px;
+  }
+
+  .product__description__p {
+    font-size: 16px;
+  }
+
+  .product__button {
+    width: 25px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .product__value {
+    width: 40px;
+    height: 35px;
+    font-size: 16px;
+  }
 }

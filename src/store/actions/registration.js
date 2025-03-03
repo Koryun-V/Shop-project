@@ -30,7 +30,7 @@ export const registrationUser = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.registrationUser(payload);
-            console.log(data,"data")
+
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)

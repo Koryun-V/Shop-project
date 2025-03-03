@@ -57,7 +57,7 @@ useEffect(() => {
   dispatch(getPopularProduct())
 }, [productId]);
 
-  console.log(popularProducts)
+
 
 
   return (
@@ -101,9 +101,15 @@ useEffect(() => {
           <div className="product__quantity">
             <button onClick={addCard} className="product__button__cart">Add to cart</button>
             <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
-            <input className="product__price" type= "text" value={quantity} onChange={onChange}/>
+            <input className="product__value" type= "text" value={quantity} onChange={onChange}/>
             <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
           </div>
+
+          <div className= "product_mini_desc">
+            <span className="product__store_name">store:{store}</span>
+            <span className= "product__store_name">Delivery is carried out by the supplier's couriers or the Dostavista courier service. You can also pick up the goods yourself from the supplier</span>
+          </div>
+
 
         </div>
       </div>
@@ -119,9 +125,6 @@ useEffect(() => {
       </div>
 
 
-      {/*<div className="pop_product_container">*/}
-      {/*  <Product products={popularProducts} className="product-block" classNameImg="product-img"/>*/}
-      {/*</div>*/}
 
 
     </div>

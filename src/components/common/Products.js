@@ -22,7 +22,7 @@ const Products = () => {
   const minPrice = useSelector(state => state.products.minPrice);
   const maxPrice = useSelector(state => state.products.maxPrice);
 
-  const [selectValue, setSelectValue] = useState("")
+  const [selectValue, setSelectValue] = useState({id: "", name: "All", });
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}));

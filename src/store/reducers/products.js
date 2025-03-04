@@ -15,12 +15,8 @@ const initialState = {
     categories: [],
     statusCard: "",
     cardsList: [],
-    page: "1",
     cardId: "",
     updateCardStatus: "",
-    minPrice: 0,
-    maxPrice: 2000,
-
 }
 
 
@@ -78,18 +74,6 @@ export const products = createReducer(initialState, (builder) => {
             state.statusCard = "error"
         })
 
-        .addCase(setPage, (state, {payload}) => {
-            state.page = payload
-        })
 
-        .addCase(setMinPrice, (state, {payload}) => {
-
-            state.minPrice = payload
-        })
-
-        .addCase(setMaxPrice, (state, {payload}) => {
-
-            state.maxPrice = payload
-        })
 
 });

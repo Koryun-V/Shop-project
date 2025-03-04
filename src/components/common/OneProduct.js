@@ -42,6 +42,9 @@ const OneProduct = () => {
   }, [productId]);
 
 
+
+
+
   const addCard = () => {
     if (quantity === 0) return;
 
@@ -63,6 +66,7 @@ useEffect(() => {
   return (
     <div className="wrapper">
       <div className="product" key={id}>
+
         <div className="product__header">
           <Carousel showStatus={false} showThumbs={false}
                     transitionTime={2} infiniteLoop={true}
@@ -92,7 +96,7 @@ useEffect(() => {
             }
           </Carousel>
         </div>
-
+        <hr/>
         <div className="product__header__span">
           <div className="product_info">
             <span className="product__name">{name}</span>
@@ -113,16 +117,23 @@ useEffect(() => {
 
         </div>
       </div>
-      <div className="product__description">
-        <h3 className="product__description__h">Description</h3>
-        <p className="product__description__p">{description}</p>
-        <p className="product__description__p">Store - {store}</p>
-        <p className="product__description__p">Size - {size}</p>
+
+
+      <div className="product_reviews_container">
+
+
 
       </div>
-      <div className="product__description">
-        <h3 className="product__description__h">Similar products</h3>
-      </div>
+      {/*<div className="product__description">*/}
+      {/*  <h3 className="product__description__h">Description</h3>*/}
+      {/*  <p className="product__description__p">{description}</p>*/}
+      {/*  <p className="product__description__p">Store - {store}</p>*/}
+      {/*  <p className="product__description__p">Size - {size}</p>*/}
+
+      {/*</div>*/}
+      {/*<div className="product__description">*/}
+      {/*  <h3 className="product__description__h">Similar products</h3>*/}
+      {/*</div>*/}
 
 
 

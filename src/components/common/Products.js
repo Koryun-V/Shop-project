@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
 import {getProducts} from "../../store/actions/home";
@@ -10,27 +10,36 @@ import {useParams} from "react-router-dom";
 import Slider from "react-slider";
 
 const Products = () => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [selectValue, setSelectValue] = useState({id: "", name: "All",});
   const dispatch = useDispatch();
-  const products = useSelector(state => state.home.products);
+  const products = useSelector(state => state.home.productsList);
   const categories = useSelector(state => state.products.categories);
   const selectId = useSelector(state => state.home.selectId);
   const {name} = useParams();
   const total = useSelector(state => state.home.total);
   const [limit, setLimit] = useState(12);
   const pageCount = Math.ceil(total / limit);
-  const page = useSelector(state => state.products.page);
-  const minPrice = useSelector(state => state.products.minPrice);
-  const maxPrice = useSelector(state => state.products.maxPrice);
+  const page = useSelector(state => state.home.page);
+  const minPrice = useSelector(state => state.home.minPrice);
+  const maxPrice = useSelector(state => state.home.maxPrice);
 
-  const [selectValue, setSelectValue] = useState({id: "", name: "All", });
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}));
   }, [dispatch, limit]);
 
 
+  console.log(page)
+
+
   const getAllProducts = () => {
-    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice}));
+    if (isSubmitted) {
+      dispatch(getProducts({categoryId: selectId, page: 1, limit, minPrice, maxPrice}));
+    } else {
+
+      dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice}));
+    }
   }
 
 
@@ -44,6 +53,7 @@ const Products = () => {
     dispatch(setMaxPrice(2000))
     setSelectValue("All")
     dispatch(setSelectId(""))
+    dispatch(setPage(1))
   }
 
 
@@ -63,6 +73,7 @@ const Products = () => {
   const change = (id) => {
     dispatch(setSelectId(id.id));
     setSelectValue(name)
+    setIsSubmitted(true)
 
   };
 
@@ -139,6 +150,7 @@ const Products = () => {
               activeClassName={"page-item--active"}
               previousClassName={"page-item--previous"}
               nextClassName={"page-item--next"}
+              forcePage={page - 1}
             />
           </div>
         </div>

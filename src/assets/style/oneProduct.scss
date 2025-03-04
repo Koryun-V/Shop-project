@@ -7,6 +7,15 @@
   height: 500px;
 
 }
+.product hr {
+  width: 2px;
+  border: none;
+  height: 100%;
+  background-color: #E8E9EA; /* Adjust color as needed */
+
+
+}
+
 
 .product__header {
   flex: 1;
@@ -37,6 +46,11 @@
   max-width: 100%;
   height: auto;
   object-fit: contain;
+}
+
+
+.product__quantity{
+  margin-left: 100px;
 }
 
 
@@ -114,7 +128,7 @@
   display: flex;
   align-items: center;
   margin-top: 20px;
-  margin-left: 100px;
+    ft: 100px;
   margin-bottom: 20px;
 
 

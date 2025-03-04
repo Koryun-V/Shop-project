@@ -22,7 +22,8 @@ export const home = createReducer(initialState, (builder) => {
     })
     .addCase(getProducts.fulfilled, (state, {payload}) => {
       state.status = "ok"
-      state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
+      // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
+      state.productsList = payload.productsList
       state.total = payload.total
     })
 

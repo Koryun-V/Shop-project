@@ -3,7 +3,7 @@ import Input from "../../mini/Input";
 import Button from "../../mini/Button";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
-import {changePasswordUser, resendCode, setStatusCode} from "../../../store/actions/login";
+import {changePasswordUser, resendCode, setEmail, setStatusCode, setStatusForgot} from "../../../store/actions/login";
 import {resendActivateUser} from "../../../store/actions/registration";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock, faStopwatch20} from "@fortawesome/free-solid-svg-icons";
@@ -21,8 +21,8 @@ const fields = [
         id: 2,
         name: "password",
         label: "Create new password",
-        validation: /^(?=.*\d).{8,}$/,
-        info: "Your password must be at least 8 characters long, or a mismatch",
+        validation: /^.{8,}$/,
+        info: "Your password must be at least 8 characters long, or a mismatch.",
     },
     {
         id: 3,
@@ -40,7 +40,7 @@ const ModalNewPassword = ({isModalClose}) => {
     const [isChangePassword, setIsChangePassword] = useState(false)
     const [time, setTime] = useState(60);
     const [timeWidth, setTimeWidth] = useState(0);
-    const email = useSelector(state=>state.login.email)
+    const email = useSelector(state => state.login.email)
     const [start, setStart] = useState(true);
 
     const [newPassword, setNewPassword] = useState({
@@ -102,7 +102,6 @@ const ModalNewPassword = ({isModalClose}) => {
     }, [start]);
 
 
-
     const onChange = (event) => {
 
         let v = event.target.value
@@ -126,7 +125,7 @@ const ModalNewPassword = ({isModalClose}) => {
     }
 
     const test = () => {
-        if(!isModalClose){
+        if (!isModalClose) {
             fields.forEach(({validation, name, id}) => {
                     if (title === name) {
                         let test = name !== "repeatPassword" ? validation.test(value) : null
@@ -134,11 +133,18 @@ const ModalNewPassword = ({isModalClose}) => {
                         if (test === false || !value.length ||
                             newPassword["repeatPassword"].length && newPassword["password"] !== newPassword["repeatPassword"]) {
                             setInputName((prevState) => (_.uniq([...prevState, title])))
+                        } else if (title === "password" || title === "repeatPassword" && newPassword.repeatPassword === newPassword.password) {
+                            const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
+                            setInputName(filter)
+
                         } else {
                             const filter = inputName.filter(item => item !== title)
                             setInputName(filter)
                         }
+
+
                     }
+
                 }
             )
         }
@@ -148,12 +154,15 @@ const ModalNewPassword = ({isModalClose}) => {
         e.preventDefault();
         if (isChangePassword) {
             dispatch(changePasswordUser({newPassword: password, key}))
+            // dispatch(setStatusCode(""))
+            // dispatch(setStatusForgot(""))
+            // dispatch(setEmail(""))
         }
     }
     return (
         <div className="container-form">
 
-                <form onSubmit={changePassword}>
+            <form onSubmit={changePassword}>
                 <div className="timer-resend">
                     <div className="timer-loading" style={{
                         width: timeWidth,
@@ -206,16 +215,16 @@ const ModalNewPassword = ({isModalClose}) => {
 
                         <div className="validation-info">
                             {inputName.map(((item, index) => (
-                                    item === field.name ?
-                                        <>
-                                            <div className="test2"></div>
-                                            <span>{!newPassword[item].length ? "Field Required" : field.info}</span>
-                                        </> : null
-                                )))}
+                                item === field.name ?
+                                    <>
+                                        <div className="test2"></div>
+                                        <span>{!newPassword[item].length ? "Field Required" : field.info}</span>
+                                    </> : null
+                            )))}
                         </div>
                     </div>
                 ))}
-                <div className="form-button-block" >
+                <div className="form-button-block">
                     <Button status={status} text="CHANGE PASSWORD" type={isChangePassword ? "submit" : "button"}
                             className={isChangePassword && status !== "pending" ? "active-button"
                                 : isChangePassword && status === "pending" ? "pending-button" : "disabled"}>Text</Button>

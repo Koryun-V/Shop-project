@@ -64,6 +64,9 @@ export default class Api {
             }
         });
     }
+    static userDelete({email}) {
+        return api.put(`/users/delete-user`,{email} );
+    }
 
 
 }

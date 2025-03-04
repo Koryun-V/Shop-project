@@ -4,8 +4,8 @@ import {
     registrationUser,
     resendActivateUser,
     setDeleteEmail,
-    setStatus,
-    setStatusKey
+    setStatus, setStatusActive,
+    setStatusKey, userDelete
 } from "../actions/registration";
 
 const initialState = {
@@ -14,6 +14,8 @@ const initialState = {
     statusKey:"",
     statusResendKey:"",
     deleteEmail:"",
+    statusActive:"",
+    statusDelete:"",
 }
 
 export const registration = createReducer(initialState, (builder) => {
@@ -24,6 +26,7 @@ export const registration = createReducer(initialState, (builder) => {
         .addCase(registrationUser.fulfilled, (state, {payload}) => {
             state.status = "ok"
             state.token = payload.token
+            state.statusActive = payload.result.status
         })
         .addCase(registrationUser.rejected, (state) => {
             state.status = "error"
@@ -49,6 +52,17 @@ export const registration = createReducer(initialState, (builder) => {
             state.statusResendKey = "error"
         })
 
+        .addCase(userDelete.pending, (state) => {
+            state.statusDelete = "pending"
+        })
+        .addCase(userDelete.fulfilled, (state, {payload}) => {
+            state.statusDelete = "ok"
+        })
+        .addCase(userDelete.rejected, (state) => {
+            state.statusDelete = "error"
+        })
+
+
 
 
         .addCase(setStatus, (state,{payload}) => {
@@ -60,6 +74,9 @@ export const registration = createReducer(initialState, (builder) => {
         })
         .addCase(setDeleteEmail, (state,{payload}) => {
             state.deleteEmail = payload
+        })
+        .addCase(setStatusActive, (state,{payload}) => {
+            state.statusActive = payload
         })
 
 });

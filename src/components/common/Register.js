@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {registrationUser, setDeleteEmail, setStatus, setStatusKey} from "../../store/actions/registration";
+import {
+    registrationUser,
+    setDeleteEmail,
+    setStatus,
+    setStatusActive,
+    setStatusKey, userDelete
+} from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
@@ -15,6 +21,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Timer from "../mini/Timer";
 import {useNavigate} from "react-router-dom";
 import {setIsOpenLogin} from "../../store/actions/login";
+import {login} from "../../store/reducers/login";
 
 const fields = [
     {
@@ -65,10 +72,10 @@ const fields = [
         id: 7,
         name: "password",
         label: "Password",
-        validation: /^(?=.*\d).{8,}$/,
-        info: "Your password must be at least 8 characters long, or a mismatch",
+        validation: /^.{8,}$/,
+        info: "Your password must be at least 8 characters long, or a mismatch.",
     },
-    // long or password does not match
+    // long or password does not match /^(?=.*\d).{8,}$/,
     {
         id: 8,
         name: "repeatPassword",
@@ -111,7 +118,7 @@ const Register = () => {
     })
     const {firstName, lastName, gender, email, password, repeatPassword} = user
 
-
+    const statusActive = useSelector(state => state.registration.statusActive)
     const [isCheck, setIsCheck] = useState(false)
 
     const [isAnimation, setIsAnimation] = useState(false)
@@ -151,14 +158,22 @@ const Register = () => {
             setIsDate("no");
         }
     };
-    console.log(email)
 
+
+    const deleteEmail = () => {
+        (async () => {
+            try {
+                await dispatch(userDelete({email}))
+                await console.log("yes")
+                // await dispatch(setStatusActive(""))
+            } catch (err) {
+                console.log(err)
+            }
+        })()
+    }
 
     useEffect(() => {
-        dispatch(setDeleteEmail(false))
-        if(!isEmail) {
-            return () => console.log('yes')
-        }
+        return () => statusActive === "pending" ? deleteEmail() : null
     }, []);
 
     useEffect(() => {
@@ -232,21 +247,17 @@ const Register = () => {
                     if (test === false || !value.length || isDate === "no" ||
                         user["repeatPassword"].length && user["password"] !== user["repeatPassword"]) {
                         setInputName((prevState) => (_.uniq([...prevState, title])))
-                        console.log("1in if")
                     } else if (title === "password" || title === "repeatPassword" && user.repeatPassword === user.password) {
                         const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
                         setInputName(filter)
-                        console.log("2 else if")
 
                     } else if (isDate === "ok") {
                         const filter = inputName.filter(item => item === "day" && item === "month" && item === "year");
                         setInputName(filter)
-                        console.log("3 else if")
 
                     } else {
                         const filter = inputName.filter(item => item !== title)
                         setInputName(filter)
-                        console.log("else")
                     }
                 }
             }
@@ -260,8 +271,6 @@ const Register = () => {
             dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
         }
     }
-
-    console.log()
 
 
     return (

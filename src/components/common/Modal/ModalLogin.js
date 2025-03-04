@@ -34,8 +34,8 @@ const fields = [
         id: 2,
         name: "password",
         label: "Password",
-        validation: /^[a-zA-Z]{2,20}$/,
-        info: "Password must be at least 8 characters long",
+        validation: /^.{8,}$/,
+        info: "Your password must be at least 8 characters long, or a mismatch.",
     },
 ]
 
@@ -50,6 +50,7 @@ function ModalLogin({open, onClose}) {
     const [inputName, setInputName] = useState([]);
     const [isForgot, setIsForgot] = useState(false)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
+
     const statusPassword = useSelector(state => state.login.statusNewPassword)
     const [isModalClose, setIsMoadlClose] = useState(false);
     const [userInfo, setUserInfo] = useState({
@@ -58,12 +59,12 @@ function ModalLogin({open, onClose}) {
     })
     const {value, title} = userInfo
 
+
     const [user, setUser] = useState({
         email: "",
         password: "",
     })
 
-    console.log(status)
 
     const {email, password} = user
 
@@ -106,6 +107,14 @@ function ModalLogin({open, onClose}) {
     }, [token]);
 
     useEffect(() => {
+        if(statusPassword === "ok"){
+            setIsForgot(false);
+            dispatch(setStatusForgot(""))
+            dispatch(setEmail(""))
+        }
+    }, [statusPassword]);
+
+    useEffect(() => {
         if (open) {
             (async () => {
                 try {
@@ -135,10 +144,7 @@ function ModalLogin({open, onClose}) {
             dispatch(setStatusForgot(""))
             dispatch(setEmail(""))
             setIsMoadlClose(false)
-            dispatch(setEmail(""))
             dispatch(setDeleteEmail(false))
-
-
         }
     }, [open]);
 
@@ -154,6 +160,8 @@ function ModalLogin({open, onClose}) {
         ))
         setUserInfo({value: v, title: n})
         if (status === "error") dispatch(setStatus(""))
+        if (statusForgot === "error") dispatch(setStatusForgot(""))
+
     }
 
 
@@ -190,8 +198,6 @@ function ModalLogin({open, onClose}) {
         }
 
     }
-    console.log(statusPassword)
-
 
     const forgotPassword = () => {
         setIsForgot(true);
@@ -205,6 +211,8 @@ function ModalLogin({open, onClose}) {
             value: "",
         })
     }
+
+
 
     if (!open) return null
     return ReactDom.createPortal(
@@ -324,9 +332,10 @@ function ModalLogin({open, onClose}) {
                                                     status={statusForgot}
                                                 />
                                             </div>
+
                                             <div className="validation-info">
-                                                {status === "error"  && fields[0].name === "password" ?
-                                                    <span>Wrong login or password.</span>
+                                                {statusForgot === "error" && fields[0].name === "email" ?
+                                                    <span>No such user exists</span>
                                                     :
                                                     inputName.map(((item, index) => (
                                                         item === fields[0].name ?
@@ -340,9 +349,9 @@ function ModalLogin({open, onClose}) {
 
                                         <div className="form-button-block">
                                             <Button status={statusForgot} text="RECEIVE CODE"
-                                                    className={isForgotPassword && status !== "pending" ? "active-button"
-                                                        : isForgotPassword && status === "pending" ? "pending-button" : "disabled"}
-                                                    type={isForgotPassword ? "submit" : "button"}>LOGIN
+                                                    className={isForgotPassword && statusForgot !== "pending" ? "active-button"
+                                                        : isForgotPassword && statusForgot === "pending" ? "pending-button" : "disabled"}
+                                                    type={isForgotPassword ? "submit" : "button"}>
                                             </Button>
                                         </div>
                                     </form>

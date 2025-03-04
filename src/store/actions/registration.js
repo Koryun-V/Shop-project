@@ -30,7 +30,7 @@ export const registrationUser = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.registrationUser(payload);
-            console.log(data, "data")
+            console.log(data, "data-register")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -60,13 +60,26 @@ export const resendActivateUser = createAsyncThunk(
         }
     }
 );
-
+export const userDelete = createAsyncThunk(
+    "user/delete-user",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.userDelete(payload);
+            return data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
 
 export const setStatus = createAction(
     "register/status",
 )
 export const setStatusKey = createAction(
     "register/status-key",
+)
+export const setStatusActive = createAction(
+    "register/status-active",
 )
 
 export const setDeleteEmail = createAction(

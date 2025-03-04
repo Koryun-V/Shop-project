@@ -42,7 +42,6 @@ const PinInput = () => {
     const onKeyDown = (e, i) => {
         if (e.keyCode === 8 && i !== 0 && code[i] === "") {
             inputRef[code[5] === "" || code[i] === "" ? i - 1 : i].current.focus()
-            console.log('aaa')
         }
     }
 
@@ -50,12 +49,10 @@ const PinInput = () => {
         if (isNaN(e.key)) return false
 
         if (code[i] !== "" && isFormat || i === 5) {
-            console.log(code[0])
             setCode([...code.slice(0, i), e.key, ...code.slice(i + 1)])
             inputRef[i !== 5 ? i + 1 : i].current.focus()
         }
     }
-    console.log(status)
     // console.log(isFormat)
     return (
 

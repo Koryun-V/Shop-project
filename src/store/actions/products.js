@@ -22,7 +22,7 @@ export const createCard = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.createCard(payload);
-          // console.log(data, "createCard data")
+
             return data;
 
         } catch (err) {
@@ -37,7 +37,7 @@ export const updateCard = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const {data} = await  api.updateCard(payload);
-      // console.log(data, "updateCard data")
+
       return data;
     }catch(err) {
       return thunkAPI.rejectWithValue(err);

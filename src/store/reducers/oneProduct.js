@@ -24,16 +24,7 @@ export const oneProduct = createReducer(initialState, (builder) => {
     .addCase(getOneProduct.rejected, state => {
       state.status = "error"
     })
-    .addCase(getPopularProduct.pending, state => {
-      state.status = "pending"
-    })
-    .addCase(getPopularProduct.fulfilled, (state, {payload}) => {
-      state.status = "ok"
-      state.popularProducts = payload.data
-    })
-    .addCase(getPopularProduct.rejected, state => {
-      state.status = "error"
-    })
+
 
 })
 

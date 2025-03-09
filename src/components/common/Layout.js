@@ -9,51 +9,51 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMagnifyingGlass, faAngleDown, faCartShopping, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsOpenLogin} from "../../store/actions/login";
+import {setSearchValue} from "../../store/actions/home";
 
 //main
 const token = localStorage.getItem("token");
 
 function Layout() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [user, setUser] = useState({});
-    const [isOpenRegister, setIsOpenRegister] = useState(false)
-    // const [isOpenLogin, setIsOpenLogin] = useState(false)
-    const statusKey = useSelector(state => state.registration.statusKey)
-    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
-    const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [user, setUser] = useState({});
+  const [isOpenRegister, setIsOpenRegister] = useState(false)
+  // const [isOpenLogin, setIsOpenLogin] = useState(false)
+  const statusKey = useSelector(state => state.registration.statusKey)
+  const isOpenLogin = useSelector(state => state.login.isOpenLogin)
+  const searchValue = useSelector(state => state.home.searchValue);
 
 
-
-    const onChange = (e) => {
-        if (e.target.value !== " ") {
-            setValue(e.target.value);
-        }
+  const onChange = (e) => {
+    navigate("/products")
+    if (e.target.value !== " ") {
+     dispatch(setSearchValue(e.target.value));
     }
+  }
 
 
+  return (
+    <>
+      <div className="wrapper">
+        <header className="header">
+          <div className="container-header">
+            <Link to="/" className="logo-block">
+              <div className="logo">
+                Logo
+              </div>
+            </Link>
 
-    return (
-        <>
-            <div className="wrapper">
-                <header className="header">
-                    <div className="container-header">
-                        <Link to="/" className="logo-block">
-                            <div className="logo">
-                                Logo
-                            </div>
-                        </Link>
-
-                        <nav className="nav">
-                            <ul className="nav-list">
-                                <li className="nav-item">Store
-                                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
-                                    <ul className="nav-more">
-                                        <li><img src="#"/>IDEAL</li>
-                                        <li><img src="#"/>DOMUS</li>
-                                        <li><img src="#"/>ESIM</li>
-                                    </ul>
-                                </li>
+            <nav className="nav">
+              <ul className="nav-list">
+                <li className="nav-item">Store
+                  <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
+                  <ul className="nav-more">
+                    <li><img src="#"/>IDEAL</li>
+                    <li><img src="#"/>DOMUS</li>
+                    <li><img src="#"/>ESIM</li>
+                  </ul>
+                </li>
 
                 <Link className="nav-item" to="/products">
                   <li>Products</li>
@@ -70,67 +70,67 @@ function Layout() {
               </ul>
 
 
-                        </nav>
+            </nav>
 
-                        <div className="search-block">
-                            <div className="search-field">
-                                <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
-                                <Input value={value} onChange={onChange} className="search-input" placeholder="Search"/>
-                            </div>
-                        </div>
-
-                        <div className="user-block">
-                            {!token ?
-                                <>
-                                    <div className="sign-block">
-                                        <Button text="LOGIN" className="active-button"
-                                                onClick={() => dispatch(setIsOpenLogin(true))}></Button>
-                                    </div>
-                                    <div className="sign-block"
-                                    >
-                                        <Button text="REGISTER" className="register-button"
-                                                onClick={() => navigate("/register")}></Button>
-                                    </div>
-
-                                </>
-                                :
-                                <>
-                                    <div className="cart">
-                                        <Link to="/#">
-                                            <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
-                                        </Link>
-                                    </div>
-                                    <div className="user">
-                                        <Link to="/" className="user-img">
-                                            <FontAwesomeIcon icon={faUser} className="user-icon"/>
-                                        </Link>
-                                    </div>
-                                </>
-                            }
-                        </div>
-                    </div>
-                </header>
-
-                <main className="main">
-                    <Outlet/>
-                </main>
-
-                <footer className="footer">
-
-                </footer>
+            <div className="search-block">
+              <div className="search-field">
+                <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
+                <Input value={searchValue} onChange={onChange} className="search-input" placeholder="Search"/>
+              </div>
             </div>
 
-            <ModalRegister
-                open={isOpenRegister} onClose={() => {
-                setIsOpenRegister(false)
-            }}/>
-            <ModalLogin
-                open={isOpenLogin} onClose={() => {
-                dispatch(setIsOpenLogin(false))
-            }}/>
-        </>
+            <div className="user-block">
+              {!token ?
+                <>
+                  <div className="sign-block">
+                    <Button text="LOGIN" className="active-button"
+                            onClick={() => dispatch(setIsOpenLogin(true))}></Button>
+                  </div>
+                  <div className="sign-block"
+                  >
+                    <Button text="REGISTER" className="register-button"
+                            onClick={() => navigate("/register")}></Button>
+                  </div>
 
-    );
+                </>
+                :
+                <>
+                  <div className="cart">
+                    <Link to="/#">
+                      <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                    </Link>
+                  </div>
+                  <div className="user">
+                    <Link to="/" className="user-img">
+                      <FontAwesomeIcon icon={faUser} className="user-icon"/>
+                    </Link>
+                  </div>
+                </>
+              }
+            </div>
+          </div>
+        </header>
+
+        <main className="main">
+          <Outlet/>
+        </main>
+
+        <footer className="footer">
+
+        </footer>
+      </div>
+
+      <ModalRegister
+        open={isOpenRegister} onClose={() => {
+        setIsOpenRegister(false)
+      }}/>
+      <ModalLogin
+        open={isOpenLogin} onClose={() => {
+        dispatch(setIsOpenLogin(false))
+      }}/>
+    </>
+
+  );
 }
 
 export default Layout;

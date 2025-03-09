@@ -1,18 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {getOneProduct, getPopularProduct} from "../../store/actions/oneProduct";
+import {getOneProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
 import {createCard, updateCard} from "../../store/actions/products";
-import Product from "../mini/Product";
+import {Rating} from "react-simple-star-rating";
 
 
 const OneProduct = () => {
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [submittedReview, setSubmittedReview] = useState("");
+  const [submittedRating, setSubmittedRating] = useState(0);
   const dispatch = useDispatch();
   const productId = useSelector(state => state.home.productId);
   const oneProduct = useSelector(state => state.oneProduct.oneProduct);
-  const [quantity, setQuantity] = useState(1);
   const name = oneProduct?.result?.product?.name;
   const id = oneProduct?.result?.product?.id;
   const price = oneProduct?.result?.product?.price
@@ -20,10 +24,8 @@ const OneProduct = () => {
   const description = oneProduct?.result?.product?.description;
   const size = oneProduct?.result?.product?.size
   const store = oneProduct?.result?.product?.store.name;
-
   const cardId = useSelector(state => state.products.cardId)
   const statusCard = useSelector(state => state.products.statusCard)
-  const popularProducts = useSelector(state => state.oneProduct.popularProducts)
 
   const updateQuantity = (value) => {
     setQuantity((prev) => Math.max(1, prev + value));
@@ -36,31 +38,38 @@ const OneProduct = () => {
     }
   };
 
-
-  useEffect(() => {
-    dispatch(getOneProduct({id: productId}));
-  }, [productId]);
-
-
-
-
-
   const addCard = () => {
     if (quantity === 0) return;
 
     if (statusCard === "ok" && cardId) {
-      dispatch(updateCard({ cardId, quantity }));
+      dispatch(updateCard({cardId, quantity}));
     } else {
       dispatch(createCard({productId, quantity}));
     }
   };
 
 
-useEffect(() => {
-  dispatch(getPopularProduct())
-}, [productId]);
+  const handleRating = (rate) => {
+    setRating(rate);
+  };
+
+  const onChangeReview = (e) => {
+    setReviewText(e.target.value);
+  };
+
+  const applyReview = () => {
+    setSubmittedReview(reviewText);
+    setSubmittedRating(rating);
+    console.log("Submitted Review:", reviewText);
+    console.log("Submitted Rating:", rating);
+    console.log(productId)
+  };
 
 
+
+  useEffect(() => {
+    dispatch(getOneProduct({id: productId}));
+  }, [productId]);
 
 
   return (
@@ -75,7 +84,7 @@ useEffect(() => {
                     showArrows={false}
                     emulateTouch={true}
 
-                  >
+          >
 
             {_.isEmpty(images) ? <div style={{
                 width: "100%",
@@ -105,13 +114,13 @@ useEffect(() => {
           <div className="product__quantity">
             <button onClick={addCard} className="product__button__cart">Add to cart</button>
             <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
-            <input className="product__value" type= "text" value={quantity} onChange={onChange}/>
+            <input className="product__value" type="text" value={quantity} onChange={onChange}/>
             <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
           </div>
 
-          <div className= "product_mini_desc">
+          <div className="product_mini_desc">
             <span className="product__store_name">store:{store}</span>
-            <span className= "product__store_name">Delivery is carried out by the supplier's couriers or the Dostavista courier service. You can also pick up the goods yourself from the supplier</span>
+            <span className="product__store_name">Delivery is carried out by the supplier's couriers or the  courier service. You can also pick up the goods yourself from the supplier</span>
           </div>
 
 
@@ -120,8 +129,12 @@ useEffect(() => {
 
 
       <div className="product_reviews_container">
+        <div className="rating_container">
+          <Rating onClick={handleRating} />
+          <input type="text" value={reviewText} onChange={onChangeReview} />
+          <button onClick={applyReview} className="apply-button">Apply</button>
 
-
+        </div>
 
       </div>
       {/*<div className="product__description">*/}
@@ -134,8 +147,6 @@ useEffect(() => {
       {/*<div className="product__description">*/}
       {/*  <h3 className="product__description__h">Similar products</h3>*/}
       {/*</div>*/}
-
-
 
 
     </div>

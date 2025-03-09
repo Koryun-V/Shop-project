@@ -7,7 +7,6 @@ export const getProducts = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getAllProducts(payload)
-          console.log(data, "productsData")
             return data
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
@@ -28,4 +27,11 @@ export const setProductId = createAction(
     payload,
   })
 
+)
+
+export const setSearchValue = createAction(
+  "products/setSearchValue",
+  (payload) => ({
+      payload,
+  })
 )

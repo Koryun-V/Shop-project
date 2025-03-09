@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getProducts} from "../actions/home";
+import {getProducts, setSearchValue} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
 import products from "../../components/common/Products";
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
@@ -13,7 +13,7 @@ const initialState = {
   minPrice: 0,
   maxPrice: 2000,
   page: "1",
-
+  searchValue: ""
 }
 export const home = createReducer(initialState, (builder) => {
   builder
@@ -49,8 +49,11 @@ export const home = createReducer(initialState, (builder) => {
     })
 
     .addCase(setMaxPrice, (state, {payload}) => {
-
       state.maxPrice = payload
+    })
+
+    .addCase(setSearchValue, (state, {payload}) => {
+      state.searchValue = payload
     })
 
 });

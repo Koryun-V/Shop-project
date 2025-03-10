@@ -150,3 +150,16 @@ margin: 0 auto;
 }
 
 
+.no-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(45deg, limegreen, darkgreen);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}

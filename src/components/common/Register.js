@@ -116,6 +116,7 @@ const Register = () => {
         password: "",
         repeatPassword: ""
     })
+    const emailRedux = useSelector(state => state.registration.email)
     const {firstName, lastName, gender, email, password, repeatPassword} = user
 
     const statusActive = useSelector(state => state.registration.statusActive)
@@ -160,20 +161,8 @@ const Register = () => {
     };
 
 
-    const deleteEmail = () => {
-        (async () => {
-            try {
-                await dispatch(userDelete())
-                await console.log("yes")
-                // await dispatch(setStatusActive(""))
-            } catch (err) {
-                console.log(err)
-            }
-        })()
-    }
-
     useEffect(() => {
-        return () => statusActive === "pending" ? deleteEmail() : null
+        return () => dispatch(userDelete({email:emailRedux}))
     }, []);
 
     useEffect(() => {
@@ -201,12 +190,18 @@ const Register = () => {
                 {...prevState, [n]: v.replace(/[^0-9+]/g, '')}
             ))
             setUserInfo({value: v.replace(/[^0-9+]/g, ''), title: n,})
-        } else {
+        }
+        else {
             setUser((prevState) => (
                 {...prevState, [event.target.name]: event.target.value}
             ))
             setUserInfo({value: v, title: n})
+            if(n === "email"){
+                dispatch(setDeleteEmail(event.target.email))
+
+            }
         }
+
     }
 
     useEffect(() => {
@@ -288,7 +283,7 @@ const Register = () => {
             >
 
                 <div className="container-register">
-                    <button onClick={() => dispatch(userDelete())}>click</button>
+                    {/*<button onClick={() => dispatch(userDelete())}>click</button>*/}
 
                     <div className="container-form" style={{width: 320}}>
                         <div className="title">
@@ -422,7 +417,7 @@ const Register = () => {
                     </div>
                 </div>
                 <div className="container-register-img">
-                <img src={bg} className="register-img"/>
+                    <img src={bg} className="register-img"/>
                 </div>
 
 

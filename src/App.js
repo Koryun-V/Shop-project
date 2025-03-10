@@ -18,7 +18,6 @@ function App() {
                 {/*<Route index element={<Home/>}/>*/}
                 <Route path="/input" element={<PinInput/>}/>
                 <Route path="/order" element={<Order/>}/>
-
                 {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
             </Route>

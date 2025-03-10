@@ -16,6 +16,7 @@ const initialState = {
     deleteEmail:"",
     statusActive:"",
     statusDelete:"",
+    email:"",
 }
 
 export const registration = createReducer(initialState, (builder) => {
@@ -75,6 +76,7 @@ export const registration = createReducer(initialState, (builder) => {
         .addCase(setDeleteEmail, (state,{payload}) => {
             state.deleteEmail = payload
         })
+
         .addCase(setStatusActive, (state,{payload}) => {
             state.statusActive = payload
         })

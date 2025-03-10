@@ -1,0 +1,273 @@
+@import "variables";
+
+.card {
+  margin-bottom: 16px;
+  display: flex;
+  border: 1px solid #E8E9EA;
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+  }
+
+  &__wrapper {
+    width: calc(100vw - 30%);
+    @media (max-width: 992px) {
+      width: 100%;
+    }
+  }
+
+  &-list {
+    display: flex;
+    gap: 16px;
+
+    @media (max-width: 992px) {
+      display: block;
+    }
+
+    &__container {
+      max-width: 27%;
+      width: 100%;
+      @media (max-width: 992px) {
+        max-width: 100%;
+      }
+    }
+  }
+
+  &-desc {
+    font-family: Manrope, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #2F323A;
+  }
+
+  &-price {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    color: #171B24;
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+
+
+    &-input {
+      max-width: 40%;
+      width: 100%;
+      height: 48px;
+      border-width: 1px 0 1px 0;
+      border-style: solid;
+      border-color: #D1D1D3;
+      outline: none;
+      color: #171B24;
+      font-family: Manropeб sans-serif;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 24.48px;
+      text-align: center;
+    }
+  }
+
+  .decrement {
+    padding: 10px 0;
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid #D1D1D3;
+
+    &:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+
+    &:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+
+    &:hover {
+      background: $interfaceColor;;
+    }
+
+    &:disabled {
+      background-color: #ddd;
+      cursor: not-allowed;
+    }
+  }
+
+  &-prod {
+    max-width: 420px;
+    width: 100%;
+    margin: 10px 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @media (max-width: 576px) {
+      margin: 0 auto;
+    }
+  }
+
+  &_image_block {
+    max-width: 200px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-right: 1px solid #E8E9EA;
+
+    @media (max-width: 992px) {
+      display: block;
+      margin: 5px auto;
+      border: none;
+    }
+  }
+
+  &_image {
+    width: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .delete {
+    border: 1px solid #D1D1D3;
+    background-color: transparent;
+    max-width: 60px;
+    width: 100%;
+    height: 48px;
+    color: #171B24;
+    font-family: Manropeб sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+  }
+}
+
+.trash_con {
+  path {
+    fill: rgba(238, 72, 36, 0.9);
+  }
+  &:hover {
+    path {
+      fill: rgba(166, 34, 3, 0.9);
+    }
+  }
+}
+
+.total {
+  border: 1px solid #E8E9EA;
+  font-family: Manrope, sans-serif;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  top: 80px;
+  right: 0;
+  z-index: 2;
+
+
+  &__container {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+
+    &_desc {
+      display: flex;
+      align-items: center;
+
+    }
+
+  }
+
+  &__desc {
+    padding: 16px;
+    border: 1px solid #E8E9EA;
+  }
+
+  &-price {
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 24px;
+    color: #333333;
+
+    &_desc {
+      color: #676666;
+      font-weight: 400;
+      margin-left: 8px;
+      font-size: 16px;
+
+      &.all{
+        position: absolute;
+      }
+    }
+  }
+
+
+  &-header {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    color: #171B24;
+  }
+
+  .total__group {
+    border: 1px solid #E8E9EA;
+  }
+
+  &__button {
+    margin: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    padding: 10px 15px;
+    width: 91%;
+    border: none;
+  }
+
+}
+
+.info {
+  margin: 10px  10px 10px 0;
+  display: flex;
+  gap: 10px;
+
+}
+
+.info__desc {
+  font-family: Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+  color: #454950;
+
+}
+
+.info__icon {
+  height: 24px;
+  width: 24px;
+  color: #5D6066;
+}
+
+
+.p {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+  @media (max-width: 576px) {
+    display: block;
+  }
+}
+
+
+.custom__checkbox__checkmark.active {
+  background: $interfaceColor;
+}

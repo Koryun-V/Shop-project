@@ -182,7 +182,7 @@ function Layout() {
                                     <>
 
                                         <div className="cart">
-                                            <Link to="/#">
+                                            <Link to="/basket">
                                                 <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
                                             </Link>
                                         </div>

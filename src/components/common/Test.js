@@ -11,7 +11,7 @@ function ProductForm() {
         productImage: null,
     });
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTczMDA1MDc3MywiZXhwIjoxNzMyNjQyNzczfQ.mhVGJDv4QitfaeX14U_PsnPSETuj0ExEe2V0YBLckqQ';
+    const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYxLCJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpYXQiOjE3NDE1MjA0MDMsImV4cCI6MTc0NDExMjQwM30.OnQGtsVYvHjvOvQ1Xv06ZrJHofwSXDc2e6vJJ61MhUo";
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;

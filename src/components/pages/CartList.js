@@ -1,0 +1,263 @@
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import Error from "./Error";
+import Button from "../mini/Button";
+import {
+  deleteAllCartRequest,
+  fetchCards,
+  loadTransformedArray,
+  makePayment,
+} from "../../store/actions/card";
+import CartItem from "../common/CartItem";
+import Loader from "../common/Loader";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCircleExclamation, faCube, faTruck} from "@fortawesome/free-solid-svg-icons";
+import _ from "lodash";
+// import Modal from "../common/Modal";
+import CartModal from "../common/CartModal";
+import {ReactComponent as CheckIcon} from "../../assets/icon/check-solid.svg";
+import {useNavigate} from "react-router-dom";
+
+const CartList = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const cardsList = useSelector((state) => state.card.cardData);
+  const message = useSelector((state) => state.card.message);
+  const products = useSelector((state) => state.card.products);
+  const confirmationUrl = useSelector((state) => state.card.confirmationUrl);
+  const transformedArray = useSelector((state) => state.card.transformedArray);
+
+  const firstLoading = useRef(true);
+  const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
+  const [isClearModalOpen, setClearModalOpen] = useState(false);
+  const [orderLoading, setOrderLoading] = useState(false);
+  const [selectedProducts, setSelectedProducts] = useState(JSON.parse(localStorage.getItem('selectedProducts')) || {});
+  const [totalCardPrice, setTotalCardPrice] = useState(0);
+  const [totalProductPrice, setTotalProductPrice] = useState(0);
+  const [checkedAll, setCheckedAll] = useState(_.every(selectedProducts, value => value === true));
+
+  const {cards, maxPageCount, currentPage} = cardsList;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchAllCards = async (page = 1) => {
+      if (!isMounted) return;
+
+      setLoading(true);
+
+      const data = await dispatch(fetchCards({page}));
+
+      if (!isMounted) return;
+
+      const {currentPage, maxPageCount} = data?.payload || {};
+
+      if (!isMounted) return;
+
+      if (currentPage < maxPageCount) {
+        await fetchAllCards(page + 1);
+      } else {
+        // Stop loading if all pages are fetched
+        setLoading(false);
+      }
+    };
+
+    if (firstLoading.current) {
+      fetchAllCards();
+      firstLoading.current = false;
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const onClickClear = () => {
+    setClearModalOpen(true);
+  };
+  const onClearConfirm = () => {
+    dispatch(deleteAllCartRequest());
+    setClearModalOpen(false);
+  };
+
+  const onClearCancel = () => {
+    setClearModalOpen(false);
+  };
+
+
+  useEffect(() => {
+    if (!!cards.length && totalCardPrice === totalProductPrice) {
+      dispatch(loadTransformedArray());
+    }
+  }, [cardsList, checkedAll]);
+
+
+  const calculateTotalQuantity = (cards) => {
+    return cards.reduce((quantity, card) => quantity + card.quantity, 0);
+  };
+
+  useEffect(() => {
+    const calculateTotalPrice = (cards) => {
+      return cards.reduce((total, card) => total + card.product.price * card.quantity, 0);
+    };
+
+    setTotalCardPrice(calculateTotalPrice(cards));
+    setTotalProductPrice(calculateTotalPrice(products));
+  }, [cards, products]);
+
+  const handleSelectAll = () => {
+    const newCheckedAll = !checkedAll;
+    setCheckedAll(newCheckedAll);
+    const updatedSelectedProducts = cards.reduce((acc, card) => {
+      acc[card.id] = newCheckedAll;
+      return acc;
+    }, {});
+    setSelectedProducts(updatedSelectedProducts);
+    localStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
+    dispatch(loadTransformedArray());
+  };
+
+  const onOrder = async () => {
+    setOrderLoading(true);
+
+    try {
+      if (!!transformedArray.length) {
+        await dispatch(makePayment(transformedArray));
+      } else {
+        setShow(true);
+      }
+
+    } catch (error) {
+      console.error("Error making payment:", error);
+    }
+    setOrderLoading(false);
+  };
+
+  useEffect(() => {
+    if (confirmationUrl) {
+      window.location.href = confirmationUrl;
+    }
+  }, [confirmationUrl]);
+
+
+  return (
+      <div className="card-list">
+        {loading ? (
+          <Loader/>
+        ) : _.isEmpty(cards) ? (
+          <Error
+            statusCode="The cart is still empty"
+            message="Visit the main page to select products or find what you need in the search"
+          />
+        ) : (
+          <>
+
+            <div className="card-list__container">
+              <div className="total">
+                <div className="total__container">
+                  <span className="total-header">Total</span>
+                  <span className="total-price_desc">{calculateTotalQuantity(cards)} goods</span>
+
+                  <p className="total-price">
+                    Total Price:
+                    <span className="total-price_desc">${totalCardPrice.toFixed(2)}</span>
+                  </p>
+
+                  <div className="total__container_desc">
+                    <div onClick={handleSelectAll} className="total__container_desc">
+                      <div
+                        className={`custom__checkbox__checkmark ${totalCardPrice === totalProductPrice ? 'active' : ''}`}>
+                        {(totalCardPrice === totalProductPrice) && <CheckIcon className="custom__checkbox__icon"/>}
+                      </div>
+
+                      <div className="total-price">
+                        Select All
+                      </div>
+
+                    </div>
+
+                    <div>
+                      {totalCardPrice === totalProductPrice &&
+                        <div className="total-price_desc all">Selected all</div>}
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+                <div className="total__desc">
+                  <p className="total-price">Total Price:
+                    <span className="total-price_desc">${totalProductPrice.toFixed(2)}</span>
+                  </p>
+
+                  <p className="total-price">Total Quantity:
+                    <span className="total-price_desc">{calculateTotalQuantity(products)} pcs</span>
+                  </p>
+                </div>
+
+                <div className="total__group">
+                  <Button className="total__button" onClick={onOrder} loading={orderLoading}>
+                    Place an order
+                  </Button>
+                </div>
+
+                <div className="info">
+                  <FontAwesomeIcon icon={faCircleExclamation} className="info__icon"/>
+                  <p className="info__desc">You can only order from one supplier</p>
+                </div>
+
+                <div className="info">
+                  <FontAwesomeIcon icon={faTruck} className="info__icon"/>
+                  <p className="info__desc">
+                    Delivery is carried out by the supplier's couriers or the Do courier service. You can also
+                    pick up the goods yourself from the supplier
+                  </p>
+                </div>
+
+                <div className="info">
+                  <FontAwesomeIcon icon={faCube} className="info__icon"/>
+                  <p className="info__desc">The exact delivery amount will be determined after order confirmation</p>
+                </div>
+
+                <div className="total__group">
+                  <Button onClick={onClickClear} className="total__button">
+                    Clear All
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div className="card__wrapper">
+              {cards.map((card) => (
+                <CartItem
+                  card={card}
+                  key={card.id}
+                  selectedProducts={selectedProducts}
+                  setSelectedProducts={setSelectedProducts}
+                  setCheckedAll={setCheckedAll}
+                  loading={loading}
+                />
+              ))}
+
+              {/*<Modal onClose={() => setShow(false)} isOpen={show} className="small">*/}
+              {/*  <div className="modal-content">*/}
+              {/*    <h3>To place an order, select a product</h3>*/}
+              {/*  </div>*/}
+              {/*</Modal>*/}
+
+              {/*<CartModal*/}
+              {/*  isOpen={isClearModalOpen}*/}
+              {/*  onClose={onClearCancel}*/}
+              {/*  onConfirm={onClearConfirm}*/}
+              {/*/>*/}
+            </div>
+          </>
+        )}
+      </div>
+
+  );
+};
+
+export default CartList;

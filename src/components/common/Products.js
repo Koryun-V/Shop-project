@@ -73,7 +73,14 @@ const Products = () => {
     setIsSubmitted(true)
 
   };
-
+  const style = {
+    control: base => ({
+      ...base,
+      border: 0,
+      // This line disable the blue border
+      boxShadow: 'none'
+    })
+  };
   return (
     <div className="wrapper">
       <div className="section">
@@ -131,11 +138,21 @@ const Products = () => {
                   cursor: "pointer",
                   backgroundColor: isFocused ? "limegreen" : "white",
                   color: isFocused ? "white" : "black",
+                  "&:active": {
+                    background: "#84e984",
+                    color:"white",
+                  }
                 }),
 
-                control: (base) => ({
+                control: (base, { isFocused }) => ({
                   ...base,
                   cursor: "pointer",
+                  border: isFocused ? "1px solid limegreen" : "1px solid #cccccc",
+                  boxShadow: isFocused ? "0px 0px 6px limegreen" : "none",
+                  '&:hover': {
+                    border: '1px solid limegreen',
+                    boxShadow: '0px 0px 6px limegreen',
+                  },
                 }),
               }}
             />

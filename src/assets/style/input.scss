@@ -48,6 +48,10 @@
   margin: 0 10px;
   position: relative;
   height: 40px;
+  .form-search{
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .input-block {
@@ -178,9 +182,14 @@
   }
 }
 .search-field{
-  position: relative;
   width: 100%;
   height: 100%;
+  form{
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+  }
 
   .glass{
       cursor: pointer;

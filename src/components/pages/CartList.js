@@ -13,7 +13,7 @@ import Loader from "../common/Loader";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleExclamation, faCube, faTruck} from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
-// import Modal from "../common/Modal";
+import Modal from "../common/Modal";
 import CartModal from "../common/CartModal";
 import {ReactComponent as CheckIcon} from "../../assets/icon/check-solid.svg";
 import {useNavigate} from "react-router-dom";
@@ -241,17 +241,17 @@ const CartList = () => {
                 />
               ))}
 
-              {/*<Modal onClose={() => setShow(false)} isOpen={show} className="small">*/}
-              {/*  <div className="modal-content">*/}
-              {/*    <h3>To place an order, select a product</h3>*/}
-              {/*  </div>*/}
-              {/*</Modal>*/}
+              <Modal onClose={() => setShow(false)} isOpen={show} className="small">
+                <div className="modal-content">
+                  <h3>To place an order, select a product</h3>
+                </div>
+              </Modal>
 
-              {/*<CartModal*/}
-              {/*  isOpen={isClearModalOpen}*/}
-              {/*  onClose={onClearCancel}*/}
-              {/*  onConfirm={onClearConfirm}*/}
-              {/*/>*/}
+              <CartModal
+                isOpen={isClearModalOpen}
+                onClose={onClearCancel}
+                onConfirm={onClearConfirm}
+              />
             </div>
           </>
         )}

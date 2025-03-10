@@ -7,7 +7,7 @@ import {
 } from "../../store/actions/card";
 import { ReactComponent as TrashIcon } from "../../assets/icon/trash-solid.svg";
 import Button from "../mini/Button";
-// import CustomCheckbox from "./CostumCheckbox";
+import CustomCheckbox from "./CostumCheckBox";
 
 
 const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll, loading}) => {
@@ -55,12 +55,12 @@ const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll, lo
   return (
     <div key={card.id} className="card">
 
-      {/*<CustomCheckbox*/}
-      {/*  key={card.id}*/}
-      {/*  value={card.id}*/}
-      {/*  checked={selectedProducts[card.id] || false}*/}
-      {/*  onChange={({target: {checked}}) => updateSelectedProducts(card.id, checked)}*/}
-      {/*/>*/}
+      <CustomCheckbox
+        key={card.id}
+        value={card.id}
+        checked={selectedProducts[card.id] || false}
+        onChange={({target: {checked}}) => updateSelectedProducts(card.id, checked)}
+      />
 
       <div className="card_image_block">
         <img key={card.id} src={card?.product?.productImage[0]?.path} alt="Product Image" className="card_image" />

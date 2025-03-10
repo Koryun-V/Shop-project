@@ -10,7 +10,7 @@ import Button from "../mini/Button";
 import CustomCheckbox from "./CostumCheckBox";
 
 
-const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll, loading}) => {
+const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll}) => {
 
   const dispatch = useDispatch();
   const { deleting } = useSelector((state) => state.card);
@@ -101,14 +101,14 @@ const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll, lo
           <div
 
           >
-            <button
+            <Button
               className="delete"
               onClick={() => handleProductDelete(card.id)}
               loading={ (deleting.includes(card.id))}
             >
               <TrashIcon className="trash_con"/>
 
-            </button>
+            </Button>
           </div>
         </div>
       </div>

@@ -100,6 +100,13 @@ export default class Api {
     }
 
 
+    static async payment({ products }) {
+        return await api.post('payment/place', {
+            products,
+        });
+    }
+
+
 }
 
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import {InfinitySpin, TailSpin} from "react-loader-spinner";
 
-const Button = ({onClick, type, className, text, status}) => {
+const Button = ({onClick, type, className, text, status, children, disabled, loading}) => {
     return (
-        <button disabled={status === "pending"} className={className} onClick={onClick}
-                type={type}>{status === "pending" ?
+        <button disabled={(status === "pending") || disabled} className={className} onClick={onClick}
+                type={type}>
+            {status === "pending" || loading ?
             <TailSpin
                 visible={true}
                 height="40"
@@ -15,7 +16,11 @@ const Button = ({onClick, type, className, text, status}) => {
                 wrapperStyle={{}}
                 wrapperClass="loading"
             />
-            : text} </button>
+
+             : text || children
+            }
+
+        </button>
 
 
     )

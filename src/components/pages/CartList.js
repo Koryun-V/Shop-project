@@ -78,7 +78,7 @@ const CartList = () => {
   };
   const onClearConfirm = () => {
     dispatch(deleteAllCartRequest());
-    setClearModalOpen(false);
+    !cards.length && setClearModalOpen(false);
   };
 
   const onClearCancel = () => {
@@ -241,16 +241,19 @@ const CartList = () => {
                 />
               ))}
 
-              <Modal onClose={() => setShow(false)} isOpen={show} className="small">
-                <div className="modal-content">
-                  <h3>To place an order, select a product</h3>
-                </div>
-              </Modal>
+              <CartModal
+                isOpen={show}
+                onClose={() => setShow(false)}
+                desc={"To place an order, select a product"}
+                buttonChild={"Close"}
+              />
 
               <CartModal
                 isOpen={isClearModalOpen}
                 onClose={onClearCancel}
                 onConfirm={onClearConfirm}
+                desc={"Are you sure you want to clear the cart?"}
+                buttonChild={"Yes"}
               />
             </div>
           </>

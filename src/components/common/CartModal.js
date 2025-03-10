@@ -3,7 +3,8 @@ import React from 'react';
 import Button from "../mini/Button";
 import Modal from "./Modal";
 
-const CartModal = ({isOpen, onClose, onConfirm}) => {
+const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild}) => {
+
   return (
     <Modal
       isOpen={isOpen}
@@ -11,10 +12,16 @@ const CartModal = ({isOpen, onClose, onConfirm}) => {
       className="small"
     >
       <div className="modal-content">
-        <h3>Are you sure you want to clear the cart?</h3>
+        <h3>{desc}</h3>
         <div className="modal-actions">
-          <Button onClick={onConfirm} className="confirm-btn">Yes</Button>
-          <Button onClick={onClose} className="cancel-btn">No</Button>
+          <Button
+            onClick={buttonChild === "Yes" ? onConfirm : onClose}
+            className="confirm-btn"
+          >
+            {buttonChild}
+          </Button>
+
+          {buttonChild !== "Close" && <Button onClick={onClose} className="cancel-btn">No</Button>}
         </div>
       </div>
     </Modal>

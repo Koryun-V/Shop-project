@@ -4,6 +4,7 @@ import Register from "./components/common/Register";
 import PinInput from "./components/mini/PinInput";
 import Order from "./components/common/Order";
 import CartList from "./components/pages/CartList";
+import OrdersOk from "./components/pages/OrdersOk";
 // import Home from "./components/common/Home";
 // import Products from "./components/common/Products";
 // import Category from "./components/common/Category";
@@ -21,8 +22,10 @@ function App() {
                 <Route path="/order" element={<Order/>}/>
 
               <Route path="/basket" element={<CartList/>}/>
+              <Route path="/cardok" element={<OrdersOk/>}/>
 
-                {/*<Route path="/specialist" element={<Specialist/>}/>*/}
+
+              {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
             </Route>
         </Routes>

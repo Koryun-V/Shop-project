@@ -32,7 +32,6 @@ export const deleteAllCartRequest = createAsyncThunk(
 export const makePayment = createAsyncThunk(
   'order/makePayment',
   async (products, {rejectWithValue}) => {
-    console.log(products)
     try {
       const response = await Api.payment({products});
       if (response.status === 201) {

@@ -136,7 +136,7 @@ const CartList = () => {
 
   useEffect(() => {
     if (confirmationUrl) {
-      window.location.href = confirmationUrl;
+      // window.location.href = confirmationUrl;
     }
   }, [confirmationUrl]);
 

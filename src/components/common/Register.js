@@ -163,7 +163,7 @@ const Register = () => {
     const deleteEmail = () => {
         (async () => {
             try {
-                await dispatch(userDelete({email}))
+                await dispatch(userDelete())
                 await console.log("yes")
                 // await dispatch(setStatusActive(""))
             } catch (err) {
@@ -288,6 +288,7 @@ const Register = () => {
             >
 
                 <div className="container-register">
+                    <button onClick={() => dispatch(userDelete())}>click</button>
 
                     <div className="container-form" style={{width: 320}}>
                         <div className="title">
@@ -421,7 +422,7 @@ const Register = () => {
                     </div>
                 </div>
                 <div className="container-register-img">
-                    <img src={bg} className="register-img"/>
+                <img src={bg} className="register-img"/>
                 </div>
 
 

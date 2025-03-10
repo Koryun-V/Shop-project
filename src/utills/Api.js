@@ -64,8 +64,12 @@ export default class Api {
             }
         });
     }
-    static userDelete({email}) {
-        return api.put(`/users/delete-user`,{email} );
+    static userDelete() {
+        return api.delete(`/users/delete-user`,{
+            data: { email: "testtest@mail.ru" }, // Sending email in request body
+        headers: {
+            "Content-Type": "application/json",
+        }});
     }
 
 

@@ -13,7 +13,6 @@ import Loader from "../common/Loader";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleExclamation, faCube, faTruck} from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
-import Modal from "../common/Modal";
 import CartModal from "../common/CartModal";
 import {ReactComponent as CheckIcon} from "../../assets/icon/check-solid.svg";
 import {useNavigate} from "react-router-dom";
@@ -35,7 +34,7 @@ const CartList = () => {
   const [selectedProducts, setSelectedProducts] = useState(JSON.parse(localStorage.getItem('selectedProducts')) || {});
   const [totalCardPrice, setTotalCardPrice] = useState(0);
   const [totalProductPrice, setTotalProductPrice] = useState(0);
-  const [checkedAll, setCheckedAll] = useState(_.every(selectedProducts, value => value === true));
+  const [checkedAll, setCheckedAll] = useState(_.every(selectedProducts, value => value === true) );
 
   const {cards, maxPageCount, currentPage} = cardsList;
 
@@ -136,7 +135,7 @@ const CartList = () => {
 
   useEffect(() => {
     if (confirmationUrl) {
-      // window.location.href = confirmationUrl;
+      window.location.href = confirmationUrl;
     }
   }, [confirmationUrl]);
 
@@ -245,7 +244,6 @@ const CartList = () => {
                 isOpen={show}
                 onClose={() => setShow(false)}
                 desc={"To place an order, select a product"}
-                buttonChild={"Close"}
               />
 
               <CartModal

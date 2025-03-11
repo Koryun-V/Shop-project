@@ -163,3 +163,24 @@ margin: 0 auto;
   padding: 20px;
   text-align: center;
 }
+
+
+.stores_container{
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.stores_item{
+  width: 100px;
+  height: 100px;
+}
+
+.stores_item_img{
+  width: 100%;
+  height: 100%;
+}
+

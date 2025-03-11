@@ -28,13 +28,14 @@ function Layout() {
   const minPrice = useSelector(state => state.home.minPrice);
   const maxPrice = useSelector(state => state.home.maxPrice);
   const [limit, setLimit] = useState(12);
+  const storeId = useSelector(state => state.home.storeId);
 
 
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchValue.trim() !== " ") {
       navigate("/products");
-      dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " "}));
+      dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " ",}));
     }
   };
 

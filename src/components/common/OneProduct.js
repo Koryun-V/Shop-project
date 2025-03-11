@@ -129,24 +129,24 @@ const OneProduct = () => {
 
 
       <div className="product_reviews_container">
-        <div className="rating_container">
-          <Rating onClick={handleRating} />
-          <input type="text" value={reviewText} onChange={onChangeReview} />
-          <button onClick={applyReview} className="apply-button">Apply</button>
+        {/*<div className="rating_container">*/}
+        {/*  <Rating onClick={handleRating} />*/}
+        {/*  <input type="text" value={reviewText} onChange={onChangeReview} />*/}
+        {/*  <button onClick={applyReview} className="apply-button">Apply</button>*/}
 
-        </div>
+        {/*</div>*/}
 
       </div>
-      {/*<div className="product__description">*/}
-      {/*  <h3 className="product__description__h">Description</h3>*/}
-      {/*  <p className="product__description__p">{description}</p>*/}
-      {/*  <p className="product__description__p">Store - {store}</p>*/}
-      {/*  <p className="product__description__p">Size - {size}</p>*/}
+      <div className="product__description">
+        <h3 className="product__description__h">Description</h3>
+        <p className="product__description__p">{description}</p>
+        <p className="product__description__p">Store - {store}</p>
+        <p className="product__description__p">Size - {size}</p>
 
-      {/*</div>*/}
-      {/*<div className="product__description">*/}
-      {/*  <h3 className="product__description__h">Similar products</h3>*/}
-      {/*</div>*/}
+      </div>
+      <div className="product__description">
+        <h3 className="product__description__h">Similar products</h3>
+      </div>
 
 
     </div>

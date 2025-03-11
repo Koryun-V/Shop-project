@@ -10,7 +10,7 @@ const token = localStorage.getItem("token");
 
 
 export default class Api {
-  static getAllProducts({categoryId, limit, page, minPrice, maxPrice, s}) {
+  static getAllProducts({categoryId, limit, page, minPrice, maxPrice, s, storeId}) {
     let category
     if (categoryId) {
       category = categoryId
@@ -22,7 +22,8 @@ export default class Api {
         page,
         minPrice,
         maxPrice,
-        s
+        s,
+        storeId
       }
     });
   }
@@ -112,6 +113,18 @@ export default class Api {
   static getReview({productId}) {
     return api.get(`/reviews/list/${productId}`);
   }
+
+
+  static getStores({page, limit}) {
+    return api.get(`/products/stores`, {
+      params:{
+        page,
+        limit,
+      }
+    })
+  }
+
+
 
 }
 

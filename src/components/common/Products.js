@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
-import {getProducts, setSelectId, setSearchValue} from "../../store/actions/home";
+import {getProducts, setSelectId, setSearchValue, getStores, setStoreId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {categoriesRequest, setMaxPrice, setMinPrice, setPage} from "../../store/actions/products";
 import {useParams} from "react-router-dom";
 import Slider from "react-slider";
+import domus from "../../assets/image/domus.png"
 
 const Products = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -23,13 +24,30 @@ const Products = () => {
   const minPrice = useSelector(state => state.home.minPrice);
   const maxPrice = useSelector(state => state.home.maxPrice);
   const searchValue = useSelector(state => state.home.searchValue);
+  const storesList = useSelector(state => state.home.storesList);
+  const storeId = useSelector(state => state.home.storeId);
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}));
   }, [dispatch, limit]);
 
+
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " "}));
+    dispatch(getStores({page: 1, limit: 10}))
+
+  }, []);
+
+
+  console.log(storesList)
+
+  console.log(storeId)
+
+
+
+
+
+  useEffect(() => {
+    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ",}));
   }, [page, limit,]);
 
   const clearAllOptions = () => {
@@ -40,6 +58,9 @@ const Products = () => {
     dispatch(setPage(1));
     dispatch(setSearchValue(" "));
   };
+
+
+
 
   const handleClick = (pageInfo) => {
     dispatch(setPage(pageInfo.selected + 1));
@@ -68,10 +89,7 @@ const Products = () => {
             </div>
             <Slider className="price-slider" onChange={handleSliderChange} value={[minPrice, maxPrice]} min={0} max={2000} />
           </form>
-          <div className="buttons-container">
-            <button onClick={() => dispatch(getProducts({categoryId: selectId, page: 1, limit, minPrice, maxPrice, s: searchValue}))} className="agree-button">Apply</button>
-            <button onClick={() => clearAllOptions()} className="agree-button">Clear All</button>
-          </div>
+
           <div className="select_box">
             <Select
               onChange={handleCategoryChange}
@@ -100,13 +118,22 @@ const Products = () => {
               }}
             />
           </div>
+          <div className="buttons-container">
+            <button onClick={() => dispatch(getProducts({categoryId: selectId, page: 1, limit, minPrice, maxPrice, s: searchValue}))} className="agree-button">Apply</button>
+            <button onClick={() => clearAllOptions()} className="agree-button">Clear All</button>
+          </div>
+
+          <div className="stores_container">
+            {storesList.map((item) => (
+              <div onClick={() => dispatch(setStoreId(item.id))} key={item.id} className="stores_item">
+                <img className="stores_item_img" src= {item.storeLogo.length > 0 ? item.storeLogo[0].path : domus } alt="store_img"/>
+              </div>
+            ))}
+          </div>
+
         </div>
         <div className="products_container">
-          {products.length > 0 ? (
             <Product products={products} className="product-block" classNameImg="product-img"/>
-          ) : (
-            <p className="no-products">No products found.</p>
-          )}
           <div className="react_pagination_div">
             <ReactPaginate
               previousLabel={"<"}

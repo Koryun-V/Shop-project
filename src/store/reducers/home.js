@@ -1,7 +1,7 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getProducts, setSearchValue} from "../actions/home";
+import {getProducts, getStores, setSearchValue, setStoreId} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
-import products from "../../components/common/Products";
+
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
 
 const initialState = {
@@ -13,7 +13,9 @@ const initialState = {
   minPrice: 0,
   maxPrice: 2000,
   page: "1",
-  searchValue: ""
+  searchValue: "",
+  storesList: [],
+  storeId: ""
 }
 export const home = createReducer(initialState, (builder) => {
   builder
@@ -28,6 +30,19 @@ export const home = createReducer(initialState, (builder) => {
     })
 
     .addCase(getProducts.rejected, (state) => {
+      state.status = "error"
+    })
+
+    .addCase(getStores.pending, (state) => {
+      state.status = "ok"
+    })
+
+    .addCase(getStores.fulfilled, (state, {payload}) => {
+      state.status = "ok"
+      state.storesList = payload.stores
+    })
+
+    .addCase(getStores.rejected, (state) => {
       state.status = "error"
     })
 
@@ -54,6 +69,9 @@ export const home = createReducer(initialState, (builder) => {
 
     .addCase(setSearchValue, (state, {payload}) => {
       state.searchValue = payload
+    })
+    .addCase(setStoreId, (state, {payload}) => {
+      state.storeId = payload
     })
 
 });

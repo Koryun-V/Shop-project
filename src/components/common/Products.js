@@ -38,7 +38,6 @@ const Products = () => {
   }, []);
 
 
-  console.log(storesList)
 
   console.log(storeId)
 
@@ -47,8 +46,8 @@ const Products = () => {
 
 
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ",}));
-  }, [page, limit,]);
+    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ", storeId}));
+  }, [page, limit, storeId]);
 
   const clearAllOptions = () => {
     dispatch(setMinPrice(0));
@@ -57,9 +56,8 @@ const Products = () => {
     dispatch(setSelectId(""));
     dispatch(setPage(1));
     dispatch(setSearchValue(" "));
+    dispatch(setStoreId(""))
   };
-
-
 
 
   const handleClick = (pageInfo) => {

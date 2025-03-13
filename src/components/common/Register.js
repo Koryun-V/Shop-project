@@ -8,7 +8,6 @@ import {
     setStatusKey, setStatusRegister, userDelete
 } from "../../store/actions/registration";
 import _ from "lodash"
-import 'react-phone-input-2/lib/material.css'
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import validator from "validator";

@@ -16,9 +16,16 @@
 @import "ordersOk";
 
 
+@import url("oneProduct.scss");
 
+
+@import "variables";
+
+@import url("category.scss");
 //@import url("slide.scss");
-//@import url("product.scss");
+@import url("products.scss");
+@import url("product.scss");
+
 
 * {
   margin: 0;

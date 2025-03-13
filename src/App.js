@@ -7,9 +7,12 @@ import CartList from "./components/pages/CartList";
 import OrdersOk from "./components/pages/OrdersOk";
 // import Home from "./components/common/Home";
 // import Products from "./components/common/Products";
-// import Category from "./components/common/Category";
+import Category from "./components/common/Category";
 // import Specialist from "./components/common/Specialist";
 // import Contact from "./components/common/Contact";
+import Products from "./components/common/Products";
+import OneProduct from "./components/common/OneProduct";
+
 
 
 const token = localStorage.getItem("token");
@@ -20,10 +23,13 @@ function App() {
                 {/*<Route index element={<Home/>}/>*/}
                 <Route path="/input" element={<PinInput/>}/>
                 <Route path="/order" element={<Order/>}/>
+                <Route path="/category" element={<Category/>}/>
 
               <Route path="/basket" element={<CartList/>}/>
               <Route path="/cardok" element={<OrdersOk/>}/>
-
+                <Route path="/products" element={<Products/>}/>
+                <Route path="/products/:name" element={<Products/>}/>
+                <Route path="/one-product" element={<OneProduct/>}/>
 
               {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>

@@ -3,10 +3,20 @@ import {login} from "./login";
 import {registration} from "./registration";
 import {order} from "./order";
 import {cardSlice} from "./cardSlice";
+import {products} from "./products"
+import {category} from "./category";
+import {oneProduct} from "./oneProduct";
+import {home} from "./home";
+
+
 
 export const rootReducer = combineReducers({
-    registration,
     login,
+    home,
+    registration,
+    category,
+    products,
+    oneProduct,
     order,
     card: cardSlice,
 })

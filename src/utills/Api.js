@@ -1,4 +1,5 @@
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 
 const api = axios.create({
@@ -17,6 +18,10 @@ export default class Api {
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});
     }
+    static getAllCategories(params) {
+        return api.get(`/categories/list`, {params})
+    }
+
 
     static forgotPasswordUser({email}) {
         return api.post(`/users/forgot/password`, {email});
@@ -112,7 +117,79 @@ export default class Api {
             products,
         });
     }
+    static getStores({page, limit}) {
+        return api.get(`/products/stores`, {
+            params:{
+                page,
+                limit,
+            }
+        })
+    }
 
+    static getPopularProducts() {
+        return api.get(`/products/popular`)
+    }
+
+
+    static getOneProduct({id}) {
+        return api.get(`/products/${id}`);
+    }
+
+
+    // static updateCard({cardId, quantity}) {
+    //     return api.put(`/cards/update/${cardId}`, {
+    //         quantity
+    //     }, {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //     })
+    // }
+
+    // static getCards({page, limit}) {
+    //     return api.get(`/cards/list?page=${page}&limit=${limit}`, {
+    //         headers: {
+    //             Authorization: token
+    //         }
+    //     });
+    // }
+    // static createCard({productId, quantity}) {
+    //     return api.post(`/cards/create`, {
+    //             productId,
+    //             quantity
+    //         }, {
+    //             headers: {
+    //                 Authorization: token
+    //             }
+    //         }
+    //     );
+    // }
+
+    static getAllProducts({categoryId, limit, page, minPrice, maxPrice,  storeId,  s, }) {
+        let category
+        if (categoryId) {
+            category = categoryId
+        }
+        let store
+        if (storeId) {
+            store = storeId
+        }
+        let search
+        if (s) {
+            search = s
+        }
+        return api.get(`/products/list`, {
+            params: {
+                categoryId: category,
+                limit,
+                page,
+                minPrice,
+                maxPrice,
+                s: search,
+                storeId: store
+            }
+        });
+    }
 
 }
 

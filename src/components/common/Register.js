@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {
     registrationUser,
     setDeleteEmail,
     setStatus,
     setStatusActive,
-    setStatusKey, userDelete
+    setStatusKey, setStatusRegister, userDelete
 } from "../../store/actions/registration";
 import _ from "lodash"
 import 'react-phone-input-2/lib/material.css'
@@ -118,12 +118,12 @@ const Register = () => {
     })
     const emailRedux = useSelector(state => state.registration.email)
     const {firstName, lastName, gender, email, password, repeatPassword} = user
-
+    const statusRegister = useSelector(state => state.registration.statusRegister)
     const statusActive = useSelector(state => state.registration.statusActive)
     const [isCheck, setIsCheck] = useState(false)
+    const statusDelete = useSelector(state => state.registration.statusDelete)
 
     const [isAnimation, setIsAnimation] = useState(false)
-
 
     useEffect(() => {
         setIsDate("")
@@ -133,6 +133,22 @@ const Register = () => {
             dispatch(setStatus(""))
         }
     }, [user.day, user.month, user.year]);
+
+
+    useEffect(() => {
+        if (statusRegister === "pending") {
+            dispatch(userDelete({email}))
+            dispatch(setStatusRegister(""))
+        }
+    }, [statusRegister]);
+
+    useEffect(() => {
+        if (statusDelete === "ok") {
+            dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
+            dispatch(setDeleteEmail(""))
+        }
+    }, [statusDelete]);
+
 
     useEffect(() => {
         if (user.day.length === 2 &&
@@ -162,10 +178,6 @@ const Register = () => {
 
 
     useEffect(() => {
-        return () => dispatch(userDelete({email:emailRedux}))
-    }, []);
-
-    useEffect(() => {
         inputName.forEach((item) => {
             if (item === title && value.length) {
                 test()
@@ -190,14 +202,15 @@ const Register = () => {
                 {...prevState, [n]: v.replace(/[^0-9+]/g, '')}
             ))
             setUserInfo({value: v.replace(/[^0-9+]/g, ''), title: n,})
-        }
-        else {
+        } else {
             setUser((prevState) => (
                 {...prevState, [event.target.name]: event.target.value}
             ))
             setUserInfo({value: v, title: n})
-            if(n === "email"){
-                dispatch(setDeleteEmail(event.target.email))
+            if (n === "email") {
+                dispatch(setDeleteEmail(""))
+                dispatch(setStatusRegister(""))
+
 
             }
         }
@@ -239,17 +252,18 @@ const Register = () => {
         fields.forEach(({validation, name, id}) => {
                 if (title === name) {
                     let test = name !== "repeatPassword" ? validation.test(value) : null
+
                     if (test === false || !value.length || isDate === "no" ||
                         user["repeatPassword"].length && user["password"] !== user["repeatPassword"]) {
                         setInputName((prevState) => (_.uniq([...prevState, title])))
-                    } else if (title === "password" || title === "repeatPassword" && user.repeatPassword === user.password) {
+
+                    } else if (name === "password" || name === "repeatPassword" && user.repeatPassword === user.password) {
                         const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
                         setInputName(filter)
 
                     } else if (isDate === "ok") {
-                        const filter = inputName.filter(item => item === "day" && item === "month" && item === "year");
+                        const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
                         setInputName(filter)
-
                     } else {
                         const filter = inputName.filter(item => item !== title)
                         setInputName(filter)
@@ -261,166 +275,172 @@ const Register = () => {
 
     const register = (e) => {
         if (isRegister) {
-            dispatch(setDeleteEmail(true))
             e.preventDefault();
             dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
         }
+
+        // if(isRegister && statusDelete === "ok"){
+        //     e.preventDefault();
+        //     dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
+        // }
     }
 
 
     return (
         <div className="section">
-            <div className="container"
-                 style={{
-                     width: "70%",
-                     border: "2px solid #e3e3e3",
-                     padding: 30,
-                     marginTop: 20,
-                     minHeight: 695,
-                     borderRadius: 5,
+            <div className="container">
+                <div className="register-block">
+                    <div className="container-register">
+                        {/*<button onClick={() => dispatch(userDelete())}>click</button>*/}
 
-                 }}
-            >
-
-                <div className="container-register">
-                    {/*<button onClick={() => dispatch(userDelete())}>click</button>*/}
-
-                    <div className="container-form" style={{width: 320}}>
-                        <div className="title">
-                            <span>Create a new Account</span>
-                        </div>
-                        {status !== "ok" ? <form onSubmit={register}>
-                                {fields.map((field) => (
-                                    <div className="field-block" key={field.id}>
-                                        <div style={{height: "50px"}}>
-                                            <Input
-                                                name={field.name}
-                                                maxLength={field.maxLength}
-                                                onBlur={test}
-                                                className="input"
-                                                {...field}
-                                                onChange={onChange}
-                                                value={user[field.name]}
-                                                id={field.id}
-                                                autoComplete="off"
-                                                label={field.label}
-                                                classNameLabel={user[field.name].length ? "active" : "label"}
-                                                status={status}
-                                            /></div>
+                        <div className="container-form" style={{width: 320}}>
+                            <div className="title">
+                                <span>Create a new Account</span>
+                            </div>
+                            {status !== "ok" ? <form onSubmit={register}>
+                                    {fields.map((field) => (
+                                        <div className="field-block" key={field.id}>
+                                            <div style={{height: "50px"}}>
+                                                <Input
+                                                    name={field.name}
+                                                    maxLength={field.maxLength}
+                                                    onBlur={test}
+                                                    className="input"
+                                                    {...field}
+                                                    onChange={onChange}
+                                                    value={user[field.name]}
+                                                    id={field.id}
+                                                    autoComplete="off"
+                                                    label={field.label}
+                                                    classNameLabel={user[field.name].length ? "active" : "label"}
+                                                    status={status}
+                                                /></div>
 
 
-                                        <div className="validation-info">
-                                            {inputName.map(((item, index) => (
-                                                item === field.name ?
+                                            <div className="validation-info">
+                                                {statusRegister === "active" && field.name === "email" ?
                                                     <>
                                                         <div className="test2"></div>
-                                                        <span>{!user[item].length ? "Field Required" : field.info}</span>
-                                                    </> : null)))}
-                                        </div>
-                                    </div>
-
-                                ))}
-
-                                <div className="gender-radio-group">
-                                    <span>Gender</span>
-                                    <div className="gender-block">
-                                        {genderOptions ? genderOptions.map((option) => (
-
-                                            <RadioButton
-                                                key={option.value}
-                                                name="gender"
-                                                value={option.value}
-                                                checked={user.gender === option.value}
-                                                onChange={onChange}
-                                                label={option.label}
-                                            />
-                                        )) : null}
-                                    </div>
-                                </div>
-
-                                <div className="form-button-block" style={{marginTop: 20}}>
-                                    <Button status={status} text="CONTINUE" type={isRegister ? "submit" : "button"}
-                                            className={isRegister && status !== "pending" ? "active-button"
-                                                : isRegister && status === "pending" ? "pending-button" : "disabled"}>Text</Button>
-                                </div>
-                            </form>
-                            : !isCheck ?
-                                <div className="container-form" style={{
-                                    marginTop: 50,
-
-                                }}>
-
-                                    <div className="email-icon-block">
-                                        <div className="email-line-block">
-                                            <div className="email-line"></div>
-                                            <div className="email-line"></div>
-                                            <div className="email-line"></div>
-                                        </div>
-                                        <FontAwesomeIcon icon={faEnvelope} className="email"/>
-                                    </div>
-
-                                    <div className="email-text">
-                                        <span>Enter Confirmation Code</span>
-                                        <span>Enter the confirmation code we sent to ebba93@ethereal.email</span>
-                                    </div>
-
-                                    <div className="pin-block">
-                                        <PinInput/>
-                                    </div>
-
-                                    <div className="timer">
-                                        <Timer email={email}/>
-                                    </div>
-
-                                </div>
-
-                                :
-                                <div className="check-container">
-                                    <div className="check-block" style={{
-                                        opacity: isAnimation ? 1 : 0,
-                                        zIndex: isAnimation ? 1 : -1,
-                                    }}>
-                                        <div className="key">
-                                            <div className="check-circle">
-                                                <div className="check-mark" style={{
-                                                    width: isAnimation ? 85 : 0,
-                                                    transform: isAnimation ? "rotate(45deg)" : "none",
-                                                }}>
-                                                </div>
+                                                        <span>Try another email address.</span>
+                                                    </>
+                                                    :
+                                                    inputName.map(((item, index) => (
+                                                        item === field.name ?
+                                                            <>
+                                                                <div className="test2"></div>
+                                                                <span>{!user[item].length ? "Field Required" : field.info}</span>
+                                                            </>
+                                                            : null)))}
                                             </div>
                                         </div>
-                                        <div className="check-text" style={{
-                                            opacity: statusKey === "ok" ? 1 : 0,
+
+                                    ))}
+
+                                    <div className="gender-radio-group">
+                                        <span>Gender</span>
+                                        <div className="gender-block">
+                                            {genderOptions ? genderOptions.map((option) => (
+
+                                                <RadioButton
+                                                    key={option.value}
+                                                    name="gender"
+                                                    value={option.value}
+                                                    checked={user.gender === option.value}
+                                                    onChange={onChange}
+                                                    label={option.label}
+                                                />
+                                            )) : null}
+                                        </div>
+                                    </div>
+
+                                    <div className="form-button-block" style={{marginTop: 20}}>
+                                        <Button status={statusDelete === "pending" ? statusDelete : status} text="CONTINUE"
+                                                type={isRegister ? "submit" : "button"}
+                                                className={isRegister && status !== "pending"
+                                                || isRegister && statusDelete === "pending" ? "active-button"
+                                                    :
+                                                    isRegister && status === "pending" ||
+                                                    isRegister && statusDelete === "pending" ? "pending-button" : "disabled"}>Text</Button>
+                                    </div>
+                                </form>
+                                : !isCheck ?
+                                    <div className="container-form" style={{
+                                        marginTop: 50,
+
+                                    }}>
+
+                                        <div className="email-icon-block">
+                                            <div className="email-line-block">
+                                                <div className="email-line"></div>
+                                                <div className="email-line"></div>
+                                                <div className="email-line"></div>
+                                            </div>
+                                            <FontAwesomeIcon icon={faEnvelope} className="email"/>
+                                        </div>
+
+                                        <div className="email-text">
+                                            <span>Enter Confirmation Code</span>
+                                            <span>Enter the confirmation code we sent to ebba93@ethereal.email</span>
+                                        </div>
+
+                                        <div className="pin-block">
+                                            <PinInput/>
+                                        </div>
+
+                                        <div className="timer">
+                                            <Timer email={email}/>
+                                        </div>
+
+                                    </div>
+
+                                    :
+                                    <div className="check-container">
+                                        <div className="check-block" style={{
+                                            opacity: isAnimation ? 1 : 0,
+                                            zIndex: isAnimation ? 1 : -1,
                                         }}>
+                                            <div className="key">
+                                                <div className="check-circle">
+                                                    <div className="check-mark" style={{
+                                                        width: isAnimation ? 85 : 0,
+                                                        transform: isAnimation ? "rotate(45deg)" : "none",
+                                                    }}>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="check-text" style={{
+                                                opacity: statusKey === "ok" ? 1 : 0,
+                                            }}>
                                         <span>
                                             You have successfully registered!
                                         </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                        }
-                    </div>
-                    <div className="status-block">
-                        <div className="status-register">
-                            <div className="line-status"
-                                 style={{
-                                     height: status === "ok" && isCheck && statusKey === "ok" ? "100%" :
-                                         status === "ok" ? "50%" : 0
-                                 }}></div>
-
+                            }
                         </div>
-                        <div className="circle"></div>
-                        <div className="circle"
-                             style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
-                        <div className="circle"
-                             style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
+                        <div className="status-block">
+                            <div className="status-register">
+                                <div className="line-status"
+                                     style={{
+                                         height: status === "ok" && isCheck && statusKey === "ok" ? "100%" :
+                                             status === "ok" ? "50%" : 0
+                                     }}></div>
+
+                            </div>
+                            <div className="circle"></div>
+                            <div className="circle"
+                                 style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
+                            <div className="circle"
+                                 style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
+                        </div>
                     </div>
-                </div>
-                <div className="container-register-img">
-                    <img src={bg} className="register-img"/>
-                </div>
+                    <div className="container-register-img">
+                        <img src={bg} className="register-img"/>
+                    </div>
 
 
+                </div>
             </div>
         </div>
     );

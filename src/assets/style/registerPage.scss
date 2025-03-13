@@ -13,6 +13,16 @@
   margin: 5px 0;
 }
 
+.register-block {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  border: 2px solid #e3e3e3;
+  padding: 30px;
+  border-radius: 5px;
+
+}
+
 .container-register {
   //width: 420px;
   width: auto;
@@ -23,14 +33,20 @@
 }
 
 .container-register-img {
-  width: 100%;
+  width: auto;
+  height: 650px;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
   pointer-events: none;
 
+  img {
+    object-fit: cover;
+  }
+
 }
+
 
 .status-block {
   display: flex;

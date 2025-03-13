@@ -5,7 +5,7 @@ import {
     resendActivateUser,
     setDeleteEmail,
     setStatus, setStatusActive,
-    setStatusKey, userDelete
+    setStatusKey, setStatusRegister, userDelete
 } from "../actions/registration";
 
 const initialState = {
@@ -17,6 +17,7 @@ const initialState = {
     statusActive:"",
     statusDelete:"",
     email:"",
+    statusRegister:"",
 }
 
 export const registration = createReducer(initialState, (builder) => {
@@ -29,8 +30,10 @@ export const registration = createReducer(initialState, (builder) => {
             state.token = payload.token
             state.statusActive = payload.result.status
         })
-        .addCase(registrationUser.rejected, (state) => {
+        .addCase(registrationUser.rejected, (state,error) => {
             state.status = "error"
+            state.statusRegister = error.payload.response.data.status
+
         })
 
         .addCase(activateUser.pending, (state) => {
@@ -75,6 +78,9 @@ export const registration = createReducer(initialState, (builder) => {
         })
         .addCase(setDeleteEmail, (state,{payload}) => {
             state.deleteEmail = payload
+        })
+        .addCase(setStatusRegister, (state,{payload}) => {
+            state.statusRegister = payload
         })
 
         .addCase(setStatusActive, (state,{payload}) => {

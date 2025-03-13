@@ -85,3 +85,6 @@ export const setStatusActive = createAction(
 export const setDeleteEmail = createAction(
     "register/delete-email",
 )
+export const setStatusRegister = createAction(
+    "register/status-register",
+)

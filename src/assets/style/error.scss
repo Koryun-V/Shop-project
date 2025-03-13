@@ -1,0 +1,44 @@
+.error {display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 130px;
+
+  &-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+
+  &-content {
+    max-width: 600px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  &-code {
+    font-size: 72px;
+    color: #ff5722;
+  }
+
+  &-message {
+    font-size: 24px;
+    top: 60px;
+  }
+
+  &-link {
+    font-size: 18px;
+    color: #2196f3;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+  }
+}
+
+
+

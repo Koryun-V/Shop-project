@@ -2,6 +2,12 @@ import axios from "axios";
 
 
 const api = axios.create({
+    headers: {
+        "Content-Type": "application/json",
+        "Authorization": localStorage.getItem("token"),
+
+    },
+
     baseURL: "https://world-of-construction.onrender.com"
 })
 const token = localStorage.getItem("token");
@@ -70,6 +76,41 @@ export default class Api {
         headers: {
             "Content-Type": "application/json",
         }});
+    }
+
+
+    static async createCard({data}) {
+        return api.post("/cards/create", {...data});
+    };
+
+    static async getCardList({page, limit,}) {
+        return await api.get("cards/list", {
+            params: {
+                page,
+                limit,
+            },
+        });
+    };
+
+    static deleteCart({cardId}) {
+        return api.delete(`/cards/delete/${cardId}`)
+    }
+
+
+    static async updateCard({cardId, quantity}) {
+        return await api.put(`/cards/update/${cardId}`, {quantity});
+    };
+
+
+    static deleteAllCart() {
+        return api.delete("/cards/all")
+    }
+
+
+    static async payment({ products }) {
+        return await api.post('payment/place', {
+            products,
+        });
     }
 
 

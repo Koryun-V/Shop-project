@@ -1,0 +1,40 @@
+@import "variables";
+
+.modal-content {
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+
+  &_title{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 17px;
+    color: #2c2b2b;
+    margin-bottom: 35px;
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 10px 20px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.confirm-btn {
+  background: $interfaceColor;;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: red;
+  color: white;
+}

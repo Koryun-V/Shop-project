@@ -272,7 +272,6 @@ const Register = () => {
             }
         )
     }
-    console.log("aaa")
     const register = (e) => {
         if (isRegister) {
             e.preventDefault();

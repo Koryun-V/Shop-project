@@ -1,3 +1,5 @@
+@import "variables";
+
 @import url("input.scss");
 @import url("button.scss");
 @import url("radioButton.scss");
@@ -6,8 +8,14 @@
 @import url("loginModal.scss");
 @import url("registerPage.scss");
 @import url("order.scss");
+@import "card";
+@import "error";
+@import "modal";
+@import "costumCheckBox";
+@import "cartModal";
+@import "ordersOk";
 
-@import "variables";
+
 
 //@import url("slide.scss");
 //@import url("product.scss");

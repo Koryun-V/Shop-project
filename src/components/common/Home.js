@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
-import {getPopularProducts} from "../../store/actions/home";
+import {getPopularProducts, getSharesProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
 import about from "../../assets/image/about.jpg"
 
@@ -19,12 +19,17 @@ const Home = () => {
 
 
     const dispatch = useDispatch();
+
     const products = useSelector(state => state.home.products);
+    const productsShares = useSelector(state => state.home.productsShares);
+
     const [isPlay, setIsPlay] = useState(false);
 
 
     useEffect(() => {
         dispatch(getPopularProducts())
+        dispatch(getSharesProducts())
+
     }, []);
 
     console.log(products)
@@ -94,7 +99,7 @@ const Home = () => {
             <article className="article-home">
                 <div className="title">Shares</div>
                 <div className="article-block">
-                    <Product products={products} quantity={4} className="product-shares" classNameImg="shares-img"/>
+                    {/*<Product products={productsShares} quantity={4} className="product-shares" classNameImg="shares-img"/>*/}
                 </div>
             </article>
             <article className="article-home">
@@ -105,7 +110,7 @@ const Home = () => {
             <article className="article-home">
                 <div className="title">Popular products</div>
                 <div className="article-block">
-                    <Product products={products} className="product-block" classNameImg="product-img"/>
+                    {/*<Product products={products} className="product-block" classNameImg="product-img"/>*/}
                 </div>
             </article>
 

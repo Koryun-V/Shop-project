@@ -1,9 +1,11 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getPopularProducts} from "../actions/home";
+import {getPopularProducts, getSharesProducts} from "../actions/home";
 
 const initialState = {
     status: "",
+    statusShares:"",
     products:[],
+    productsShares:[]
 }
 export const home = createReducer(initialState, (builder) => {
     builder
@@ -17,5 +19,18 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(getPopularProducts.rejected, (state) => {
             state.status = "error"
         })
+
+        .addCase(getSharesProducts.pending, (state) => {
+            state.statusShares = "pending"
+        })
+        .addCase(getSharesProducts.fulfilled, (state, {payload}) => {
+            state.statusShares = "ok"
+            state.productsShares = payload
+        })
+        .addCase(getSharesProducts.rejected, (state) => {
+            state.statusShares = "error"
+        })
+
+
 
 });

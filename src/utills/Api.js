@@ -13,6 +13,9 @@ export default class Api {
     static getPopularProducts(params) {
         return api.get(`/products/popular`, {params})
     }
+    static getSharesProducts(params) {
+        return api.get(`/products/discounts`, {params})
+    }
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});
     }

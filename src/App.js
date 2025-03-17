@@ -4,6 +4,7 @@ import Register from "./components/common/Register";
 import Home from "./components/common/Home";
 
 import PinInput from "./components/mini/PinInput";
+import Shares from "./components/common/Shares";
 // import Home from "./components/common/Home";
 // import Products from "./components/common/Products";
 // import Category from "./components/common/Category";
@@ -17,6 +18,8 @@ function App() {
         <Routes>
             <Route path="/" element={<Layout/>}>
                 <Route index element={<Home/>}/>
+                <Route path="/shares" element={<Shares/>}/>
+
                 {/*<Route index element={<Home/>}/>*/}
                 <Route path="/input" element={<PinInput/>}/>
                 {/*<Route path="/specialist" element={<Specialist/>}/>*/}

@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 
-const Product = ({quantity,products, className,classNameImg}) => {
+const Product = ({quantity, products, className, classNameImg}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
@@ -27,7 +27,7 @@ const Product = ({quantity,products, className,classNameImg}) => {
 
     return (
         <>
-            {products.slice(0,products.length < 12 ? 8 : 12).map((product, index) => (
+            {products.slice(0, quantity ? quantity : products.length).map((product, index) => (
                 <div className={className}>
                     <>
                         {/*<Link to="/category" className="product-link"*/}
@@ -42,7 +42,13 @@ const Product = ({quantity,products, className,classNameImg}) => {
                         {/*          setIndexImg(0)*/}
                         {/*      }}*/}
                         {/*></Link>*/}
-                        <div className={classNameImg}> {product.productImage  ?
+                        {product.discount ?
+                            <div className="percentage">
+                                <span>- {product.discount.discountPercentage.split(".")[0]} %</span>
+                            </div>
+                            : null}
+
+                        <div className={classNameImg}> {product.productImage ?
                             <img src={
                                 product.productImage.length > 1 && index === test ?
                                     product.productImage[indexImg].path
@@ -53,13 +59,24 @@ const Product = ({quantity,products, className,classNameImg}) => {
 
                         <div className="product-active">
                             <div className="product-info">
-                                <div className="product-price"><span>{product.price} $</span></div>
+
+
+
+                                <div className="product-price">
+                                    {product.discount ? <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
+                                    <span style={{
+                                        color:product.discount ? "#a5a5a5" : "black",
+                                        fontSize:product.discount ? "20px" : "25px",
+                                        textDecorationLine:product.discount ?  "line-through" : "none",
+                                    }}>{product.price.split(".")[0]} $</span>
+                                </div>
                                 <div className="product-name"><span>{product.name}</span></div>
                                 <div className="product-description"><span>{product.description}</span></div>
                             </div>
 
                             <div className="product-button">
-                                <Button icon={<FontAwesomeIcon style={{marginRight:10}} icon={faCartShopping}/>} text="Add to cart" className="active-button">
+                                <Button icon={<FontAwesomeIcon style={{marginRight: 10}} icon={faCartShopping}/>}
+                                        text="Add to cart" className="active-button">
                                 </Button>
                             </div>
                         </div>

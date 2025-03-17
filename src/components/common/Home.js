@@ -7,12 +7,13 @@ import background2 from "../../assets/image/home-2.jpg"
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import {faAngleDown, faAngleLeft, faAngleRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
 import {getPopularProducts, getSharesProducts} from "../../store/actions/home";
 import Product from "../mini/Product";
 import about from "../../assets/image/about.jpg"
+import {Link} from "react-router-dom";
 
 
 const Home = () => {
@@ -97,9 +98,15 @@ const Home = () => {
                 </div>
 
             <article className="article-home">
-                <div className="title">Shares</div>
+                <div className="title">
+                    <h3>Shares</h3>
+                    <Link to="/shares">All shares   <FontAwesomeIcon icon={faAngleRight} className="user-arrow"
+
+                    /></Link>
+                </div>
+
                 <div className="article-block">
-                    {/*<Product products={productsShares} quantity={4} className="product-shares" classNameImg="shares-img"/>*/}
+                    <Product products={productsShares} quantity={4} className="product-shares" classNameImg="shares-img"/>
                 </div>
             </article>
             <article className="article-home">
@@ -108,9 +115,15 @@ const Home = () => {
             </article>
 
             <article className="article-home">
-                <div className="title">Popular products</div>
+                <div className="title">
+                    <h3>Popular products</h3>
+                    <Link to="/#">All products <FontAwesomeIcon icon={faAngleRight} className="user-arrow"
+
+                    /></Link>
+                </div>
                 <div className="article-block">
-                    {/*<Product products={products} className="product-block" classNameImg="product-img"/>*/}
+                    <Product products={products} quantity={products.length < 12 ? 8 : 12} className="product-block"
+                             classNameImg="product-img"/>
                 </div>
             </article>
 

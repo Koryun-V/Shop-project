@@ -20,7 +20,7 @@ export const getSharesProducts = createAsyncThunk(
         try {
             const {data} = await api.getSharesProducts(payload)
             console.log(data,"data")
-            // return data.data
+            return data.discounts
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
         }

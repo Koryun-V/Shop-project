@@ -3,9 +3,7 @@ import {
     categoriesRequest,
     createCard,
     getCards,
-    setMaxPrice,
-    setMinPrice,
-    setPage,
+
     updateCard
 } from "../actions/products";
 

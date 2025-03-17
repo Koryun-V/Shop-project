@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
@@ -16,13 +16,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
-import {login} from "../../store/reducers/login";
 import visa from "../../assets/icon/Visa.svg"
 import group5 from "../../assets/icon/Group_5.svg"
 import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
 
-import {getProducts, setSearchValue} from "../../store/actions/home";
+import {getAllProducts, setSearchValue} from "../../store/actions/home";
 
 //main
 const token = localStorage.getItem("token");
@@ -59,7 +58,7 @@ function Layout() {
         e.preventDefault();
         if (searchValue.trim() !== " ") {
             navigate("/products");
-            dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " ",}));
+            dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " ",}));
         }
     }
 

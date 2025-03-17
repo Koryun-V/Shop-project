@@ -105,10 +105,16 @@
 
 
 .product-price {
+  display: flex;
+  align-items: center;
 
   span {
     font-weight: bold;
     font-size: 25px;
+    text-decoration-color: black;
+  }
+  span:nth-child(1) {
+    margin-right: 15px;
   }
 }
 
@@ -141,4 +147,16 @@
 
 }
 
-
+.percentage{
+  background: red;
+  position: absolute;
+  padding:5px;
+  left:10px;
+  top:10px;
+  color:white;
+  border-radius: 5px;
+  span{
+    font-size: 20px;
+    font-family: "PoppinsMedium", "sans-serif";
+  }
+}

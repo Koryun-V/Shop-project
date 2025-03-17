@@ -1,5 +1,4 @@
 import axios from "axios";
-import {useSelector} from "react-redux";
 
 
 const api = axios.create({
@@ -14,10 +13,19 @@ const api = axios.create({
 const token = localStorage.getItem("token");
 
 
+
 export default class Api {
+    static getPopularProducts(params) {
+        return api.get(`/products/popular`, {params})
+    }
+    static getSharesProducts(params) {
+        return api.get(`/products/discounts`, {params})
+    }
+
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});
     }
+
     static getAllCategories(params) {
         return api.get(`/categories/list`, {params})
     }
@@ -126,9 +134,7 @@ export default class Api {
         })
     }
 
-    static getPopularProducts() {
-        return api.get(`/products/popular`)
-    }
+
 
 
     static getOneProduct({id}) {
@@ -165,6 +171,31 @@ export default class Api {
     //     );
     // }
 
+    // static getAllProducts({categoryId, limit, page, minPrice, maxPrice,  storeId,  s, }) {
+    //     let category
+    //     if (categoryId) {
+    //         category = categoryId
+    //     }
+    //     let store
+    //     if (storeId) {
+    //         store = storeId
+    //     }
+    //     let search
+    //     if (s) {
+    //         search = s
+    //     }
+    //     return api.get(`/products/list`, {
+    //         params: {
+    //             categoryId: category,
+    //             limit,
+    //             page,
+    //             minPrice,
+    //             maxPrice,
+    //             s: search,
+    //             storeId: store
+    //         }
+    //     });
+    // }
     static getAllProducts({categoryId, limit, page, minPrice, maxPrice,  storeId,  s, }) {
         let category
         if (categoryId) {
@@ -190,7 +221,6 @@ export default class Api {
             }
         });
     }
-
 }
 
 

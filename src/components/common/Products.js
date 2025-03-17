@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
-import {getProducts, setSelectId, setSearchValue, getStores, setStoreId} from "../../store/actions/home";
+import {getAllProducts, setSelectId, setSearchValue, getStores, setStoreId} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
 import {categoriesRequest, setMaxPrice, setMinPrice, setPage} from "../../store/actions/products";
@@ -44,7 +44,7 @@ const Products = () => {
 
 
   useEffect(() => {
-    dispatch(getProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ", storeId}));
+    dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ", storeId}));
   }, [page, limit, storeId]);
 
   const clearAllOptions = () => {
@@ -184,7 +184,7 @@ const Products = () => {
               />
             </div>
             <div className="buttons-container">
-              <button onClick={() => dispatch(getProducts({
+              <button onClick={() => dispatch(getAllProducts({
                 categoryId: selectId,
                 page: 1,
                 limit,

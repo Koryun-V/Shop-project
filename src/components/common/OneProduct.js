@@ -83,7 +83,7 @@ const OneProduct = () => {
                     interval={5000}
                     showArrows={false}
                     emulateTouch={true}
-
+                   className={"product__image"}
           >
 
             {_.isEmpty(images) ? <div style={{
@@ -92,7 +92,8 @@ const OneProduct = () => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: 10
+                marginTop: 10,
+
               }}>
                 <img src={default_image} alt="default"
                      style={{width: "90%", height: 150, objectFit: "contain"}}/>
@@ -113,9 +114,9 @@ const OneProduct = () => {
           </div>
           <div className="product__quantity">
             <button onClick={addCard} className="product__button__cart">Add to cart</button>
-            <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
-            <input className="product__value" type="text" value={quantity} onChange={onChange}/>
             <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
+            <input className="product__value" type="text" value={quantity} onChange={onChange}/>
+            <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
           </div>
 
           <div className="product_mini_desc">

@@ -61,7 +61,7 @@ const Product = ({products, className, classNameImg}) => {
       {products.map((product, index) => {
           const isCard = cards ? cards.find(id => id === product.id) : false;
           return (
-            <div className={className}>
+            <div className={className} onClick={() => goToProduct(product.id)}>
               <>
 
 
@@ -77,7 +77,7 @@ const Product = ({products, className, classNameImg}) => {
                 {/*          setIndexImg(0)*/}
                 {/*      }}*/}
                 {/*></Link>*/}
-                <div className={classNameImg}> {product.productImage.length ?
+                <div  className={classNameImg}> {product.productImage.length ?
                   <img src={
                     product.productImage.length > 1 && index === test ?
                       product.productImage[indexImg].path
@@ -87,7 +87,7 @@ const Product = ({products, className, classNameImg}) => {
                 </div>
 
                 <div className="product-active">
-                  <div className="product-info"  onClick={() => goToProduct(product.id)}>
+                  <div className="product-info"  >
                     <div className="product-price"><span>{product.price} $</span></div>
                     <div className="product-name"><span>{product.name}</span></div>
                     <div className="product-description"><span>{product.description}</span></div>

@@ -197,7 +197,12 @@ const CartList = () => {
                 </div>
 
                 <div className="total__group">
-                  <Button className="total__button" onClick={onOrder} loading={orderLoading}>
+                  <Button
+                    className="agree-button total"
+                 // className="total__button"
+                    // className="total__button"
+                    onClick={onOrder}
+                    loading={orderLoading}>
                     Place an order
                   </Button>
                 </div>
@@ -221,7 +226,11 @@ const CartList = () => {
                 </div>
 
                 <div className="total__group">
-                  <Button onClick={onClickClear} className="total__button">
+                  <Button onClick={onClickClear}
+                          className="clear-button total"
+
+                          // className="total__button"
+                  >
                     Clear All
                   </Button>
                 </div>

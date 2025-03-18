@@ -102,7 +102,7 @@ const CartItem = ({ card,selectedProducts, setSelectedProducts,setCheckedAll}) =
 
           >
             <Button
-              className="delete"
+              className={`delete ${deleting.includes(card.id) ? 'button' : ''}`}
               onClick={() => handleProductDelete(card.id)}
               loading={ (deleting.includes(card.id))}
             >

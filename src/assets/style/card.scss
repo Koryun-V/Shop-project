@@ -4,6 +4,12 @@
   margin-bottom: 16px;
   display: flex;
   border: 1px solid #E8E9EA;
+  transition: box-shadow 0.3s, border 0.3s;
+
+  &:hover {
+    box-shadow: 0 0 5px 0 rgba(66, 68, 90, 1);
+    border: 1px solid transparent;
+  }
 
   @media (max-width: 992px) {
     flex-direction: column;
@@ -39,6 +45,7 @@
     font-weight: 500;
     line-height: 24px;
     color: #2F323A;
+
   }
 
   &-price {
@@ -88,7 +95,7 @@
     }
 
     &:hover {
-      background: $interfaceColor;;
+      background: $interfaceColor;
     }
 
     &:disabled {
@@ -135,7 +142,8 @@
 
   .delete {
     border: 1px solid #D1D1D3;
-    background-color: #D1D1D3;
+    //background-color: #D1D1D3;
+    background-color: transparent;
     max-width: 60px;
     width: 100%;
     height: 48px;
@@ -146,16 +154,28 @@
     line-height: 24px;
     text-align: center;
     cursor: pointer;
+
+    &.button{
+      background-color: #e03a3a;
+      border: none;
+
+    }
+
+    &:hover{
+      color: white;
+      transition:  box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
   }
 }
 
 .trash_con {
   path {
-    fill: rgba(238, 72, 36, 0.9);
+    fill: #636365;
   }
   &:hover {
     path {
-      fill: rgba(166, 34, 3, 0.9);
+      fill: #e03a3a;
     }
   }
 }
@@ -221,19 +241,18 @@
     border: 1px solid #E8E9EA;
   }
 
-  &__button {
-    margin: 16px;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-    padding: 10px 15px;
-    width: 91%;
-    border: none;
-    height: 55px;
-  }
-
 }
 
+.clear-button.total{
+  width: 91%;
+  margin: 16px;
+}
+
+.agree-button.total{
+  width: 91%;
+  margin: 16px;
+  height: 55px;
+}
 .info {
   margin: 10px  10px 10px 0;
   display: flex;
@@ -272,3 +291,4 @@
 .custom__checkbox__checkmark.active {
   background: $interfaceColor;
 }
+

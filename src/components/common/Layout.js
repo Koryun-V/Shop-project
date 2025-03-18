@@ -366,7 +366,7 @@ function Layout() {
                             <div className="footer-block">
                                 <div className="footer-link"><Link>Profile</Link></div>
                                 <div className="footer-link"><Link to="/order">Order</Link></div>
-                                <div className="footer-link"><Link>Basket</Link></div>
+                                <div className="footer-link"><Link to="/basket">Basket</Link></div>
                             </div>
                             <div className="footer-block">
                                 <div className="footer-link"><Link>Category</Link></div>

@@ -79,15 +79,15 @@ const Product = ({products, className, classNameImg, quantity}) => {
                                         <span>- {product.discount.discountPercentage.split(".")[0]} %</span>
                                     </div>
                                     : null}
-                                {/*<div className={classNameImg}>*/}
-                                {/*    {product.productImage ?*/}
-                                {/*        <img src={*/}
-                                {/*            product.productImage.length > 1 && index === test ?*/}
-                                {/*                product.productImage[indexImg].path*/}
-                                {/*                :*/}
-                                {/*                product.productImage[0].path*/}
-                                {/*        } alt="img"/> : null}*/}
-                                {/*</div>*/}
+                                <div className={classNameImg}>
+                                    {product.productImage.length ?
+                                        <img src={
+                                            product.productImage.length > 1 && index === test ?
+                                                product.productImage[indexImg].path
+                                                :
+                                                product.productImage[0].path
+                                        } alt="img"/> : null}
+                                </div>
 
                                 <div className="product-active">
                                     <div className="product-info">

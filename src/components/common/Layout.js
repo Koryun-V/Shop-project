@@ -147,16 +147,10 @@ function Layout() {
                                         <li>Category</li>
                                     </Link>
                                     <Link className="nav-item" to="/#">
-                                        <li>Specialist</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/#">
                                         <li>Contact</li>
                                     </Link>
                                 </ul>
 
-                                {/*<Link className="nav-item" to="/#">*/}
-                                {/*    <li>Specialist</li>*/}
-                                {/*</Link>*/}
 
                             </nav>
 

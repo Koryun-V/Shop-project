@@ -7,12 +7,12 @@ import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faMagnifyingGlass,
-    faAngleDown,
-    faCartShopping,
-    faUser,
-    faCube,
-    faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
+  faMagnifyingGlass,
+  faAngleDown,
+  faCartShopping,
+  faUser,
+  faCube,
+  faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
@@ -27,26 +27,26 @@ import {getAllProducts, setSearchValue} from "../../store/actions/home";
 const token = localStorage.getItem("token");
 
 function Layout() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const user = useSelector(state => state.login.user)
-    // const [isOpenLogin, setIsOpenLogin] = useState(false)
-    const statusKey = useSelector(state => state.registration.statusKey)
-    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
-    const [value, setValue] = useState("");
-    const [isProfile, setIsProfile] = useState(false)
-    const [isMouse, setIsMouse] = useState(false);
-    const statusUser = useSelector(state => state.login.statusUser)
-    const [avatar, setAvatar] = useState([])
-    const userRef = useRef(null);
-    const searchValue = useSelector(state => state.home.searchValue);
-    const selectId = useSelector(state => state.home.selectId);
-    const page = useSelector(state => state.home.page);
-    const minPrice = useSelector(state => state.home.minPrice);
-    const maxPrice = useSelector(state => state.home.maxPrice);
-    const [limit, setLimit] = useState(12);
-    const storeId = useSelector(state => state.home.storeId);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isOpenRegister, setIsOpenRegister] = useState(false)
+  const user = useSelector(state => state.login.user)
+  // const [isOpenLogin, setIsOpenLogin] = useState(false)
+  const statusKey = useSelector(state => state.registration.statusKey)
+  const isOpenLogin = useSelector(state => state.login.isOpenLogin)
+  const [value, setValue] = useState("");
+  const [isProfile, setIsProfile] = useState(false)
+  const [isMouse, setIsMouse] = useState(false);
+  const statusUser = useSelector(state => state.login.statusUser)
+  const [avatar, setAvatar] = useState([])
+  const userRef = useRef(null);
+  const searchValue = useSelector(state => state.home.searchValue);
+  const selectId = useSelector(state => state.home.selectId);
+  const page = useSelector(state => state.home.page);
+  const minPrice = useSelector(state => state.home.minPrice);
+  const maxPrice = useSelector(state => state.home.maxPrice);
+  const [limit, setLimit] = useState(12);
+  const storeId = useSelector(state => state.home.storeId);
 
     useEffect(() => {
         if (token) {
@@ -140,33 +140,61 @@ function Layout() {
                                         </ul>
                                     </li>
 
-                                    <Link className="nav-item" to="/products">
-                                        <li>Products</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/category">
-                                        <li>Category</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/#">
-                                        <li>Contact</li>
-                                    </Link>
-                                </ul>
+                  <Link className="nav-item" to="/products">
+                    <li>Products</li>
+                  </Link>
+                  <Link className="nav-item" to="/category">
+                    <li>Category</li>
+                  </Link>
+                  <Link className="nav-item" to="/#">
+                    <li>Specialist</li>
+                  </Link>
+                  <Link className="nav-item" to="/#">
+                    <li>Contact</li>
+                  </Link>
+                </ul>
 
+                {/*<Link className="nav-item" to="/#">*/}
+                {/*    <li>Specialist</li>*/}
+                {/*</Link>*/}
 
-                            </nav>
+              </nav>
 
-                            <div className="search-block">
-                                <form onSubmit={handleSearch} className="form-search">
-                                    <div className="search-field">
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
-                                        <Input
-                                            value={searchValue}
-                                            onChange={(e) => dispatch(setSearchValue(e.target.value))}
-                                            className="search-input"
-                                            placeholder="Search"
-                                        />
-                                    </div>
-                                </form>
-                            </div>
+              {/*<div className="search-block">*/}
+              {/*  <form onSubmit={handleSearch} className="form-search">*/}
+              {/*    <div className="search-field">*/}
+              {/*      <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>*/}
+              {/*      <Input*/}
+              {/*        value={searchValue}*/}
+              {/*        onChange={(e) => dispatch(setSearchValue(e.target.value))}*/}
+              {/*        className="search-input"*/}
+              {/*        placeholder="Search"*/}
+              {/*      />*/}
+              {/*    </div>*/}
+              {/*  </form>*/}
+              {/*</div>*/}
+
+              <div className="search-box">
+                <div className="search-row">
+                  <form action="#">
+                    <input
+                      className="new-search-input"
+                      type="text"
+                      placeholder="Search"
+                      autoComplete="off"
+                      value={searchValue}
+                      onChange={(e) => dispatch(setSearchValue(e.target.value))}
+                    />
+                  </form>
+
+                  <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
+                </div>
+
+                <div className="result-box">
+                  <ul className="search-ul">
+                  </ul>
+                </div>
+              </div>
 
 
                             <div className="user-block">

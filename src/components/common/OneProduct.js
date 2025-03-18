@@ -114,8 +114,8 @@ const OneProduct = () => {
           </div>
           <div className="product__quantity">
             <button onClick={addCard} className="product__button__cart">Add to cart</button>
-            <button className="product__button" onClick={() => updateQuantity(-1)}>-</button>
-            <input className="product__value" type="text" value={quantity} onChange={onChange}/>
+            <button  disabled={quantity <= 1} className="product__button" onClick={() => updateQuantity(-1)}>-</button>
+            <input className="product__value" type="text" value={Number(quantity)} onChange={onChange}/>
             <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
           </div>
 

@@ -127,7 +127,9 @@ input:-webkit-autofill:focus {
     height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     min-width: 900px;
+
     flex-direction: column;
   }
 
@@ -163,6 +165,11 @@ input:-webkit-autofill:focus {
 
   .article-home {
     width: 100%;
+    max-width: 1440px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 
     .article-block-img {
       position: relative;

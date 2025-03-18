@@ -8,7 +8,7 @@ import {createCard, getCards} from "../../store/actions/products";
 import {setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
 
-const Product = ({products, className, classNameImg, quantity}) => {
+const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
@@ -55,81 +55,147 @@ const Product = ({products, className, classNameImg, quantity}) => {
 
     return (
         <>
-            {products.slice(0, quantity ? quantity : products.length).map((product, index) => {
-                    const isCard = cards ? cards.find(id => id === product.id) : false;
-                    return (
-                        <div className={className} onClick={() => goToProduct(product.id)}>
-                            <>
+            {
+                products.length ?
+                    products.slice(0, quantity ? quantity : products.length).map((product, index) => {
+                            const isCard = cards ? cards.find(id => id === product.id) : false;
+                            return (
+                                <div className={className} onClick={() => goToProduct(product.id)}>
+                                    <>
 
 
-                                {/*<Link to="/category" className="product-link"*/}
-                                {/*      onMouseEnter={() => {*/}
-                                {/*          setIsPlay(true)*/}
-                                {/*          setImgLength(product.productImage.length)*/}
-                                {/*          setTest(index)*/}
-                                {/*      }}*/}
-                                {/*      onMouseLeave={() => {*/}
-                                {/*          setIsPlay(false)*/}
-                                {/*          setImgLength(0)*/}
-                                {/*          setIndexImg(0)*/}
-                                {/*      }}*/}
-                                {/*></Link>*/}
-                                {product.discount ?
-                                    <div className="percentage">
-                                        <span>- {product.discount.discountPercentage.split(".")[0]} %</span>
-                                    </div>
-                                    : null}
-                                <div className={classNameImg}>
-                                    {product.productImage.length ?
-                                        <img src={
-                                            product.productImage.length > 1 && index === test ?
-                                                product.productImage[indexImg].path
-                                                :
-                                                product.productImage[0].path
-                                        } alt="img"/> : null}
-                                </div>
+                                        {/*<Link to="/category" className="product-link"*/}
+                                        {/*      onMouseEnter={() => {*/}
+                                        {/*          setIsPlay(true)*/}
+                                        {/*          setImgLength(product.productImage.length)*/}
+                                        {/*          setTest(index)*/}
+                                        {/*      }}*/}
+                                        {/*      onMouseLeave={() => {*/}
+                                        {/*          setIsPlay(false)*/}
+                                        {/*          setImgLength(0)*/}
+                                        {/*          setIndexImg(0)*/}
+                                        {/*      }}*/}
+                                        {/*></Link>*/}
 
-                                <div className="product-active">
-                                    <div className="product-info">
+                                        {product.discount ?
+                                            <div className="percentage">
+                                                <span>- {product.discount.discountPercentage.split(".")[0]} %</span>
+                                            </div>
+                                            : null}
 
-
-                                        <div className="product-price">
-                                            {product.discount ?
-                                                <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
-                                            <span style={{
-                                                color: product.discount ? "#a5a5a5" : "black",
-                                                fontSize: product.discount ? "20px" : "25px",
-                                                textDecorationLine: product.discount ? "line-through" : "none",
-                                            }}>{product.price.split(".")[0]} $</span>
+                                        <div className={classNameImg}>
+                                            {product.productImage.length ?
+                                                <img src={
+                                                    product.productImage.length > 1 && index === test ?
+                                                        product.productImage[indexImg].path
+                                                        :
+                                                        product.productImage[0].path
+                                                } alt="img"/> : null}
                                         </div>
-                                        <div className="product-name"><span>{product.name}</span></div>
-                                        <div className="product-description"><span>{product.description}</span></div>
+
+                                        <div className={classNameActive}>
+                                            <div className="product-info">
+                                                <div className="product-price">
+                                                    {product.discount ?
+                                                        <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
+                                                    <span style={{
+                                                        color: product.discount ? "#a5a5a5" : "black",
+                                                        fontSize: product.discount ? "20px" : "25px",
+                                                        textDecorationLine: product.discount ? "line-through" : "none",
+                                                    }}>{product.price.split(".")[0]} $</span>
+                                                </div>
+                                                <div className="product-name"><span>{product.name}</span></div>
+                                                <div className="product-description"><span>{product.description}</span>
+                                                </div>
+                                            </div>
+
+                                            <div className="product-button">
+                                                <Button isProduct={true} isCard={isCard} index={index}
+                                                        indexProduct={indexProduct}
+                                                        status={status} onClick={() => {
+                                                    sendProduct(product.id, index)
+                                                }}
+                                                        icon={<FontAwesomeIcon style={{marginRight: 10}}
+                                                                               icon={faCartShopping}/>}
+                                                        text="Add to cart"
+                                                        className={isCard ? "disabled" : "active-button"}
+                                                >
+                                                </Button>
+                                            </div>
+                                        </div>
+
+                                    </>
+                                </div>
+                            )
+                        }
+
+                        // <div>{product.id}</div>
+                    ) :
+                    Array.from({length: quantity}).map(() => (
+
+                        <div className={className}>
+                            {classNameImg === "shares-img" ?
+                                <div className="percentage loading-gradient-p" style={{
+                                    width:68,
+                                    height:40,
+                                    background:"red",
+                                }}>
+                                    <span></span>
+                                </div>
+                                : null}
+                                {classNameImg === "product-img" ?
+
+
+                                    <div className="loading-img-p">
+                                    <div className={`${classNameImg} loading-gradient-p`} >
                                     </div>
 
-                                    <div className="product-button">
-                                        <Button isProduct={true} isCard={isCard} index={index}
-                                                indexProduct={indexProduct}
-                                                status={status} onClick={() => {
-                                            sendProduct(product.id, index)
-                                        }}
-                                                icon={<FontAwesomeIcon style={{marginRight: 10}}
-                                                                       icon={faCartShopping}/>}
-                                                text="Add to cart"
-                                                className={isCard ? "disabled" : "active-button"}
-                                        >
-                                        </Button>
-                                    </div>
                                 </div>
 
-                            </>
-                        </div>
-                    )
-                }
+                                :
+                                <div className="loading-img-s">
+                                    <div className={`${classNameImg} loading-gradient-p`}>
+                                    </div>
 
-                // <div>{product.id}</div>
-            )}
-        </>
-    );
+                                </div>
+
+
+                            }
+
+
+                            <div className={classNameActive}>
+                                <div className="product-info ">
+                                    <div className="loading-span">
+                                        <div className="product-price loading-gradient-p"
+                                             style={{
+                                                 height:20,
+                                             }}><span></span>
+                                        </div>
+                                    </div>
+                                    <div className="loading-span">
+                                        <div className="product-name loading-gradient-p"
+                                             style={{
+                                                 height:20,
+                                             }}><span></span></div>
+                                    </div>
+                                    <div className="loading-span">
+                                        <div className="product-description loading-gradient-p" style={{
+                                            height:50,
+                                        }}><span></span></div>
+                                    </div>
+                                </div>
+                                <div className="product-button loading-gradient-p"
+                                     style={{
+                                         height:45,
+                                         background:"limegreen"
+                                     }}>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+        </>)
+
+
 };
 
 export default Product;

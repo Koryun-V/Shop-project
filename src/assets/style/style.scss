@@ -14,7 +14,8 @@
 @import "costumCheckBox";
 @import "cartModal";
 @import "ordersOk";
-
+@import "users";
+@import "datePiker";
 
 @import url("oneProduct.scss");
 
@@ -117,6 +118,7 @@ input:-webkit-autofill:focus {
   height: 100%;
 }
 .wrapper {
+  margin: 0 auto;
   width: 100%;
   height: 100%;
   min-width: 900px;

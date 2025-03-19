@@ -109,6 +109,23 @@ export default class Api {
         });
     }
 
+    static getProfile() {
+        return api.get("users/profile")
+    }
+
+    static async updateUser({data}) {
+        console.log(data,"api")
+        return api.put("users/update", data, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: localStorage.getItem("token"),
+            },
+        });
+    };
+
+    static async updateUserPassword({newPassword}) {
+        return api.put("users/password", {newPassword});
+    };
 
     static async createCard({data}) {
         return api.post("/cards/create", {...data});

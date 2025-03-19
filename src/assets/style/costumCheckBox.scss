@@ -24,6 +24,12 @@
     top: 5px;
     padding: 2px;
     transition: background-color 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
   }
 
   &__input:checked + &__label &__checkmark {

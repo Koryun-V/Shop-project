@@ -6,7 +6,6 @@ import {faEye, faEyeSlash} from "@fortawesome/free-solid-svg-icons";
 const Input = ({status,value, onChange, maxLength, onBlur, id, autoComplete, type, name, className, placeholder, label,classNameLabel}) => {
     const [eye, setEye] = useState(faEyeSlash)
     const inputRef = useRef(null);
-
     return (
         <div className="input-block">
             <div className="test"></div>
@@ -16,7 +15,7 @@ const Input = ({status,value, onChange, maxLength, onBlur, id, autoComplete, typ
                 onBlur={ onBlur}
                 id={id}
                 autoComplete={autoComplete}
-                type={name === "password" && eye === faEyeSlash ? "password" : name === "repeatPassword" && eye === faEyeSlash ? "password" : "text"}
+                type={(name === "password" || type === "password") && eye === faEyeSlash ? "password" : name === "repeatPassword" && eye === faEyeSlash ? "password" : "text"}
                 maxLength={maxLength}
                 className={className}
                 placeholder={placeholder}
@@ -26,8 +25,7 @@ const Input = ({status,value, onChange, maxLength, onBlur, id, autoComplete, typ
             />
             <span className={classNameLabel}>{label}</span>
 
-
-            {name === "password" || name === "repeatPassword"
+            {name === "password" || name === "repeatPassword" || type === "password"
                 // && user[field.name].length
                 ?
                 <FontAwesomeIcon

@@ -59,11 +59,12 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                 products.length ?
                     products.slice(0, quantity ? quantity : products.length).map((product, index) => {
                             const isCard = cards ? cards.find(id => id === product.id) : false;
+                            const date = product.discount ? new Date(product.discount.endDate) : null;
+                            const day = product.discount ? date.getDate() : null;
+                            const month = product.discount ? date.toLocaleString('en-us', {month: 'long'}) : null;
                             return (
                                 <div className={className}>
                                     <>
-
-
                                         <div className="product-link" onClick={() => goToProduct(product.id)}
                                              onMouseEnter={() => {
                                                  setIsPlay(true)
@@ -96,13 +97,16 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                         <div className={classNameActive}>
                                             <div className="product-info">
                                                 <div className="product-price">
-                                                    {product.discount ?
-                                                        <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
-                                                    <span style={{
-                                                        color: product.discount ? "#a5a5a5" : "black",
-                                                        fontSize: product.discount ? "20px" : "25px",
-                                                        textDecorationLine: product.discount ? "line-through" : "none",
-                                                    }}>{product.price.split(".")[0]} $</span>
+                                                    <div className="price-block">
+                                                        {product.discount ?
+                                                            <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
+                                                        <span style={{
+                                                            color: product.discount ? "#a5a5a5" : "black",
+                                                            fontSize: product.discount ? "20px" : "25px",
+                                                            textDecorationLine: product.discount ? "line-through" : "none",
+                                                        }}>{product.price.split(".")[0]} $</span>
+                                                    </div>
+                                                    {product.discount ? <strong className="loading-gradient-endDate">Until {day} {month}</strong> : null}
                                                 </div>
                                                 <div className="product-name"><span>{product.name}</span></div>
                                                 <div className="product-description"><span>{product.description}</span>

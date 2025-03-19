@@ -40,8 +40,6 @@ const Products = () => {
   }, []);
 
 
-  console.log(storeId)
-
 
   useEffect(() => {
     dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ", storeId}));
@@ -77,18 +75,20 @@ const Products = () => {
   const handleMinPriceChange = (e) => {
     let newMin = clampMin(+e.target.value);
     if (newMin > maxPrice - 300) {
-      newMin = maxPrice - 300;
+      newMin = maxPrice - 300;  // Ensure min is not greater than max - 300
     }
+    dispatch(setMinPrice(newMin));
     handleSliderChange([newMin, maxPrice]);
   };
 
   const handleMaxPriceChange = (e) => {
     let newMax = clampMax(+e.target.value);
-    if (newMax < minPrice + 300) {
-      newMax = minPrice + 300;
+    if (newMax > 2000) {
+      newMax = 2000;
     }
-    handleSliderChange([minPrice, newMax]);
+    dispatch(setMaxPrice(newMax));
   };
+
 
 
 
@@ -114,13 +114,11 @@ const Products = () => {
               <div>
                 <input
                   type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
                   className="price-input"
-                  value={minPrice}
+                  value={Number(minPrice)}
                   onChange={handleMinPriceChange}
                   min={0}
-                  max={1700}  // minPrice maximum is 1700 now
+                  max={1700}
                   onKeyPress={(e) => {
                     if (!/[0-9]/.test(e.key)) {
                       e.preventDefault();
@@ -129,10 +127,8 @@ const Products = () => {
                 />
                 <input
                   type="text"
-                  inputMode="numeric"
-                  pattern="[0-9]*"
                   className="price-input"
-                  value={maxPrice}
+                  value={Number(maxPrice)}
                   onChange={handleMaxPriceChange}
                   min={0}
                   max={2000}
@@ -152,6 +148,7 @@ const Products = () => {
                 min={0}
                 max={2000}
                 minDistance={300}
+
               />
             </form>
 

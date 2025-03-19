@@ -12,23 +12,25 @@
 
 
 .field-block:nth-child(3) {
-  margin-top:90px;
+  margin-top: 90px;
   position: relative;
   width: 100px;
 }
 
 .field-block:nth-child(4) {
-  margin-top:90px;
+  margin-top: 90px;
 
   position: relative;
   width: 100px;
 }
+
 .field-block:nth-child(5) {
-  margin-top:90px;
+  margin-top: 90px;
 
   position: relative;
   width: 100px;
 }
+
 .field-block:nth-child(7) {
 
   position: relative;
@@ -47,7 +49,8 @@
   margin: 0 10px;
   position: relative;
   height: 40px;
-  .form-search{
+
+  .form-search {
     width: 100%;
     height: 100%;
   }
@@ -66,7 +69,7 @@
     width: 100%;
     height: 100%;
     font-size: 15px;
-    padding:0 30px 0 15px;
+    padding: 0 30px 0 15px;
     z-index: 5;
     background: transparent;
     position: absolute;
@@ -80,7 +83,7 @@
     height: 100%;
     width: 100%;
     font-size: 16px;
-    padding:0 30px 0 15px;
+    padding: 0 30px 0 15px;
     z-index: 5;
     background: transparent;
     position: absolute;
@@ -160,17 +163,18 @@
     color: red;
     top: 50px;
     font-size: 14px;
-    font-family:  sans-serif;
+    font-family: sans-serif;
     font-weight: 600;
 
 
   }
 }
+
 .validation-info-login {
   height: 20px;
   position: relative;
   width: 100%;
-  margin-top:2px;
+  margin-top: 2px;
 
   span {
     cursor: default;
@@ -180,26 +184,22 @@
 
   }
 }
-.search-field{
+
+.search-field {
   width: 100%;
   height: 100%;
-  form{
+
+  form {
     position: relative;
 
     width: 100%;
     height: 100%;
   }
 
-  .glass{
-      cursor: pointer;
-      position: absolute;
-      right: 10px;
-      bottom: 0;
-      top: 0;
-      margin: auto;
-      z-index: 10;
-  }
+
 }
+
+
 
 .eye {
   cursor: pointer;
@@ -212,7 +212,8 @@
   z-index: 5;
 }
 
-  .div{
-    width: 100px;
-  }
+.div {
+  width: 100px;
+}
+
 

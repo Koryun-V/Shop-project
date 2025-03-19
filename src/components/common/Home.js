@@ -122,8 +122,8 @@ const Home = () => {
                     /></Link>
                 </div>
                 <div className="article-block">
-                    {/*<Product classNameActive="product-active" products={products} quantity={12} className="product-block"*/}
-                    {/*         classNameImg="product-img"/>*/}
+                    <Product classNameActive="product-active" products={products} quantity={12} className="product-block"
+                             classNameImg="product-img"/>
                 </div>
             </article>
 

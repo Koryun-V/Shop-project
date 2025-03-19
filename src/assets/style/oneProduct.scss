@@ -1,3 +1,6 @@
+
+@import "variables";
+
 .product {
   display: flex;
   flex-wrap: wrap;
@@ -89,7 +92,7 @@
   font-family: "Manrope-Medium", sans-serif;
   font-weight: bold;
   color: #000000;
-  background-color: limegreen;
+  background-color: $interfaceColor;
   border-radius: 5px;
 
 
@@ -149,10 +152,17 @@
   font-size: 18px;
   font-family: "Manrope-Medium", sans-serif;
   border: 1px solid #8e8e8e;
-  background-color: white;
-  color: #000000;
+  background-color: $interfaceColor;
+  color: white;
   cursor: pointer;
   text-align: center;
+
+
+  &:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }
+
 
 }
 
@@ -171,7 +181,7 @@
 }
 
 .product__value {
-  width: 50px;
+  width: 80px;
   height: 40px;
   text-align: center;
   font-size: 18px;

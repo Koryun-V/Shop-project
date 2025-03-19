@@ -167,7 +167,9 @@ const CartList = () => {
                     <div onClick={handleSelectAll} className="total__container_desc">
                       <div
                         className={`custom__checkbox__checkmark ${totalCardPrice === totalProductPrice ? 'active' : ''}`}>
-                        {(totalCardPrice === totalProductPrice) && <CheckIcon className="custom__checkbox__icon"/>}
+                        {(totalCardPrice === totalProductPrice)
+                          && <CheckIcon className="custom__checkbox__icon"/>
+                        }
                       </div>
 
                       <div className="total-price">
@@ -199,8 +201,6 @@ const CartList = () => {
                 <div className="total__group">
                   <Button
                     className="agree-button total"
-                 // className="total__button"
-                    // className="total__button"
                     onClick={onOrder}
                     loading={orderLoading}>
                     Place an order
@@ -226,10 +226,9 @@ const CartList = () => {
                 </div>
 
                 <div className="total__group">
-                  <Button onClick={onClickClear}
-                          className="clear-button total"
-
-                          // className="total__button"
+                  <Button
+                    onClick={onClickClear}
+                    className="clear-button total"
                   >
                     Clear All
                   </Button>

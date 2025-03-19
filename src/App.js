@@ -15,6 +15,7 @@ import Category from "./components/common/Category";
 // import Contact from "./components/common/Contact";
 import Products from "./components/common/Products";
 import OneProduct from "./components/common/OneProduct";
+import Users from "./components/pages/User";
 
 
 
@@ -36,6 +37,8 @@ function App() {
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
                 <Route path="/one-product" element={<OneProduct/>}/>
+
+              <Route path="/user" element={<Users/>}/>
 
               {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>

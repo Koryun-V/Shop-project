@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   gap: 50px;
+  margin-top: 30px;
 
 }
 
@@ -27,14 +28,23 @@
   padding: 10px 20px;
   cursor: pointer;
   width: 100px;
+  transition: 0.4s;
 }
 
 .confirm-btn {
   background: $interfaceColor;;
   color: white;
+
+  &:hover{
+    background: rgb(0, 143, 13);
+  }
 }
 
 .cancel-btn {
   background-color: red;
   color: white;
+
+  &:hover{
+    background: #6c1d1d;
+  }
 }

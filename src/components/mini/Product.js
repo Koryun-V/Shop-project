@@ -60,22 +60,22 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                     products.slice(0, quantity ? quantity : products.length).map((product, index) => {
                             const isCard = cards ? cards.find(id => id === product.id) : false;
                             return (
-                                <div className={className} onClick={() => goToProduct(product.id)}>
+                                <div className={className}>
                                     <>
 
 
-                                        {/*<Link to="/category" className="product-link"*/}
-                                        {/*      onMouseEnter={() => {*/}
-                                        {/*          setIsPlay(true)*/}
-                                        {/*          setImgLength(product.productImage.length)*/}
-                                        {/*          setTest(index)*/}
-                                        {/*      }}*/}
-                                        {/*      onMouseLeave={() => {*/}
-                                        {/*          setIsPlay(false)*/}
-                                        {/*          setImgLength(0)*/}
-                                        {/*          setIndexImg(0)*/}
-                                        {/*      }}*/}
-                                        {/*></Link>*/}
+                                        <div className="product-link" onClick={() => goToProduct(product.id)}
+                                             onMouseEnter={() => {
+                                                 setIsPlay(true)
+                                                 setImgLength(product.productImage.length)
+                                                 setTest(index)
+                                             }}
+                                             onMouseLeave={() => {
+                                                 setIsPlay(false)
+                                                 setImgLength(0)
+                                                 setIndexImg(0)
+                                             }}
+                                        ></div>
 
                                         {product.discount ?
                                             <div className="percentage">
@@ -133,28 +133,30 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                     ) :
                     Array.from({length: quantity}).map(() => (
 
-                        <div className={className} style={{border:"1px solid transparent"}}>
+                        <div className={className} style={{border: "1px solid transparent"}}>
                             {classNameImg === "shares-img" ?
                                 <div className="percentage loading-gradient-p" style={{
-                                    width:68,
-                                    height:40,
-                                    background:"red",
+                                    width: 68,
+                                    height: 40,
+                                    background: "red",
                                 }}>
                                     <span></span>
                                 </div>
                                 : null}
-                                {classNameImg === "product-img" ?
+                            {classNameImg === "product-img" ?
 
 
-                                    <div className="loading-img-p">
-                                    <div className={`${classNameImg} loading-gradient-p`}  style={{border:"1px solid transparent"}}>
+                                <div className="loading-img-p">
+                                    <div className={`${classNameImg} loading-gradient-p`}
+                                         style={{border: "1px solid transparent"}}>
                                     </div>
 
                                 </div>
 
                                 :
                                 <div className="loading-img-s">
-                                    <div className={`${classNameImg} loading-gradient-p`}  style={{border:"1px solid transparent"}}>
+                                    <div className={`${classNameImg} loading-gradient-p`}
+                                         style={{border: "1px solid transparent"}}>
                                     </div>
 
                                 </div>
@@ -168,26 +170,26 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                     <div className="loading-span">
                                         <div className="product-price loading-gradient-p"
                                              style={{
-                                                 height:20,
+                                                 height: 20,
                                              }}><span></span>
                                         </div>
                                     </div>
                                     <div className="loading-span">
                                         <div className="product-name loading-gradient-p"
                                              style={{
-                                                 height:20,
+                                                 height: 20,
                                              }}><span></span></div>
                                     </div>
                                     <div className="loading-span">
                                         <div className="product-description loading-gradient-p" style={{
-                                            height:50,
+                                            height: 50,
                                         }}><span></span></div>
                                     </div>
                                 </div>
                                 <div className="product-button loading-gradient-p"
                                      style={{
-                                         height:45,
-                                         background:"limegreen"
+                                         height: 45,
+                                         background: "limegreen"
                                      }}>
                                 </div>
                             </div>

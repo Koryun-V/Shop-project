@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
 import axios from "axios";
@@ -47,6 +47,11 @@ function Layout() {
     const maxPrice = useSelector(state => state.home.maxPrice);
     const [limit, setLimit] = useState(12);
     const storeId = useSelector(state => state.home.storeId);
+
+    const {pathname} = useLocation()
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname])
 
     useEffect(() => {
         if (token) {

@@ -234,7 +234,7 @@ function ModalLogin({open, onClose}) {
                     <div className="container-modal">
                         {!isForgot ?
                             <>
-                                <div className="background-login">
+                                <div className="background-login ">
                                     <img src={bg}/>
                                 </div>
                                 <div className="container-form">

@@ -81,12 +81,15 @@
     display: flex;
     width: 100%;
     height: 100%;
+
+
   }
 
   .background-login {
     width: 200px;
     margin-right: 20px;
-    img{
+
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -95,7 +98,6 @@
     }
 
   }
-
 
 
   .forgot-block {
@@ -139,7 +141,8 @@
     }
   }
 }
-.timer-resend{
+
+.timer-resend {
   background: #737373;
   width: 100px;
   height: 50px;
@@ -147,16 +150,15 @@
   right: 0;
   margin-right: 15px;
   border-radius: 5px;
-  padding:10px;
+  padding: 10px;
 
 
-
-  .timer-loading{
+  .timer-loading {
     transition: 0.2s;
-    top:0;
-    bottom:0;
+    top: 0;
+    bottom: 0;
     left: 0;
-    margin:auto;
+    margin: auto;
     position: absolute;
     height: 100%;
     background: $interfaceColor;
@@ -164,42 +166,46 @@
 
 
   }
-  .sms-code{
+
+  .sms-code {
     font-family: "PoppinsMedium", sans-serif;
-    color:white;
-    top:0;
-    bottom:0;
-    right:0;
+    color: white;
+    top: 0;
+    bottom: 0;
+    right: 0;
     left: 0;
-    margin:auto;
+    margin: auto;
     position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content:center;
+    justify-content: center;
     align-items: center;
     cursor: pointer;
     z-index: 1;
 
 
   }
-  .timer-block{
+
+  .timer-block {
     transition: 0.5s;
-    top:0;
-    bottom:0;
-    right:0;
+    top: 0;
+    bottom: 0;
+    right: 0;
     left: 0;
-    margin:auto;
+    margin: auto;
     position: absolute;
     width: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .clock{
-      font-size:18px;
+
+    .clock {
+      font-size: 18px;
       //margin-right: 2px;
     }
-    .span-timer{
+
+    .span-timer {
       font-family: "RobotoBold", sans-serif;
 
     }
@@ -207,32 +213,80 @@
 }
 
 
-.no-correct{
+.no-correct {
 
   width: 320px;
   display: flex;
   align-items: center;
   color: #5b5b5b;
-  .message{
+
+  .message {
     width: 30px;
     position: relative;
     margin-right: 20px;
 
-    .icon{
+    .icon {
       font-size: 30px;
 
     }
-    .icon-message{
+
+    .icon-message {
       position: absolute;
-      top:-10px;
-      right:-8px;
+      top: -10px;
+      right: -8px;
 
     }
   }
 
-  span{
+  span {
     font-family: "PoppinsMedium", sans-serif;
 
   }
 }
+
+.review-block {
+  margin-top: 10px;
+
+  textarea {
+    width: 300px;
+    height: 300px;
+    resize: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px;
+    border: 2px solid #d1d1d1;
+    font-family: "PoppinsMedium", "sans-serif";
+    font-size: 16px;
+  }
+
+  textarea:focus-within {
+    border: 2px solid $interfaceColor;
+  }
+}
+
+.star {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  cursor: pointer;
+
+  .icon {
+    transition: 0.2s all;
+    font-size: 50px;
+
+  }
+
+
+}
+
+.star-disable {
+  color: black;
+}
+
+.star-active {
+  color: rgba(255, 195, 0, 0.9);
+}
+
 

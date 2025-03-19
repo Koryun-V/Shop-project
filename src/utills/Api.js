@@ -13,11 +13,27 @@ const api = axios.create({
 const token = localStorage.getItem("token");
 
 
-
 export default class Api {
     static getPopularProducts(params) {
         return api.get(`/products/popular`, {params})
     }
+
+    static sendReview({productId, review, rating}) {
+        return api.post(`/reviews/create/${productId}`,
+            {
+                review,
+                rating
+            },
+
+            {
+                headers: {
+                    Authorization: `${token}`,
+                    "Content-Type": "application/json",
+                }
+            }
+        )
+    }
+
     static getSharesProducts(params) {
         return api.get(`/products/discounts`, {params})
     }
@@ -83,12 +99,14 @@ export default class Api {
             }
         });
     }
+
     static userDelete({email}) {
-        return api.delete(`/users/delete-user`,{
-            data: { email }, // Sending email in request body
-        headers: {
-            "Content-Type": "application/json",
-        }});
+        return api.delete(`/users/delete-user`, {
+            data: {email}, // Sending email in request body
+            headers: {
+                "Content-Type": "application/json",
+            }
+        });
     }
 
 
@@ -120,14 +138,15 @@ export default class Api {
     }
 
 
-    static async payment({ products }) {
+    static async payment({products}) {
         return await api.post('payment/place', {
             products,
         });
     }
+
     static getStores({page, limit}) {
         return api.get(`/products/stores`, {
-            params:{
+            params: {
                 page,
                 limit,
             }
@@ -170,7 +189,7 @@ export default class Api {
     // }
 
 
-    static getAllProducts({categoryId, limit, page, minPrice, maxPrice,  storeId,  s, }) {
+    static getAllProducts({categoryId, limit, page, minPrice, maxPrice, storeId, s,}) {
         let category
         if (categoryId) {
             category = categoryId

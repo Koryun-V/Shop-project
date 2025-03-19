@@ -15,7 +15,7 @@ const Shares = () => {
         <div className="section">
             <div className="container">
                 <div className="shares">
-                    <Product products={productsShares}  className="product-block" classNameImg="product-img"/>
+                    <Product products={productsShares} classNameActive="product-active"  quantity={12} className="product-block" classNameImg="product-img"/>
                 </div>
 
             </div>

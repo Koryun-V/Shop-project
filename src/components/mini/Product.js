@@ -119,7 +119,8 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                         status={status} onClick={() => {
                                                     sendProduct(product.id, index)
                                                 }}
-                                                        icon={<FontAwesomeIcon style={{marginRight: 10}}
+                                                        icon={<FontAwesomeIcon style={{marginLeft: 20,fontSize:20}}
+
                                                                                icon={faCartShopping}/>}
                                                         text="Add to cart"
                                                         className={isCard ? "disabled" : "active-button"}

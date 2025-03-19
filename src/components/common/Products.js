@@ -196,7 +196,7 @@ const Products = () => {
 
         </div>
         <div className="products_container">
-          <Product classNameActive="product-active" products={products} quantity={products.length < 12 ? 8 : 12} className="product-block"
+          <Product classNameActive="product-active" products={products} quantity={12} className="product-block"
                    classNameImg="product-img"/>
           <div className="react_pagination_div">
             {pageCount > 1 && (

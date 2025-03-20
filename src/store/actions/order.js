@@ -12,12 +12,10 @@ export const getOrder = createAsyncThunk(
         }
     }
 );
-export const setIsOpenReview = createAction(
-    "login/modalOpen-review",
-)
+
 
 export const sendReview = createAsyncThunk(
-    "user/review",
+    "user/send-review",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.sendReview(payload);
@@ -27,3 +25,25 @@ export const sendReview = createAsyncThunk(
         }
     }
 );
+export const getReview = createAsyncThunk(
+    "user/get-review",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getReview(payload);
+            return data.productsReviews
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
+export const setIsOpenReview = createAction(
+    "login/modalOpen-review",
+)
+
+export const setReviews = createAction(
+    "login/reviews",
+)
+export const setReviewStatus = createAction(
+    "login/review-status",
+)

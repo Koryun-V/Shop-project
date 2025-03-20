@@ -1,11 +1,14 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getOrder, sendReview, setIsOpenReview} from "../actions/order";
+import {getOrder, getReview, sendReview, setIsOpenReview, setReviews, setReviewStatus} from "../actions/order";
 
 const initialState = {
     status: "",
     order: [],
     isOpenReview: false,
-    statusReview: "",
+    statusReviewSend: "",
+    statusReviewGet: "",
+    reviews:{},
+
 
 }
 export const order = createReducer(initialState, (builder) => {
@@ -21,17 +24,38 @@ export const order = createReducer(initialState, (builder) => {
             state.status = "error"
         })
         .addCase(sendReview.pending, (state) => {
-            state.statusReview = "pending"
+            state.statusReviewSend = "pending"
         })
         .addCase(sendReview.fulfilled, (state, {payload}) => {
-            state.statusReview = "ok"
+            state.statusReviewSend = "ok"
         })
         .addCase(sendReview.rejected, (state) => {
-            state.statusReview = "error"
+            state.statusReviewSend = "error"
         })
+        .addCase(getReview.pending, (state) => {
+            state.statusReviewGet = "pending"
+        })
+        .addCase(getReview.fulfilled, (state, {payload}) => {
+            state.statusReviewGet = "ok"
+            state.reviews = payload[0]
+        })
+        .addCase(getReview.rejected, (state) => {
+            state.statusReviewGet = "error"
+        })
+
+
+
+
+
 
         .addCase(setIsOpenReview, (state, {payload}) => {
             state.isOpenReview = payload
+        })
+        .addCase(setReviews, (state, {payload}) => {
+            state.reviews = payload
+        })
+        .addCase(setReviewStatus, (state, {payload}) => {
+            state.statusReviewGet = payload
         })
 
 

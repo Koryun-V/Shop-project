@@ -1,4 +1,5 @@
 import axios from "axios";
+import {getReview} from "../store/actions/order";
 
 
 const api = axios.create({
@@ -37,6 +38,11 @@ export default class Api {
     static getSharesProducts(params) {
         return api.get(`/products/discounts`, {params})
     }
+
+    static getReview({productId}) {
+        return api.get(`/reviews/list/${productId}`)
+    }
+
 
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});
@@ -114,7 +120,7 @@ export default class Api {
     }
 
     static async updateUser({data}) {
-        console.log(data,"api")
+        console.log(data, "api")
         return api.put("users/update", data, {
             headers: {
                 "Content-Type": "multipart/form-data",

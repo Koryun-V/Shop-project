@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {getOrder, sendReview, setIsOpenReview} from "../../store/actions/order";
+import {getOrder, getReview, sendReview, setIsOpenReview, setReviews} from "../../store/actions/order";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSquarePen} from "@fortawesome/free-solid-svg-icons";
@@ -8,24 +8,25 @@ import {faSquarePen} from "@fortawesome/free-solid-svg-icons";
 import ModalReview from "./Modal/ModalReview";
 
 
-
-
-
-
 const Order = () => {
     const dispatch = useDispatch();
     const order = useSelector(state => state.order);
+    const reviews = useSelector(state => state.order.reviews)
     const reviewOpen = useSelector(state => state.order.isOpenReview);
-    const [productId,setProductId] = useState("");
+    const [product, setProduct] = useState({
+        productId: "",
+        productImg: "",
+        productName: "",
+    });
 
-    console.log(reviewOpen, "set")
+
+
 
     useEffect(() => {
         dispatch(getOrder())
     }, []);
 
-    let x = new Date("2025-02-25T17:16:35.000Z")
-    console.log(order)
+
     return (
         <>
             <div className="section">
@@ -53,19 +54,24 @@ const Order = () => {
                                     <div className="order-status">
                                         <div className="order-status-block">
                                             <strong>Order from {day} {month} </strong>
-                                            <div className="review"  onClick={() => {
-                                                dispatch(setIsOpenReview(true))
-                                                setProductId(item.product.id)
+                                            <div className="review">
 
-                                            }}>
                                                 <Button
-
-                                                        className="active-button" text="Write a review"
-                                                        icon={<FontAwesomeIcon icon={faSquarePen}
-                                                                               style={{
-                                                                                   marginLeft: 10,
-                                                                                   fontSize: 20
-                                                                               }}/>}/>
+                                                    onClick={() => {
+                                                        dispatch(getReview({productId: item.product.id}))
+                                                        dispatch(setIsOpenReview(true))
+                                                        setProduct({
+                                                            productId: item.product.id,
+                                                            productImg: item.product.productImage[0].path,
+                                                            productName: item.product.name,
+                                                        })
+                                                    }}
+                                                    className="active-button" text="Write a review"
+                                                    icon={<FontAwesomeIcon icon={faSquarePen}
+                                                                           style={{
+                                                                               marginLeft: 10,
+                                                                               fontSize: 20
+                                                                           }}/>}/>
                                             </div>
                                         </div>
                                         <div className="order-status-block">
@@ -83,7 +89,7 @@ const Order = () => {
             </div>
 
             <ModalReview
-                productId={productId}
+                product={product}
                 open={reviewOpen} onClose={() => {
                 dispatch(setIsOpenReview(false))
             }}/>

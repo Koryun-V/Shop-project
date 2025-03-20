@@ -79,6 +79,7 @@ function ModalReview({open, onClose, product}) {
             setId("")
             setReview("")
             setRating("")
+            setIsStar(false)
             dispatch(setReviews({}))
             dispatch(setReviewStatus(""))
             scrollModal()
@@ -95,6 +96,7 @@ function ModalReview({open, onClose, product}) {
         }))
 
     }
+    console.log(isStar, "status")
     if (!open) return null
     return ReactDom.createPortal(
         <div id="modal">
@@ -135,13 +137,15 @@ function ModalReview({open, onClose, product}) {
                                         <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
                                     </div>
                                 </div>
-                                <textarea
-                                    placeholder={`${isReview ? reviews.review : "Describe your impressions (optional)"}`}
-                                    onChange={onChange} value={review} maxLength="500" disabled={isReview}>
 
+                                <textarea
+                                    placeholder={isReview ? reviews.review : "Describe your impressions (optional)"}
+                                    onChange={onChange} value={review} maxLength="500" disabled={isReview}>
                                 </textarea>
-                                <div className="max">
-                                    {/*<span>{isReview ? reviews.review.length : review.length}/500</span>*/}
+
+
+                                <div className="max ">
+                                    <span>{isReview ? reviews.review.length : review.length}/500</span>
                                 </div>
 
                                 <div className="star" onMouseLeave={() => !isStar ? setRating("") : null} style={{
@@ -208,11 +212,10 @@ function ModalReview({open, onClose, product}) {
                                         }}></strong>
                                     </div>
                                 </div>
-                                <textarea className="loading-gradient-r" disabled style={{
-                                    border: "2px solid transparent"
-                                }}>
+                                <textarea value="" placeholder="" className="loading-gradient-r" disabled style={{
+                                    border: "2px solid transparent"}}>
                             </textarea>
-                                <div className="max">
+                                <div className="max loading-gradient-r">
                                     <span className="loading-gradient-r"></span>
                                 </div>
 

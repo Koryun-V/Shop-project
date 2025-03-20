@@ -13,6 +13,7 @@ const Order = () => {
     const order = useSelector(state => state.order);
     const reviews = useSelector(state => state.order.reviews)
     const reviewOpen = useSelector(state => state.order.isOpenReview);
+    const [activeItem,setActiveItem] = useState("");
     const [product, setProduct] = useState({
         productId: "",
         productImg: "",
@@ -39,7 +40,7 @@ const Order = () => {
                         // const month = item.createdAt.getMonth();
                         return (
                             <>
-                                <div key={index} className="order-item">
+                                <div key={index} className={index === activeItem ? "order-item-active loading-gradient-order" : "order-item" } >
                                     <div className="order-img">
                                         <img src={item.product.productImage[0].path} alt=""/>
                                     </div>
@@ -58,6 +59,7 @@ const Order = () => {
 
                                                 <Button
                                                     onClick={() => {
+                                                        setActiveItem(index)
                                                         dispatch(getReview({productId: item.product.id}))
                                                         dispatch(setIsOpenReview(true))
                                                         setProduct({
@@ -91,6 +93,7 @@ const Order = () => {
             <ModalReview
                 product={product}
                 open={reviewOpen} onClose={() => {
+                    setActiveItem("")
                 dispatch(setIsOpenReview(false))
             }}/>
         </>

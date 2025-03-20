@@ -42,7 +42,7 @@ const Products = () => {
 
 
   useEffect(() => {
-    dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: " ", storeId}));
+    dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue ? searchValue: " ", storeId}));
   }, [page, limit, storeId]);
 
   const clearAllOptions = () => {

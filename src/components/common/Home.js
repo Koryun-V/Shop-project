@@ -33,7 +33,7 @@ const Home = () => {
 
     }, []);
 
-    console.log(products)
+
 
     function SamplePrevArrow(props) {
         const {onClick} = props;

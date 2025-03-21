@@ -244,49 +244,5 @@
   }
 }
 
-.review-block {
-  margin-top: 10px;
-
-  textarea {
-    width: 300px;
-    height: 300px;
-    resize: none;
-    outline: none;
-    border-radius: 5px;
-    padding: 5px;
-    border: 2px solid #d1d1d1;
-    font-family: "PoppinsMedium", "sans-serif";
-    font-size: 16px;
-  }
-
-  textarea:focus-within {
-    border: 2px solid $interfaceColor;
-  }
-}
-
-.star {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 20px 0;
-  cursor: pointer;
-
-  .icon {
-    transition: 0.2s all;
-    font-size: 50px;
-
-  }
-
-
-}
-
-.star-disable {
-  color: black;
-}
-
-.star-active {
-  color: rgba(255, 195, 0, 0.9);
-}
 
 

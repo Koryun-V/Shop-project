@@ -1,25 +1,48 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import ReactDom from "react-dom";
 import PropTypes from "prop-types";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
 import {faStar} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "../../mini/Button";
-import {sendReview} from "../../../store/actions/order";
+import {getReview, sendReview, setReviews, setReviewStatus} from "../../../store/actions/order";
 
 
-function ModalReview({open, onClose, productId}) {
+function ModalReview({open, onClose, product}) {
     const dispatch = useDispatch();
+    const user = useSelector(state => state.login.user)
+    const statusSend = useSelector(state => state.order.statusReviewSend)
 
+    const [isReview, setIsReview] = useState(false);
+
+    const reviews = useSelector(state => state.order.reviews)
+    const status = useSelector(state => state.order.statusReviewGet)
 
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const [isStar, setIsStar] = useState(false);
+    const [id, setId] = useState("");
+
+    useEffect(() => {
+        if (reviews.user) {
+            setIsReview(true);
+        } else {
+            setIsReview(false)
+        }
+    }, [status, statusSend]);
+
+    useEffect(() => {
+        if (statusSend === "ok") {
+            dispatch(setReviews({}))
+            dispatch(getReview({productId: id}))
+        }
+    }, [statusSend]);
 
 
     const onChange = (event) => {
+        if (event.target.value.length > 500) return false
         setReview(event.target.value);
     }
 
@@ -53,12 +76,27 @@ function ModalReview({open, onClose, productId}) {
                 }
             })()
         } else {
-
+            setId("")
+            setReview("")
+            setRating("")
+            setIsStar(false)
+            dispatch(setReviews({}))
+            dispatch(setReviewStatus(""))
             scrollModal()
-
         }
     }, [open]);
 
+
+    const send = (productId, review, rating) => {
+        setId(productId)
+        dispatch(sendReview({
+            productId,
+            review,
+            rating
+        }))
+
+    }
+    console.log(isStar, "status")
     if (!open) return null
     return ReactDom.createPortal(
         <div id="modal">
@@ -75,33 +113,125 @@ function ModalReview({open, onClose, productId}) {
                 </div>
                 <div className="modal-block">
                     <div className="container-modal">
-                        <div className="review-block">
-                            <textarea onChange={onChange} value={review}></textarea>
-                            <div className="star" onMouseLeave={() => !isStar ? setRating("") : null}>
-                                {Array.from({length: 5}).map((_, i) => (
-                                    <FontAwesomeIcon
-                                        onClick={() => {
-                                            setRating(i + 1)
-                                            setIsStar(true)
-                                        }}
-                                        icon={faStar} onMouseEnter={() => !isStar ? setRating(i + 1) : null
-                                    }
-                                        className={i + 1 <= rating ?
-                                            "star-active icon"
-                                            : "star-disable icon"}/>
+                        {status !== "pending"
+                            ?
+                            <div className="review-block">
+                                <div className="product-review">
+                                    <div className="img-review">
+                                        <img src={product.productImg} alt="product"/>
+                                    </div>
+                                    <div className="title-review">
+                                        <strong>{product.productName}</strong>
+                                        {isReview ?
+                                            <span className="loading-gradient-review">The product has been rated</span>
+                                            :
+                                            <span className="loading-gradient-endDate">Rate the product</span>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="user-review">
+                                    <div className="img-user">
+                                        <img src={user.avatar[0].path} alt="user"/>
+                                    </div>
+                                    <div className="title-user">
+                                        <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
+                                    </div>
+                                </div>
 
-                                ))}
+                                <textarea
+                                    placeholder={isReview ? reviews.review : "Describe your impressions (optional)"}
+                                    onChange={onChange} value={review} maxLength="500" disabled={isReview}>
+                                </textarea>
+
+
+                                <div className="max ">
+                                    <span>{isReview ? reviews.review.length : review.length}/500</span>
+                                </div>
+
+                                <div className="star" onMouseLeave={() => !isStar ? setRating("") : null} style={{
+                                    cursor: isReview ? "default" : "pointer"
+                                }}>
+                                    {Array.from({length: 5}).map((_, i) => (
+                                        isReview ?
+
+                                            <FontAwesomeIcon
+
+                                                icon={faStar}
+                                                className={i + 1 <= reviews.rating ?
+                                                    "star-active icon"
+                                                    : "star-disable icon"}/>
+                                            :
+
+                                            <FontAwesomeIcon
+
+                                                onClick={() => {
+                                                    setRating(i + 1)
+                                                    setIsStar(true)
+                                                }}
+                                                icon={faStar} onMouseEnter={() => !isStar ? setRating(i + 1) : null
+                                            }
+                                                className={i + 1 <= rating ?
+                                                    "star-active icon"
+                                                    : "star-disable icon"}/>
+
+                                    ))}
+                                </div>
+                                <div className="send-block">
+                                    <Button
+                                        status={statusSend}
+                                        disabled={isReview}
+                                        onClick={() => send(product.productId, review, rating)}
+                                        text="Send" className={isReview ? "disabled" : "active-button"}/>
+
+                                </div>
                             </div>
-                            <div className="send-block">
-                                <Button
-                                    onClick={() => dispatch(sendReview({productId, review, rating}))}
-                                    text="Send" className="active-button"/>
 
+                            :
+                            <div className="review-block">
+                                <div className="product-review">
+                                    <div className="img-review loading-gradient-r">
+                                    </div>
+                                    <div className="title-review">
+                                        <strong className="loading-gradient-r" style={{
+                                            height: 24,
+                                        }}></strong>
+                                        <span className="loading-gradient-r" style={{
+                                            height: 34
+                                        }}></span>
+                                    </div>
+                                </div>
+
+                                <div className="user-review">
+                                    <div className="img-user loading-gradient-r" style={{
+                                        borderRadius: 5,
+                                    }}>
+                                    </div>
+                                    <div className="title-user">
+                                        <strong className="loading-gradient-r" style={{
+                                            height: 70,
+                                        }}></strong>
+                                    </div>
+                                </div>
+                                <textarea value="" placeholder="" className="loading-gradient-r" disabled style={{
+                                    border: "2px solid transparent"}}>
+                            </textarea>
+                                <div className="max loading-gradient-r">
+                                    <span className="loading-gradient-r"></span>
+                                </div>
+
+                                <div className="star loading-gradient-r" style={{
+                                    height: 50,
+                                }}>
+
+                                </div>
+                                <div className="send-block loading-gradient-r" style={{
+                                    background: "limegreen"
+                                }}>
+                                </div>
                             </div>
-                        </div>
-
-
+                        }
                     </div>
+
 
                 </div>
             </div>

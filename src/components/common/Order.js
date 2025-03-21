@@ -11,7 +11,6 @@ import ModalReview from "./Modal/ModalReview";
 const Order = () => {
     const dispatch = useDispatch();
     const order = useSelector(state => state.order);
-    const reviews = useSelector(state => state.order.reviews)
     const reviewOpen = useSelector(state => state.order.isOpenReview);
     const [activeItem,setActiveItem] = useState("");
     const [product, setProduct] = useState({
@@ -19,8 +18,6 @@ const Order = () => {
         productImg: "",
         productName: "",
     });
-
-
 
 
     useEffect(() => {
@@ -36,8 +33,6 @@ const Order = () => {
                         const date = new Date(item.createdAt);
                         const day = date.getDate();
                         const month = date.toLocaleString('en-us', {month: 'long'});
-
-                        // const month = item.createdAt.getMonth();
                         return (
                             <>
                                 <div key={index} className={index === activeItem ? "order-item-active loading-gradient-order" : "order-item" } >
@@ -47,7 +42,7 @@ const Order = () => {
 
                                     <div className="order-info">
                                         <span>{item.product.name}</span>
-                                        <strong>{item.amount} $</strong>
+                                        <strong>{item.amount.split(".")[0]} $</strong>
                                         <span>{item.quantity} pcs.</span>
 
 

@@ -5,7 +5,7 @@
   display: flex;
   border: 1px solid #E8E9EA;
   transition: box-shadow 0.3s, border 0.3s;
-
+  //position: relative;
   &:hover {
     box-shadow: 0 0 5px 0 rgba(66, 68, 90, 1);
     border: 1px solid transparent;
@@ -53,7 +53,31 @@
     font-weight: 700;
     line-height: 28px;
     color: #171B24;
+
+    &.discount{
+      display: flex;
+      gap: 20px;
+
+    }
+
+    &.discountPercentage,
+    &.discountPrice{
+      font-size: 17px;
+      font-weight: 500;
+
+    }
+
+    &.discountPrice{
+      color: #5e5c5c;
+      text-decoration: line-through;
+
+    }
+
+    &.discountPercentage{
+      color: #cc290a;
+    }
   }
+
 
   .quantity {
     display: flex;
@@ -292,3 +316,7 @@
   background: $interfaceColor;
 }
 
+.loading-gradient-endDate.cart{
+  font-size: 15px;
+  font-weight: 600;
+}

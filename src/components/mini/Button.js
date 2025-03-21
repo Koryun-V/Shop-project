@@ -2,6 +2,8 @@ import React from 'react';
 import {InfinitySpin, TailSpin} from "react-loader-spinner";
 
 const Button = ({onClick, type, className, text, status, children, disabled, loading, icon}) => {
+
+
     return (
         <button disabled={(status === "pending") || disabled} className={className} onClick={onClick}
                 type={type}>
@@ -17,7 +19,7 @@ const Button = ({onClick, type, className, text, status, children, disabled, loa
                     wrapperClass="loading"
                 />
 
-                : [text, icon] || children
+                : [text, icon || children]
             }
 
         </button>

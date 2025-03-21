@@ -42,7 +42,7 @@ const Order = () => {
 
                                     <div className="order-info">
                                         <span>{item.product.name}</span>
-                                        <strong>{item.amount} $</strong>
+                                        <strong>{item.amount.split(".")[0]} $</strong>
                                         <span>{item.quantity} pcs.</span>
 
 

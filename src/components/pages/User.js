@@ -152,7 +152,8 @@ const Users = () => {
               </div>
               }
 
-              <label htmlFor="upload_file" className="upload_file">
+              {/*<label htmlFor="upload_file" className="upload_file">*/}
+              <label htmlFor="upload_file" className="active-button upload_file">
                 {user.avatar?.[0]?.path
                   ? <Pen/>
                   : <>+</>
@@ -188,7 +189,7 @@ const Users = () => {
             <div className="modal-actions">
               <Button
                 onClick={confirmAvatar}
-                className="confirm-btn"
+                className="active-button confirm"
               >
                 Confirm
               </Button>
@@ -233,7 +234,7 @@ const Users = () => {
               <div className="user__profile__wrapper">
                 {/*<div className="user__profile__data">*/}
                 <div className="user__profile__label">
-                  <label className="user__label">Date of Birth</label>
+                  <label className="user__label date">Date of Birth</label>
 
                   <div className="user__profile__data">
                     <DatePiker
@@ -261,7 +262,6 @@ const Users = () => {
                 </div>
 
                 {/* Gender */}
-                {/*<div className="user__profile__data">*/}
                   <div className="user__profile__gender">
                     {genderOptions.map((option) => (
                       <RadioButton
@@ -274,7 +274,6 @@ const Users = () => {
                       />
                     ))}
                   </div>
-                {/*</div>*/}
 
               </div>
             </div>
@@ -288,7 +287,7 @@ const Users = () => {
                 loading={isSubmitting}
                 className="active-button"
               >
-                Save
+                Change Profile
               </Button>
             </div>
           </form>
@@ -316,7 +315,9 @@ const Users = () => {
               </div>
 
               {passwordError?.password && (
-                <div className="validation-info user">{passwordError.password}</div>
+                <div className="validation-info user">
+                  <span> {passwordError.password}</span>
+                 </div>
               )}
 
               <div className="user__profile__button">

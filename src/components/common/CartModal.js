@@ -17,7 +17,7 @@ const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild}) => {
           <div className="modal-actions">
             <Button
               onClick={onConfirm}
-              className="confirm-btn"
+              className="active-button confirm"
             >
               {buttonChild}
             </Button>

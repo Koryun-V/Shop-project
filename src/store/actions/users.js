@@ -27,7 +27,6 @@ export const updateUserProfileRequest = createAsyncThunk(
 
       } catch (error) {
         toast.error("Error updating profile");
-        console.log(error)
         return rejectWithValue(error.response?.data);
       }
     }

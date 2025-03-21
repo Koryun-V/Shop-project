@@ -89,7 +89,7 @@
   &__button {
     height: 50px;
     width: 100%;
-    margin: 25px 0 20px 0;
+    margin: 45px 0 20px 0;
   }
 
 }
@@ -100,15 +100,16 @@
   left: 75px;
   padding: 4px ;
   background: $interfaceColor;
-  border-radius: 50%;
+  border-radius: 100%;
 
 }
 
 .successMessage{
   color: $interfaceColor;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   position: absolute;
+  bottom: 1px;
 }
 
 
@@ -135,7 +136,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 100%;
   padding: 8px;
   border:1px solid black;
 
@@ -150,9 +151,12 @@
 .user__label{
   font-size: 15px;
   position: absolute;
-  z-index: 5;
   font-family: "PoppinsMedium", sans-serif;
   color: #2e2e2e;
+
+  &.date{
+    z-index: 5;
+  }
 }
 
 

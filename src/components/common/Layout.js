@@ -287,10 +287,12 @@ function Layout() {
                                                                 <FontAwesomeIcon icon={faEnvelope} className="icon"/>
                                                                 <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
                                                             </li>
-                                                            <li>
-                                                                <FontAwesomeIcon icon={faAddressCard} className="icon"/>
-                                                                <span>Profile</span>
-                                                            </li>
+                                                          <li>
+                                                            <Link to="/user">
+                                                              <FontAwesomeIcon icon={faAddressCard} className="icon" />
+                                                              <span>Profile</span>
+                                                            </Link>
+                                                          </li>
                                                         </>
                                                         :
                                                         <>
@@ -369,7 +371,7 @@ function Layout() {
 
 
                             <div className="footer-block">
-                                <div className="footer-link"><Link>Profile</Link></div>
+                                <div className="footer-link"> <Link to="/user">Profile</Link></div>
                                 <div className="footer-link"><Link to="/order">Order</Link></div>
                                 <div className="footer-link"><Link to="/basket">Basket</Link></div>
                             </div>

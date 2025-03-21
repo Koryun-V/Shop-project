@@ -97,13 +97,23 @@ const CartList = () => {
   };
 
   useEffect(() => {
-    const calculateTotalPrice = (cards) => {
-      return cards.reduce((total, card) => total + card.product.price * card.quantity, 0);
+    const calculateTotalPrice = (items) => {
+      return items.reduce((total, item) => {
+
+        const price = _.isEmpty(item.product.discount)
+          ? item.product.price
+          : item.product.discount.discountPrice;
+
+        return total + price * item.quantity;
+      }, 0);
     };
 
     setTotalCardPrice(calculateTotalPrice(cards));
     setTotalProductPrice(calculateTotalPrice(products));
   }, [cards, products]);
+
+
+  const a = products.reduce((total, card) => total + card.product.price * card.quantity, 0) - totalProductPrice;
 
   const handleSelectAll = () => {
     const newCheckedAll = !checkedAll;
@@ -146,8 +156,9 @@ const CartList = () => {
           <Loader/>
         ) : _.isEmpty(cards) ? (
           <Error
-            statusCode="The cart is still empty"
-            message="Visit the main page to select products or find what you need in the search"
+            statusCode="There is nothing in the cart"
+            message="Browse the catalog and choose from millions of products with free shipping.
+            The best place to start choosing is the home page"
           />
         ) : (
           <>
@@ -190,8 +201,14 @@ const CartList = () => {
 
                 <div className="total__desc">
                   <p className="total-price">Total Price:
-                    <span className="total-price_desc">${totalProductPrice.toFixed(2)}</span>
+                    <span className="total-price_desc">{totalProductPrice.toFixed(2)}$</span>
                   </p>
+
+                  {!!a && <p className="total-price">Discount:
+                      <span className="total-price_desc">{a.toFixed(2)}$</span>
+                    </p>
+                  }
+
 
                   <p className="total-price">Total Quantity:
                     <span className="total-price_desc">{calculateTotalQuantity(products)} pcs</span>
@@ -202,9 +219,17 @@ const CartList = () => {
                   <Button
                     className="agree-button total"
                     onClick={onOrder}
-                    loading={orderLoading}>
-                    Place an order
+                    loading={orderLoading}
+                  >
+                    Place an order {totalProductPrice ? totalProductPrice.toFixed(2) : ""}
                   </Button>
+
+                  {/*<Button*/}
+                  {/*  className="agree-button total"*/}
+                  {/*  onClick={onOrder}*/}
+                  {/*  loading={orderLoading}>*/}
+                  {/*Place an order*/}
+                  {/*</Button>*/}
                 </div>
 
                 <div className="info">

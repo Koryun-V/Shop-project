@@ -8,6 +8,7 @@ const initialState = {
     statusReviewSend: "",
     statusReviewGet: "",
     reviews:{},
+    reviewsAll:[],
 
 
 }
@@ -38,6 +39,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getReview.fulfilled, (state, {payload}) => {
             state.statusReviewGet = "ok"
             state.reviews = payload[0]
+            state.reviewsAll = payload
         })
         .addCase(getReview.rejected, (state) => {
             state.statusReviewGet = "error"

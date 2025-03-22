@@ -53,7 +53,8 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
     localStorage.setItem('selectedProducts', JSON.stringify(updatedSelectedProducts));
     dispatch(loadTransformedArray())
   };
-  console.log(card, 33)
+
+
   return (
     <div key={card.id} className="card">
 
@@ -93,7 +94,7 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
 
           <div className="quantity">
             <Button
-              className="decrement"
+              className="active-button decrement"
               onClick={() => handleQuantityChange(card.id, localQuantity, 'decrement')}
               disabled={localQuantity <= 1}
             >
@@ -108,7 +109,7 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
             />
 
             <Button
-              className="decrement"
+              className="active-button decrement"
               onClick={() => handleQuantityChange(card.id, localQuantity, 'increment')}
             >
               +

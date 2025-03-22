@@ -34,6 +34,7 @@ const CartList = () => {
   const [selectedProducts, setSelectedProducts] = useState(JSON.parse(localStorage.getItem('selectedProducts')) || {});
   const [totalCardPrice, setTotalCardPrice] = useState(0);
   const [totalProductPrice, setTotalProductPrice] = useState(0);
+
   const [checkedAll, setCheckedAll] = useState(_.every(selectedProducts, value => value === true) );
 
   const {cards, maxPageCount, currentPage} = cardsList;
@@ -113,7 +114,6 @@ const CartList = () => {
   }, [cards, products]);
 
 
-  const a = products.reduce((total, card) => total + card.product.price * card.quantity, 0) - totalProductPrice;
 
   const handleSelectAll = () => {
     const newCheckedAll = !checkedAll;
@@ -166,8 +166,11 @@ const CartList = () => {
             <div className="card-list__container">
               <div className="total">
                 <div className="total__container">
-                  <span className="total-header">Total</span>
-                  <span className="total-price_desc">{calculateTotalQuantity(cards)} goods</span>
+
+                  <p className="total-price">
+                    <span className="total-header">Total:</span>
+                    <span className="total-price_desc">{calculateTotalQuantity(cards)} goods</span>
+                  </p>
 
                   <p className="total-price">
                     Total Price:
@@ -185,13 +188,10 @@ const CartList = () => {
 
                       <div className="total-price">
                         Select All
+                        {totalCardPrice === totalProductPrice &&
+                          <span className="total-price_desc all">Selected all</span>}
                       </div>
 
-                    </div>
-
-                    <div>
-                      {totalCardPrice === totalProductPrice &&
-                        <div className="total-price_desc all">Selected all</div>}
                     </div>
 
                   </div>
@@ -204,32 +204,27 @@ const CartList = () => {
                     <span className="total-price_desc">{totalProductPrice.toFixed(2)}$</span>
                   </p>
 
-                  {!!a && <p className="total-price">Discount:
-                      <span className="total-price_desc">{a.toFixed(2)}$</span>
-                    </p>
-                  }
-
-
                   <p className="total-price">Total Quantity:
                     <span className="total-price_desc">{calculateTotalQuantity(products)} pcs</span>
                   </p>
+
+                   <p className="total-price">Discount:
+
+                    <span className="total-price_desc discount">{products.reduce((total, card) => total + card.product.price * card.quantity, 0) - totalProductPrice.toFixed(2)}$</span>
+                  </p>
+
+
                 </div>
 
                 <div className="total__group">
                   <Button
-                    className="agree-button total"
+                    className="active-button total"
                     onClick={onOrder}
                     loading={orderLoading}
                   >
                     Place an order {totalProductPrice ? totalProductPrice.toFixed(2) : ""}
                   </Button>
 
-                  {/*<Button*/}
-                  {/*  className="agree-button total"*/}
-                  {/*  onClick={onOrder}*/}
-                  {/*  loading={orderLoading}>*/}
-                  {/*Place an order*/}
-                  {/*</Button>*/}
                 </div>
 
                 <div className="info">

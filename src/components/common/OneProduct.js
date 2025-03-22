@@ -30,7 +30,9 @@ const OneProduct = () => {
     const cardId = useSelector(state => state.products.cardId)
     const statusCard = useSelector(state => state.products.statusCard)
     const reviews = useSelector(state => state.order.reviewsAll)
-    const [index, setIndex] = useState("")
+    const [index, setIndex] = useState([100])
+
+    const [more,setMore] = useState(false);
 
 
     useEffect(() => {
@@ -78,7 +80,6 @@ const OneProduct = () => {
     useEffect(() => {
         dispatch(getOneProduct({id: productId}));
     }, [productId]);
-
 
 
     return (
@@ -165,7 +166,7 @@ const OneProduct = () => {
             <div className="reviews">
                 <div className="container">
 
-                    {reviews.length ? reviews.map((review, i) => {
+                    {reviews.length ? reviews.slice(0,!more ? 3 : reviews.length).map((review, i) => {
                         const date = new Date(review.createdAt);
                         const hours = date.getHours()
                         const minutes = date.getMinutes()
@@ -178,8 +179,12 @@ const OneProduct = () => {
 
                                     <div className="review__user_block">
                                         <div className="review__avatar">
+                                            {review.user.avatar[0] ?
+                                                <img src={review.user.avatar[0].path} alt="user"/>
+                                                :
 
-                                            <FontAwesomeIcon icon={faUser} className="review__icon"/>
+                                                <FontAwesomeIcon icon={faUser} className="review__icon"/>
+                                            }
                                         </div>
                                         <div className="review__user">
                                             <strong>
@@ -226,21 +231,16 @@ const OneProduct = () => {
                                     </div>
 
                                     <div className="message__info">
-                                        <span className={i !== index ? "message__text" : "message__text-more"}>
-
-                                        Добрый день! Сделайте, пожалуйста, краткое видео, где видно дефект, и пришлите его в службу поддержки Вайлдберриз "Профиль" - "Обращения" - "Проверка товара" (рекомендуется предварительн
-                                            о ознакомиться с правилами заполнения заявки и сделать видео, где хорошо видна неполадка).
-                                               К сожалению, правила площадки не позволяют оставлять контакт
-                                               ы нашего сервисного центра. Пожалуйста, найдите контакты на офиц
-                                               иальном сайте Клавторг и обратитесь к нам, если вам отказал Вайлдберриз.
-
-                                    </span>
-                                        {i !== index ?
-                                            <span className="message__more" onClick={() =>setIndex(i)}>more</span>
-                                            : null}
-
+                                        <span className={index.includes(i) ? "message__text-more" : "message__text"}>
+                                            {review.review}
+                                                         </span>
+                                        {!index.includes(i) && (
+                                            <span className="message__more"
+                                                  onClick={() => setIndex(prevState => _.uniq([...prevState, i]))}>
+                                                   more
+                                          </span>
+                                        )}
                                     </div>
-
                                 </div>
 
 
@@ -249,6 +249,13 @@ const OneProduct = () => {
 
                         )
                     }) : null}
+
+                    {!more ? <div className="more__reviews" onClick={() => setMore(true)}>
+                        <div className="line"></div>
+                        <span>More</span>
+                        <div className="line"></div>
+
+                    </div> : null}
 
                 </div>
             </div>

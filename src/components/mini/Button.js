@@ -3,9 +3,7 @@ import {InfinitySpin, TailSpin} from "react-loader-spinner";
 
 const Button = ({onClick, type, className, text, status, children, disabled, loading, icon}) => {
 
-    console.log(text, "text")
-    console.log(icon, "icon")
-    console.log(children)
+
     return (
         <button disabled={(status === "pending") || disabled } className={className} onClick={onClick}
                 type={type}>

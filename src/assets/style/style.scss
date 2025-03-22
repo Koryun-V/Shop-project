@@ -17,11 +17,9 @@
 @import "users";
 @import "datePiker";
 
-
 @import url("orderModal.scss");
 
 @import url("oneProduct.scss");
-
 
 @import "variables";
 
@@ -116,10 +114,12 @@ input:-webkit-autofill,
 input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
 }
-.main{
+
+.main {
   width: 100%;
   height: 100%;
 }
+
 .wrapper {
   margin: 0 auto;
   width: 100%;
@@ -127,7 +127,6 @@ input:-webkit-autofill:focus {
   min-width: 900px;
 
   .section {
-    padding: 0 50px;
     width: 100%;
     height: 100%;
     display: flex;
@@ -158,12 +157,40 @@ input:-webkit-autofill:focus {
   }
 
   .article-home-bg {
+    margin-top:50px;
+    background: #F6F6F6;
+    justify-content: center;
+    align-items: center;
+
     width: 100%;
+    display: flex;
+    flex-direction: column;
+
+
+
+    .review-title {
+      width: 100%;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      font-family: "PoppinsMedium", "sans-serif";
+      font-size:34px;
+    }
+
 
     .article-block-bg {
-      height: 590px;
       width: 100%;
-      background: #F6F6F6;
+      max-width: 1440px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: -10px;
+      padding: 50px 40px;
+
+
+
+
+
     }
 
   }
@@ -174,6 +201,7 @@ input:-webkit-autofill:focus {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0 50px;
 
 
     .article-block-img {
@@ -444,6 +472,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+
   .footer-container {
     width: 100%;
     max-width: 1440px;
@@ -559,7 +588,7 @@ a {
   }
 }
 
-.shares{
+.shares {
   width: 100%;
   display: flex;
   flex-wrap: wrap;

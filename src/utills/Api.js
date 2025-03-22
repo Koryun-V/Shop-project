@@ -19,6 +19,10 @@ export default class Api {
         return api.get(`/products/popular`, {params})
     }
 
+    static getRandomReviews() {
+        return api.get(`/reviews/random`)
+    }
+
     static sendReview({productId, review, rating}) {
         return api.post(`/reviews/create/${productId}`,
             {

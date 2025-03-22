@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getAllProducts, getStores, setSearchValue, setStoreId} from "../actions/home";
+import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
@@ -22,6 +22,8 @@ const initialState = {
     popularProducts: [],
     productsShares: [],
     statusPopular:"",
+    reviews:[],
+    statusReviews:"",
 }
 export const home = createReducer(initialState, (builder) => {
     builder
@@ -58,6 +60,16 @@ export const home = createReducer(initialState, (builder) => {
         })
         .addCase(getSharesProducts.rejected, (state) => {
             state.statusShares = "error"
+        })
+        .addCase(getRandomReviews.pending, (state) => {
+            state.statusReviews = "pending"
+        })
+        .addCase(getRandomReviews.fulfilled, (state, {payload}) => {
+            state.statusReviews = "ok"
+            state.reviews = payload
+        })
+        .addCase(getRandomReviews.rejected, (state) => {
+            state.statusReviews = "error"
         })
 
 

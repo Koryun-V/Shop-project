@@ -143,7 +143,7 @@ const Home = () => {
 
                 <div className="article-block-bg">
                     <div className="review-title">
-                        <h3>Review</h3>
+                        <h3>Reviews</h3>
                     </div>
 
                     {reviews.length ? reviews.slice(0, 4).map((item) => {

@@ -140,7 +140,6 @@ const Home = () => {
             {/*</article>*/}
 
             <article className="article-home-bg">
-
                 <div className="article-block-bg">
                     <div className="review-title">
                         <h3>Reviews</h3>

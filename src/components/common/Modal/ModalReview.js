@@ -42,7 +42,7 @@ function ModalReview({open, onClose, product}) {
 
 
     const onChange = (event) => {
-        if (event.target.value.length > 500) return false
+        if (event.target.value.length > 300) return false
         setReview(event.target.value);
     }
 
@@ -140,12 +140,12 @@ function ModalReview({open, onClose, product}) {
 
                                 <textarea
                                     placeholder={isReview ? reviews.review : "Describe your impressions (optional)"}
-                                    onChange={onChange} value={review} maxLength="500" disabled={isReview}>
+                                    onChange={onChange} value={review} maxLength="300" disabled={isReview}>
                                 </textarea>
 
 
                                 <div className="max ">
-                                    <span>{isReview ? reviews.review.length : review.length}/500</span>
+                                    <span>{isReview ? reviews.review.length : review.length}/300</span>
                                 </div>
 
                                 <div className="star" onMouseLeave={() => !isStar ? setRating("") : null} style={{

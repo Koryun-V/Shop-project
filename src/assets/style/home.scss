@@ -28,7 +28,7 @@
   flex-direction: column;
   display: flex;
   background: white;
-  height: 500px;
+  height: 550px;
   border-radius: 5px;
   justify-content: space-between;
   width: 300px;
@@ -47,37 +47,69 @@
       font-family: "PoppinsMedium", "sans-serif";
       padding: 15px;
       display: flex;
-      justify-content: space-evenly;
+      width: 100%;
+      position: relative;
+      justify-content: flex-end;
 
 
-      .random__product__img {
-        width: auto;
-        height: 100px;
-        padding: 5px;
+      .piramid {
+        border: 70px solid transparent;
+        border-left: 70px solid $interfaceColor;
+        border-top: 70px solid $interfaceColor;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 5px 0 0 0;
 
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
 
-        }
       }
 
-      .random__product__name {
-        width: 100%;
-        justify-content: space-evenly;
+      .stars-deg {
         display: flex;
+        transform: rotate(-43deg);
+        height: 20px;
+        left: 0;
+        top: 42px;
+        position: absolute;
+      }
+
+
+      .product__info {
         flex-direction: column;
-        margin-left: 10px;
+        display: flex;
+        justify-content: flex-end;
 
 
-        strong {
+
+        .random__product__img {
+          width:auto;
+          height:150px;
+          padding: 5px;
+
+          img {
+
+            width:auto;
+            height: 100%;
+            object-fit: cover;
+
+          }
+        }
+
+        .random__product__name {
+          //width: 100%;
+          justify-content: space-evenly;
+          display: flex;
+          flex-direction: column;
+          margin-left: 10px;
+
+
+          strong {
+          }
+
         }
 
       }
-
     }
-
     .random__user {
       padding: 15px;
       transition: 0.2s all;
@@ -108,7 +140,6 @@
             width: 100%;
             height: 100%;
             border-radius: 100px;
-
             object-fit: cover;
           }
 
@@ -158,7 +189,7 @@
   -webkit-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
   -moz-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
   box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
-  border:1px solid transparent;
+  //border:1px solid transparent;
 }
 
 .random__review:hover .random__user {
@@ -166,6 +197,7 @@
   background:white;
 
 }
+
 .message-icon{
   color:$interfaceColor;
   font-size: 30px;

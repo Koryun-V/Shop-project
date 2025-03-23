@@ -37,6 +37,19 @@ export const getReview = createAsyncThunk(
     }
 );
 
+export const getOrderReceived = createAsyncThunk(
+    "user/get-review-received",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getOrderReceived(payload);
+            return data.data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
+
 export const setIsOpenReview = createAction(
     "login/modalOpen-review",
 )

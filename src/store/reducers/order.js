@@ -1,9 +1,19 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getOrder, getReview, sendReview, setIsOpenReview, setReviews, setReviewStatus} from "../actions/order";
+import {
+    getOrder,
+    getOrderReceived,
+    getReview,
+    sendReview,
+    setIsOpenReview,
+    setReviews,
+    setReviewStatus
+} from "../actions/order";
 
 const initialState = {
     status: "",
+    statusReceived:"",
     order: [],
+    orderReceived:[],
     isOpenReview: false,
     statusReviewSend: "",
     statusReviewGet: "",
@@ -23,6 +33,16 @@ export const order = createReducer(initialState, (builder) => {
         })
         .addCase(getOrder.rejected, (state) => {
             state.status = "error"
+        })
+        .addCase(getOrderReceived.pending, (state) => {
+            state.statusReceived = "pending"
+        })
+        .addCase(getOrderReceived.fulfilled, (state, {payload}) => {
+            state.statusReceived = "ok"
+            state.orderReceived = payload
+        })
+        .addCase(getOrderReceived.rejected, (state) => {
+            state.statusReceived = "error"
         })
         .addCase(sendReview.pending, (state) => {
             state.statusReviewSend = "pending"

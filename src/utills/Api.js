@@ -101,6 +101,14 @@ export default class Api {
             }
         });
     }
+    static getOrderReceived() {
+        return api.get(`/payment/received`, {
+            headers: {
+                Authorization: `${token}`
+            }
+        });
+    }
+
 
     static getUser() {
         return api.get(`/users/profile`, {

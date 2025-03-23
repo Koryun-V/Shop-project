@@ -7,7 +7,15 @@ import background2 from "../../assets/image/home-2.jpg"
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import {faAngleDown, faAngleLeft, faAngleRight, faCheck, faMessage, faUser} from "@fortawesome/free-solid-svg-icons";
+import {
+    faAngleDown,
+    faAngleLeft,
+    faAngleRight,
+    faCheck,
+    faMessage,
+    faStar,
+    faUser
+} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {useDispatch, useSelector} from "react-redux";
 import {getPopularProducts, getRandomReviews, getSharesProducts} from "../../store/actions/home";
@@ -155,16 +163,37 @@ const Home = () => {
                                 <div className="random__review">
                                     <div className="review_container">
                                         <div className="random__product">
-                                            <div className="random__product__img">
-                                                <img src={item.product.productImage[0].path}/>
+
+
+                                            <div className="piramid">
+
+
                                             </div>
-                                            <div className="random__product__name">
-                                                <strong>{item.product.name}</strong>
-                                                <span>
-                            <FontAwesomeIcon icon={faCheck} style={{color: "limegreen"}}/> Bought out
-                        </span>
+                                            <div className="stars-deg">
+                                                {Array.from({length: 5}).map((_, i) => (
+                                                    <FontAwesomeIcon
+                                                        style={{
+                                                            fontSize: 20
+                                                        }}
+                                                        icon={faStar}
+                                                        className={i + 1 <= item.rating ?
+                                                            "star-active icon"
+                                                            : "star-disable icon"}/>
+                                                ))}</div>
+                                            <div className="product__info">
+                                                <div className="random__product__img">
+                                                    <img src={item.product.productImage[0].path}/>
+                                                </div>
+                                                <div className="random__product__name">
+                                                    <strong>{item.product.name}</strong>
+                                                    <span>
+                                                        <FontAwesomeIcon icon={faCheck} style={{color: "limegreen"}}/> Bought out
+                                                         </span>
+                                                </div>
                                             </div>
+
                                         </div>
+
 
                                         <div className="random__user">
                                             <div className="user-img-block">
@@ -257,7 +286,7 @@ const Home = () => {
 
             <article className="article-home">
                 <div className="article-block-img">
-                <div className="about-home">
+                    <div className="about-home">
                         <h2>About the company</h2>
                         <p>At StroykaStor you can always buy all the necessary goods for home and
                             garden renovation.

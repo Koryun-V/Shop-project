@@ -23,7 +23,7 @@ const Order = () => {
 
 
     useEffect(() => {
-        dispatch(getOrder({limit:total}))
+        dispatch(getOrder({limit:total || 100}))
         dispatch(getOrderReceived())
     }, [statusConfirm]);
 

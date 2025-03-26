@@ -161,6 +161,8 @@ const Home = () => {
 
                             return (
                                 <div className="random__review">
+                                    <Link to="/products" className="product-link"></Link>
+
                                     <div className="review_container">
                                         <div className="random__product">
 

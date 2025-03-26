@@ -14,20 +14,31 @@ const Order = () => {
     const dispatch = useDispatch();
     const order = useSelector(state => state.order);
     const orderReceived = useSelector(state => state.order.orderReceived);
+    const statusConfirm = useSelector(state => state.order.orderConfirmStatus)
+    const url = useSelector(state => state.order.url);
+
+    const total = useSelector(state => state.order.totalOrder)
 
     const [orderStatus, setOrderStatus] = useState("");
 
 
     useEffect(() => {
-        dispatch(getOrder())
+        dispatch(getOrder({limit:total}))
         dispatch(getOrderReceived())
-    }, []);
+    }, [statusConfirm]);
 
-    console.log(orderReceived, ";;;")
+    useEffect(() => {
+        if(url){
+            window.location.href = url;
+            console.log(url,"a")
+        }
+    }, [url]);
+
 
 
     return (
         <>
+
             <div className="section">
                 <div className="container-order">
                     <div className="order__filter">
@@ -50,14 +61,14 @@ const Order = () => {
                                 left: orderStatus === "received" ? "calc(100% / 4)"
                                     : orderStatus === "paid"
                                         ? "calc(100% / 2)" : orderStatus === "failed" ? "calc(100% - 200px)" : 0,
-                                background: orderStatus === "received" ? "limegreen" : orderStatus === "paid" ? "blue" : orderStatus === "failed" ? "red" : "#d1d1d1",
+                                background: orderStatus === "received" ? "limegreen" : orderStatus === "paid" ? "#7b00ff" : orderStatus === "failed" ? "red" : "#d1d1d1",
                             }}>
                             </div>
                         </div>
                     </div>
 
                     <OrderUniversal status={orderStatus}
-                                    order={orderStatus === "" ? order.order.concat(orderReceived) : orderStatus === "received" ? orderReceived : order.order}/>
+                                    order={orderStatus === "" ? orderReceived.concat(order.order) : orderStatus === "received" ? orderReceived : order.order}/>
                 </div>
             </div>
 

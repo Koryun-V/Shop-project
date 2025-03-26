@@ -22,6 +22,7 @@ import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
 
 import {getAllProducts, setSearchValue} from "../../store/actions/home";
+import {getOrder} from "../../store/actions/order";
 
 //main
 const token = localStorage.getItem("token");
@@ -66,6 +67,7 @@ function Layout() {
             dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " ",}));
         }
     }
+
 
     // useEffect(() => {
     //     if (isProfile) {

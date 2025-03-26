@@ -94,19 +94,52 @@ export default class Api {
         return api.post(`/users/resend-code`, {email});
     }
 
-    static getOrder() {
-        return api.get(`/payment/history`, {
-            headers: {
-                Authorization: `${token}`
+    static getOrder({limit}) {
+        return api.get(`/payment/history/`, {
+                params: {
+                    limit,
+                },
+
+
+                headers: {
+                    Authorization: `${token}`
+                }
             }
-        });
+        )
+            ;
     }
+
     static getOrderReceived() {
         return api.get(`/payment/received`, {
             headers: {
                 Authorization: `${token}`
             }
         });
+    }
+
+    static orderRetry({paymentId}) {
+        return api.post(`/payment/retry`, {
+                paymentId,
+            },
+
+            {
+                headers: {
+                    Authorization: `${token}`
+                }
+            }
+        );
+    }
+
+    static orderConfirm({paymentId}) {
+        return api.post(`/payment/confirm-receipt`, {
+                paymentId,
+            },
+            {
+                headers: {
+                    Authorization: `${token}`
+                }
+            }
+        );
     }
 
 
@@ -131,7 +164,8 @@ export default class Api {
         return api.get("users/profile")
     }
 
-    static async updateUser({data}) {
+    static
+    async updateUser({data}) {
         console.log(data, "api")
         return api.put("users/update", data, {
             headers: {
@@ -139,33 +173,42 @@ export default class Api {
                 Authorization: localStorage.getItem("token"),
             },
         });
-    };
+    }
+    ;
 
-    static async updateUserPassword({newPassword}) {
+    static
+    async updateUserPassword({newPassword}) {
         return api.put("users/password", {newPassword});
-    };
+    }
+    ;
 
-    static async createCard({data}) {
+    static
+    async createCard({data}) {
         return api.post("/cards/create", {...data});
-    };
+    }
+    ;
 
-    static async getCardList({page, limit,}) {
+    static
+    async getCardList({page, limit,}) {
         return await api.get("cards/list", {
             params: {
                 page,
                 limit,
             },
         });
-    };
+    }
+    ;
 
     static deleteCart({cardId}) {
         return api.delete(`/cards/delete/${cardId}`)
     }
 
 
-    static async updateCard({cardId, quantity}) {
+    static
+    async updateCard({cardId, quantity}) {
         return await api.put(`/cards/update/${cardId}`, {quantity});
-    };
+    }
+    ;
 
 
     static deleteAllCart() {
@@ -173,7 +216,8 @@ export default class Api {
     }
 
 
-    static async payment({products}) {
+    static
+    async payment({products}) {
         return await api.post('payment/place', {
             products,
         });

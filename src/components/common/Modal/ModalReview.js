@@ -96,7 +96,6 @@ function ModalReview({open, onClose, product}) {
         }))
 
     }
-    console.log(isStar, "status")
     if (!open) return null
     return ReactDom.createPortal(
         <div id="modal">

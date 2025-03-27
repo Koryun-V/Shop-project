@@ -12,7 +12,9 @@ import domus from "../../assets/image/domus.png"
 const Products = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [selectValue, setSelectValue] = useState({id: "", name: "All"});
+
   const dispatch = useDispatch();
+  const userId = useSelector(state => state.login.user?.id);
   const products = useSelector(state => state.home.productsList);
   const categories = useSelector(state => state.products.categories);
   const selectId = useSelector(state => state.home.selectId);
@@ -26,9 +28,7 @@ const Products = () => {
   const searchValue = useSelector(state => state.home.searchValue);
   const storesList = useSelector(state => state.home.storesList);
   const storeId = useSelector(state => state.home.storeId);
-  const clampMin = (value) => Math.min(Math.max(value, 0), 1700);
-  const clampMax = (value) => Math.min(Math.max(value, 0), 2000);
-
+  // console.log(userId, "lkojihug")
   useEffect(() => {
     dispatch(categoriesRequest({limit}));
   }, [dispatch, limit]);
@@ -42,8 +42,31 @@ const Products = () => {
 
 
   useEffect(() => {
-    dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue ? searchValue: " ", storeId}));
-  }, [page, limit, storeId]);
+    if (localStorage.getItem("token")) {
+      if (userId) {
+        dispatch(getAllProducts({
+          categoryId: selectId,
+          page,
+          limit,
+          minPrice,
+          maxPrice,
+          s: searchValue,
+          storeId,
+          userId
+        }));
+      }
+    } else {
+      dispatch(getAllProducts({
+        categoryId: selectId,
+        page,
+        limit,
+        minPrice,
+        maxPrice,
+        s: searchValue ,
+        storeId
+      }));
+    }
+  }, [userId, page, limit, storeId]);
 
   const clearAllOptions = () => {
     dispatch(setMinPrice(0));
@@ -51,7 +74,7 @@ const Products = () => {
     setSelectValue("All");
     dispatch(setSelectId(""));
     dispatch(setPage(1));
-    dispatch(setSearchValue(" "));
+    dispatch(setSearchValue(""));
     dispatch(setStoreId(""))
   };
 
@@ -73,20 +96,26 @@ const Products = () => {
 
 
   const handleMinPriceChange = (e) => {
-    let newMin = clampMin(+e.target.value);
-    if (newMin > maxPrice - 300) {
-      newMin = maxPrice - 300;  // Ensure min is not greater than max - 300
-    }
-    dispatch(setMinPrice(newMin));
-    handleSliderChange([newMin, maxPrice]);
+    dispatch(setMinPrice(+e.target.value));
   };
 
   const handleMaxPriceChange = (e) => {
-    let newMax = clampMax(+e.target.value);
-    if (newMax > 2000) {
-      newMax = 2000;
+    dispatch(setMaxPrice(+e.target.value));
+  };
+
+  const handleMaxPriceBlur = () => {
+    if (maxPrice < minPrice + 300){
+      dispatch(setMaxPrice(minPrice + 300));
     }
-    dispatch(setMaxPrice(newMax));
+    if (maxPrice > 2000){
+      dispatch(setMaxPrice(2000));
+    }
+  };
+
+  const handleMinPriceBlur = () => {
+    if (minPrice > maxPrice - 300) {
+      dispatch((setMinPrice(maxPrice -  300)))
+    }
   };
 
 
@@ -104,39 +133,39 @@ const Products = () => {
                 <div onClick={() => dispatch(setStoreId(item.id))} key={item.id}
                      className="stores_item">
                   <img className="stores_item_img"
-                       src={item.storeLogo.length > 0 ? item.storeLogo[0].path : domus}/>
+                       src={item.storeLogo?.[0]?.path}/>
+                  <img className="stores_item_img"
+                       src={item.storeLogo?.[1]?.path}/>
                 </div>
 
               ))}
             </div>
             <form action="#" className="price-container">
-              <span style={{ marginTop: "10px", marginBottom: "15px" }}>Price</span>
+              <span style={{marginTop: "10px", marginBottom: "15px"}}>Price</span>
               <div>
                 <input
                   type="text"
                   className="price-input"
                   value={Number(minPrice)}
                   onChange={handleMinPriceChange}
-                  min={0}
-                  max={1700}
                   onKeyPress={(e) => {
                     if (!/[0-9]/.test(e.key)) {
                       e.preventDefault();
                     }
                   }}
+                  onBlur={handleMinPriceBlur}
                 />
                 <input
                   type="text"
                   className="price-input"
                   value={Number(maxPrice)}
                   onChange={handleMaxPriceChange}
-                  min={0}
-                  max={2000}
                   onKeyPress={(e) => {
                     if (!/[0-9]/.test(e.key)) {
                       e.preventDefault();
                     }
                   }}
+                  onBlur={handleMaxPriceBlur}
                 />
               </div>
               <Slider

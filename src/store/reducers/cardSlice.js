@@ -1,12 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
   fetchCards,
+  createCard,
   updateCard,
   deleteCard,
   makePayment,
   setSelectedProducts,
   loadTransformedArray, deleteAllCartRequest
-} from "../actions/card";
+} from "../actions/card"
+
+
 import _ from "lodash";
 
 
@@ -47,6 +50,7 @@ export const cardSlice = createReducer(initialState, (builder) => {
       state.loading = false;
     })
 
+
     // Update card
     .addCase(updateCard.fulfilled, (state, action) => {
       const {cardId, quantity} = action.payload;
@@ -82,7 +86,7 @@ export const cardSlice = createReducer(initialState, (builder) => {
 
       state.products = state.cardData.cards.filter(card => selectedProductIds.includes(String(card.id)));
 
-      state.transformedArray  = state.products.map(card => ({
+      state.transformedArray = state.products.map(card => ({
         productId: card.product.id,
         quantity: card.quantity,
       }));

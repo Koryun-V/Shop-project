@@ -1,6 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getOneProduct} from "../actions/oneProduct";
-import {getPopularProduct} from "../actions/oneProduct";
 
 
 const initialState = {
@@ -18,13 +17,13 @@ export const oneProduct = createReducer(initialState, (builder) => {
 
     .addCase(getOneProduct.fulfilled, (state, {payload}) => {
       state.status = "ok"
+      // console.log(payload, "oneProduct payload",)
       state.oneProduct = payload
     })
 
     .addCase(getOneProduct.rejected, state => {
       state.status = "error"
     })
-
 
 })
 

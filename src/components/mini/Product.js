@@ -4,9 +4,10 @@ import Button from "./Button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
-import {createCard, getCards} from "../../store/actions/products";
+import {createCard} from "../../store/actions/products";
 import {setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
+import {setProduct} from "../../store/actions/home";
 
 const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading}) => {
   const [indexImg, setIndexImg] = useState(0);
@@ -21,6 +22,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
   const page = useSelector(state => state.products.page)
   const navigate = useNavigate()
   const total = useSelector(state => state.home.total)
+  const product = useSelector(state => state.home.product)
 
   useEffect(() => {
     if (isPlay && imgLength > 1) {
@@ -32,11 +34,6 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
   });
 
-  // useEffect(() => {
-  //     //total
-  //     dispatch(getCards({page:1, limit: total || 100}))
-  // }, [ status]);
-
 
   const changeImage = () => {
     setIndexImg(indexImg === imgLength - 1 ? 0 : indexImg + 1)
@@ -47,10 +44,12 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     setIndexProduct(index)
   }
 
-  const goToProduct = (id) => {
-    dispatch(setProductId(id))
-    navigate("/one-product")
+  const goToProduct = (product, id) => {
+    dispatch(setProduct(product))
+    navigate(`/one-product/${id}`)
   }
+
+
 
 
   return (
@@ -60,7 +59,10 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
           products.slice(0, quantity ? quantity : products.length).map((product, index) => {
               const isCard = cards ? cards.find(id => id === product.id) : false;
               return (
-                <div className={className} onClick={() => goToProduct(product.id)}>
+                <div className={className}
+                     onClick={() => goToProduct(product, product.id)}
+                  // onClick={() => goToProduct(product.id)}
+                >
                   <>
 
 
@@ -112,9 +114,8 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                       <div className="product-button">
                         <Button isProduct={true} isCard={isCard} index={index}
                                 indexProduct={indexProduct}
-                                status={status} onClick={() => {
-                          sendProduct(product.id, index)
-                        }}
+                                status={status}
+                                // onClick={() => {sendProduct(product.id, index)}}
                                 icon={<FontAwesomeIcon style={{marginRight: 10}}
                                                        icon={faCartShopping}/>}
                                 text="Add to cart"

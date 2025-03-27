@@ -5,27 +5,28 @@ import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
 import {createCard, updateCard} from "../../store/actions/products";
-import {Rating} from "react-simple-star-rating";
+import {useParams} from "react-router-dom";
+
 
 
 const OneProduct = () => {
-  const [reviewText, setReviewText] = useState("");
-  const [rating, setRating] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  const [submittedReview, setSubmittedReview] = useState("");
-  const [submittedRating, setSubmittedRating] = useState(0);
   const dispatch = useDispatch();
-  const productId = useSelector(state => state.home.productId);
-  const oneProduct = useSelector(state => state.oneProduct.oneProduct);
-  const name = oneProduct?.result?.product?.name;
-  const id = oneProduct?.result?.product?.id;
-  const price = oneProduct?.result?.product?.price
-  const images = oneProduct?.result?.product?.images
-  const description = oneProduct?.result?.product?.description;
-  const size = oneProduct?.result?.product?.size
-  const store = oneProduct?.result?.product?.store.name;
-  const cardId = useSelector(state => state.products.cardId)
-  const statusCard = useSelector(state => state.products.statusCard)
+  // const productId = useSelector(state => state.home.productId);
+  const oneProductInfo = useSelector(state => state.oneProduct.oneProduct);
+  const name = oneProductInfo?.result?.product?.name;
+  const id = oneProductInfo?.result?.product?.id;
+  const price = oneProductInfo?.result?.product?.price
+  const images = oneProductInfo?.result?.product?.images
+  const description = oneProductInfo?.result?.product?.description;
+  const size = oneProductInfo?.result?.product?.size
+  const store = oneProductInfo?.result?.product?.store.name;
+  const isInCart = oneProductInfo?.result?.product?.isInCart
+  const params = useParams()
+  const cardId = isInCart?.cartId
+  const userId = useSelector(state => state.login.user?.id);
+  const {productId} = params
+  const quantityNumber = oneProductInfo?.result?.product?.quantity;
 
   const updateQuantity = (value) => {
     setQuantity((prev) => Math.max(1, prev + value));
@@ -36,40 +37,48 @@ const OneProduct = () => {
     if (/^\d*$/.test(newValue)) {
       setQuantity(newValue === "" ? "" : Math.max(1, Number(newValue)));
     }
+
   };
 
-  const addCard = () => {
-    if (quantity === 0) return;
 
-    if (statusCard === "ok" && cardId) {
-      dispatch(updateCard({cardId, quantity}));
-    } else {
+  const quantityBlur = () => {
+    if (quantity > quantityNumber) {
+      setQuantity(quantityNumber)
+    }
+    if (quantity < 1){
+      setQuantity(1);
+    }
+  }
+
+
+
+  console.log(oneProductInfo, "oneProductInfo");
+
+  // console.log(isInCart, "isInCart")
+  // console.log(cardId, "cardId")
+
+  const addCard = () => {
+    dispatch()
+    if (quantity === 0) return;
+    if (cardId) {
+      dispatch(updateCard({cardId, add: quantity}));
+    } else  {
       dispatch(createCard({productId, quantity}));
     }
   };
 
 
-  const handleRating = (rate) => {
-    setRating(rate);
-  };
-
-  const onChangeReview = (e) => {
-    setReviewText(e.target.value);
-  };
-
-  const applyReview = () => {
-    setSubmittedReview(reviewText);
-    setSubmittedRating(rating);
-    console.log("Submitted Review:", reviewText);
-    console.log("Submitted Rating:", rating);
-    console.log(productId)
-  };
-
-
-
   useEffect(() => {
-    dispatch(getOneProduct({id: productId}));
-  }, [productId]);
+    if (localStorage.getItem("token")) {
+      if (userId){
+        dispatch(getOneProduct({id: productId, userId}));
+      }
+
+    }else {
+      dispatch(getOneProduct({id: productId,}));
+    }
+
+  }, [productId, userId]);
 
 
   return (
@@ -83,7 +92,7 @@ const OneProduct = () => {
                     interval={5000}
                     showArrows={false}
                     emulateTouch={true}
-                   className={"product__image"}
+                    className={"product__image"}
           >
 
             {_.isEmpty(images) ? <div style={{
@@ -110,13 +119,27 @@ const OneProduct = () => {
         <div className="product__header__span">
           <div className="product_info">
             <span className="product__name">{name}</span>
-            <span className="product___price">{price}$</span>
+            <div className="persentage_info">
+              <span>- {oneProductInfo?.result?.product?.discount?.discountPercentage} %</span>
+            </div>
+            <div className="product-price_info">
+              {oneProductInfo?.result?.product?.discount ?
+                <span>  {quantity *oneProductInfo?.result?.product?.discount.discountPrice}$</span> : null}
+              <span style={{
+                color: oneProductInfo?.result?.product?.discount ? "#a5a5a5" : "black",
+                fontSize: oneProductInfo?.result?.product?.discount ? "20px" : "25px",
+                textDecorationLine:oneProductInfo?.result?.product?.discount ? "line-through" : "none",
+              }}>  {quantity * oneProductInfo?.result?.product?.price}$</span>
+            </div>
           </div>
           <div className="product__quantity">
-            <button onClick={addCard} className="product__button__cart">Add to cart</button>
-            <button  disabled={quantity <= 1} className="product__button" onClick={() => updateQuantity(-1)}>-</button>
-            <input className="product__value" type="text" value={Number(quantity)} onChange={onChange}/>
-            <button className="product__button" onClick={() => updateQuantity(1)}>+</button>
+            <button
+              onClick={() => addCard()}
+              className="product__button__cart">Add to cart
+            </button>
+            <button disabled={quantity <= 1} className="product__button" onClick={() => updateQuantity(-1)}>-</button>
+            <input className="product__value" type="text" onBlur={quantityBlur} value={Number(quantity)} onChange={onChange}/>
+            <button disabled={quantity >= quantityNumber} className="product__button" onClick={() => updateQuantity(1)}>+</button>
           </div>
 
           <div className="product_mini_desc">
@@ -130,13 +153,6 @@ const OneProduct = () => {
 
 
       <div className="product_reviews_container">
-        {/*<div className="rating_container">*/}
-        {/*  <Rating onClick={handleRating} />*/}
-        {/*  <input type="text" value={reviewText} onChange={onChangeReview} />*/}
-        {/*  <button onClick={applyReview} className="apply-button">Apply</button>*/}
-
-        {/*</div>*/}
-
       </div>
       <div className="product__description">
         <h3 className="product__description__h">Description</h3>

@@ -22,10 +22,11 @@ export const createCard = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.createCard(payload);
-
+          console.log(payload, "created payload")
             return data;
 
         } catch (err) {
+          console.log(err)
             return thunkAPI.rejectWithValue(err);
         }
     }
@@ -37,9 +38,10 @@ export const updateCard = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const {data} = await  api.updateCard(payload);
-
+      console.log(payload, "updated payload")
       return data;
     }catch(err) {
+      console.log(err)
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -47,20 +49,6 @@ export const updateCard = createAsyncThunk(
 
 
 
-
-export const getCards = createAsyncThunk(
-    "products/getCards",
-    async (payload, thunkAPI) => {
-        try {
-            const {data} = await api.getCards(payload);
-
-            return data ? data.cards : []
-
-        } catch (err) {
-            return thunkAPI.rejectWithValue(err);
-        }
-    }
-)
 
 export const setPage = createAction(
     "products/page",

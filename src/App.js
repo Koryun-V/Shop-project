@@ -36,7 +36,12 @@ function App() {
               <Route path="/cardok" element={<OrdersOk/>}/>
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
-                <Route path="/one-product" element={<OneProduct/>}/>
+                <Route path="/one-product/:productId" element={<OneProduct/>}/>
+
+              {/*<Route path="/products">*/}
+              {/*  <Route index element={<Products/>}/>*/}
+              {/*  <Route path=":productId" element={<OneProduct/>}/>*/}
+              {/*</Route>*/}
 
               <Route path="/user" element={<Users/>}/>
 

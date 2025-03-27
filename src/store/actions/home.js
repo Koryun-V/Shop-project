@@ -26,7 +26,7 @@ export const getSharesProducts = createAsyncThunk(
         }
     })
 export const getAllProducts = createAsyncThunk(
-    "products/getProducts",
+    "home/getProducts",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getAllProducts(payload)
@@ -35,6 +35,18 @@ export const getAllProducts = createAsyncThunk(
             return thunkAPI.rejectWithValue(err)
         }
     })
+
+export const getAllNames = createAsyncThunk(
+  "home/getAllNames",
+  async (payload, thunkAPI) => {
+    try {
+      const {data} = await api.getAllProducts(payload)
+      return data
+    }catch(err) {
+      return thunkAPI.rejectWithValue(err)
+    }
+  }
+)
 
 export const getStores = createAsyncThunk(
     "products/getStores",
@@ -64,6 +76,14 @@ export const setProductId = createAction(
     })
 )
 
+
+export const setProduct= createAction(
+  "products/setProduct",
+  (payload) => ({
+    payload,
+  })
+)
+
 export const setSearchValue = createAction(
     "products/setSearchValue",
     (payload) => ({
@@ -76,6 +96,14 @@ export const setStoreId = createAction(
     (payload) => ({
         payload,
     })
+)
+
+
+export const setNameData = createAction(
+  "products/setNameData",
+  (payload) => ({
+    payload,
+  })
 )
 
 

@@ -8,16 +8,28 @@ export const fetchCards = createAsyncThunk(
     return data;
   });
 
+
+export const createCard = createAsyncThunk(
+  "cart/createCard", async (payload, thunkAPI) => {
+    try {
+      const {data} = await Api.createCard(payload);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 export const updateCard = createAsyncThunk(
   'cart/updateCard', async (payload) => {
-    const { cardId, quantity } = payload;
-    await Api.updateCard({ cardId, quantity });
+    const {cardId, quantity} = payload;
+    await Api.updateCard({cardId, quantity});
     return payload;
   });
 
 export const deleteCard = createAsyncThunk(
   'cart/deleteCard', async (cardId) => {
-    const data = await Api.deleteCart({ cardId });
+    const data = await Api.deleteCart({cardId});
     toast.success(data?.data?.message)
     return cardId
   });

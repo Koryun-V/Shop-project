@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState, } from "react";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
@@ -21,7 +21,7 @@ import group5 from "../../assets/icon/Group_5.svg"
 import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
 
-import {getAllProducts, setSearchValue} from "../../store/actions/home";
+import {getAllNames, getAllProducts, setNameData, setSearchValue} from "../../store/actions/home";
 
 //main
 const token = localStorage.getItem("token");
@@ -29,6 +29,8 @@ const token = localStorage.getItem("token");
 function Layout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const searchRef = useRef(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false)
   const user = useSelector(state => state.login.user)
   // const [isOpenLogin, setIsOpenLogin] = useState(false)
@@ -47,7 +49,9 @@ function Layout() {
   const maxPrice = useSelector(state => state.home.maxPrice);
   const [limit, setLimit] = useState(12);
   const storeId = useSelector(state => state.home.storeId);
-  const productsList = useSelector(state => state.home.productsList);
+  const productsNames = useSelector(state => state.home.productsNames);
+  const userId = useSelector(state => state.login.user?.id);
+  const nameData = useSelector(state => state.home.nameData);
 
 
   useEffect(() => {
@@ -56,13 +60,67 @@ function Layout() {
     }
   }, [token]);
 
-    const handleSearch = (e) => {
-        e.preventDefault();
-        if (searchValue.trim() !== " ") {
-            navigate("/products");
-            dispatch(getAllProducts({categoryId: selectId, page, limit, minPrice, maxPrice, s: searchValue || " ",}));
+  useEffect(() => {
+    dispatch(getAllNames({page, limit, s: searchValue || " "}))
+  }, [searchValue]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+  const handleSearch = (e) => {
+    navigate("/products")
+    e.preventDefault();
+    if (searchValue.trim() !== " ") {
+      if (localStorage.getItem("token")) {
+        if (userId) {
+          dispatch(getAllProducts({
+            categoryId: selectId,
+            page,
+            limit,
+            minPrice,
+            maxPrice,
+            s: searchValue ? searchValue : "",
+            storeId,
+            userId
+          }));
         }
+      } else {
+        dispatch(getAllProducts({
+          categoryId: selectId,
+          page,
+          limit,
+          minPrice,
+          maxPrice,
+          s: searchValue ? searchValue : "",
+          storeId
+        }));
+      }
     }
+
+  }
+
+const chooseName = (item) => {
+   dispatch(setNameData(item))
+  navigate(`one-product/${item.id}`)
+  dispatch(setSearchValue(""))
+}
+
+
+
+
+
 
     // useEffect(() => {
     //     if (isProfile) {
@@ -176,10 +234,13 @@ function Layout() {
               {/*  </form>*/}
               {/*</div>*/}
 
-              <div className="search-box">
+              <div ref={searchRef} className="search-box">
                 <div className="search-row">
-                  <form onSubmit={handleSearch}>
+                  <form
+                    onSubmit={handleSearch}
+                    >
                     <input
+                      onFocus={() => setIsSearchOpen(true)}
                       className="new-search-input"
                       type="text"
                       placeholder="Search"
@@ -193,19 +254,16 @@ function Layout() {
 
                 </div>
 
-                {!searchValue.length <= 0  &&
+                {!!searchValue.length && productsNames.length && isSearchOpen &&
                   <div className="result-box">
-                    <ul className="search-ul">
-                      {productsList.map(item => (
-                        <li
-                          className="search-li"
-                          onClick={() => dispatch(setSearchValue(item.name))}
-                          key={item.id}
-                        >
-                          {item.name}
-                        </li>
+                  <div className= "search-ul">
+                      {productsNames.map(item => (
+                          <div  className="search-li" key={item.id} onClick={() => chooseName(item)}>
+                            {item.name}
+                          </div>
                       ))}
-                    </ul>
+                  </div>
+
                   </div>
                 }
 
@@ -381,7 +439,7 @@ function Layout() {
               <div className="footer-block">
                 <div className="footer-link"><Link>Profile</Link></div>
                 <div className="footer-link"><Link to="/order">Order</Link></div>
-                <div className="footer-link"><Link to="/basket">Basket</Link></div>
+                <div className="footer-link"><Link>Basket</Link></div>
               </div>
               <div className="footer-block">
                 <div className="footer-link"><Link>Category</Link></div>
@@ -390,6 +448,18 @@ function Layout() {
               </div>
               <div className="footer-block">
                 <div className="footer-link"><Link>Стать продавцом</Link></div>
+              {/*<div className="footer-block">*/}
+              {/*  <div className="footer-link"><Link>Profile</Link></div>*/}
+              {/*  <div className="footer-link"><Link to="/order">Order</Link></div>*/}
+              {/*  <div className="footer-link"><Link to="/basket">Basket</Link></div>*/}
+              {/*</div>*/}
+              {/*<div className="footer-block">*/}
+              {/*  <div className="footer-link"><Link>Category</Link></div>*/}
+              {/*  <div className="footer-link"><Link>Shares</Link></div>*/}
+              {/*  <div className="footer-link"><Link>Contact</Link></div>*/}
+              {/*</div>*/}
+              {/*<div className="footer-block">*/}
+              {/*  <div className="footer-link"><Link>Стать продавцом</Link></div>*/}
 
               </div>
             </div>

@@ -24,8 +24,9 @@ export const userSlice = createReducer(initialState, (builder) => {
       state.error = null;
     })
     .addCase(getUserProfileRequest.fulfilled, (state, { payload }) => {
-      const { firstName, lastName, gender, dateOfBirth, address } = payload;
-      state.profile = { firstName, lastName, gender, dateOfBirth, address };
+      const { firstName, lastName, gender, dateOfBirth, address, id } = payload;
+
+      state.profile = { firstName, lastName, gender, dateOfBirth, address, id };
       state.user = payload;
     })
     .addCase(getUserProfileRequest.rejected, (state) => {

@@ -1,13 +1,28 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getOrder, getReview, sendReview, setIsOpenReview, setReviews, setReviewStatus} from "../actions/order";
+import {
+    getOrder,
+    getOrderReceived,
+    getReview, orderConfirm, orderRetry,
+    sendReview,
+    setIsOpenReview,
+    setReviews,
+    setReviewStatus
+} from "../actions/order";
 
 const initialState = {
     status: "",
+    statusReceived:"",
     order: [],
+    orderReceived:[],
     isOpenReview: false,
     statusReviewSend: "",
     statusReviewGet: "",
     reviews:{},
+    reviewsAll:[],
+    orderRetryStatus:"",
+    orderConfirmStatus:"",
+    url:"",
+    totalOrder:""
 
 
 }
@@ -18,10 +33,22 @@ export const order = createReducer(initialState, (builder) => {
         })
         .addCase(getOrder.fulfilled, (state, {payload}) => {
             state.status = "ok"
-            state.order = payload
+            state.order = payload.data
+            state.totalOrder = payload.total
+
         })
         .addCase(getOrder.rejected, (state) => {
             state.status = "error"
+        })
+        .addCase(getOrderReceived.pending, (state) => {
+            state.statusReceived = "pending"
+        })
+        .addCase(getOrderReceived.fulfilled, (state, {payload}) => {
+            state.statusReceived = "ok"
+            state.orderReceived = payload
+        })
+        .addCase(getOrderReceived.rejected, (state) => {
+            state.statusReceived = "error"
         })
         .addCase(sendReview.pending, (state) => {
             state.statusReviewSend = "pending"
@@ -38,10 +65,36 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getReview.fulfilled, (state, {payload}) => {
             state.statusReviewGet = "ok"
             state.reviews = payload[0]
+            state.reviewsAll = payload
         })
         .addCase(getReview.rejected, (state) => {
             state.statusReviewGet = "error"
         })
+
+
+        .addCase(orderRetry.pending, (state) => {
+            state.orderRetryStatus = "pending"
+        })
+        .addCase(orderRetry.fulfilled, (state, {payload}) => {
+            state.orderRetryStatus = "ok"
+            state.url = payload
+            console.log(state.url,"url")
+        })
+        .addCase(orderRetry.rejected, (state) => {
+            state.orderRetryStatus = "error"
+        })
+
+
+        .addCase(orderConfirm.pending, (state) => {
+            state.orderConfirmStatus = "pending"
+        })
+        .addCase(orderConfirm.fulfilled, (state, {payload}) => {
+            state.orderConfirmStatus = "ok"
+        })
+        .addCase(orderConfirm.rejected, (state) => {
+            state.orderConfirmStatus = "error"
+        })
+
 
 
 

@@ -1,13 +1,16 @@
+@import "variables";
+
 .background {
   align-items: center;
   position: relative;
   display: flex;
   width: 100%;
   height: 500px;
-  .img-b{
+
+  .img-b {
 
     position: absolute;
-    border:2px solid red;
+    border: 2px solid red;
   }
 
   img {
@@ -18,3 +21,184 @@
   }
 }
 
+
+.random__review {
+  position: relative;
+  transition: 0.2s all;
+  flex-direction: column;
+  display: flex;
+  background: white;
+  height: 550px;
+  border-radius: 5px;
+  justify-content: space-between;
+  width: 300px;
+  flex-shrink: 1;
+  flex-grow: 1;
+  margin: 10px;
+  cursor: pointer;
+
+
+  .review_container {
+    width: 100%;
+    height: 100%;
+
+
+    .random__product {
+      font-family: "PoppinsMedium", "sans-serif";
+      padding: 15px;
+      display: flex;
+      width: 100%;
+      position: relative;
+      justify-content: flex-end;
+
+
+      .piramid {
+        border: 70px solid transparent;
+        border-left: 70px solid $interfaceColor;
+        border-top: 70px solid $interfaceColor;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 5px 0 0 0;
+
+
+      }
+
+      .stars-deg {
+        display: flex;
+        transform: rotate(-43deg);
+        height: 20px;
+        left: 0;
+        top: 42px;
+        position: absolute;
+      }
+
+
+      .product__info {
+        flex-direction: column;
+        display: flex;
+        justify-content: flex-end;
+
+
+
+        .random__product__img {
+          width:auto;
+          height:150px;
+          padding: 5px;
+
+          img {
+
+            width:auto;
+            height: 100%;
+            object-fit: cover;
+
+          }
+        }
+
+        .random__product__name {
+          //width: 100%;
+          justify-content: space-evenly;
+          display: flex;
+          flex-direction: column;
+          margin-left: 10px;
+
+
+          strong {
+          }
+
+        }
+
+      }
+    }
+    .random__user {
+      padding: 15px;
+      transition: 0.2s all;
+      font-family: "PoppinsMedium", "sans-serif";
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-evenly;
+      background: #F6F6F6;
+
+
+      .user-img-block {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .random__user__img {
+          width: 50px;
+          height: 50px;
+
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100px;
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100px;
+            object-fit: cover;
+          }
+
+          .random__review__icon {
+            font-size: 25px;
+
+
+            color: #737373;
+
+
+          }
+        }
+      }
+
+      .random__user__name {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        width: 100%;
+        margin-left: 10px;
+      }
+    }
+
+    .review__info {
+      width: 100%;
+      font-family: "RobotoMedium", "sans-serif";
+      padding: 15px;
+      word-break: break-word;
+
+    }
+  }
+
+  .time__random {
+    font-family: "RobotoMedium", "sans-serif";
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+
+  }
+}
+
+.random__review:hover {
+  transform: scale(1.05, 1.05);
+  z-index: 7;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  box-shadow: 0px 0px 10px 0px rgba(66, 68, 90, 1);
+  //border:1px solid transparent;
+}
+
+.random__review:hover .random__user {
+  width: 100%;
+  background:white;
+
+}
+
+.message-icon{
+  color:$interfaceColor;
+  font-size: 30px;
+}

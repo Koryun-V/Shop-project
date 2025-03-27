@@ -4,10 +4,9 @@ import Button from "./Button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
-import {createCard} from "../../store/actions/products";
-import {setProductId} from "../../store/actions/home";
+import {createCard, getCards} from "../../store/actions/products";
+import {setProduct, setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
-import {setProduct} from "../../store/actions/home";
 
 const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading}) => {
   const [indexImg, setIndexImg] = useState(0);
@@ -22,7 +21,6 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
   const page = useSelector(state => state.products.page)
   const navigate = useNavigate()
   const total = useSelector(state => state.home.total)
-  const product = useSelector(state => state.home.product)
 
   useEffect(() => {
     if (isPlay && imgLength > 1) {
@@ -33,6 +31,15 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     }
 
   });
+  const goToProduct = (product, id) => {
+    dispatch(setProduct(product))
+    navigate(`/one-product/${id}`)
+  }
+
+  // useEffect(() => {
+  //     //total
+  //     dispatch(getCards({page:1, limit: total || 100}))
+  // }, [ status]);
 
 
   const changeImage = () => {
@@ -44,12 +51,6 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     setIndexProduct(index)
   }
 
-  const goToProduct = (product, id) => {
-    dispatch(setProduct(product))
-    navigate(`/one-product/${id}`)
-  }
-
-
 
 
   return (
@@ -58,26 +59,24 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
         products.length ?
           products.slice(0, quantity ? quantity : products.length).map((product, index) => {
               const isCard = cards ? cards.find(id => id === product.id) : false;
+              const date = product.discount ? new Date(product.discount.endDate) : null;
+              const day = product.discount ? date.getDate() : null;
+              const month = product.discount ? date.toLocaleString('en-us', {month: 'long'}) : null;
               return (
-                <div className={className}
-                     onClick={() => goToProduct(product, product.id)}
-                  // onClick={() => goToProduct(product.id)}
-                >
+                <div className={className}>
                   <>
-
-
-                    {/*<Link to="/category" className="product-link"*/}
-                    {/*      onMouseEnter={() => {*/}
-                    {/*          setIsPlay(true)*/}
-                    {/*          setImgLength(product.productImage.length)*/}
-                    {/*          setTest(index)*/}
-                    {/*      }}*/}
-                    {/*      onMouseLeave={() => {*/}
-                    {/*          setIsPlay(false)*/}
-                    {/*          setImgLength(0)*/}
-                    {/*          setIndexImg(0)*/}
-                    {/*      }}*/}
-                    {/*></Link>*/}
+                    <div className="product-link" onClick={() => goToProduct(product, product.id)}
+                         onMouseEnter={() => {
+                           setIsPlay(true)
+                           setImgLength(product.productImage.length)
+                           setTest(index)
+                         }}
+                         onMouseLeave={() => {
+                           setIsPlay(false)
+                           setImgLength(0)
+                           setIndexImg(0)
+                         }}
+                    ></div>
 
                     {product.discount ?
                       <div className="percentage">
@@ -98,13 +97,16 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                     <div className={classNameActive}>
                       <div className="product-info">
                         <div className="product-price">
-                          {product.discount ?
-                            <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
-                          <span style={{
-                            color: product.discount ? "#a5a5a5" : "black",
-                            fontSize: product.discount ? "20px" : "25px",
-                            textDecorationLine: product.discount ? "line-through" : "none",
-                          }}>{product.price.split(".")[0]} $</span>
+                          <div className="price-block">
+                            {product.discount ?
+                              <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
+                            <span style={{
+                              color: product.discount ? "#a5a5a5" : "black",
+                              fontSize: product.discount ? "20px" : "25px",
+                              textDecorationLine: product.discount ? "line-through" : "none",
+                            }}>{product.price.split(".")[0]} $</span>
+                          </div>
+                          {product.discount ? <strong className="loading-gradient-endDate">Until {day} {month}</strong> : null}
                         </div>
                         <div className="product-name"><span>{product.name}</span></div>
                         <div className="product-description"><span>{product.description}</span>
@@ -114,9 +116,11 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                       <div className="product-button">
                         <Button isProduct={true} isCard={isCard} index={index}
                                 indexProduct={indexProduct}
-                                status={status}
-                                // onClick={() => {sendProduct(product.id, index)}}
-                                icon={<FontAwesomeIcon style={{marginRight: 10}}
+                                status={status} onClick={() => {
+                          sendProduct(product.id, index)
+                        }}
+                                icon={<FontAwesomeIcon style={{marginLeft: 20,fontSize:20}}
+
                                                        icon={faCartShopping}/>}
                                 text="Add to cart"
                                 className={isCard ? "disabled" : "active-button"}
@@ -148,14 +152,16 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
 
                 <div className="loading-img-p">
-                  <div className={`${classNameImg} loading-gradient-p`} style={{border: "1px solid transparent"}}>
+                  <div className={`${classNameImg} loading-gradient-p`}
+                       style={{border: "1px solid transparent"}}>
                   </div>
 
                 </div>
 
                 :
                 <div className="loading-img-s">
-                  <div className={`${classNameImg} loading-gradient-p`} style={{border: "1px solid transparent"}}>
+                  <div className={`${classNameImg} loading-gradient-p`}
+                       style={{border: "1px solid transparent"}}>
                   </div>
 
                 </div>

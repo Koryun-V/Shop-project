@@ -24,20 +24,10 @@
 
 }
 
-.confirm-btn, .cancel-btn {
+.active-button.confirm, .cancel-btn {
   padding: 10px 20px;
   cursor: pointer;
   width: 100px;
-  transition: 0.4s;
-}
-
-.confirm-btn {
-  background: $interfaceColor;;
-  color: white;
-
-  &:hover{
-    background: rgb(0, 143, 13);
-  }
 }
 
 .cancel-btn {
@@ -45,6 +35,6 @@
   color: white;
 
   &:hover{
-    background: #6c1d1d;
+    background: #e03a3a;
   }
 }

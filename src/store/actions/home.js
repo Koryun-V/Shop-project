@@ -59,7 +59,17 @@ export const getStores = createAsyncThunk(
         }
     }
 )
-
+export const getRandomReviews = createAsyncThunk(
+    "random/reviews",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getRandomReviews(payload)
+            return data.randomReviews
+        } catch (err) {
+            return thunkAPI.rejectWithValue(err)
+        }
+    }
+)
 
 export const setSelectId = createAction(
     "products/setSelectId",

@@ -6,7 +6,7 @@ export const getOrder = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getOrder(payload);
-            return data.data
+            return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
@@ -31,6 +31,41 @@ export const getReview = createAsyncThunk(
         try {
             const {data} = await api.getReview(payload);
             return data.productsReviews
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
+export const getOrderReceived = createAsyncThunk(
+    "user/get-review-received",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getOrderReceived(payload);
+            return data.data
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+export const orderRetry = createAsyncThunk(
+    "user/order-retry",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.orderRetry(payload);
+            return data.payment.confirmation.confirmation_url
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+export const orderConfirm = createAsyncThunk(
+    "user/order-confirm",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.orderConfirm(payload);
+            console.log(data,"data")
+            return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }

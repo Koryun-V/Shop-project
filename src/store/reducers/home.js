@@ -1,21 +1,14 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {
-  getAllProducts,
-  getStores,
-  setSearchValue,
-  setStoreId,
-  setProduct,
-  getAllNames,
-  setNameData
-} from "../actions/home";
+import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
-import {getPopularProducts, getSharesProducts} from "../actions/home";
+import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProduct} from "../actions/home";
 
 const initialState = {
   status: "",
   product: {},
+
   productsList: [],
   selectId: "",
   total: "",
@@ -31,6 +24,8 @@ const initialState = {
   popularProducts: [],
   productsShares: [],
   statusPopular: "",
+  reviews: [],
+  statusReviews: "",
   productsNames: [],
   nameData: {},
 }
@@ -84,6 +79,16 @@ export const home = createReducer(initialState, (builder) => {
     })
     .addCase(getSharesProducts.rejected, (state) => {
       state.statusShares = "error"
+    })
+    .addCase(getRandomReviews.pending, (state) => {
+      state.statusReviews = "pending"
+    })
+    .addCase(getRandomReviews.fulfilled, (state, {payload}) => {
+      state.statusReviews = "ok"
+      state.reviews = payload
+    })
+    .addCase(getRandomReviews.rejected, (state) => {
+      state.statusReviews = "error"
     })
 
 

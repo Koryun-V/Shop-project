@@ -5,6 +5,10 @@ import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
 import {createCard, updateCard} from "../../store/actions/products";
+import {Rating} from "react-simple-star-rating";
+import {getReview} from "../../store/actions/order";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCheck, faStar, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useParams} from "react-router-dom";
 
 
@@ -27,10 +31,17 @@ const OneProduct = () => {
   const userId = useSelector(state => state.login.user?.id);
   const {productId} = params
   const quantityNumber = oneProductInfo?.result?.product?.quantity;
+  const reviews = useSelector(state => state.order.reviewsAll)
+  const [index, setIndex] = useState([100])
 
-  const updateQuantity = (value) => {
-    setQuantity((prev) => Math.max(1, prev + value));
-  };
+  const [more,setMore] = useState(false);
+
+    useEffect(() => {
+        dispatch(getReview({productId}))
+    }, []);
+    const updateQuantity = (value) => {
+        setQuantity((prev) => Math.max(1, prev + value));
+    };
 
   const onChange = (e) => {
     const newValue = e.target.value;
@@ -79,11 +90,31 @@ const OneProduct = () => {
     }
 
   }, [productId, userId]);
+    const handleRating = (rate) => {
+        setRating(rate);
+    };
+
+    const onChangeReview = (e) => {
+        setReviewText(e.target.value);
+    };
+
+    const applyReview = () => {
+        setSubmittedReview(reviewText);
+        setSubmittedRating(rating);
+        console.log("Submitted Review:", reviewText);
+        console.log("Submitted Rating:", rating);
+        console.log(productId)
+    };
 
 
-  return (
-    <div className="wrapper">
-      <div className="product" key={id}>
+    useEffect(() => {
+        dispatch(getOneProduct({id: productId}));
+    }, [productId]);
+
+
+    return (
+        <div className="section">
+            <div className="product" key={id}>
 
         <div className="product__header">
           <Carousel showStatus={false} showThumbs={false}
@@ -152,18 +183,123 @@ const OneProduct = () => {
       </div>
 
 
-      <div className="product_reviews_container">
-      </div>
-      <div className="product__description">
-        <h3 className="product__description__h">Description</h3>
-        <p className="product__description__p">{description}</p>
-        <p className="product__description__p">Store - {store}</p>
-        <p className="product__description__p">Size - {size}</p>
+            {/*<div className="product_reviews_container">*/}
+            {/*  /!*<div className="rating_container">*!/*/}
+            {/*  /!*  <Rating onClick={handleRating} />*!/*/}
+            {/*  /!*  <input type="text" value={reviewText} onChange={onChangeReview} />*!/*/}
+            {/*  /!*  <button onClick={applyReview} className="apply-button">Apply</button>*!/*/}
 
-      </div>
-      <div className="product__description">
-        <h3 className="product__description__h">Similar products</h3>
-      </div>
+            {/*  /!*</div>*!/*/}
+            {/*</div>*/}
+            <div className="product__description">
+                <div className="container">
+                    <h3 className="product__description__h">Description</h3>
+                    <p className="product__description__p">{description}</p>
+                    <p className="product__description__p">Store - {store}</p>
+                    <p className="product__description__p">Size - {size}</p>
+                </div>
+            </div>
+            <div className="product__description">
+                <h3 className="product__description__h">Similar products</h3>
+            </div>
+
+
+            <div className="reviews">
+                <div className="container">
+
+                    {reviews.length ? reviews.slice(0,!more ? 3 : reviews.length).map((review, i) => {
+                        const date = new Date(review.createdAt);
+                        const hours = date.getHours()
+                        const minutes = date.getMinutes()
+                        const day = date.getDate();
+                        const month = date.toLocaleString('en-us', {month: 'long'});
+                        return (
+                            <div className="review__item">
+
+                                <div className="review__header">
+
+                                    <div className="review__user_block">
+                                        <div className="review__avatar">
+                                            {review.user.avatar[0] ?
+                                                <img src={review.user.avatar[0].path} alt="user"/>
+                                                :
+
+                                                <FontAwesomeIcon icon={faUser} className="review__icon"/>
+                                            }
+                                        </div>
+                                        <div className="review__user">
+                                            <strong>
+                                                {review.user.lastName.charAt(0).toUpperCase() +
+                                                    review.user.lastName.slice(1)} {review.user.firstName.charAt(0).toUpperCase() + review.user.lastName.slice(1)}
+                                            </strong>
+                                            <span><FontAwesomeIcon icon={faCheck} style={{
+                                                color: "limegreen"
+                                            }}/> Bought out</span>
+                                        </div>
+                                    </div>
+
+                                    <div className="review__star-time">
+                                        <div className="review__star">
+                                            {Array.from({length: 5}).map((_, i) => (
+                                                <FontAwesomeIcon
+                                                    style={{
+                                                        fontSize: 20
+                                                    }}
+                                                    icon={faStar}
+                                                    className={i + 1 <= review.rating ?
+                                                        "star-active icon"
+                                                        : "star-disable icon"}/>
+                                            ))}
+                                        </div>
+                                        <div className="review__time">
+                                            <span>{day} {month}, {hours} : {minutes < 10 ? `0${minutes}` : minutes}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="review-info">
+                                    <span>
+                                        {review.review}
+                                    </span>
+                                </div>
+
+                                <div className="message">
+
+                                    <div>
+                                        <strong>
+                                            Seller's response
+                                        </strong>
+                                    </div>
+
+                                    <div className="message__info">
+                                        <span className={index.includes(i) ? "message__text-more" : "message__text"}>
+                                            {review.review}
+                                                         </span>
+                                        {!index.includes(i) && (
+                                            <span className="message__more"
+                                                  onClick={() => setIndex(prevState => _.uniq([...prevState, i]))}>
+                                                   more
+                                          </span>
+                                        )}
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        )
+                    }) : null}
+
+                    {!more ? <div className="more__reviews" onClick={() => setMore(true)}>
+                        <div className="line"></div>
+                        <span>More</span>
+                        <div className="line"></div>
+
+                    </div> : null}
+
+                </div>
+            </div>
 
 
     </div>

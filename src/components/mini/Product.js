@@ -68,7 +68,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     return (
         <>
             {
-                products.length ?
+                products.length  ?
                     products.slice(0, quantity ? quantity : products.length).map((product, index) => {
                             const isCard = cards ? cards.find(id => id === product.id) : false;
                             const date = product.discount ? new Date(product.discount.endDate) : null;
@@ -137,14 +137,14 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
                                             <div className="product-button">
                                                 <Button isProduct={true} isCard={isCard} index={index}
-                                                        indexProduct={indexProduct}
-                                                        status={statusEnd} onClick={() => {
+                                                         indexProduct={indexProduct}
+                                                         status={statusEnd} onClick={() => {
                                                     sendProduct(product.id, index)
                                                 }}
-                                                        icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
-                                                                               icon={product.isInCart !== null ? faCheck : faCartShopping}/>}
-                                                        text={product.isInCart !== null ? "In cart" : "Add to cart"}
-                                                        className={product.isInCart !== null  ? "disabled-cart" : "active-button"}
+                                                         icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
+                                                                                icon={product.isInCart  ? faCheck : faCartShopping}/>}
+                                                         text={product.isInCart ? "In cart" : "Add to cart"}
+                                                         className={product.isInCart  ? "disabled-cart" : "active-button"}
                                                 >
                                                 </Button>
                                             </div>

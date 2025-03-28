@@ -16,7 +16,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     const dispatch = useDispatch();
     const productId = useSelector(state => state.home.productId);
     const status = useSelector(state => state.products.statusCard);
-    const statusProducts =useSelector(state => state.home.status);
+    const statusProducts = useSelector(state => state.home.status);
     const cards = useSelector(state => state.products.cardsList)
     const [indexProduct, setIndexProduct] = useState("")
     const page = useSelector(state => state.products.page)
@@ -26,13 +26,12 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
 
     useEffect(() => {
-        if(statusProducts ==="pending" || status === "pending"){
+        if (statusProducts === "pending" || status === "pending") {
             setStatusEnd("pending");
-        }
-        else{
+        } else {
             setStatusEnd("");
         }
-    }, [statusProducts,status]);
+    }, [statusProducts, status]);
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -68,7 +67,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     return (
         <>
             {
-                products.length  ?
+                products.length ?
                     products.slice(0, quantity ? quantity : products.length).map((product, index) => {
                             const isCard = cards ? cards.find(id => id === product.id) : false;
                             const date = product.discount ? new Date(product.discount.endDate) : null;
@@ -137,14 +136,15 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
                                             <div className="product-button">
                                                 <Button isProduct={true} isCard={isCard} index={index}
-                                                         indexProduct={indexProduct}
-                                                         status={statusEnd} onClick={() => {
+                                                        indexProduct={indexProduct}
+                                                        status={statusEnd} onClick={() => {
                                                     sendProduct(product.id, index)
                                                 }}
-                                                         icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
-                                                                                icon={product.isInCart  ? faCheck : faCartShopping}/>}
-                                                         text={product.isInCart ? "In cart" : "Add to cart"}
-                                                         className={product.isInCart  ? "disabled-cart" : "active-button"}
+                                                        icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
+                                                                               icon={product.isInCart ? faCheck : faCartShopping}/>}
+                                                        text={product.isInCart ? "In cart" : "Add to cart"}
+                                                        disabled={product.isInCart}
+                                                        className={product.isInCart ? "disabled-cart" : "active-button"}
                                                 >
                                                 </Button>
                                             </div>

@@ -8,7 +8,7 @@ import {createCard, getCards} from "../../store/actions/products";
 import {setProduct, setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
 
-const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading, func}) => {
+const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading, statusProducts}) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
@@ -16,7 +16,6 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
     const dispatch = useDispatch();
     const productId = useSelector(state => state.home.productId);
     const status = useSelector(state => state.products.statusCard);
-    const statusProducts = useSelector(state => state.home.status);
     const cards = useSelector(state => state.products.cardsList)
     const [indexProduct, setIndexProduct] = useState("")
     const page = useSelector(state => state.products.page)
@@ -62,7 +61,6 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
         setIndexProduct(index)
     }
 
-    console.log(func, "a")
 
     return (
         <>
@@ -122,13 +120,13 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                         className="loading-gradient-endDate">Until {day} {month}</strong> : null}
                                                 </div>
                                                 <div className="product-name"><span>{product.name}</span></div>
-                                                <div className="product-description"><span>{product.description}</span>
-                                                    <div className="product-store">
+                                                <div className="product-description">
+                                                    <div className="text-block">
+                                                        <span>{product.description}</span>
+                                                    </div>
+                                                    <div className="store">
                                                         <div className="store-img">
-                                                            {/*<img src={product.store.storeLogo[0].path} alt="img"/>*/}
-                                                        </div>
-                                                        <div className="stars">
-
+                                                            <img src={product.store.storeLogo[0].path} alt="img"/>
                                                         </div>
                                                     </div>
                                                 </div>

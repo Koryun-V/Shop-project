@@ -15,8 +15,17 @@ const token = localStorage.getItem("token");
 
 
 export default class Api {
-    static getPopularProducts(params) {
-        return api.get(`/products/popular`, {params})
+    static getPopularProducts({id}) {
+        let userId
+        if(id){
+            userId = id
+        }
+        return api.get(`/products/popular`, {
+            params:{
+                userId
+            },
+
+        })
     }
 
     static getRandomReviews() {

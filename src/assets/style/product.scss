@@ -103,8 +103,8 @@
   justify-content: space-between;
 
 
-
 }
+
 .product-active {
   padding: 10px;
   display: flex;
@@ -113,6 +113,7 @@
   height: 300px;
   justify-content: space-between;
 }
+
 .product-info {
   width: 100%;
   height: 150px;
@@ -124,7 +125,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  .price-block{
+
+  .price-block {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,11 +138,13 @@
     font-size: 25px;
     text-decoration-color: black;
   }
-  strong{
+
+  strong {
     color: white;
-    padding:5px;
+    padding: 5px;
     border-radius: 5px;
   }
+
   span:nth-child(1) {
     margin-right: 15px;
   }
@@ -157,11 +161,40 @@
 
 .product-description {
   margin-top: 10px;
+  display: flex;
+  width: 100%;
 
-  span {
-    color: #454545;
+  .text-block {
+    width: 80%;
+
+    span {
+      color: #454545;
+    }
   }
 }
+
+.store {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .store-img {
+
+    width: 70px;
+    height: 70px;
+    border-radius: 100px;
+    border: 2px solid #d1d1d1;
+
+    img {
+      border-radius: 100px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
 
 .product-button {
   position: relative;
@@ -176,20 +209,20 @@
 
 }
 
-.percentage{
+.percentage {
   background: red;
   position: absolute;
-  padding:5px;
-  left:10px;
-  top:10px;
-  color:white;
+  padding: 5px;
+  left: 10px;
+  top: 10px;
+  color: white;
   border-radius: 5px;
-  span{
+
+  span {
     font-size: 20px;
     font-family: "PoppinsMedium", "sans-serif";
   }
 }
-
 
 
 .loading-gradient-p {
@@ -202,6 +235,7 @@
   background-size: 400%;
   animation: gradient 2s infinite linear;
 }
+
 .loading-gradient-endDate {
   border-radius: 5px;
   opacity: 0.7;
@@ -219,6 +253,7 @@
   background-size: 400%;
   animation: gradient 4s infinite linear;
 }
+
 @keyframes gradient {
   0% {
     background-position: 80% 0%;
@@ -231,17 +266,19 @@
   }
 }
 
-.loading-span{
+.loading-span {
   width: 100%;
 }
-.loading-img-p{
+
+.loading-img-p {
   width: 100%;
   height: 250px;
-  padding:10px;
+  padding: 10px;
 
 }
-.loading-img-s{
+
+.loading-img-s {
   width: 50%;
   height: 100%;
-  padding:10px;
+  padding: 10px;
 }

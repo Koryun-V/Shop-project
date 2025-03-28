@@ -30,6 +30,7 @@ const Products = () => {
     const clampMax = (value) => Math.min(Math.max(value, 0), 2000);
     const id = useSelector(state => state.home.userId);
     const status = useSelector(state => state.products.statusCard);
+    const statusProducts = useSelector(state => state.home.status);
 
     useEffect(() => {
         dispatch(categoriesRequest({limit}));
@@ -199,7 +200,7 @@ const Products = () => {
 
                 </div>
                 <div className="products_container">
-                    <Product func={getProductsFunc} classNameActive="product-active" products={products} quantity={12}
+                    <Product statusProducts={statusProducts} classNameActive="product-active" products={products} quantity={12}
                              className="product-block"
                              classNameImg="product-img"/>
                     <div className="react_pagination_div">

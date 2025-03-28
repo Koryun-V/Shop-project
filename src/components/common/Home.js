@@ -34,6 +34,9 @@ const Home = () => {
 
     const productsShares = useSelector(state => state.home.productsShares);
     const id = useSelector(state => state.home.userId);
+    const status = useSelector(state => state.products.statusCard);
+    const statusShares = useSelector(state => state.home.statusShares);
+    const statusPopular = useSelector(state => state.home.statusPopular);
 
     const [isPlay, setIsPlay] = useState(false);
 
@@ -41,10 +44,14 @@ const Home = () => {
     useEffect(() => {
         dispatch(getPopularProducts({id}))
         dispatch(getSharesProducts({id}))
-        dispatch(getRandomReviews())
-    }, [id]);
+    }, [id,status]);
 
-    console.log(products)
+
+
+    useEffect(() => {
+        dispatch(getRandomReviews())
+    }, []);
+
 
     function SamplePrevArrow(props) {
         const {onClick} = props;
@@ -119,7 +126,7 @@ const Home = () => {
               </div>
 
               <div className="article-block">
-                  <Product classNameActive="product-active-shares" products={productsShares} quantity={4}
+                  <Product statusProducts={statusShares}   classNameActive="product-active-shares" products={productsShares} quantity={4}
                            className="product-shares" classNameImg="shares-img"/>
               </div>
           </article>
@@ -136,7 +143,7 @@ const Home = () => {
                   /></Link>
               </div>
               <div className="article-block">
-                  <Product classNameActive="product-active" products={products} quantity={12}
+                  <Product statusProducts={statusPopular} classNameActive="product-active" products={products} quantity={12}
                            className="product-block"
                            classNameImg="product-img"/>
               </div>

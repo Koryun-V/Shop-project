@@ -8,7 +8,6 @@ import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProd
 const initialState = {
   status: "",
   product: {},
-
   productsList: [],
   selectId: "",
   total: "",
@@ -64,7 +63,7 @@ export const home = createReducer(initialState, (builder) => {
       state.statusPopular = "pending"
     })
     .addCase(getPopularProducts.fulfilled, (state, {payload}) => {
-      state.status = "ok"
+      state.statusPopular = "ok"
       state.popularProducts = payload
     })
     .addCase(getPopularProducts.rejected, (state) => {

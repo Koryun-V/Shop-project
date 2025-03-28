@@ -19,7 +19,14 @@ button {
   color: white;
   font-weight: bold;
   cursor: default;
-  transition: 0.5s;
+  transition: 0.2s;
+}
+.disabled-cart {
+  color: $interfaceColor;
+  font-weight: bold;
+  cursor: default;
+  background: #fafafa;
+  transition: 0.2s;
 }
 
 .active-button {

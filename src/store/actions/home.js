@@ -115,7 +115,9 @@ export const setNameData = createAction(
     payload,
   })
 )
-
+export const setUserId = createAction(
+    "user/id",
+)
 
 
 

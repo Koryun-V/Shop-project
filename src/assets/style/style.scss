@@ -142,7 +142,9 @@ input:-webkit-autofill:focus {
     display: flex;
     position: relative;
     max-width: 1440px;
+    justify-content: center;
     flex-direction: column;
+
 
   }
 
@@ -474,6 +476,8 @@ a {
   align-items: center;
 
   .footer-container {
+    padding:0 50px;
+
     width: 100%;
     max-width: 1440px;
     height: 100%;

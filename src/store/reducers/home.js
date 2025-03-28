@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId} from "../actions/home";
+import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId, setUserId} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
@@ -28,6 +28,7 @@ const initialState = {
   statusReviews: "",
   productsNames: [],
   nameData: {},
+  userId:""
 }
 export const home = createReducer(initialState, (builder) => {
   builder
@@ -139,8 +140,10 @@ export const home = createReducer(initialState, (builder) => {
     })
 
     .addCase(setNameData, (state, {payload}) => {
-
       state.nameData = payload
     })
+      .addCase(setUserId, (state, {payload}) => {
+        state.userId = payload
+      })
 
 });

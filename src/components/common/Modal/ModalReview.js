@@ -130,7 +130,7 @@ function ModalReview({open, onClose, product}) {
                                 </div>
                                 <div className="user-review">
                                     <div className="img-user">
-                                        <img src={user.avatar[0].path} alt="user"/>
+                                        {/*<img src={user.avatar[0].path} alt="user"/>*/}
                                     </div>
                                     <div className="title-user">
                                         <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>

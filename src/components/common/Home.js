@@ -33,16 +33,16 @@ const Home = () => {
     const reviews = useSelector(state => state.home.reviews)
 
     const productsShares = useSelector(state => state.home.productsShares);
+    const id = useSelector(state => state.home.userId);
 
     const [isPlay, setIsPlay] = useState(false);
 
 
     useEffect(() => {
-
-        dispatch(getPopularProducts())
-        dispatch(getSharesProducts())
+        dispatch(getPopularProducts({id}))
+        dispatch(getSharesProducts({id}))
         dispatch(getRandomReviews())
-    }, []);
+    }, [id]);
 
     console.log(products)
 
@@ -154,6 +154,7 @@ const Home = () => {
                   </div>
 
                   {reviews.length ? reviews.slice(0, 4).map((item) => {
+                          console.log(reviews,"rrrr")
                         const date = new Date(item.createdAt);
                         const year = date.getFullYear();
                         const day = date.getDate();
@@ -161,7 +162,7 @@ const Home = () => {
 
                         return (
                           <div className="random__review">
-                              <Link to="/products" className="product-link"></Link>
+                              <Link to={`one-product/${item.product.id}`} className="product-link"></Link>
 
                               <div className="review_container">
                                   <div className="random__product">
@@ -235,17 +236,20 @@ const Home = () => {
                     Array.from({length: 4}).map((ш => (
                       <div className="random__review">
                           <div className="review_container">
-                              <div className="random__product">
+                              <div className="random__product" style={{
+                                  height:228
+                              }}>
 
                                   <div className="random__product__img loading-gradient-r" style={{
                                       width: 150,
                                   }}>
                                   </div>
-                                  <div className="random__product__name loading-gradient-r">
+                                  <div className="random__product__name loading-gradient-r" style={{
+                                      marginLeft:5
+                                  }}>
                                   </div>
                               </div>
                               <div className="random__user ">
-
                                   <div className="user-img-block loading-gradient-r ">
                                       <div className="random__user__img ">
                                       </div>
@@ -260,20 +264,15 @@ const Home = () => {
                               width: "100%",
                               height: "100%",
                           }}>
-
                               <div className="loading-gradient-r " style={{
                                   width: "100%",
                                   height: "100%",
                               }}>
-
                               </div>
-
-
                           </div>
                           <div style={{
                               width: "100%",
                               padding: 15,
-
                           }}>
                               <div className="time__random loading-gradient-r">
                               </div>

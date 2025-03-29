@@ -79,7 +79,7 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
           </span>
             {!_.isEmpty(card.product.discount) &&
               <>
-                < span className="card-price discountPercentage">{card.product?.discount?.discountPercentage}%</span>
+                < span className="card-price discountPercentage">{parseFloat(card.product?.discount?.discountPercentage)}%</span>
 
                 <span
                   className="loading-gradient-endDate cart">Until {moment(card.product?.discount?.endDate).format("D MMMM")} </span>

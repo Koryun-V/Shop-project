@@ -152,7 +152,6 @@ const Users = () => {
               </div>
               }
 
-              {/*<label htmlFor="upload_file" className="upload_file">*/}
               <label htmlFor="upload_file" className="active-button upload_file">
                 {user.avatar?.[0]?.path
                   ? <Pen/>
@@ -268,7 +267,7 @@ const Users = () => {
                         key={option.value}
                         name="gender"
                         value={option.value}
-                        checked={profile.gender === option.value}
+                        checked={profile?.gender?.toLowerCase() === option.value.toLowerCase()}
                         onChange={onChangeInputValue}
                         label={option.label}
                       />
@@ -307,6 +306,7 @@ const Users = () => {
                         type={field.type}
                         className="input"
                         classNameLabel={passwordData[field.name] ? 'active' : 'label'}
+                        label={field.label}
                       />
                     </div>
                   </div>

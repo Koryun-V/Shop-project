@@ -16,7 +16,7 @@ root.render(
     <BrowserRouter>
         <Provider store={store}>
             <App/>
-          <ToastContainer/>
+          {/*<ToastContainer/>*/}
         </Provider>
     </BrowserRouter>
 );

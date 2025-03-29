@@ -158,15 +158,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                     Array.from({length: quantity}).map(() => (
 
                         <div className={className} style={{border: "1px solid transparent"}}>
-                            {classNameImg === "shares-img" ?
-                                <div className="percentage loading-gradient-p" style={{
-                                    width: 68,
-                                    height: 40,
-                                    background: "red",
-                                }}>
-                                    <span></span>
-                                </div>
-                                : null}
+
                             {classNameImg === "product-img" ?
 
 

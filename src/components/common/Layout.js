@@ -211,12 +211,6 @@ function Layout() {
                                     <Link className="nav-item" to="/products">
                                         <li>Products</li>
                                     </Link>
-                                    <Link className="nav-item" to="/category">
-                                        <li>Category</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/#">
-                                        <li>Specialist</li>
-                                    </Link>
                                     <Link className="nav-item" to="/#">
                                         <li>Contact</li>
                                     </Link>
@@ -275,7 +269,6 @@ function Layout() {
 
                                     </div>
                                 }
-
                             </div>
 
 

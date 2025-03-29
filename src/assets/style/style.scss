@@ -115,6 +115,8 @@ input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
 }
 
+
+
 .main {
   width: 100%;
   height: 100%;
@@ -459,21 +461,18 @@ a {
 }
 
 .footer {
-
-
   background: #2F323A;
   color: white;
   padding: 50px 50px 30px 50px;
   margin-top: 30px;
   width: 100%;
   height: auto;
-  position: absolute;
   min-width: 900px;
-
-
   display: flex;
   justify-content: center;
   align-items: center;
+
+
 
   .footer-container {
     padding:0 50px;

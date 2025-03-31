@@ -74,7 +74,10 @@
     }
 
     &.discountPercentage{
-      color: #cc290a;
+      background-color: #cc290a;
+      color: white;
+      padding: 3px 12px;
+      border-radius: 5px;
     }
   }
 

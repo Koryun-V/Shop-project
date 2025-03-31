@@ -15,7 +15,8 @@
 @import "cartModal";
 @import "ordersOk";
 @import "users";
-@import "datePiker";
+@import "variables";
+@import "bell";
 
 @import url("orderModal.scss");
 
@@ -461,6 +462,7 @@ a {
 }
 
 .footer {
+  opacity: 0;
   background: #2F323A;
   color: white;
   padding: 50px 50px 30px 50px;
@@ -591,8 +593,4 @@ a {
   }
 }
 
-.shares {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
+

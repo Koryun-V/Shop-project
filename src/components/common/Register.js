@@ -251,26 +251,36 @@ const Register = () => {
         fields.forEach(({validation, name, id}) => {
                 if (title === name) {
                     let test = name !== "repeatPassword" ? validation.test(value) : null
-
-                    if (test === false || !value.length || isDate === "no" ||
-                        user["repeatPassword"].length && user["password"] !== user["repeatPassword"]) {
+                    if (test === false || !value.length) {
                         setInputName((prevState) => (_.uniq([...prevState, title])))
-
-                    } else if (name === "password" || name === "repeatPassword" && user.repeatPassword === user.password) {
-                        const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
-                        setInputName(filter)
-
-                    } else if (isDate === "ok") {
-                        const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
-                        setInputName(filter)
                     } else {
-                        const filter = inputName.filter(item => item !== title)
-                        setInputName(filter)
+                        if (name === "firstName" || name === "lastName") {
+                            const filter = inputName.filter(item => item !== title)
+                            setInputName(filter)
+                        } else if (name === "year" || name === "month" || name === "day") {
+                            if (isDate === "no") {
+                                setInputName((prevState) => (_.uniq([...prevState, title])))
+                            } else {
+                                const filter = inputName.filter(item => item !== title);
+                                setInputName(filter)
+                            }
+
+
+                        } else if (name === "password" || name === "repeatPassword") {
+                            if (user.repeatPassword.length && user.password !== user.repeatPassword) {
+                                setInputName((prevState) => (_.uniq([...prevState, "repeatPassword"])))
+                            } else {
+                                const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
+                                setInputName(filter)
+                            }
+                        }
                     }
                 }
             }
         )
     }
+    console.log(inputName)
+    console.log(isDate, "IS")
     const register = (e) => {
         if (isRegister) {
             e.preventDefault();
@@ -287,7 +297,7 @@ const Register = () => {
     return (
         <div className="section">
             <div className="container" style={{
-                flexDirection:"row",
+                flexDirection: "row",
             }}>
                 <div className="register-block">
                     <div className="container-register">
@@ -354,7 +364,8 @@ const Register = () => {
                                     </div>
 
                                     <div className="form-button-block" style={{marginTop: 20}}>
-                                        <Button status={statusDelete === "pending" ? statusDelete : status} text="CONTINUE"
+                                        <Button status={statusDelete === "pending" ? statusDelete : status}
+                                                text="CONTINUE"
                                                 type={isRegister ? "submit" : "button"}
                                                 className={isRegister && status !== "pending"
                                                 || isRegister && statusDelete === "pending" ? "active-button"

@@ -16,6 +16,7 @@ import Category from "./components/common/Category";
 import Products from "./components/common/Products";
 import OneProduct from "./components/common/OneProduct";
 import Users from "./components/pages/User";
+import Test from "./components/common/Notifications";
 
 
 
@@ -36,6 +37,8 @@ function App() {
               <Route path="/cardok" element={<OrdersOk/>}/>
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
+                <Route path="/test" element={<Test/>}/>
+
                 <Route path="/one-product/:productId" element={<OneProduct/>}/>
 
               {/*<Route path="/products">*/}

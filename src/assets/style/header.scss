@@ -6,7 +6,6 @@
   margin-bottom: 100px;
 
 
-
   .nav-header {
     width: 100%;
     display: flex;
@@ -26,8 +25,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding:0 50px;
-
+      padding: 0 50px;
 
 
       .logo-block {
@@ -155,8 +153,8 @@
         justify-content: space-between;
         align-items: center;
         display: flex;
-        width:250px;
-        gap:10px;
+        width: 250px;
+        gap: 10px;
 
         .cart {
           display: flex;
@@ -171,6 +169,7 @@
             height: 30px;
             color: $interfaceColor;
           }
+
         }
 
         .user {
@@ -388,7 +387,12 @@
   cursor: pointer;
   border-radius: 3px;
   padding: 5px 10px;
+
   &:hover {
     background-color: $interfaceColor;
   }
 }
+
+
+
+

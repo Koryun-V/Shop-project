@@ -8,6 +8,7 @@ import {category} from "./category";
 import {oneProduct} from "./oneProduct";
 import {home} from "./home";
 import {userSlice} from "./users";
+import notifications from "./notifications";
 
 
 
@@ -21,4 +22,5 @@ export const rootReducer = combineReducers({
     order,
     card: cardSlice,
     users: userSlice,
+    notifications
 })

@@ -6,15 +6,18 @@ import {getSharesProducts} from "../../store/actions/home";
 const Shares = () => {
     const dispatch = useDispatch();
     const productsShares = useSelector(state => state.home.productsShares);
+    const id = useSelector(state => state.home.userId);
+    const status = useSelector(state => state.products.statusCard);
 
     useEffect(() => {
-        dispatch(getSharesProducts())
-    }, []);
+        dispatch(getSharesProducts({id}))
+    }, [id,status]);
+
 
     return (
         <div className="section">
-            <div className="container">
-                <div className="shares">
+            <div className="article-home">
+                <div className="article-block">
                     <Product products={productsShares} classNameActive="product-active"  quantity={12} className="product-block" classNameImg="product-img"/>
                 </div>
 

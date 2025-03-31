@@ -90,21 +90,6 @@ const OneProduct = () => {
     }
 
   }, [productId, userId]);
-    const handleRating = (rate) => {
-        setRating(rate);
-    };
-
-    const onChangeReview = (e) => {
-        setReviewText(e.target.value);
-    };
-
-    const applyReview = () => {
-        setSubmittedReview(reviewText);
-        setSubmittedRating(rating);
-        console.log("Submitted Review:", reviewText);
-        console.log("Submitted Rating:", rating);
-        console.log(productId)
-    };
 
 
     useEffect(() => {

@@ -167,15 +167,15 @@ const CartList = () => {
               <div className="total">
                 <div className="total__container">
 
-                  <p className="total-price">
-                    <span className="total-header">Total:</span>
-                    <span className="total-price_desc">{calculateTotalQuantity(cards)} goods</span>
-                  </p>
+                  {/*<p className="total-price">*/}
+                  {/*  <span className="total-header">Total:</span>*/}
+                  {/*  <span className="total-price_desc">{calculateTotalQuantity(cards)} goods</span>*/}
+                  {/*</p>*/}
 
-                  <p className="total-price">
-                    Total Price:
-                    <span className="total-price_desc">${totalCardPrice.toFixed(2)}</span>
-                  </p>
+                  {/*<p className="total-price">*/}
+                  {/*  Total Price:*/}
+                  {/*  <span className="total-price_desc">${totalCardPrice.toFixed(2)}</span>*/}
+                  {/*</p>*/}
 
                   <div className="total__container_desc">
                     <div onClick={handleSelectAll} className="total__container_desc">
@@ -201,17 +201,17 @@ const CartList = () => {
 
                 <div className="total__desc">
                   <p className="total-price">Total Price:
-                    <span className="total-price_desc">{totalProductPrice.toFixed(2)}$</span>
+                    <span className="total-price_desc">{parseFloat(totalProductPrice)}$</span>
                   </p>
 
                   <p className="total-price">Total Quantity:
                     <span className="total-price_desc">{calculateTotalQuantity(products)} pcs</span>
                   </p>
 
-                   <p className="total-price">Discount:
+                  {/* <p className="total-price">Discount:*/}
 
-                    <span className="total-price_desc discount">{products.reduce((total, card) => total + card.product.price * card.quantity, 0) - totalProductPrice.toFixed(2)}$</span>
-                  </p>
+                  {/*  <span className="total-price_desc discount">{products.reduce((total, card) => total + card.product.price * card.quantity, 0) - totalProductPrice.toFixed(2)}$</span>*/}
+                  {/*</p>*/}
 
 
                 </div>
@@ -222,7 +222,7 @@ const CartList = () => {
                     onClick={onOrder}
                     loading={orderLoading}
                   >
-                    Place an order {totalProductPrice ? totalProductPrice.toFixed(2) : ""}
+                    Place an order {totalProductPrice ? parseFloat(totalProductPrice) : ""}
                   </Button>
 
                 </div>

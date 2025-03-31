@@ -286,7 +286,9 @@ const Register = () => {
 
     return (
         <div className="section">
-            <div className="container">
+            <div className="container" style={{
+                flexDirection:"row",
+            }}>
                 <div className="register-block">
                     <div className="container-register">
                         {/*<button onClick={() => dispatch(userDelete())}>click</button>*/}
@@ -436,8 +438,6 @@ const Register = () => {
                     <div className="container-register-img">
                         <img src={bg} className="register-img"/>
                     </div>
-
-
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ const Category = () => {
   }, []);
 
   return (
-    <div>
+    <div className="section">
       <div className="category__wrapper">
         <div className="category__container">
           {category.map(({id, name, categoryImage}) => (

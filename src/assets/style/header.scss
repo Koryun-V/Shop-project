@@ -6,6 +6,7 @@
   margin-bottom: 100px;
 
 
+
   .nav-header {
     width: 100%;
     display: flex;
@@ -13,7 +14,6 @@
     z-index: 999;
     background: white;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-    padding: 0 50px;
 
 
     .container-header {
@@ -26,6 +26,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding:0 50px;
+
 
 
       .logo-block {
@@ -153,7 +155,8 @@
         justify-content: space-between;
         align-items: center;
         display: flex;
-        width: 200px;
+        width:250px;
+        gap:10px;
 
         .cart {
           display: flex;

@@ -1,5 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId} from "../actions/home";
+import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId, setUserId} from "../actions/home";
 import {setSelectId, setProductId} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
@@ -8,7 +8,6 @@ import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProd
 const initialState = {
   status: "",
   product: {},
-
   productsList: [],
   selectId: "",
   total: "",
@@ -28,6 +27,7 @@ const initialState = {
   statusReviews: "",
   productsNames: [],
   nameData: {},
+  userId:""
 }
 export const home = createReducer(initialState, (builder) => {
   builder
@@ -63,7 +63,7 @@ export const home = createReducer(initialState, (builder) => {
       state.statusPopular = "pending"
     })
     .addCase(getPopularProducts.fulfilled, (state, {payload}) => {
-      state.status = "ok"
+      state.statusPopular = "ok"
       state.popularProducts = payload
     })
     .addCase(getPopularProducts.rejected, (state) => {
@@ -139,8 +139,10 @@ export const home = createReducer(initialState, (builder) => {
     })
 
     .addCase(setNameData, (state, {payload}) => {
-
       state.nameData = payload
     })
+      .addCase(setUserId, (state, {payload}) => {
+        state.userId = payload
+      })
 
 });

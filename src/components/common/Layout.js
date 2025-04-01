@@ -7,12 +7,12 @@ import Input from "../mini/Input";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faMagnifyingGlass,
-    faAngleDown,
-    faCartShopping,
-    faUser,
-    faCube,
-    faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
+  faMagnifyingGlass,
+  faAngleDown,
+  faCartShopping,
+  faUser,
+  faCube,
+  faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
@@ -28,462 +28,459 @@ import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId} fro
 const token = localStorage.getItem("token");
 
 function Layout() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const searchRef = useRef(null);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const user = useSelector(state => state.login.user)
-    // const [isOpenLogin, setIsOpenLogin] = useState(false)
-    const statusKey = useSelector(state => state.registration.statusKey)
-    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
-    const [value, setValue] = useState("");
-    const [isProfile, setIsProfile] = useState(false)
-    const [isMouse, setIsMouse] = useState(false);
-    const statusUser = useSelector(state => state.login.statusUser)
-    const [avatar, setAvatar] = useState([])
-    const userRef = useRef(null);
-    const searchValue = useSelector(state => state.home.searchValue);
-    const selectId = useSelector(state => state.home.selectId);
-    const page = useSelector(state => state.home.page);
-    const minPrice = useSelector(state => state.home.minPrice);
-    const maxPrice = useSelector(state => state.home.maxPrice);
-    const [limit, setLimit] = useState(12);
-    const storeId = useSelector(state => state.home.storeId);
-    const productsNames = useSelector(state => state.home.productsNames);
-    const userId = useSelector(state => state.login.user?.id);
-    const nameData = useSelector(state => state.home.nameData);
+  const [limit, setLimit] = useState(12);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isOpenRegister, setIsOpenRegister] = useState(false)
+  const [haveNames, setHaveNames] = useState(false)
+  const [isProfile, setIsProfile] = useState(false)
+  const [isMouse, setIsMouse] = useState(false);
+  const [avatar, setAvatar] = useState([])
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userRef = useRef(null);
+  const searchRef = useRef(null);
+  const user = useSelector(state => state.login.user)
+  const statusKey = useSelector(state => state.registration.statusKey)
+  const isOpenLogin = useSelector(state => state.login.isOpenLogin)
+  const statusUser = useSelector(state => state.login.statusUser)
+  const searchValue = useSelector(state => state.home.searchValue);
+  const page = useSelector(state => state.home.page);
+  const minPrice = useSelector(state => state.home.minPrice);
+  const maxPrice = useSelector(state => state.home.maxPrice);
+  const storeId = useSelector(state => state.home.storeId);
+  const productsNames = useSelector(state => state.home.productsNames);
+  const userId = useSelector(state => state.login.user?.id);
+  const nameData = useSelector(state => state.home.nameData);
 
 
-    const {pathname} = useLocation()
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname])
+  const {pathname} = useLocation()
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname])
 
-    useEffect(() => {
-        if (token) {
-            dispatch(getUser())
+  useEffect(() => {
+    if (token) {
+      dispatch(getUser())
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if(user){
+      dispatch(setUserId(user.id))
+    }
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(getAllNames({ page, limit, s: searchValue || " " }));
+  }, [searchValue]);
+
+  useEffect(() => {
+    setHaveNames(Array.isArray(productsNames) && productsNames.length > 0);
+  }, [productsNames]);
+
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+  const handleSearch = (e) => {
+    e.preventDefault(); // Prevent form submission default behavior
+
+
+
+    setIsSearchOpen(false);
+    navigate("/products"); // Navigate only after validating search value
+
+    const searchParams = {
+      page,
+      limit,
+      minPrice,
+      maxPrice,
+      s: searchValue.trim(),
+      storeId,
+    };
+
+    if (userId) {
+      searchParams.userId = userId;
+    }
+
+    dispatch(getAllProducts(searchParams));
+
+  };
+
+  const chooseName = (item) => {
+    dispatch(setNameData(item))
+    navigate(`one-product/${item.id}`)
+    dispatch(setSearchValue(""))
+  }
+
+
+  // useEffect(() => {
+  //     if (isProfile) {
+  //         document.querySelector('.wrapper').onmousemove = function (e) {
+  //             setIsMouse(true)
+  //         }
+  //         document.querySelector('.wrapper').onMouseLeave = function (e) {
+  //             setIsMouse(false)
+  //         }
+  //     }
+  //
+  // }, [window.body, isProfile]);
+
+
+  const func = async () => {
+    try {
+
+      const {data} = await axios.get(`https://world-of-construction.onrender.com/products/list`,
+        {
+          firstName: "esim",
+          lastName: "esim",
+          gender: "male",
+          dateOfBirth: "2000-10-10",
+          avatar: avatar[0],
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
         }
-    }, [token]);
+      );
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-    useEffect(() => {
-        if(user){
-            dispatch(setUserId(user.id))
-        }
-    }, [user]);
-
-    useEffect(() => {
-        dispatch(getAllNames({page, limit, s: searchValue || " "}))
-    }, [searchValue]);
-
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
-                setIsSearchOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
+  const animUser = () => {
+    if (!isProfile) {
+      setIsProfile(true);
+      // setIsMouse(true)
 
 
-    const handleSearch = (e) => {
-        navigate("/products")
-        e.preventDefault();
-        if (searchValue.trim() !== " ") {
-            if (localStorage.getItem("token")) {
-                if (userId) {
-                    dispatch(getAllProducts({
-                        categoryId: selectId,
-                        page,
-                        limit,
-                        minPrice,
-                        maxPrice,
-                        s: searchValue ? searchValue : "",
-                        storeId,
-                        userId
-                    }));
-                }
-            } else {
-                dispatch(getAllProducts({
-                    categoryId: selectId,
-                    page,
-                    limit,
-                    minPrice,
-                    maxPrice,
-                    s: searchValue ? searchValue : "",
-                    storeId
-                }));
-            }
-        }
+    } else {
+      setIsProfile(false);
+      // setIsMouse(false)
 
     }
 
-    const chooseName = (item) => {
-        dispatch(setNameData(item))
-        navigate(`one-product/${item.id}`)
-        dispatch(setSearchValue(""))
-    }
+  }
 
 
-    // useEffect(() => {
-    //     if (isProfile) {
-    //         document.querySelector('.wrapper').onmousemove = function (e) {
-    //             setIsMouse(true)
-    //         }
-    //         document.querySelector('.wrapper').onMouseLeave = function (e) {
-    //             setIsMouse(false)
-    //         }
-    //     }
-    //
-    // }, [window.body, isProfile]);
 
 
-    const func = async () => {
-        try {
+  return (
+    <>
+      <div className="wrapper">
+        {/*<button onClick={func}>click</button>*/}
 
-            const {data} = await axios.get(`https://world-of-construction.onrender.com/products/list`,
-                {
-                    firstName: "esim",
-                    lastName: "esim",
-                    gender: "male",
-                    dateOfBirth: "2000-10-10",
-                    avatar: avatar[0],
-                },
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                }
-            );
-            return data;
-        } catch (error) {
-            console.log(error);
-        }
-    }
+        {/*<input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>*/}
 
-    const animUser = () => {
-        if (!isProfile) {
-            setIsProfile(true);
-            // setIsMouse(true)
+        <header className="header">
+          <div className="nav-header">
+            <div className="container-header">
+              <Link to="/" className="logo-block">
+                <div className="logo">
+                  Logo
+                </div>
+              </Link>
 
+              <nav className="nav">
+                <ul className="nav-list">
 
-        } else {
-            setIsProfile(false);
-            // setIsMouse(false)
+                  <li className="nav-item">Store
+                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
+                    <ul className="nav-more">
+                      <li><img src="#"/>IDEAL</li>
+                      <li><img src="#"/>DOMUS</li>
+                      <li><img src="#"/>ESIM</li>
+                    </ul>
+                  </li>
 
-        }
+                  <Link className="nav-item" to="/products">
+                    <li>Products</li>
+                  </Link>
+                  <Link className="nav-item" to="/#">
+                    <li>Contact</li>
+                  </Link>
+                </ul>
 
-    }
-    return (
-        <>
-            <div className="wrapper">
-                {/*<button onClick={func}>click</button>*/}
+                {/*<Link className="nav-item" to="/#">*/}
+                {/*    <li>Specialist</li>*/}
+                {/*</Link>*/}
 
-                {/*<input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>*/}
+              </nav>
 
-                <header className="header">
-                    <div className="nav-header">
-                        <div className="container-header">
-                            <Link to="/" className="logo-block">
-                                <div className="logo">
-                                    Logo
-                                </div>
-                            </Link>
+              {/*<div className="search-block">*/}
+              {/*  <form onSubmit={handleSearch} className="form-search">*/}
+              {/*    <div className="search-field">*/}
+              {/*      <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>*/}
+              {/*      <Input*/}
+              {/*        value={searchValue}*/}
+              {/*        onChange={(e) => dispatch(setSearchValue(e.target.value))}*/}
+              {/*        className="search-input"*/}
+              {/*        placeholder="Search"*/}
+              {/*      />*/}
+              {/*    </div>*/}
+              {/*  </form>*/}
+              {/*</div>*/}
 
-                            <nav className="nav">
-                                <ul className="nav-list">
-
-                                    <li className="nav-item">Store
-                                        <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
-                                        <ul className="nav-more">
-                                            <li><img src="#"/>IDEAL</li>
-                                            <li><img src="#"/>DOMUS</li>
-                                            <li><img src="#"/>ESIM</li>
-                                        </ul>
-                                    </li>
-
-                                    <Link className="nav-item" to="/products">
-                                        <li>Products</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/#">
-                                        <li>Contact</li>
-                                    </Link>
-                                </ul>
-
-                                {/*<Link className="nav-item" to="/#">*/}
-                                {/*    <li>Specialist</li>*/}
-                                {/*</Link>*/}
-
-                            </nav>
-
-                            {/*<div className="search-block">*/}
-                            {/*  <form onSubmit={handleSearch} className="form-search">*/}
-                            {/*    <div className="search-field">*/}
-                            {/*      <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>*/}
-                            {/*      <Input*/}
-                            {/*        value={searchValue}*/}
-                            {/*        onChange={(e) => dispatch(setSearchValue(e.target.value))}*/}
-                            {/*        className="search-input"*/}
-                            {/*        placeholder="Search"*/}
-                            {/*      />*/}
-                            {/*    </div>*/}
-                            {/*  </form>*/}
-                            {/*</div>*/}
-
-                            <div ref={searchRef} className="search-box">
-                                <div className="search-row">
-                                    <form
-                                        onSubmit={handleSearch}
-                                    >
-                                        <input
-                                            onFocus={() => setIsSearchOpen(true)}
-                                            className="new-search-input"
-                                            type="text"
-                                            placeholder="Search"
-                                            autoComplete="off"
-                                            value={searchValue}
-                                            onChange={(e) => dispatch(setSearchValue(e.target.value))}
-                                        />
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
-                                    </form>
+              <div ref={searchRef} className="search-box">
+                <div className="search-row">
+                  <form
+                    onSubmit={handleSearch}
+                  >
+                    <input
+                      onFocus={() => setIsSearchOpen(true)}
+                      className="new-search-input"
+                      type="text"
+                      placeholder="Search"
+                      autoComplete="off"
+                      value={searchValue}
+                      onChange={(e) => dispatch(setSearchValue(e.target.value))}
+                    />
+                    <FontAwesomeIcon onClick={handleSearch} icon={faMagnifyingGlass} className="glass"/>
+                  </form>
 
 
-                                </div>
+                </div>
 
-                                {!!searchValue.length && productsNames.length && isSearchOpen &&
-                                    <div className="result-box">
-                                        <div className="search-ul">
-                                            {productsNames.map(item => (
-                                                <div className="search-li" key={item.id}
-                                                     onClick={() => chooseName(item)}>
-                                                    {item.name}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                    </div>
-                                }
-                            </div>
+                {!!searchValue.length && haveNames && isSearchOpen && (
+                  <div className="result-box">
+                    <div className="search-ul">
+                      {productsNames.map((item) => (
+                        <div className="search-li" key={item.id} onClick={() => chooseName(item)}>
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
 
-                            <div className="user-block">
-                                {!token ?
-                                    <>
-                                        <div className="sign-block">
-                                            <Button text="LOGIN" className="active-button"
-                                                    onClick={() => dispatch(setIsOpenLogin(true))}></Button>
-                                        </div>
-                                        <div className="sign-block"
-                                        >
-                                            <Button text="REGISTER" className="register-button"
-                                                    onClick={() => navigate("/register")}></Button>
-                                        </div>
+              <div className="user-block">
+                {!token ?
+                  <>
+                    <div className="sign-block">
+                      <Button text="LOGIN" className="active-button"
+                              onClick={() => dispatch(setIsOpenLogin(true))}></Button>
+                    </div>
+                    <div className="sign-block"
+                    >
+                      <Button text="REGISTER" className="register-button"
+                              onClick={() => navigate("/register")}></Button>
+                    </div>
 
-                                    </>
-                                    :
-                                    <>
+                  </>
+                  :
+                  <>
 
-                                        <div className="cart">
-                                            <Link to="/basket">
-                                                <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
-                                            </Link>
-                                        </div>
+                    <div className="cart">
+                      <Link to="/basket">
+                        <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                      </Link>
+                    </div>
 
-                                        <div className="cart">
-                                            <Link to="/order">
-                                                <FontAwesomeIcon icon={faCube} className="cart-icon"/>
-                                            </Link>
-                                        </div>
+                    <div className="cart">
+                      <Link to="/order">
+                        <FontAwesomeIcon icon={faCube} className="cart-icon"/>
+                      </Link>
+                    </div>
 
-                                        <div className="user"
-                                             onClick={animUser}
-                                             onMouseEnter={() => setIsMouse(false)}
-                                             onMouseLeave={() => {
-                                                 setIsMouse(true)
-                                                 userRef.current.focus()
-                                             }}
+                    <div className="user"
+                         onClick={animUser}
+                         onMouseEnter={() => setIsMouse(false)}
+                         onMouseLeave={() => {
+                           setIsMouse(true)
+                           userRef.current.focus()
+                         }}
 
-                                        >
-                                            <Link className="user-img"
-                                                  style={{
-                                                      border: isProfile ? "2px solid limegreen" : "2px solid #d1d1d1",
-                                                  }}>
-                                                <FontAwesomeIcon icon={faUser} className="user-icon"
+                    >
+                      <Link className="user-img"
+                            style={{
+                              border: isProfile ? "2px solid limegreen" : "2px solid #d1d1d1",
+                            }}>
+                        <FontAwesomeIcon icon={faUser} className="user-icon"
 
-                                                />
-                                                <FontAwesomeIcon icon={faAngleDown} className="user-arrow"
-                                                                 style={{
-                                                                     color: isProfile ? "limegreen" : "#d1d1d1",
-                                                                     transform: isProfile ? "rotate(180deg)" : "none"
-                                                                 }}
-                                                />
-                                            </Link>
-                                        </div>
+                        />
+                        <FontAwesomeIcon icon={faAngleDown} className="user-arrow"
+                                         style={{
+                                           color: isProfile ? "limegreen" : "#d1d1d1",
+                                           transform: isProfile ? "rotate(180deg)" : "none"
+                                         }}
+                        />
+                      </Link>
+                    </div>
 
 
-                                        <div className="user-func"
-                                             tabIndex={0}
-                                             ref={userRef}
-                                             id="user-modal"
-                                            // onMouseLeave={() => setIsMouse(true)}
-                                            // onMouseEnter={() => setIsMouse(false)}
-                                             onBlur={() => isMouse ? setIsProfile(false) : null}
+                    <div className="user-func"
+                         tabIndex={0}
+                         ref={userRef}
+                         id="user-modal"
+                      // onMouseLeave={() => setIsMouse(true)}
+                      // onMouseEnter={() => setIsMouse(false)}
+                         onBlur={() => isMouse ? setIsProfile(false) : null}
 
-                                             style={{
-                                                 zIndex: isProfile ? 999 : -1,
-                                                 opacity: isProfile ? 1 : 0,
-                                                 height: isProfile ? 200 : 0,
-                                                 visibility: isProfile ? "visible" : "hidden"
-                                             }}
-                                        >
+                         style={{
+                           zIndex: isProfile ? 999 : -1,
+                           opacity: isProfile ? 1 : 0,
+                           height: isProfile ? 200 : 0,
+                           visibility: isProfile ? "visible" : "hidden"
+                         }}
+                    >
 
-                                            <ul className="user-func-item">
-                                                <ul className="user-func-item">
-                                                    {statusUser === "ok" ?
-                                                        <>
-                                                            <li className="user-modal-item">
-                                                                <FontAwesomeIcon icon={faUser} className="icon"/>
-                                                                <span>
+                      <ul className="user-func-item">
+                        <ul className="user-func-item">
+                          {statusUser === "ok" ?
+                            <>
+                              <li className="user-modal-item">
+                                <FontAwesomeIcon icon={faUser} className="icon"/>
+                                <span>
                                                         {user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}
                                                     </span>
-                                                            </li>
-                                                            <li>
-                                                                <FontAwesomeIcon icon={faEnvelope} className="icon"/>
-                                                                <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
-                                                            </li>
-                                                            <li>
-                                                                <FontAwesomeIcon icon={faAddressCard} className="icon"/>
-                                                                <span>Profile</span>
-                                                            </li>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                        </>}
-                                                </ul>
+                              </li>
+                              <li>
+                                <FontAwesomeIcon icon={faEnvelope} className="icon"/>
+                                <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
+                              </li>
+                              <li>
+                                <FontAwesomeIcon icon={faAddressCard} className="icon"/>
+                                <span>Profile</span>
+                              </li>
+                            </>
+                            :
+                            <>
+                              <li>
+                                <div className="loading-gradient">
+                                </div>
+                              </li>
+                              <li>
+                                <div className="loading-gradient">
+                                </div>
+                              </li>
+                              <li>
+                                <div className="loading-gradient">
+                                </div>
+                              </li>
+                            </>}
+                        </ul>
 
-                                            </ul>
+                      </ul>
 
-                                            <div className="log-out">
-                                                <div className="button-block"
-                                                     onMouseEnter={() => setIsMouse(false)}
-                                                     onMouseLeave={() => {
-                                                         setIsMouse(true)
-                                                         userRef.current.focus()
-                                                     }}
+                      <div className="log-out">
+                        <div className="button-block"
+                             onMouseEnter={() => setIsMouse(false)}
+                             onMouseLeave={() => {
+                               setIsMouse(true)
+                               userRef.current.focus()
+                             }}
 
-                                                >
-                                                    <Button onClick={() => {
-                                                        localStorage.removeItem("token")
-                                                        window.location.reload(true)
-                                                    }}
-                                                            text={<>
-                                                                <FontAwesomeIcon icon={faArrowRightFromBracket} style={{
-                                                                    marginRight: 7,
-                                                                }}/>
-                                                                Log Out
-                                                            </>}
-                                                            type="button"
-                                                            className="active-button">
-                                                    </Button>
+                        >
+                          <Button onClick={() => {
+                            localStorage.removeItem("token")
+                            window.location.reload(true)
+                          }}
+                                  text={<>
+                                    <FontAwesomeIcon icon={faArrowRightFromBracket} style={{
+                                      marginRight: 7,
+                                    }}/>
+                                    Log Out
+                                  </>}
+                                  type="button"
+                                  className="active-button">
+                          </Button>
 
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </>
-                                }
-                            </div>
                         </div>
+                      </div>
+
                     </div>
-
-                </header>
-
-                <main className="main">
-                    <Outlet/>
-                </main>
-
-                <footer className="footer">
-                    <div className="footer-container">
-                        <div className="footer-blocks">
-                            <div className="footer-block">
-                                <div className="footer-shop-info">
-                                    <h3>Logo Story</h3>
-                                </div>
-                                <div className="footer-shop-info">
-                                    <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
-                                    <span>info@stroykastore.ru</span>
-                                </div>
-                                <div className="footer-shop-info">
-                                    <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
-                                    <span>Москва, ул. Камушкина 10</span>
-                                </div>
-                            </div>
-
-
-                            <div className="footer-block">
-                                <div className="footer-link"><Link>Profile</Link></div>
-                                <div className="footer-link"><Link to="/order">Order</Link></div>
-                                <div className="footer-link"><Link to="/basket">Basket</Link></div>
-                            </div>
-                            <div className="footer-block">
-                                <div className="footer-link"><Link>Category</Link></div>
-                                <div className="footer-link"><Link>Shares</Link></div>
-                                <div className="footer-link"><Link>Contact</Link></div>
-                            </div>
-                            <div className="footer-block">
-                                <div className="footer-link"><Link>Стать продавцом</Link></div>
-
-                            </div>
-                        </div>
-                        <hr/>
-
-                        <div className="footer-end">
-                            <div className="footer-end-block">
-                                <span>&copy; STORY</span>
-                            </div>
-                            <div className="footer-end-block">
-                                <img src={visa} className="footer-cart"/>
-                                <img src={group5} className="footer-cart"/>
-                                <img src={group6} className="footer-cart"/>
-                                <img src={sim} className="footer-cart"/>
-                            </div>
-                            <div className="footer-end-block">
-                                <span>Cделано в KRUGLOV STUDIO</span>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                  </>
+                }
+              </div>
             </div>
+          </div>
 
-            <ModalRegister
-                open={isOpenRegister} onClose={() => {
-                setIsOpenRegister(false)
-            }}/>
-            <ModalLogin
-                open={isOpenLogin} onClose={() => {
-                dispatch(setIsOpenLogin(false))
-            }}/>
-        </>
+        </header>
 
-    );
+        <main className="main">
+          <Outlet/>
+        </main>
+
+        <footer className="footer">
+          <div className="footer-container">
+            <div className="footer-blocks">
+              <div className="footer-block">
+                <div className="footer-shop-info">
+                  <h3>Logo Story</h3>
+                </div>
+                <div className="footer-shop-info">
+                  <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
+                  <span>info@stroykastore.ru</span>
+                </div>
+                <div className="footer-shop-info">
+                  <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
+                  <span>Москва, ул. Камушкина 10</span>
+                </div>
+              </div>
+
+
+              <div className="footer-block">
+                <div className="footer-link"><Link>Profile</Link></div>
+                <div className="footer-link"><Link to="/order">Order</Link></div>
+                <div className="footer-link"><Link to="/basket">Basket</Link></div>
+              </div>
+              <div className="footer-block">
+                <div className="footer-link"><Link>Category</Link></div>
+                <div className="footer-link"><Link>Shares</Link></div>
+                <div className="footer-link"><Link>Contact</Link></div>
+              </div>
+              <div className="footer-block">
+                <div className="footer-link"><Link>Стать продавцом</Link></div>
+
+              </div>
+            </div>
+            <hr/>
+
+            <div className="footer-end">
+              <div className="footer-end-block">
+                <span>&copy; STORY</span>
+              </div>
+              <div className="footer-end-block">
+                <img src={visa} className="footer-cart"/>
+                <img src={group5} className="footer-cart"/>
+                <img src={group6} className="footer-cart"/>
+                <img src={sim} className="footer-cart"/>
+              </div>
+              <div className="footer-end-block">
+                <span>Cделано в KRUGLOV STUDIO</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <ModalRegister
+        open={isOpenRegister} onClose={() => {
+        setIsOpenRegister(false)
+      }}/>
+      <ModalLogin
+        open={isOpenLogin} onClose={() => {
+        dispatch(setIsOpenLogin(false))
+      }}/>
+    </>
+
+  );
 }
 
 export default Layout;

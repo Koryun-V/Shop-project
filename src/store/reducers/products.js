@@ -4,6 +4,7 @@ import {
     createCard,
     updateCard
 } from "../actions/products";
+import {toast} from "react-toastify";
 
 
 const initialState = {
@@ -35,6 +36,7 @@ export const products = createReducer(initialState, (builder) => {
 
         .addCase(createCard.fulfilled, (state, {payload}) => {
             state.statusCard = "ok"
+            toast.success("Card created successfully.")
 
         })
         .addCase(createCard.rejected, (state) => {
@@ -46,6 +48,7 @@ export const products = createReducer(initialState, (builder) => {
         })
         .addCase(updateCard.fulfilled, (state, {payload}) => {
             state.updateCardStatus = "ok"
+            toast.success("Card updated successfully.")
         })
 
         .addCase(updateCard.rejected, (state) => {

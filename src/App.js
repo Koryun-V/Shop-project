@@ -26,12 +26,10 @@ function App() {
             <Route path="/" element={<Layout/>}>
                 <Route index element={<Home/>}/>
                 <Route path="/shares" element={<Shares/>}/>
-
                 {/*<Route index element={<Home/>}/>*/}
                 <Route path="/input" element={<PinInput/>}/>
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/category" element={<Category/>}/>
-
               <Route path="/basket" element={<CartList/>}/>
               <Route path="/cardok" element={<OrdersOk/>}/>
                 <Route path="/products" element={<Products/>}/>

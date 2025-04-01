@@ -26,32 +26,69 @@ function Layout() {
     // }, [files]);
 
     console.log(files)
+    // const func = async () => {
+    //     try {
+    //         const params = {
+    //             name: "sxoc",
+    //             size: "230 мм",
+    //             price: "120",
+    //             description: "Электрическая болгарка для резки и шлифовки различных материалов.",
+    //             brandName: "sovet",
+    //             productImage: files,
+    //         }
+    //
+    //
+    //         const {data} = await axios.post(`https://world-of-construction.onrender.com/admin/product/24`, params,
+    //             {
+    //                 headers: {
+    //                     "Content-Type": "multipart/form-data",
+    //                     Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYxLCJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpYXQiOjE3NDIzMTM1OTEsImV4cCI6MTc0NDkwNTU5MX0.tU8a9i8JQJJ36KARoHuEiftBYoP9KirrLQ_DBM8DCXs",
+    //                 },
+    //                 // formSerializer: {indexes: true}
+    //             })
+    //         console.log(data, "products")
+    //         return data
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
+    useEffect(() => {
+        const previewUrls = files.map((file) => URL.createObjectURL(file));
+        setPreviewImg(previewUrls);
+
+
+        return () => previewUrls.forEach(url => URL.revokeObjectURL(url));
+    }, [files]);
+
+
     const func = async () => {
         try {
-            const params = {
-                name: "sxoc",
-                size: "230 мм",
-                price: "120",
-                description: "Электрическая болгарка для резки и шлифовки различных материалов.",
-                brandName: "sovet",
+            const formData = new FormData();
+            formData.append("name", "sxoc");
+            formData.append("size", "230 мм");
+            formData.append("price", "120");
+            formData.append("description", "Электрическая болгарка для резки и шлифовки различных материалов.");
+            formData.append("brandName", "sovet");
+            formData.append("quantity", "2");
 
-                productImage: files,
-            }
+            Array.from(files).forEach((file, index) => {
+                formData.append("productImage", file);
+            });
 
-
-            const {data} = await axios.post(`https://world-of-construction.onrender.com/admin/product/28`, params,
-
+            const {data} = await axios.post(
+                `https://world-of-construction.onrender.com/admin/product/24`,
+                formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                    // formSerializer: {indexes: true}
-                })
-            console.log(data, "products")
-            return data
+                        Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYxLCJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpYXQiOjE3NDIzMTM1OTEsImV4cCI6MTc0NDkwNTU5MX0.tU8a9i8JQJJ36KARoHuEiftBYoP9KirrLQ_DBM8DCXs",
+                    }
+                }
+            );
+            console.log(data, "products");
+            return data;
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     }
 
@@ -70,10 +107,6 @@ function Layout() {
         }
     }
 
-    const file = (e) => {
-        const file = e.target.files;
-        setFiles([...file])
-    }
 
     return (
         <>
@@ -87,7 +120,8 @@ function Layout() {
                         </Link>
 
                         <label htmlFor="avatar">
-                            <input type="file" id="avatar" onChange={file} multiple/>
+                            <input type="file" id="avatar" onChange={(e) => setFiles(Array.from(e.target.files))}
+                                   multiple/>
                         </label>
 
 

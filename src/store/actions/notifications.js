@@ -1,45 +1,42 @@
 // redux/actions/notificationsActions.js
 import axios from 'axios';
+import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 
 const serverUrl = 'https://world-of-construction.onrender.com';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTc0MjIyNDMyOCwiZXhwIjoxNzQ0ODE2MzI4fQ.kdcaZw86pLUlElAv62KtISPinRXqMfdyn5_46BS9t-8';
+const token = localStorage.getItem('token');
 
-export const loadUnreadNotifications = () => async (dispatch) => {
-    try {
-        const response = await axios.get(`${serverUrl}/notifications/unread`, {
-            headers: {
-                Authorization: token,
-            },
-        });
-
-        dispatch({
-            type: 'notifications/setNotifications',
-            payload: response.data.notifications,
-        });
-    } catch (error) {
-        console.error('Error loading notifications:', error);
-    }
-};
-
-export const markNotificationAsRead = (notificationId) => async (dispatch) => {
-    try {
-        await axios.patch(
-            `${serverUrl}/notifications/${notificationId}/read`,
-            null,
-            {
+export const loadUnreadNotifications = createAsyncThunk(
+    'notifications/loadUnreadNotifications', // Название действия
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${serverUrl}/notifications/unread`, {
                 headers: {
                     Authorization: token,
                 },
-            }
-        );
-        dispatch({
-            type: 'notifications/markAsRead',
-            payload: notificationId,
-        });
-    } catch (error) {
-        console.error('Error marking notification as read:', error);
+            });
+            return response.data.notifications;  // Возвращаем данные уведомлений
+        } catch (error) {
+            console.error('Error loading notifications:', error);
+            return rejectWithValue(error.response.data);  // Обработка ошибок
+        }
     }
-};
+);
+
+export const markNotificationAsRead = createAsyncThunk(
+    'notifications/markAsRead',
+    async (notificationId, { rejectWithValue }) => {
+        try {
+            await axios.patch(
+                `${serverUrl}/notifications/${notificationId}/read`,
+                null,
+                { headers: { Authorization: token } }
+            );
+            return notificationId;  // Возвращаем ID уведомления, которое было помечено как прочитанное
+        } catch (error) {
+            return rejectWithValue(error.response.data || error.message);
+        }
+    }
+);
 
 export const addNotification = (notification) => {
     return {
@@ -47,3 +44,9 @@ export const addNotification = (notification) => {
         payload: notification,
     };
 };
+export const setReadStatus = createAction(
+    "read/status",
+)
+export const setStatus = createAction(
+    "notifications/status",
+)

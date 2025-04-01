@@ -2,52 +2,69 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import io from 'socket.io-client';
-import {addNotification, loadUnreadNotifications, markNotificationAsRead} from "../../store/actions/notifications";
+import {
+    addNotification,
+    loadUnreadNotifications,
+    markNotificationAsRead, setReadStatus,
+    setStatus
+} from "../../store/actions/notifications";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBell, faEnvelopeCircleCheck, faEnvelopeOpen} from "@fortawesome/free-solid-svg-icons";
+import {faBell, faEnvelopeCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
+import {FallingLines} from "react-loader-spinner";
 
 const serverUrl = 'https://world-of-construction.onrender.com';
 const socket = io(serverUrl);
 
+
 const Notifications = () => {
+    const dispatch = useDispatch();
+
     const notifications = useSelector((state) => state.notifications.notifications);
     const unreadCount = useSelector((state) => state.notifications.unreadCount);
-    const dispatch = useDispatch();
+    const user = useSelector(state => state.login.user)
+    const statusRead = useSelector(state => state.notifications.statusRead)
+    const status = useSelector(state => state.notifications.status)
 
     const [isNotification, setIsNotification] = useState(false);
     let menuRef = useRef();
-
+    const [id, setId] = useState([])
+    console.log(statusRead, 's')
     useEffect(() => {
-        const userId = 3; // Example userId, replace with actual logic
-        socket.emit('register', userId);
+        if (user.id) {
+            socket.emit('register', user.id);
 
-        // socket.on('connect', () => {
-        //     console.log('Successfully connected to the server!', socket.id);
-        // });
-        //
-        // socket.on('disconnect', () => {
-        //     console.log('Disconnected from server');
-        // });
+            socket.on('connect', () => {
+                console.log('Successfully connected to the server!', socket.id);
+            });
 
-        socket.on('review_reply', (data) => {
-            console.log('New notification:', data);
-            dispatch(addNotification(data)); // Dispatch new notification to Redux store
-        });
+            socket.on('disconnect', () => {
+                console.log('Disconnected from server');
+            });
 
-        // Load unread notifications when the component mounts
-        dispatch(loadUnreadNotifications());
+            socket.on('review_reply', (data) => {
+                console.log('New notification:', data);
+                dispatch(addNotification(data));
+                dispatch(loadUnreadNotifications()); // Загружаем количество непрочитанных
+            });
 
-        return () => {
-            socket.disconnect();
-        };
-    }, [dispatch]);
+            dispatch(loadUnreadNotifications());
+
+            return () => {
+                socket.off('review_reply'); // Очищаем слушатель перед размонтированием
+                socket.disconnect();
+            };
+        }
+    }, [user.id, dispatch]);
+
+
+    // убрали unreadCount
+
 
     useEffect(() => {
         let handler = (e) => {
             if (!menuRef.current.contains(e.target)) {
                 setIsNotification(false);
-
             }
         }
         document.addEventListener("mousedown", handler);
@@ -55,7 +72,11 @@ const Notifications = () => {
             document.removeEventListener("mousemove", handler);
         }
     })
-
+    useEffect(() => {
+        if (statusRead === "ok" && status === "ok") {
+            setId([])
+        }
+    }, [statusRead, status]);
     const openNotifications = () => {
         if (!isNotification) {
             setIsNotification(true);
@@ -63,86 +84,120 @@ const Notifications = () => {
             setIsNotification(false);
         }
     }
-    const handleMarkAsRead = (id) => {
-        dispatch(markNotificationAsRead(id));
+    const handleMarkAsRead = async (id) => {
+        setId(prevState => _.uniq([...prevState, id]))
+        dispatch(setStatus(""))
+        dispatch(setReadStatus(""))
+        await dispatch(markNotificationAsRead(id));
+        await dispatch(loadUnreadNotifications());
     };
-    console.log(notifications)
+
+    console.log(notifications, "A")
     return (
         <div ref={menuRef}>
             <div className="bell" onClick={openNotifications}>
                 <FontAwesomeIcon icon={faBell} className="bell-icon"/>
-                <div className="count">
-                    <strong>{unreadCount}</strong>
-                </div>
+                {unreadCount !== 0 ?
+                    <div className="count">
+                        <strong>{unreadCount}</strong>
+                    </div>
+                    : null}
             </div>
 
 
             {isNotification ? <div className="messages">
+                <div className="sur"></div>
+
                 <div className="notifications-header">
                     <h4>Notifications</h4>
                 </div>
 
                 <div className="notifications-info">
-                    {notifications.map((notification) => {
-                        const date = new Date(notification.createdAt);
-                        const day = date.getDate();
-                        const month = date.getMonth()
-                        const year = date.getFullYear();
 
-                        return (
-                            <div className="messages-block">
-                                <div className="message-block">
-                                    <div className="img-block">
-                                        <div className="message-img">
-                                            <img src={notification.productImage}/>
+                    {notifications.length ? notifications.map((notification) => {
+                            const date = new Date(notification.createdAt);
+                            const day = date.getDate();
+                            const month = date.getMonth()
+                            const year = date.getFullYear();
+
+                            return (
+                                <>
+                                    <div className={!id.includes(notification.id) ? `messages-block ${notification.read ? 'read' : 'unread'}` : "messages-loading"} >
+                                        <div className="message-block" style={{
+                                            opacity:!id.includes(notification.id) ? 1 : 0.2
+                                        }}>
+                                            <div className="img-block">
+                                                {notification.productImage ?
+                                                    <div className="message-img">
+                                                        <img src={notification.productImage}/>
+
+                                                    </div> : <div className="message-img loading-gradient-n">
+                                                    </div>}
+                                            </div>
+
+                                            {notification.productName && notification.message && notification.createdAt ?
+                                                <div className="message-info">
+                                            <span
+                                                className="message-data">{day < 10 ? `0${day}` : day}/{month < 10 ? `0${month}` : month}/{year}</span>
+                                                    <strong className="message-name">{notification.productName}</strong>
+                                                    <span className="message-m">{notification.message}</span>
+                                                </div>
+                                                :
+                                                <div className="message-info loading-gradient-n" style={{
+                                                    width: "100%",
+                                                    height: 60,
+                                                }}>
+
+                                                </div>}
                                         </div>
-                                    </div>
 
-                                    <div className="message-info">
-                                    <span
-                                        className="message-data">{day < 10 ? `0${day}` : day}/{month < 10 ? `0${month}` : month}/{year}</span>
-                                        <strong className="message-name">{notification.productName}</strong>
-                                        <span className="message-m">{notification.message}aaaaaaaaaaaaaaaa</span>
+                                        <FontAwesomeIcon icon={faEnvelopeCircleCheck}
+                                                         className={id.includes(notification.id) ? "envelope-active" : "envelope"}
+                                                         onClick={() => handleMarkAsRead(notification.id)}/>
+                                        {id.includes(notification.id) && (
+                                            <div className="loading-n" style={{}}>
+                                                <FallingLines
+                                                    color="#4fa94d"
+                                                    width="100"
+                                                    visible={true}
+                                                    ariaLabel="falling-circles-loading"
+                                                />
+                                            </div>)}
                                     </div>
-                                </div>
-                                <FontAwesomeIcon icon={faEnvelopeCircleCheck} className="envelope"
-                                                 onClick={() => handleMarkAsRead(notification.id)}/>
+                                </>
 
+                            )
+                        }) :
+                        status === "ok" ?
+                            <div className="notifications-no">
+                                <h4>No notification</h4>
                             </div>
 
-                        )
-                    })}
+                            :
+
+                            Array.from({length: 4}).map((i) => (
+                                <div className="messages-block ">
+                                    <div className="message-block">
+                                        <div className="img-block">
+                                            <div className="message-img loading-gradient-n">
+                                            </div>
+                                        </div>
+
+                                        <div className="message-info loading-gradient-n" style={{
+                                            width: "100%",
+                                            height: 60,
+                                        }}>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+
+
+                    }
 
                 </div>
             </div> : null}
-
-
-            {/*<h1>Notifications</h1>*/}
-            {/*<div id="notifications">*/}
-            {/*    {notifications.map((notification) => (*/}
-            {/*        <div*/}
-            {/*            key={notification.id}*/}
-            {/*            className={`notification ${notification.read ? '' : 'unread'}`}*/}
-            {/*        >*/}
-            {/*<p>{notification.message}</p>*/}
-            {/*<p>*/}
-            {/*    <strong>Product:</strong> {notification.product.name}*/}
-            {/*</p>*/}
-            {/*<img*/}
-            {/*    src={notification.product.image}*/}
-            {/*    alt="Product"*/}
-            {/*    style={{width: '100px', height: '100px'}}*/}
-            {/*/>*/}
-            {/*            {!notification.read && (*/}
-            {/*                <span onClick={() => handleMarkAsRead(notification.id)}>*/}
-            {/*    Mark as read*/}
-            {/*  </span>*/}
-            {/*            )}*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*</div>*/}
-
-
         </div>
 
     );

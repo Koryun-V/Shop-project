@@ -16,7 +16,7 @@ import Category from "./components/common/Category";
 import Products from "./components/common/Products";
 import OneProduct from "./components/common/OneProduct";
 import Users from "./components/pages/User";
-import Test from "./components/common/Notifications";
+import Test from "./components/common/Test";
 
 
 

@@ -71,8 +71,8 @@ export const getRandomReviews = createAsyncThunk(
     }
 )
 
-export const setSelectId = createAction(
-    "products/setSelectId",
+export const setCategoryId = createAction(
+    "products/setCategoryId",
     (payload) => ({
         payload,
     })

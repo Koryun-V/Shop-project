@@ -18,7 +18,6 @@ const initialState = {
 
 export const products = createReducer(initialState, (builder) => {
     builder
-
         .addCase(categoriesRequest.pending, (state) => {
             state.status = "pending"
         })
@@ -54,9 +53,5 @@ export const products = createReducer(initialState, (builder) => {
         .addCase(updateCard.rejected, (state) => {
             state.updateCardStatus = "error"
         })
-
-
-
-
 
 });

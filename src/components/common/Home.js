@@ -77,7 +77,7 @@ const Home = () => {
         );
     }
 
-    console.log(reviews, "r")
+    // console.log(reviews, "r")
 
     var settings = {
         dots: true,
@@ -188,7 +188,7 @@ const Home = () => {
                     </div>
 
                     {reviews.length ? reviews.slice(0, 4).map((item) => {
-                            console.log(reviews, "rrrr")
+                            // console.log(reviews, "rrrr")
                             const date = new Date(item.createdAt);
                             const year = date.getFullYear();
                             const day = date.getDate();

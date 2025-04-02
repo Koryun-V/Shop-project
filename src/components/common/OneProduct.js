@@ -62,7 +62,7 @@ const OneProduct = () => {
   }
 
 
-  console.log(oneProductInfo, "oneProductInfo");
+  // console.log(oneProductInfo, "oneProductInfo");
 
   // console.log(isInCart, "isInCart")
   // console.log(cardId, "cardId")

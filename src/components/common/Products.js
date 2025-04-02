@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Product from "../mini/Product";
 import {useDispatch, useSelector} from "react-redux";
-import {getAllProducts, setSelectId, setSearchValue, getStores, setStoreId} from "../../store/actions/home";
+import {
+  getAllProducts,
+  setSearchValue,
+  getStores,
+  setStoreId,
+  setCategoryId
+} from "../../store/actions/home";
 import ReactPaginate from "react-paginate";
 import {categoriesRequest, setMaxPrice, setMinPrice, setPage} from "../../store/actions/products";
 import {useParams} from "react-router-dom";
@@ -9,21 +15,23 @@ import Slider from "react-slider";
 import domus from "../../assets/image/domus.png"
 
 const Products = () => {
+  const [limit, setLimit] = useState(12);
+  const clampMin = (value) => Math.min(Math.max(value, 0), 1700);
+  const clampMax = (value) => Math.min(Math.max(value, 0), 2000);
+
+  const {name} = useParams();
+  const categoryIds = [];
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.productsList);
   const categories = useSelector(state => state.products.categories);
-  const {name} = useParams();
   const total = useSelector(state => state.home.total);
-  const [limit, setLimit] = useState(12);
-  const pageCount = Math.ceil(total / limit);
   const page = useSelector(state => state.home.page);
+  const pageCount = Math.ceil(total / limit);
   const minPrice = useSelector(state => state.home.minPrice);
   const maxPrice = useSelector(state => state.home.maxPrice);
   const searchValue = useSelector(state => state.home.searchValue);
-  const storesList = useSelector(state => state.home.storesList);
+  const categoryId = useSelector(state => state.home.categoryId);
   const storeId = useSelector(state => state.home.storeId);
-  const clampMin = (value) => Math.min(Math.max(value, 0), 1700);
-  const clampMax = (value) => Math.min(Math.max(value, 0), 2000);
   const userId = useSelector(state => state.home.userId);
   const status = useSelector(state => state.products.statusCard);
   const statusProducts = useSelector(state => state.home.status);
@@ -61,10 +69,10 @@ const Products = () => {
 
   }
 
+
   const clearAllOptions = () => {
     dispatch(setMinPrice(0));
     dispatch(setMaxPrice(2000));
-    dispatch(setSelectId(""));
     dispatch(setPage(1));
     dispatch(setSearchValue(" "));
     dispatch(setStoreId(""))
@@ -79,7 +87,6 @@ const Products = () => {
     dispatch(setMinPrice(value[0]));
     dispatch(setMaxPrice(value[1]));
   };
-
 
 
   const handleMinPriceChange = (e) => {
@@ -99,26 +106,39 @@ const Products = () => {
     dispatch(setMaxPrice(newMax));
   };
 
+const clickCategoryId = (id, index) => {
+  dispatch(setCategoryId(id));
+  categoryIds.push(categories[index])
+}
 
+  console.log(categoryId, "categoryId");
+  console.log(categoryIds, "massive")
+  // console.log(categories, "categories");
   return (
-    <div className="wrapper">
-      <div className="container-slide">
-        <section className="section">
-
+      <div className="new-big-container">
+        <div className="new-container">
           <div className="filter-container">
             <div className="filter">
               <div className="stores_container">
-                {storesList.map((item) => (
-                  <div onClick={() => dispatch(setStoreId(item.id))} key={item.id} className="stores_item">
-                    <img className="stores_item_img" src={item.storeLogo.length > 0 ? item.storeLogo[0].path : domus} />
-                  </div>
-                ))}
+                {categories
+                  .filter((category, index) => index !== 0)
+                  .map((category, index) => (
+                    <div key={category.id} className="category-item" onClick={() => clickCategoryId(category.id, index )} >
+                      {category.categoryImage?.length > 0 && (
+                        <img
+                          src={category.categoryImage[0].path}
+                          alt={category.name}
+                          className="category-image"
+                        />
+                      )}
+                    </div>
+                  ))}
               </div>
               <form action="#" className="price-container">
-                <span style={{ marginTop: "10px", marginBottom: "15px" }}>Price</span>
+                <span style={{marginTop: "10px", marginBottom: "15px"}}>Price</span>
                 <div>
-                  <input type="text" className="price-input" value={Number(minPrice)} onChange={handleMinPriceChange} />
-                  <input type="text" className="price-input" value={Number(maxPrice)} onChange={handleMaxPriceChange} />
+                  <input type="text" className="price-input" value={Number(minPrice)} onChange={handleMinPriceChange}/>
+                  <input type="text" className="price-input" value={Number(maxPrice)} onChange={handleMaxPriceChange}/>
                 </div>
                 <Slider
                   className="slider-container"
@@ -138,8 +158,6 @@ const Products = () => {
               </div>
             </div>
           </div>
-
-          {/* Products Section */}
           <div className="products_container">
             <Product statusProducts={statusProducts} classNameActive="product-active" products={products} quantity={12}
                      className="product-block" classNameImg="product-img"/>
@@ -162,149 +180,10 @@ const Products = () => {
               )}
             </div>
           </div>
-        </section>
+        </div>
       </div>
-    </div>
-
   );
 };
-
 export default Products;
 
 
-
-
-
-
-
-
-
-// <div className="wrapper">
-// <div className="container-slide">
-//   <section className="section">
-//     <div className="select_container">
-//       <div className="filter">
-//
-//         <div className="stores_container">
-//           {storesList.map((item) => (
-//
-//             <div onClick={() => dispatch(setStoreId(item.id))} key={item.id}
-//                  className="stores_item">
-//               <img className="stores_item_img"
-//                    src={item.storeLogo.length > 0 ? item.storeLogo[0].path : domus}/>
-//             </div>
-//
-//           ))}
-//         </div>
-//         <form action="#" className="price-container">
-//           <span style={{marginTop: "10px", marginBottom: "15px"}}>Price</span>
-//           <div>
-//             <input
-//               type="text"
-//               className="price-input"
-//               value={Number(minPrice)}
-//               onChange={handleMinPriceChange}
-//               min={0}
-//               max={1700}
-//               onKeyPress={(e) => {
-//                 if (!/[0-9]/.test(e.key)) {
-//                   e.preventDefault();
-//                 }
-//               }}
-//             />
-//             <input
-//               type="text"
-//               className="price-input"
-//               value={Number(maxPrice)}
-//               onChange={handleMaxPriceChange}
-//               min={0}
-//               max={2000}
-//               onKeyPress={(e) => {
-//                 if (!/[0-9]/.test(e.key)) {
-//                   e.preventDefault();
-//                 }
-//               }}
-//             />
-//           </div>
-//           <Slider
-//             className="slider-container"
-//             onChange={handleSliderChange}
-//             value={[minPrice, maxPrice]}
-//             thumbClassName="slider-thumb"
-//             trackClassName="slider-track"
-//             min={0}
-//             max={2000}
-//             minDistance={300}
-//
-//           />
-//         </form>
-//
-//         <div className="select_box">
-//           <Select
-//             onChange={handleCategoryChange}
-//             placeholder={selectId ? name : "All"}
-//             options={categories}
-//             classNamePrefix="react-select"
-//             getOptionValue={(o) => o.id}
-//             getOptionLabel={(o) => o.name}
-//             isSearchable={false}
-//             value={selectValue}
-//             styles={{
-//               option: (base, {isFocused}) => ({
-//                 ...base,
-//                 cursor: "pointer",
-//                 backgroundColor: isFocused ? "limegreen" : "white",
-//                 color: isFocused ? "white" : "black",
-//                 "&:active": {background: "#84e984", color: "white"}
-//               }),
-//               control: (base, {isFocused}) => ({
-//                 ...base,
-//                 cursor: "pointer",
-//                 border: isFocused ? "1px solid limegreen" : "1px solid #cccccc",
-//                 boxShadow: isFocused ? "0px 0px 6px limegreen" : "none",
-//                 '&:hover': {border: '1px solid limegreen', boxShadow: '0px 0px 6px limegreen'}
-//               })
-//             }}
-//           />
-//         </div>
-//         <div className="buttons-container">
-//           <button onClick={() => dispatch(getAllProducts({
-//             categoryId: selectId,
-//             page: 1,
-//             limit,
-//             minPrice,
-//             maxPrice,
-//             s: searchValue
-//           }))} className="agree-button">Apply
-//           </button>
-//           <button onClick={() => clearAllOptions()} className="clear-button">Clear All</button>
-//         </div>
-//       </div>
-//
-//     </div>
-//     <div className="products_container">
-//       <Product statusProducts={statusProducts} classNameActive="product-active" products={products} quantity={12}
-//                className="product-block"
-//                classNameImg="product-img"/>
-//       <div className="react_pagination_div">
-//         {total >= 12 && pageCount > 1 && (
-//           <ReactPaginate
-//             previousLabel={"<"}
-//             nextLabel={pageCount ? ">" : ""}
-//             pageCount={pageCount}
-//             pageRangeDisplayed={3}
-//             onPageChange={handleClick}
-//             pageLinkClassName={"page-link"}
-//             containerClassName={"pagination"}
-//             pageClassName={"page-item"}
-//             activeClassName={"page-item--active"}
-//             previousClassName={"page-item--previous"}
-//             nextClassName={"page-item--next"}
-//             forcePage={page - 1}
-//           />
-//         )}
-//       </div>
-//     </div>
-//   </section>
-// </div>
-// </div>

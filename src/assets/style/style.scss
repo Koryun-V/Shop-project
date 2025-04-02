@@ -17,10 +17,12 @@
 @import "users";
 @import "variables";
 @import "bell";
+@import "datePiker";
 
 @import url("orderModal.scss");
 
 @import url("oneProduct.scss");
+
 
 @import "variables";
 
@@ -462,7 +464,6 @@ a {
 }
 
 .footer {
-  opacity: 0;
   background: #2F323A;
   color: white;
   padding: 50px 50px 30px 50px;

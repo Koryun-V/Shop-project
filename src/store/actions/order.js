@@ -30,7 +30,7 @@ export const getReview = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getReview(payload);
-            return data.productsReviews
+            return data.review
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }

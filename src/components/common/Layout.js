@@ -9,14 +9,14 @@ import {
     faMagnifyingGlass,
     faAngleDown,
     faCartShopping,
-    faCube,
+    faCube, faEnvelope, faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
-// import visa from "../../assets/icon/Visa.svg"
-// import group5 from "../../assets/icon/Group_5.svg"
-// import group6 from "../../assets/icon/Group_6.svg"
-// import sim from "../../assets/icon/sim.svg"
+import visa from "../../assets/icon/Visa.svg"
+import group5 from "../../assets/icon/Group_5.svg"
+import group6 from "../../assets/icon/Group_6.svg"
+import sim from "../../assets/icon/sim.svg"
 
 
 import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId} from "../../store/actions/home";
@@ -149,7 +149,7 @@ function Layout() {
                                         </ul>
                                     </li>
 
-                                    <Link className="nav-item" to="/products">
+                                    <Link    className={window.location.pathname === "/products" ? "nav-item-active" : "nav-item"} to="/products">
                                         <li>Products</li>
                                     </Link>
                                     <Link className="nav-item" to="/#">
@@ -259,57 +259,57 @@ function Layout() {
                     <Outlet/>
                 </main>
 
-                {/*<footer className="footer">*/}
-                {/*    <div className="footer-container">*/}
-                {/*        <div className="footer-blocks">*/}
-                {/*            <div className="footer-block">*/}
-                {/*                <div className="footer-shop-info">*/}
-                {/*                    <h3>Logo Story</h3>*/}
-                {/*                </div>*/}
-                {/*                <div className="footer-shop-info">*/}
-                {/*                    <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>*/}
-                {/*                    <span>info@stroykastore.ru</span>*/}
-                {/*                </div>*/}
-                {/*                <div className="footer-shop-info">*/}
-                {/*                    <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>*/}
-                {/*                    <span>Москва, ул. Камушкина 10</span>*/}
-                {/*                </div>*/}
-                {/*            </div>*/}
+                <footer className="footer">
+                    <div className="footer-container">
+                        <div className="footer-blocks">
+                            <div className="footer-block">
+                                <div className="footer-shop-info">
+                                    <h3>Logo Story</h3>
+                                </div>
+                                <div className="footer-shop-info">
+                                    <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
+                                    <span>info@stroykastore.ru</span>
+                                </div>
+                                <div className="footer-shop-info">
+                                    <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
+                                    <span>Москва, ул. Камушкина 10</span>
+                                </div>
+                            </div>
 
 
-                {/*            <div className="footer-block">*/}
-                {/*                <div className="footer-link"><Link>Profile</Link></div>*/}
-                {/*                <div className="footer-link"><Link to="/order">Order</Link></div>*/}
-                {/*                <div className="footer-link"><Link to="/basket">Basket</Link></div>*/}
-                {/*            </div>*/}
-                {/*            <div className="footer-block">*/}
-                {/*                <div className="footer-link"><Link>Category</Link></div>*/}
-                {/*                <div className="footer-link"><Link>Shares</Link></div>*/}
-                {/*                <div className="footer-link"><Link>Contact</Link></div>*/}
-                {/*            </div>*/}
-                {/*            <div className="footer-block">*/}
-                {/*                <div className="footer-link"><Link>Стать продавцом</Link></div>*/}
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Profile</Link></div>
+                                <div className="footer-link"><Link to="/order">Order</Link></div>
+                                <div className="footer-link"><Link to="/basket">Basket</Link></div>
+                            </div>
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Category</Link></div>
+                                <div className="footer-link"><Link>Shares</Link></div>
+                                <div className="footer-link"><Link>Contact</Link></div>
+                            </div>
+                            <div className="footer-block">
+                                <div className="footer-link"><Link>Стать продавцом</Link></div>
 
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*        <hr/>*/}
+                            </div>
+                        </div>
+                        <hr/>
 
-                {/*        <div className="footer-end">*/}
-                {/*            <div className="footer-end-block">*/}
-                {/*                <span>&copy; STORY</span>*/}
-                {/*            </div>*/}
-                {/*            <div className="footer-end-block">*/}
-                {/*                <img src={visa} className="footer-cart"/>*/}
-                {/*                <img src={group5} className="footer-cart"/>*/}
-                {/*                <img src={group6} className="footer-cart"/>*/}
-                {/*                <img src={sim} className="footer-cart"/>*/}
-                {/*            </div>*/}
-                {/*            <div className="footer-end-block">*/}
-                {/*                <span>Cделано в KRUGLOV STUDIO</span>*/}
-                {/*            </div>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</footer>*/}
+                        <div className="footer-end">
+                            <div className="footer-end-block">
+                                <span>&copy; STORY</span>
+                            </div>
+                            <div className="footer-end-block">
+                                <img src={visa} className="footer-cart"/>
+                                <img src={group5} className="footer-cart"/>
+                                <img src={group6} className="footer-cart"/>
+                                <img src={sim} className="footer-cart"/>
+                            </div>
+                            <div className="footer-end-block">
+                                <span>Cделано в KRUGLOV STUDIO</span>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
 
             <ModalRegister

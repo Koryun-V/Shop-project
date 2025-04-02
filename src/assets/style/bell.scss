@@ -35,8 +35,9 @@
   .bell-icon {
     width: 30px;
     height: 30px;
-    color: $interfaceColor;
+    color:white;
     transition: 0.2s all;
+    opacity: 0.8;
   }
 
 
@@ -44,7 +45,7 @@
 
 .bell:hover .bell-icon {
   transform: scale(1.1, 1.1);
-  color: #00ff00;
+  opacity: 1;
 
 
 }
@@ -52,8 +53,9 @@
 .bell-icon-active {
   width: 30px;
   height: 30px;
-  color: #00ff00;
   transform: scale(1.1, 1.1);
+  color:white;
+  opacity: 1;
 }
 
 .messages {

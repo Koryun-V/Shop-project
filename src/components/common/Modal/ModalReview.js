@@ -10,23 +10,21 @@ import Button from "../../mini/Button";
 import {getReview, sendReview, setReviews, setReviewStatus} from "../../../store/actions/order";
 
 
-function ModalReview({open, onClose, product}) {
+function ModalReview({open, onClose}) {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.login.user)
     const statusSend = useSelector(state => state.order.statusReviewSend)
 
     const [isReview, setIsReview] = useState(false);
 
     const reviews = useSelector(state => state.order.reviews)
     const status = useSelector(state => state.order.statusReviewGet)
-
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const [isStar, setIsStar] = useState(false);
     const [id, setId] = useState("");
 
     useEffect(() => {
-        if (reviews.user) {
+        if (reviews.review) {
             setIsReview(true);
         } else {
             setIsReview(false)
@@ -36,7 +34,7 @@ function ModalReview({open, onClose, product}) {
     useEffect(() => {
         if (statusSend === "ok") {
             dispatch(setReviews({}))
-            dispatch(getReview({productId: id}))
+            dispatch(getReview({reviewId: id}))
         }
     }, [statusSend]);
 
@@ -117,10 +115,10 @@ function ModalReview({open, onClose, product}) {
                             <div className="review-block">
                                 <div className="product-review">
                                     <div className="img-review">
-                                        <img src={product.productImg} alt="product"/>
+                                        <img src={reviews.product.productImage[0].path} alt="product"/>
                                     </div>
                                     <div className="title-review">
-                                        <strong>{product.productName}</strong>
+                                        <strong>{reviews.product.productName}</strong>
                                         {isReview ?
                                             <span className="loading-gradient-review">The product has been rated</span>
                                             :
@@ -130,10 +128,10 @@ function ModalReview({open, onClose, product}) {
                                 </div>
                                 <div className="user-review">
                                     <div className="img-user">
-                                        {/*<img src={user.avatar[0].path} alt="user"/>*/}
+                                        <img src={reviews.user.avatar} alt="user"/>
                                     </div>
                                     <div className="title-user">
-                                        <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
+                                        <strong>{reviews.user.lastName.charAt(0).toUpperCase() + reviews.user.lastName.slice(1)} {reviews.user.firstName.charAt(0).toUpperCase() + reviews.user.lastName.slice(1)}</strong>
                                     </div>
                                 </div>
 
@@ -179,7 +177,7 @@ function ModalReview({open, onClose, product}) {
                                     <Button
                                         status={statusSend}
                                         disabled={isReview}
-                                        onClick={() => send(product.productId, review, rating)}
+                                        onClick={() => send(reviews.product.productId, review, rating)}
                                         text="Send" className={isReview ? "disabled" : "active-button"}/>
 
                                 </div>

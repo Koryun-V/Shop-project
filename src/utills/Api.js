@@ -17,11 +17,11 @@ const token = localStorage.getItem("token");
 export default class Api {
     static getPopularProducts({id}) {
         let userId
-        if(id){
+        if (id) {
             userId = id
         }
         return api.get(`/products/popular`, {
-            params:{
+            params: {
                 userId
             },
 
@@ -61,8 +61,12 @@ export default class Api {
         })
     }
 
-    static getReview({productId}) {
-        return api.get(`/reviews/list/${productId}`)
+    static getReview({paymentId}) {
+        return api.get(`/reviews/${paymentId}`, {
+            headers: {
+                Authorization: `${token}`,
+            }
+        })
     }
 
 
@@ -285,7 +289,7 @@ export default class Api {
         if (s) {
             search = s
         }
-        if(id){
+        if (id) {
             userId = id
         }
 

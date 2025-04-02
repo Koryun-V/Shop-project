@@ -212,6 +212,8 @@
 
 .paid{
   display: flex;
+  justify-content: center;
+  align-items: center;
   .paid-info{
     margin-left:10px;
   }

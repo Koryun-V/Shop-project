@@ -71,7 +71,7 @@ const Profile = () => {
                                         <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
                                     </li>
                                     <li>
-                                        <Link to="/user" className={window.location.pathname === "/user" ? "link-profile-active" : "link-profile"}>
+                                        <Link to="/user" className={window.location.pathname === "/user" ? "link-profile-active" : "link-profile"} onClick={()=>setIsProfile(false)}>
                                             <FontAwesomeIcon icon={faAddressCard} className="icon"/>
                                             <span>Profile</span>
                                         </Link>

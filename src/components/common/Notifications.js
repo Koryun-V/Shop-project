@@ -110,7 +110,7 @@ const Notifications = () => {
                 <div className="sur"></div>
 
                 <div className="notifications-header">
-                    <h4>Notifications</h4>
+                    <h2>Notifications</h2>
                 </div>
 
                 <div className="notifications-info">
@@ -171,7 +171,7 @@ const Notifications = () => {
                         }) :
                         status === "ok" ?
                             <div className="notifications-no">
-                                <h4>No notification</h4>
+                                <h2>No notification</h2>
                             </div>
 
                             :

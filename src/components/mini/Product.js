@@ -134,13 +134,13 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                             <div className="product-button">
                                                 <Button isProduct={true} isCard={isCard} index={index}
                                                         indexProduct={indexProduct}
-                                                        status={statusEnd} onClick={() => {
-                                                    sendProduct(product.id, index)
-                                                }}
+                                                        status={statusEnd} onClick={() =>
+                                                        product.isInCart ? navigate(`/basket`) :
+                                                        sendProduct(product.id, index)
+                                                }
                                                         icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
                                                                                icon={product.isInCart ? faCheck : faCartShopping}/>}
                                                         text={product.isInCart ? "In cart" : "Add to cart"}
-                                                        disabled={product.isInCart}
                                                         className={product.isInCart ? "disabled-cart" : "active-button"}
                                                 >
                                                 </Button>

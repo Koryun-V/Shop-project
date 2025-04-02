@@ -24,9 +24,15 @@ button {
 .disabled-cart {
   color: $interfaceColor;
   font-weight: bold;
-  cursor: default;
   background: #fafafa;
   transition: 0.2s;
+  cursor: pointer;
+}
+.disabled-cart:hover{
+  filter: brightness(95%);
+}
+.disabled-cart:active{
+  filter: brightness(90%);
 }
 
 .active-button {

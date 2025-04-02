@@ -229,9 +229,7 @@ function Layout() {
                                     </>
                                     :
                                     <>
-                                        <div className="cart">
                                             <Notifications/>
-                                        </div>
 
 
                                         <div className="cart">

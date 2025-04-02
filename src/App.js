@@ -19,8 +19,8 @@ import Users from "./components/pages/User";
 import Test from "./components/common/Test";
 
 
-
 const token = localStorage.getItem("token");
+
 function App() {
     return (
         <Routes>
@@ -33,22 +33,22 @@ function App() {
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/category" element={<Category/>}/>
 
-              <Route path="/basket" element={<CartList/>}/>
-              <Route path="/cardok" element={<OrdersOk/>}/>
+                <Route path="/basket" element={<CartList/>}/>
+                <Route path="/cardok" element={<OrdersOk/>}/>
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
                 <Route path="/test" element={<Test/>}/>
 
                 <Route path="/one-product/:productId" element={<OneProduct/>}/>
 
-              {/*<Route path="/products">*/}
-              {/*  <Route index element={<Products/>}/>*/}
-              {/*  <Route path=":productId" element={<OneProduct/>}/>*/}
-              {/*</Route>*/}
+                {/*<Route path="/products">*/}
+                {/*  <Route index element={<Products/>}/>*/}
+                {/*  <Route path=":productId" element={<OneProduct/>}/>*/}
+                {/*</Route>*/}
 
-              <Route path="/user" element={<Users/>}/>
+                <Route path="/user" element={<Users/>}/>
 
-              {/*<Route path="/specialist" element={<Specialist/>}/>*/}
+                {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
             </Route>
         </Routes>

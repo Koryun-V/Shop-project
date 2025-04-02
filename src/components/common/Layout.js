@@ -2,30 +2,27 @@ import React, {useEffect, useRef, useState} from "react";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import ModalRegister from "./Modal/ModalRegister";
 import ModalLogin from "./Modal/ModalLogin";
-import axios from "axios";
-import Input from "../mini/Input";
+
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faMagnifyingGlass,
     faAngleDown,
     faCartShopping,
-    faUser,
     faCube,
-    faEnvelope, faAddressCard, faArrowRightFromBracket, faLocationDot
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
-import visa from "../../assets/icon/Visa.svg"
-import group5 from "../../assets/icon/Group_5.svg"
-import group6 from "../../assets/icon/Group_6.svg"
-import sim from "../../assets/icon/sim.svg"
+// import visa from "../../assets/icon/Visa.svg"
+// import group5 from "../../assets/icon/Group_5.svg"
+// import group6 from "../../assets/icon/Group_6.svg"
+// import sim from "../../assets/icon/sim.svg"
 
 
 import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId} from "../../store/actions/home";
 import Notifications from "./Notifications";
+import Profile from "./Profile";
 
-//main
 const token = localStorage.getItem("token");
 
 function Layout() {
@@ -39,11 +36,6 @@ function Layout() {
     const statusKey = useSelector(state => state.registration.statusKey)
     const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
-    const [isProfile, setIsProfile] = useState(false)
-    const [isMouse, setIsMouse] = useState(false);
-    const statusUser = useSelector(state => state.login.statusUser)
-    const [avatar, setAvatar] = useState([])
-    const userRef = useRef(null);
     const searchValue = useSelector(state => state.home.searchValue);
     const selectId = useSelector(state => state.home.selectId);
     const page = useSelector(state => state.home.page);
@@ -59,8 +51,6 @@ function Layout() {
     const {pathname} = useLocation()
 
 
-
-
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname])
@@ -72,7 +62,7 @@ function Layout() {
     }, [token]);
 
     useEffect(() => {
-        if(user){
+        if (user) {
             dispatch(setUserId(user.id))
         }
     }, [user]);
@@ -135,63 +125,9 @@ function Layout() {
     }
 
 
-    // useEffect(() => {
-    //     if (isProfile) {
-    //         document.querySelector('.wrapper').onmousemove = function (e) {
-    //             setIsMouse(true)
-    //         }
-    //         document.querySelector('.wrapper').onMouseLeave = function (e) {
-    //             setIsMouse(false)
-    //         }
-    //     }
-    //
-    // }, [window.body, isProfile]);
-
-
-    const func = async () => {
-        try {
-
-            const {data} = await axios.get(`https://world-of-construction.onrender.com/products/list`,
-                {
-                    firstName: "esim",
-                    lastName: "esim",
-                    gender: "male",
-                    dateOfBirth: "2000-10-10",
-                    avatar: avatar[0],
-                },
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: token,
-                    },
-                }
-            );
-            return data;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    const animUser = () => {
-        if (!isProfile) {
-            setIsProfile(true);
-            // setIsMouse(true)
-
-
-        } else {
-            setIsProfile(false);
-            // setIsMouse(false)
-
-        }
-
-    }
     return (
         <>
             <div className="wrapper">
-                {/*<button onClick={func}>click</button>*/}
-
-                {/*<input type="file" id="avatar" onChange={(e) => setAvatar(e.target.files)}/>*/}
-
                 <header className="header">
                     <div className="nav-header">
                         <div className="container-header">
@@ -300,123 +236,19 @@ function Layout() {
 
                                         <div className="cart">
                                             <Link to="/basket">
-                                                <FontAwesomeIcon icon={faCartShopping} className="cart-icon"/>
+                                                <FontAwesomeIcon icon={faCartShopping}
+                                                                 className={window.location.pathname === "/basket" ? "cart-icon-active" : "cart-icon"}/>
                                             </Link>
                                         </div>
 
                                         <div className="cart">
                                             <Link to="/order">
-                                                <FontAwesomeIcon icon={faCube} className="cart-icon"/>
+                                                <FontAwesomeIcon icon={faCube}
+                                                                 className={window.location.pathname === "/order" ? "cart-icon-active" : "cart-icon"}/>
                                             </Link>
                                         </div>
 
-                                        <div className="user"
-                                             onClick={animUser}
-                                             onMouseEnter={() => setIsMouse(false)}
-                                             onMouseLeave={() => {
-                                                 setIsMouse(true)
-                                                 userRef.current.focus()
-                                             }}
-
-                                        >
-                                            <Link className="user-img"
-                                                  style={{
-                                                      border: isProfile ? "2px solid limegreen" : "2px solid #d1d1d1",
-                                                  }}>
-                                                <FontAwesomeIcon icon={faUser} className="user-icon"
-
-                                                />
-                                                <FontAwesomeIcon icon={faAngleDown} className="user-arrow"
-                                                                 style={{
-                                                                     color: isProfile ? "limegreen" : "#d1d1d1",
-                                                                     transform: isProfile ? "rotate(180deg)" : "none"
-                                                                 }}
-                                                />
-                                            </Link>
-                                        </div>
-
-
-                                        <div className="user-func"
-                                             tabIndex={0}
-                                             ref={userRef}
-                                             id="user-modal"
-                                            // onMouseLeave={() => setIsMouse(true)}
-                                            // onMouseEnter={() => setIsMouse(false)}
-                                             onBlur={() => isMouse ? setIsProfile(false) : null}
-
-                                             style={{
-                                                 zIndex: isProfile ? 999 : -1,
-                                                 opacity: isProfile ? 1 : 0,
-                                                 height: isProfile ? 200 : 0,
-                                                 visibility: isProfile ? "visible" : "hidden"
-                                             }}
-                                        >
-
-                                            <ul className="user-func-item">
-                                                <ul className="user-func-item">
-                                                    {statusUser === "ok" ?
-                                                        <>
-                                                            <li className="user-modal-item">
-                                                                <FontAwesomeIcon icon={faUser} className="icon"/>
-                                                                <span>
-                                                        {user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}
-                                                    </span>
-                                                            </li>
-                                                            <li>
-                                                                <FontAwesomeIcon icon={faEnvelope} className="icon"/>
-                                                                <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
-                                                            </li>
-                                                            <li>
-                                                                <FontAwesomeIcon icon={faAddressCard} className="icon"/>
-                                                                <span>Profile</span>
-                                                            </li>
-                                                        </>
-                                                        :
-                                                        <>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div className="loading-gradient">
-                                                                </div>
-                                                            </li>
-                                                        </>}
-                                                </ul>
-
-                                            </ul>
-
-                                            <div className="log-out">
-                                                <div className="button-block"
-                                                     onMouseEnter={() => setIsMouse(false)}
-                                                     onMouseLeave={() => {
-                                                         setIsMouse(true)
-                                                         userRef.current.focus()
-                                                     }}
-
-                                                >
-                                                    <Button onClick={() => {
-                                                        localStorage.removeItem("token")
-                                                        window.location.reload(true)
-                                                    }}
-                                                            text={<>
-                                                                <FontAwesomeIcon icon={faArrowRightFromBracket} style={{
-                                                                    marginRight: 7,
-                                                                }}/>
-                                                                Log Out
-                                                            </>}
-                                                            type="button"
-                                                            className="active-button">
-                                                    </Button>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
+                                        <Profile/>
                                     </>
                                 }
                             </div>

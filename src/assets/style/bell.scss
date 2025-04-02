@@ -36,9 +36,25 @@
     width: 30px;
     height: 30px;
     color: $interfaceColor;
+    transition: 0.2s all;
   }
+
+
 }
 
+.bell:hover .bell-icon {
+  transform: scale(1.1, 1.1);
+  color: #00ff00;
+
+
+}
+
+.bell-icon-active {
+  width: 30px;
+  height: 30px;
+  color: #00ff00;
+  transform: scale(1.1, 1.1);
+}
 
 .messages {
   border-radius: 5px;
@@ -250,7 +266,6 @@
   }
 
 }
-
 
 
 .loading-n {

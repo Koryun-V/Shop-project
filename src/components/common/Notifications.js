@@ -77,6 +77,7 @@ const Notifications = () => {
             setId([])
         }
     }, [statusRead, status]);
+
     const openNotifications = () => {
         if (!isNotification) {
             setIsNotification(true);
@@ -96,7 +97,7 @@ const Notifications = () => {
     return (
         <div ref={menuRef}>
             <div className="bell" onClick={openNotifications}>
-                <FontAwesomeIcon icon={faBell} className="bell-icon"/>
+                <FontAwesomeIcon icon={faBell} className={isNotification ? "bell-icon-active" : "bell-icon"}/>
                 {unreadCount !== 0 ?
                     <div className="count">
                         <strong>{unreadCount}</strong>
@@ -192,10 +193,7 @@ const Notifications = () => {
                                     </div>
                                 </div>
                             ))
-
-
                     }
-
                 </div>
             </div> : null}
         </div>

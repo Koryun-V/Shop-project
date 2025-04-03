@@ -120,9 +120,10 @@
 
     .product__name {
       font-family: "Manrope-Medium", sans-serif;
-      font-size: 45px;
+      font-size: 30px;
       font-weight: bold;
-      margin-bottom: 50px;
+      display: inline-block;
+      width: 450px;
     }
 
 
@@ -226,6 +227,7 @@
       font-family: "Manrope-Medium", sans-serif;
       font-size: 30px;
       font-weight: bold;
+
 
     }
 
@@ -547,7 +549,7 @@
       align-items: center;
       background-color: green;
       border-radius: 100px;
-      margin-bottom: 50px;
+
 
 
       .new_store-img {
@@ -842,4 +844,14 @@
   .product__description {
     text-align: left;
   }
+}
+
+
+
+.product_info-container{
+  width: 100%;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

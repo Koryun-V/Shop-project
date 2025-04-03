@@ -170,8 +170,7 @@ const OneProduct = () => {
               {delayedImages ? (
                 <>
 
-                  <div className="product_info-container"
-                       style={{display: "flex", flexWrap: "wrap", alignItems: "center", gap: "150px"}}>
+                  <div className="product_info-container">
                     <span className="product__name">{name}</span>
                     <div className="new_store">
                       <div className="new_store-img">

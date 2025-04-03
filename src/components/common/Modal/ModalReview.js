@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 import {useDispatch, useSelector} from "react-redux";
 
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
-import {faStar} from "@fortawesome/free-solid-svg-icons";
+import {faStar, faUser} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Button from "../../mini/Button";
 import {getReview, sendReview, setReviews, setReviewStatus} from "../../../store/actions/order";
 
 
-function ModalReview({open, onClose,product}) {
+function ModalReview({open, onClose, product}) {
     const dispatch = useDispatch();
     const statusSend = useSelector(state => state.order.statusReviewSend)
     const user = useSelector(state => state.login.user)
@@ -115,9 +115,11 @@ function ModalReview({open, onClose,product}) {
                             ?
                             <div className="review-block">
                                 <div className="product-review">
+
                                     <div className="img-review">
                                         <img src={product.productImg} alt="product"/>
                                     </div>
+
                                     <div className="title-review">
                                         <strong>{product.productName}</strong>
                                         {isReview ?
@@ -128,9 +130,20 @@ function ModalReview({open, onClose,product}) {
                                     </div>
                                 </div>
                                 <div className="user-review">
+
                                     <div className="img-user">
-                                        <img src={user.avatar[0].path} alt="user"/>
+                                        {user.avatar[0] ?
+                                            <div className="img-block-r">
+                                                <img src={user.avatar[0].path} alt="user"/>
+                                            </div>
+                                            :
+                                            <div className="user-modal-icon-r">
+                                                <FontAwesomeIcon icon={faUser} className="icon"/>
+                                            </div>
+                                        }
                                     </div>
+
+
                                     <div className="title-user">
                                         <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
                                     </div>
@@ -143,7 +156,8 @@ function ModalReview({open, onClose,product}) {
 
 
                                 <div className="max ">
-                                    <span>{isReview ? reviews.review.length : review.length}/300</span>
+                            <span>{isReview ? reviews.review.length : review.length}/300
+                    </span>
                                 </div>
 
                                 <div className="star" onMouseLeave={() => !isStar ? setRating("") : null} style={{
@@ -215,7 +229,8 @@ function ModalReview({open, onClose,product}) {
                                     </div>
                                 </div>
                                 <textarea value="" placeholder="" className="loading-gradient-r" disabled style={{
-                                    border: "2px solid transparent"}}>
+                                    border: "2px solid transparent"
+                                }}>
                             </textarea>
                                 <div className="max loading-gradient-r">
                                     <span className="loading-gradient-r"></span>

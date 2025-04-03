@@ -63,7 +63,7 @@ const Profile = () => {
                             {statusUser === "ok" ?
                                 <>
                                     <li className="user-modal-item">
-                                        {user.avatar[0].path ?
+                                        {user.avatar[0] ?
                                             <div className="user-avatar">
                                                 <img src={user.avatar[0].path} alt="avatar"/>
                                             </div>

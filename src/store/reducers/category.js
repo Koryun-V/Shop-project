@@ -10,6 +10,7 @@ export const category = createReducer(initialState, (builder) => {
   builder
     .addCase(getCategory.pending, (state) => {
       state.status = "pending"
+      state.data = []
     })
     .addCase(getCategory.fulfilled, (state, {payload}) => {
       state.status = "ok"

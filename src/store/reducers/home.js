@@ -40,7 +40,6 @@ export const home = createReducer(initialState, (builder) => {
       state.productsList = payload.productsList
       state.total = payload.total
     })
-
     .addCase(getAllProducts.rejected, (state) => {
       state.status = "error"
     })
@@ -57,7 +56,6 @@ export const home = createReducer(initialState, (builder) => {
     .addCase(getAllNames.rejected, (state) => {
       state.status = "error"
     })
-
 
     .addCase(getPopularProducts.pending, (state) => {
       state.statusPopular = "pending"

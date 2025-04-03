@@ -3,6 +3,7 @@
 .review-block {
   margin-top: 10px;
   transition: 0.2s all;
+
   .product-review {
     width: 100%;
     display: flex;
@@ -43,30 +44,56 @@
 
 
   }
-  .user-review{
+
+  .user-review {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top:20px;
+    margin-top: 20px;
 
 
-    .img-user{
-      border-radius: 100px;
+    .img-user {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 50%;
       height: 70px;
-      padding:5px;
-      img{
+      padding: 5px;
+
+      .img-block-r {
+        width: 70px;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         border-radius: 100px;
-        width: auto;
-        height: 100%;
-        object-fit: cover;
+
+        img {
+          border-radius: 100px;
+          width: auto;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
 
-    .title-user{
+    .user-modal-icon-r {
+      background: #d1d1d1;
+      width: 70px;
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 100px;
+
+      .icon {
+        font-size: 30px;
+        color:#737373;
+      }
+    }
+
+
+    .title-user {
       justify-content: space-evenly;
       margin-left: 20px;
       width: 100%;
@@ -77,7 +104,7 @@
   }
 
   textarea {
-    margin-top:20px;
+    margin-top: 20px;
     width: 400px;
     height: 200px;
     resize: none;
@@ -93,11 +120,13 @@
     border: 2px solid $interfaceColor;
   }
 }
-.max{
+
+.max {
   height: 20px;
   width: 100%;
   text-align: right;
-  span{
+
+  span {
     font-family: "RobotoMedium", "sans-serif";
   }
 }

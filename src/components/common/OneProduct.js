@@ -6,7 +6,7 @@ import default_image from "../../assets/icon/default_image.png";
 import {Carousel} from "react-responsive-carousel";
 import {createCard, updateCard} from "../../store/actions/products";
 import {Rating} from "react-simple-star-rating";
-import {getReview} from "../../store/actions/order";
+import {getReview, getReviewList} from "../../store/actions/order";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCheck, faStar, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useParams} from "react-router-dom";
@@ -37,7 +37,7 @@ const OneProduct = () => {
   const [more,setMore] = useState(false);
 
     useEffect(() => {
-        dispatch(getReview({productId}))
+        dispatch(getReviewList({productId}))
     }, []);
     const updateQuantity = (value) => {
         setQuantity((prev) => Math.max(1, prev + value));

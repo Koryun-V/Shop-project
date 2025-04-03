@@ -227,7 +227,7 @@ function ModalReview({open, onClose,product}) {
 
                                 </div>
                                 <div className="send-block loading-gradient-r" style={{
-                                    background: "limegreen"
+                                    background: "#00d143"
                                 }}>
                                 </div>
                             </div>

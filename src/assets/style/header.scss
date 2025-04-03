@@ -305,11 +305,44 @@
             .user-func-item {
               list-style-type: none;
 
+
+              .user-avatar{
+                border-radius:100px;
+                width: 30px;
+                height: 30px;
+                img{
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                  border-radius:100px;
+
+                }
+              }
+              .user-modal-icon{
+                background: #d1d1d1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100px;
+                width: 30px;
+                height: 30px;
+                .icon{
+                  font-size: 15px;
+                }
+              }
+              .profile-modal-icon{
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+
               li {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-
                 border-bottom: 2px solid #d1d1d1;
                 padding: 8px;
                 display: flex;
@@ -366,6 +399,10 @@
             .link-profile {
               transition: 0.2s all;
               cursor: pointer;
+              display:flex;
+              justify-content: center;
+              align-items: center;
+
             }
 
             .link-profile:hover {
@@ -373,7 +410,10 @@
             }
 
             .link-profile-active {
-              color: $interfaceColor
+              color: $interfaceColor;
+              display:flex;
+              justify-content: center;
+              align-items: center;
             }
 
             .loading-li {

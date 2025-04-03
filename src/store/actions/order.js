@@ -36,6 +36,19 @@ export const getReview = createAsyncThunk(
         }
     }
 );
+export const getReviewList = createAsyncThunk(
+    "user/get-review-list",
+    async (payload, thunkAPI) => {
+        try {
+            const {data} = await api.getReviewList(payload);
+            console.log(data,"data")
+            return data.productsReviews
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error)
+        }
+    }
+);
+
 
 export const getOrderReceived = createAsyncThunk(
     "user/get-review-received",

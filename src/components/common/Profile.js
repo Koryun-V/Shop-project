@@ -63,16 +63,30 @@ const Profile = () => {
                             {statusUser === "ok" ?
                                 <>
                                     <li className="user-modal-item">
-                                        <FontAwesomeIcon icon={faUser} className="icon"/>
+                                        {user.avatar[0].path ?
+                                            <div className="user-avatar">
+                                                <img src={user.avatar[0].path} alt="avatar"/>
+                                            </div>
+                                            :
+                                            <div className="user-modal-icon">
+                                                <FontAwesomeIcon icon={faUser} className="icon"/>
+                                            </div>
+                                        }
                                         <span>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</span>
                                     </li>
                                     <li>
-                                        <FontAwesomeIcon icon={faEnvelope} className="icon"/>
+                                        <div className="profile-modal-icon">
+                                            <FontAwesomeIcon icon={faEnvelope} className="icon"/>
+                                        </div>
                                         <span>{user.email.charAt(0).toUpperCase() + user.email.slice(1)}</span>
                                     </li>
                                     <li>
-                                        <Link to="/user" className={window.location.pathname === "/user" ? "link-profile-active" : "link-profile"} onClick={()=>setIsProfile(false)}>
-                                            <FontAwesomeIcon icon={faAddressCard} className="icon"/>
+                                        <Link to="/user"
+                                              className={window.location.pathname === "/user" ? "link-profile-active" : "link-profile"}
+                                              onClick={() => setIsProfile(false)}>
+                                            <div className="profile-modal-icon">
+                                                <FontAwesomeIcon icon={faAddressCard} className="icon"/>
+                                            </div>
                                             <span>Profile</span>
                                         </Link>
 

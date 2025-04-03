@@ -69,6 +69,10 @@ export default class Api {
         })
     }
 
+    static getReviewList({productId}) {
+        return api.get(`/reviews/list/${productId}`)
+    }
+
 
     static loginUser({email, password}) {
         return api.post(`/users/login`, {email, password});

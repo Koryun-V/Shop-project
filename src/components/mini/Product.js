@@ -108,12 +108,12 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                 <div className="product-price">
                                                     <div className="price-block">
                                                         {product.discount ?
-                                                            <span>{product.discount.discountPrice.split(".")[0]} $</span> : null}
+                                                            <span>{Math.round(product.discount.discountPrice)} $</span> : null}
                                                         <span style={{
                                                             color: product.discount ? "#a5a5a5" : "black",
                                                             fontSize: product.discount ? "20px" : "25px",
                                                             textDecorationLine: product.discount ? "line-through" : "none",
-                                                        }}>{product.price.split(".")[0]} $</span>
+                                                        }}>{Math.round(product.price)} $</span>
                                                     </div>
                                                     {product.discount ? <strong
                                                         className="loading-gradient-endDate">Until {day} {month}</strong> : null}
@@ -204,7 +204,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                 <div className="product-button loading-gradient-p"
                                      style={{
                                          height: 45,
-                                         background: "limegreen"
+                                         background: "#00d143"
                                      }}>
                                 </div>
                             </div>

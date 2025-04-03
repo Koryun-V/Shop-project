@@ -169,50 +169,58 @@ const OneProduct = () => {
             <div className="product__header__span">
               {delayedImages ? (
                 <>
-                  <div className="product_info">
+
+                  <div className="product_info-container"
+                       style={{display: "flex", flexWrap: "wrap", alignItems: "center", gap: "150px"}}>
                     <span className="product__name">{name}</span>
-                    <div className="product_mini">
-                      <span className="product__store_name">store: {store}</span>
-                      <div className="new_store">
-                        <div className="new_store-img">
-                          <img src={oneProductInfo?.result?.product?.store?.logo[0]?.logo} alt="img"/>
-                        </div>
+                    <div className="new_store">
+                      <div className="new_store-img">
+                        <img src={oneProductInfo?.result?.product?.store?.logo[0]?.logo} alt="img"/>
                       </div>
                     </div>
-                    <div className="product_pers_store_container">
-                      {oneProductInfo?.result?.product?.discount && (
-                        <>
+                  </div>
+
+
+                  <div className="product_pers_store_container">
+                    {oneProductInfo?.result?.product?.discount && (
+                      <div style={{display: "flex", flexWrap: "wrap", gap: "15px"}}>
                         <span className="product__store_name"> Discount - </span>
                         <div className="persentage_info">
                           <span>- {oneProductInfo.result.product.discount.discountPercentage}%</span>
                         </div>
-                        </>
-                      )}
+                      </div>
+                    )}
+                  </div>
 
-                    </div>
-
-                    <div className="product-price_info">
-                      {oneProductInfo?.result?.product?.discount ? (
-                        <>
-                          <span>{quantity * oneProductInfo.result.product.discount.discountPrice}$</span>
-                          <span
-                            style={{
-                              color: "#a5a5a5",
-                              fontSize: "25px",
-                              fontWeight: "bold",
-                              textDecorationLine: "line-through",
-                            }}
-                          >
-          {quantity * oneProductInfo?.result?.product?.price}$
-        </span>
-                        </>
-                      ) : (
-                        <span className="product__store_name">
+                  <div className="product-price_info">
+                    {oneProductInfo?.result?.product?.discount ? (
+                      <>
+                        <div style={{marginBottom: "40px"}}>
+      <span>
+        <span
+          className="product__store_name">Price -</span>{quantity * oneProductInfo.result.product.discount.discountPrice}$
+      </span>
+                        </div>
+                        <div style={{marginBottom: "40px"}}>
+                        <span
+                          style={{
+                            color: "#a5a5a5",
+                            fontSize: "25px",
+                            fontWeight: "bold",
+                            textDecorationLine: "line-through",
+                          }}
+                        >
         {quantity * oneProductInfo?.result?.product?.price}$
       </span>
-                      )}
-                    </div>
+                        </div>
+                      </>
+                    ) : (
+                      <span className="product__store_name">
+      <span className="product__store_name">Price -</span>{quantity * oneProductInfo?.result?.product?.price}$
+    </span>
+                    )}
                   </div>
+
                   <div className="product__quantity">
                     <button
                       onClick={() => addCard()}

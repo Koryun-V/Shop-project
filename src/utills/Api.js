@@ -286,6 +286,7 @@ export default class Api {
         }
 
         return api.get(`/products/list`, {
+
             params: {
                 userId,
                 limit,
@@ -293,8 +294,11 @@ export default class Api {
                 minPrice,
                 maxPrice,
                 s: search,
-                storeId: store
-            }
+                storeId: store,
+                categoryIds
+
+            },
+
         });
     }
 }

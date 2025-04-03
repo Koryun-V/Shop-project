@@ -13,6 +13,7 @@ import {} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
 import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProduct} from "../actions/home";
+import {toast} from "react-toastify";
 
 const initialState = {
   status: "",
@@ -42,7 +43,10 @@ export const home = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllProducts.pending, (state) => {
       state.status = "pending"
+      state.productsList = [];
     })
+
+
     .addCase(getAllProducts.fulfilled, (state, {payload}) => {
       state.status = "ok"
       // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList

@@ -164,6 +164,7 @@ const OrderUniversal = ({order, status}) => {
                 )
             }) : <span>loading</span>}
             <ModalReview
+                product={product}
                 open={reviewOpen} onClose={() => {
                 setActiveItem("")
                 dispatch(setIsOpenReview(false))

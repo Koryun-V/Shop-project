@@ -218,7 +218,7 @@ const OneProduct = () => {
                                                     review.user.lastName.slice(1)} {review.user.firstName.charAt(0).toUpperCase() + review.user.lastName.slice(1)}
                                             </strong>
                                             <span><FontAwesomeIcon icon={faCheck} style={{
-                                                color: "limegreen"
+                                                color: "#00d143"
                                             }}/> Bought out</span>
                                         </div>
                                     </div>

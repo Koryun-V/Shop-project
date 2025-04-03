@@ -441,9 +441,9 @@ const Register = () => {
                             </div>
                             <div className="circle"></div>
                             <div className="circle"
-                                 style={{background: status === "ok" ? "limegreen" : "#979797"}}></div>
+                                 style={{background: status === "ok" ? "#00d143" : "#979797"}}></div>
                             <div className="circle"
-                                 style={{background: statusKey === "ok" ? "limegreen" : "#979797"}}></div>
+                                 style={{background: statusKey === "ok" ? "#00d143" : "#979797"}}></div>
                         </div>
                     </div>
                     <div className="container-register-img">

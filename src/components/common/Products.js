@@ -170,7 +170,7 @@ const Products = () => {
                                     option: (base, {isFocused}) => ({
                                         ...base,
                                         cursor: "pointer",
-                                        backgroundColor: isFocused ? "limegreen" : "white",
+                                        backgroundColor: isFocused ? "#00d143" : "white",
                                         color: isFocused ? "white" : "black",
                                         "&:active": {background: "#84e984", color: "white"}
                                     }),

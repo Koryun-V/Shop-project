@@ -73,7 +73,7 @@ const PinInput = () => {
                     style={{
                         transition: status === "error" || status === "ok" ? "0.5s" : "0s",
 
-                        border: status === "ok" ? "2px solid limegreen" :
+                        border: status === "ok" ? "2px solid #00d143" :
                             id === i && status !== "error"
                             || code[i] !== "" && status !== "error"
                                 ? "2px solid black" :

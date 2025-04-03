@@ -61,7 +61,7 @@ const Order = () => {
                                 left: orderStatus === "received" ? "calc(100% / 4)"
                                     : orderStatus === "paid"
                                         ? "calc(100% / 2)" : orderStatus === "failed" ? "calc(100% - 200px)" : 0,
-                                background: orderStatus === "received" ? "limegreen" : orderStatus === "paid" ? "#7b00ff" : orderStatus === "failed" ? "red" : "#d1d1d1",
+                                background: orderStatus === "received" ? "#00d143" : orderStatus === "paid" ? "#7b00ff" : orderStatus === "failed" ? "red" : "#d1d1d1",
                             }}>
                             </div>
                         </div>

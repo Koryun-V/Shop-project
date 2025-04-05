@@ -27,7 +27,7 @@ const Notifications = () => {
     const status = useSelector(state => state.notifications.status)
 
     const [isNotification, setIsNotification] = useState(false);
-    let menuRef = useRef();
+    let menuRef = useRef(null);
     const [id, setId] = useState([])
     console.log(statusRead, 's')
     useEffect(() => {
@@ -62,8 +62,9 @@ const Notifications = () => {
 
 
     useEffect(() => {
+        const element = document.querySelector(".notifications-ref");
         let handler = (e) => {
-            if (!menuRef.current.contains(e.target)) {
+            if (element && !menuRef.current.contains(e.target)) {
                 setIsNotification(false);
             }
         }
@@ -71,7 +72,7 @@ const Notifications = () => {
         return () => {
             document.removeEventListener("mousemove", handler);
         }
-    })
+    },[menuRef.current])
     useEffect(() => {
         if (statusRead === "ok" && status === "ok") {
             setId([])
@@ -95,7 +96,7 @@ const Notifications = () => {
 
     console.log(notifications, "A")
     return (
-        <div ref={menuRef}>
+        <div ref={menuRef} className="notifications-ref">
             <div className="bell" onClick={openNotifications}>
                 <FontAwesomeIcon icon={faBell} className={isNotification ? "bell-icon-active" : "bell-icon"}/>
                 {unreadCount !== 0 ?

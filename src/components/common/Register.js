@@ -168,6 +168,7 @@ const Register = () => {
             })
             &&
             user.year < 2015
+
         ) {
             setIsDate("ok");
         } else {
@@ -175,7 +176,7 @@ const Register = () => {
         }
     };
 
-
+    console.log(isDate, "isDate")
     useEffect(() => {
         inputName.forEach((item) => {
             if (item === title && value.length) {
@@ -257,14 +258,20 @@ const Register = () => {
                         if (name === "firstName" || name === "lastName") {
                             const filter = inputName.filter(item => item !== title)
                             setInputName(filter)
-                        } else if (name === "year" || name === "month" || name === "day") {
-                            if (isDate === "no") {
-                                setInputName((prevState) => (_.uniq([...prevState, title])))
-                            } else {
+
+                        } else if (name === "day" || name === "month" || name === "year") {
+                             if(user.day.length === 2 && user.month.length === 2 && user.year.length === 4 && isDate === "ok"){
+                                const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
+                                setInputName(filter)
+                            }
+                            else if(user.day.length === 2 && user.month.length === 2 && user.year.length === 4 && isDate === "no"){
+                                 setInputName((prevState) => (_.uniq([...prevState, title])))
+
+                             }
+                            else{
                                 const filter = inputName.filter(item => item !== title);
                                 setInputName(filter)
                             }
-
 
                         } else if (name === "password" || name === "repeatPassword") {
                             if (user.repeatPassword.length && user.password !== user.repeatPassword) {

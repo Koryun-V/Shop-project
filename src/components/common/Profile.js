@@ -19,8 +19,10 @@ const Profile = () => {
     const statusUser = useSelector(state => state.login.statusUser)
 
     useEffect(() => {
+        const element = document.querySelector(".user-ref");
+
         let handler = (e) => {
-            if (!userRef.current.contains(e.target)) {
+            if (element && !userRef.current.contains(e.target)) {
                 setIsProfile(false);
             }
         }
@@ -28,7 +30,7 @@ const Profile = () => {
         return () => {
             document.removeEventListener("mousemove", handler);
         }
-    })
+    },[userRef.current])
 
 
     const openProfile = () => {
@@ -39,7 +41,7 @@ const Profile = () => {
         }
     }
     return (
-        <div ref={userRef}>
+        <div ref={userRef} className="user-ref">
             <div className="user" onClick={openProfile}>
                 <div className={isProfile ? "user-img-active" : "user-img"}
                      style={{

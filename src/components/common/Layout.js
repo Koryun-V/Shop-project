@@ -19,7 +19,7 @@ import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
 
 
-import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId} from "../../store/actions/home";
+import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId, getStores} from "../../store/actions/home";
 import Notifications from "./Notifications";
 import Profile from "./Profile";
 
@@ -46,11 +46,14 @@ function Layout() {
     const productsNames = useSelector(state => state.home.productsNames);
     const userId = useSelector(state => state.login.user?.id);
     const nameData = useSelector(state => state.home.nameData);
+    const stores = useSelector(state=>state.home.storesList)
 
 
     const {pathname} = useLocation()
 
-
+    useEffect(() => {
+        dispatch(getStores({page:1,limit:10}))
+    }, []);
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname])
@@ -85,7 +88,7 @@ function Layout() {
         };
     }, []);
 
-
+    console.log(stores,"a")
     const handleSearch = (e) => {
         navigate("/products")
         e.preventDefault();
@@ -143,13 +146,25 @@ function Layout() {
                                     <li className="nav-item">Store
                                         <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
                                         <ul className="nav-more">
-                                            <li><img src="#"/>IDEAL</li>
-                                            <li><img src="#"/>DOMUS</li>
-                                            <li><img src="#"/>ESIM</li>
+                                            {stores.map((item)=> (
+                                                <li>
+                                                    <div className="store-logo">
+                                                        <img src={item.storeLogo[0].path} alt="logo"/>
+                                                    </div>
+                                                    {/*<div className="store-name">*/}
+                                                    {/*    <span>{item.name}</span>*/}
+                                                    {/*</div>*/}
+                                                </li>
+
+                                            ))}
+
+
                                         </ul>
                                     </li>
 
-                                    <Link    className={window.location.pathname === "/products" ? "nav-item-active" : "nav-item"} to="/products">
+                                    <Link
+                                        className={window.location.pathname === "/products" ? "nav-item-active" : "nav-item"}
+                                        to="/products">
                                         <li>Products</li>
                                     </Link>
                                     <Link className="nav-item" to="/#">
@@ -229,23 +244,24 @@ function Layout() {
                                     </>
                                     :
                                     <>
-                                            <Notifications/>
+                                        <Notifications/>
 
+                                        <Link to="/basket">
+                                            <div className="cart">
 
-                                        <div className="cart">
-                                            <Link to="/basket">
                                                 <FontAwesomeIcon icon={faCartShopping}
                                                                  className={window.location.pathname === "/basket" ? "cart-icon-active" : "cart-icon"}/>
-                                            </Link>
-                                        </div>
 
-                                        <div className="cart">
-                                            <Link to="/order">
+                                            </div>
+                                        </Link>
+                                        <Link to="/order">
+                                            <div className="cart">
+
                                                 <FontAwesomeIcon icon={faCube}
                                                                  className={window.location.pathname === "/order" ? "cart-icon-active" : "cart-icon"}/>
-                                            </Link>
-                                        </div>
 
+                                            </div>
+                                        </Link>
                                         <Profile/>
                                     </>
                                 }

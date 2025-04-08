@@ -126,7 +126,7 @@ const Products = () => {
   };
 
 
-  console.log(categoryIds, "categoryIds")
+  // console.log(categoryIds, "categoryIds")
 
 
   return (

@@ -77,6 +77,13 @@ const OneProduct = () => {
     } else {
       dispatch(createCard({productId, quantity}));
     }
+
+    if (userId) {
+      dispatch(getOneProduct({id: productId, userId}));
+    } else {
+      dispatch(getOneProduct({id: productId}));
+    }
+
   };
 
 

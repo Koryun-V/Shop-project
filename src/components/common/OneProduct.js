@@ -4,12 +4,10 @@ import {getOneProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
 import default_image from "../../assets/icon/default_image.png";
 import {createCard, updateCard} from "../../store/actions/products";
-import {Rating} from "react-simple-star-rating";
 import {getReview} from "../../store/actions/order";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight, faCheck, faStar, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useParams} from "react-router-dom";
-import img from "../../esim/1.jpg";
 import Slider from "react-slick";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
@@ -23,7 +21,6 @@ const OneProduct = () => {
   const oneProductInfo = useSelector(state => state.oneProduct.oneProduct);
   const name = oneProductInfo?.result?.product?.name;
   const id = oneProductInfo?.result?.product?.id;
-  const price = oneProductInfo?.result?.product?.price
   const images = oneProductInfo?.result?.product?.images
   const description = oneProductInfo?.result?.product?.description;
   const size = oneProductInfo?.result?.product?.size
@@ -36,6 +33,7 @@ const OneProduct = () => {
   const quantityNumber = oneProductInfo?.result?.product?.quantity;
   const reviews = useSelector(state => state.order.reviewsAll)
   const [index, setIndex] = useState([100])
+
 
   const [more, setMore] = useState(false);
 
@@ -71,7 +69,7 @@ const OneProduct = () => {
   // console.log(cardId, "cardId")
 
   const addCard = () => {
-    if (quantity === 0) return;
+    if (quantityNumber === 0) return;
     if (cardId) {
       dispatch(updateCard({cardId, add: quantity}));
     } else {
@@ -83,7 +81,6 @@ const OneProduct = () => {
     } else {
       dispatch(getOneProduct({id: productId}));
     }
-
   };
 
 
@@ -228,7 +225,7 @@ const OneProduct = () => {
                   </div>
 
                   <div className="product__quantity">
-                    <button
+                    <button disabled={quantityNumber === 0}
                       onClick={() => addCard()}
                       className="product__button__cart">Add to cart
                     </button>

@@ -63,10 +63,6 @@ const OneProduct = () => {
   }
 
 
-  // console.log(oneProductInfo, "oneProductInfo");
-
-  // console.log(isInCart, "isInCart")
-  // console.log(cardId, "cardId")
 
   const addCard = () => {
     if (quantityNumber === 0) return;
@@ -147,7 +143,6 @@ const OneProduct = () => {
   };
 
 
-  console.log(oneProductInfo, "oneProductInfo");
   return (
     <div className="new-big-container">
       <div className="new-container">
@@ -189,7 +184,7 @@ const OneProduct = () => {
                       <div style={{display: "flex", flexWrap: "wrap", gap: "15px"}}>
                         <span className="product__store_name"> Discount - </span>
                         <div className="persentage_info">
-                          <span>- {oneProductInfo.result.product.discount.discountPercentage}%</span>
+                          <span>- {Math.floor(oneProductInfo.result.product.discount.discountPercentage)}%</span>
                         </div>
                       </div>
                     )}
@@ -236,7 +231,6 @@ const OneProduct = () => {
                     <button disabled={quantity >= quantityNumber} className="product__button"
                             onClick={() => updateQuantity(1)}>+
                     </button>
-
                   </div>
                   <div className="product_mini_desc">
                     <span className="product__store_name_desc">Delivery is carried out by the supplier's couriers or the  courier service. You can also pick up the goods yourself from the supplier</span>

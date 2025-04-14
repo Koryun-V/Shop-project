@@ -32,6 +32,7 @@ const Products = () => {
   const searchValue = useSelector(state => state.home.searchValue);
   const categoryId = useSelector(state => state.home.categoryId);
   const storeId = useSelector(state => state.home.storeId);
+  const storeList = useSelector(state => state.home.storesList)
   const userId = useSelector(state => state.home.userId);
   const status = useSelector(state => state.products.statusCard);
   const statusProducts = useSelector(state => state.home.status);
@@ -43,7 +44,6 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getStores({page: 1, limit: 10}))
-
   }, []);
 
 
@@ -60,7 +60,6 @@ const Products = () => {
       maxPrice,
       s: searchValue.trim(),
       storeId,
-
     };
 
     if (userId) {
@@ -80,7 +79,7 @@ const Products = () => {
     dispatch(setSearchValue(""));
     dispatch(setStoreId(""))
     setCategoryIds("")
-    toast.info("all fields have been cleaned, please press APPLY!")
+    toast.info("all fields have been cleaned, if didn't work please press APPLY")
   };
 
 
@@ -111,6 +110,15 @@ const Products = () => {
     dispatch(setMaxPrice(newMax));
   };
 
+  const chooseStore = (id) => {
+    if (storeId === id) {
+      dispatch(setStoreId("")); // Unselect if already selected
+    } else {
+      dispatch(setStoreId(id)); // Select new store
+    }
+  };
+
+
   const clickCategoryId = (id) => {
     setCategoryIds((prev) => {
       let idsArray = prev ? prev.split(",").map(Number) : []; // Convert string to array
@@ -126,7 +134,7 @@ const Products = () => {
   };
 
 
-  // console.log(categoryIds, "categoryIds")
+  console.log(storeId, "storeID")
 
 
   return (
@@ -134,16 +142,15 @@ const Products = () => {
       <div className="new-container">
         <div className="filter-container">
           <div className="filter">
+            <p className="info_span">Categories</p>
             <div className="stores_container">
               {categories
                 .filter((category, index) => index !== 0)
                 .map((category, index) => (
-                  <div key={category.id} className="category-item" onClick={() => clickCategoryId(category.id)}
-                       style={{
-                         border: categoryIds.includes(category.id) ? "2px solid limegreen" : "2px solid #ddd",
-                         borderRadius: "5px"
-                       }}
-
+                  <div
+                    key={category.id}
+                    className={`category-item ${categoryIds.includes(category.id) ? "selected" : ""}`}
+                    onClick={() => clickCategoryId(category.id)}
                   >
                     {category.categoryImage?.length > 0 && (
                       <img
@@ -155,8 +162,25 @@ const Products = () => {
                   </div>
                 ))}
             </div>
+
+            <span className="info_span">Stores</span>
+            <div className="stores_container">
+              {storeList.map((store, index) => (
+                <div className={`category-item ${storeId === store.id ? "selected" : ""}`}
+                     key={store.id}
+                     onClick={() => chooseStore(store.id)}>
+                  <img
+                    src={store?.storeLogo?.[0]?.path}
+                    alt={store?.name}
+                    className="category-image"
+                  />
+                </div>
+              ))}
+            </div>
+
+
             <form action="#" className="price-container">
-              <span style={{marginTop: "10px", marginBottom: "15px"}}>Price</span>
+              <span className="info_span">Price</span>
               <div>
                 <input type="text" className="price-input" value={Number(minPrice)} onChange={handleMinPriceChange}/>
                 <input type="text" className="price-input" value={Number(maxPrice)} onChange={handleMaxPriceChange}/>
@@ -181,14 +205,14 @@ const Products = () => {
         </div>
         <div className="products_container">
 
-            <Product
-              statusProducts={statusProducts}
-              classNameActive="product-active"
-              products={products}
-              quantity={12}
-              className="product-block"
-              classNameImg="product-img"
-            />
+          <Product
+            statusProducts={statusProducts}
+            classNameActive="product-active"
+            products={products}
+            quantity={12}
+            className="product-block"
+            classNameImg="product-img"
+          />
 
 
           <div className="react_pagination_div">

@@ -54,7 +54,7 @@ const Home = () => {
         dispatch(getCategory())
     }, []);
 
-    // console.log(category, "sssssssss")
+
 
 
     function SamplePrevArrow(props) {

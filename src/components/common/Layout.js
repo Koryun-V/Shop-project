@@ -210,7 +210,7 @@ function Layout() {
                   <Link className="nav-item" to="/products">
                     <li>Products</li>
                   </Link>
-                  <Link className="nav-item" to="/#">
+                  <Link className="nav-item" to="/contact">
                     <li>Contact</li>
                   </Link>
                 </ul>

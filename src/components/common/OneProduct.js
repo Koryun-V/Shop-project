@@ -63,7 +63,6 @@ const OneProduct = () => {
   }
 
 
-
   const addCard = () => {
     if (quantityNumber === 0) return;
     if (cardId) {
@@ -221,8 +220,8 @@ const OneProduct = () => {
 
                   <div className="product__quantity">
                     <button disabled={quantityNumber === 0}
-                      onClick={() => addCard()}
-                      className="product__button__cart">Add to cart
+                            onClick={() => addCard()}
+                            className="product__button__cart">Add to cart
                     </button>
                     <button disabled={quantity <= 1} className="product__button" onClick={() => updateQuantity(-1)}>-
                     </button>

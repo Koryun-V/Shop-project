@@ -180,7 +180,7 @@ const OneProduct = () => {
 
                   <div className="product_pers_store_container">
                     {oneProductInfo?.result?.product?.discount && (
-                      <div style={{display: "flex", flexWrap: "wrap", gap: "15px"}}>
+                      <div style={{display: "flex", flexWrap: "wrap", gap: "15px", justifyContent: "center", marginBottom: "50px"}}>
                         <span className="product__store_name"> Discount - </span>
                         <div className="persentage_info">
                           <span>- {Math.floor(oneProductInfo.result.product.discount.discountPercentage)}%</span>
@@ -247,9 +247,17 @@ const OneProduct = () => {
           <div className="product__description">
             <div className="container">
               <h3 className="product__description__h">Description</h3>
-              <p className="product__description__p">{description}</p>
-              <p className="product__description__p">Store - {store}</p>
-              <p className="product__description__p">Size - {size}</p>
+              {!description ? (
+                <>
+                  <Skeleton count={3} height={20} style={{ marginBottom: '10px' }} />
+                </>
+              ) : (
+                <>
+                  <p className="product__description__p">{description}</p>
+                  <p className="product__description__p">Store - {store}</p>
+                  <p className="product__description__p">Size - {size}</p>
+                </>
+              )}
             </div>
           </div>
           <div className="product__description">

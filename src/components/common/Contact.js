@@ -50,7 +50,7 @@ Paveletskaya Buses 13, 106, 158, 184, 632 Stop "Derbenevskaya emb., 7"
             <div className="contact_desc">
               <div className="contact_mini_desc">
                 <span className="contact_mini_desc_text">
-                  Поддержка клиентов info@stroykastore.ru
+                 Customer support info@stroykastore.ru
                 </span>
               </div>
             </div>

@@ -15,7 +15,7 @@ const Contact = () => {
 
 
           <span className="contact_name">
-              ООО «СтройкаСтор»
+              LLC  Stroyka Store
           </span>
 
 
@@ -23,27 +23,27 @@ const Contact = () => {
             <div className="contact_desc">
               <div className="contact_mini_desc">
                  <span className="contact_mini_desc_text">
-115114, г. Москва, Дербеневская набережная, д. 7, стр. 8
+115114, Moscow, Derbenevskaya embankment, 7, bldg. 8
                  </span>
               </div>
               <div className="contact_mini_desc">
                 <span className="contact_mini_desc_text">
-Павелецкая Автобусы 13, 106, 158, 184, 632 Остановка «Дербеневская наб., д. 7»
+Paveletskaya Buses 13, 106, 158, 184, 632 Stop "Derbenevskaya emb., 7"
                 </span>
               </div>
             </div>
             <div className="contact_desc">
               <div className="contact_mini_desc">
-                <span className="contact_mini_desc_text">ОГРН: 1047796688554</span>
-                <span className="contact_mini_desc_text">ИНН 7703528301</span>
-                <span className="contact_mini_desc_text">КПП 774850001</span>
-                <span className="contact_mini_desc_text">ОКТМО 45380000</span>
-                <span className="contact_mini_desc_text">ОГРН 1047796688554</span>
-                <span className="contact_mini_desc_text">Расчетный рублевый счет: 40702810900001403352</span>
-                <span className="contact_mini_desc_text">Банк: АО «Сбербанк»</span>
-                <span className="contact_mini_desc_text">г. Москва</span>
-                <span className="contact_mini_desc_text">Корреспондентский счет: 30101810200000000700</span>
-                <span className="contact_mini_desc_text">БИК: 044525700</span>
+                <span className="contact_mini_desc_text">OGRN: 1047796688554</span>
+                <span className="contact_mini_desc_text">INN 7703528301</span>
+                <span className="contact_mini_desc_text">KPP 774850001</span>
+                <span className="contact_mini_desc_text">OKTMO 45380000</span>
+                <span className="contact_mini_desc_text">OGRN 1047796688554</span>
+                <span className="contact_mini_desc_text">Current ruble account: 40702810900001403352</span>
+                <span className="contact_mini_desc_text">Bank: JSC Sberbank</span>
+                <span className="contact_mini_desc_text">Moscow</span>
+                <span className="contact_mini_desc_text">Correspondent account: 30101810200000000700</span>
+                <span className="contact_mini_desc_text">BIC: 044525700</span>
               </div>
             </div>
 

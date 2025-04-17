@@ -94,19 +94,24 @@ function Layout() {
 
 
   const handleSearch = (e) => {
-    e.preventDefault(); // Prevent form submission default behavior
+    e.preventDefault();
 
+    const trimmedSearch = searchValue.trim();
 
+    if (!trimmedSearch) {
+      // Don't do anything if search is empty
+      return;
+    }
 
     setIsSearchOpen(false);
-    navigate("/products"); // Navigate only after validating search value
+    navigate("/products");
 
     const searchParams = {
       page,
       limit,
       minPrice,
       maxPrice,
-      s: searchValue.trim(),
+      s: trimmedSearch,
       storeId,
     };
 
@@ -115,7 +120,6 @@ function Layout() {
     }
 
     dispatch(getAllProducts(searchParams));
-
   };
 
   const chooseName = (item) => {

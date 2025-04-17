@@ -27,15 +27,15 @@ const fields = [
         id: 1,
         name: "email",
         label: "E-mail",
-        validation: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        info: "Please enter correct e-mail.",
+        // validation: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+        // info: "Please enter correct e-mail.",
     },
     {
         id: 2,
         name: "password",
         label: "Password",
-        validation: /^.{8,}$/,
-        info: "Your password must be at least 8 characters long, or a mismatch.",
+        // validation: /^.{8,}$/,
+        // info: "Your password must be at least 8 characters long, or a mismatch.",
     },
 ]
 
@@ -179,25 +179,24 @@ function ModalLogin({open, onClose}) {
         }
     }
 
-    const test = () => {
-        if (!isModalClose) {
-            fields.forEach(({validation, name, id}) => {
-                    if (title === name) {
-                        let test = validation.test(value)
-                        if (test === false || !value.length) {
-                            setInputName((prevState) => (_.uniq([...prevState, title])))
-                            console.log("if")
-                        } else {
-                            const filter = inputName.filter(item => item !== title)
-                            setInputName(filter)
-                            console.log("else")
-                        }
-                    }
-                }
-            )
-        }
-
-    }
+    // const test = () => {
+    //     if (!isModalClose) {
+    //         fields.forEach(({validation, name, id}) => {
+    //                 if (title === name) {
+    //                     let test = validation.test(value)
+    //                     if (test === false || !value.length) {
+    //                         setInputName((prevState) => (_.uniq([...prevState, title])))
+    //                         console.log("if")
+    //                     } else {
+    //                         const filter = inputName.filter(item => item !== title)
+    //                         setInputName(filter)
+    //                         console.log("else")
+    //                     }
+    //                 }
+    //             }
+    //         )
+    //     }
+    // }
 
     const forgotPassword = () => {
         setIsForgot(true);
@@ -248,7 +247,7 @@ function ModalLogin({open, onClose}) {
                                                         name={field.name}
                                                         className="input"
                                                         {...field}
-                                                        onBlur={test}
+                                                        // onBlur={test}
                                                         onChange={onChange}
                                                         value={user[field.name]}
                                                         // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
@@ -264,17 +263,18 @@ function ModalLogin({open, onClose}) {
                                                     {status === "error" && field.name === "password" ?
                                                         <span>Wrong login or password.</span>
                                                         :
-                                                        inputName.map(((item, index) => (
-                                                            item === field.name ?
-                                                                <>
-                                                                    <div className="test2"></div>
-                                                                    <span>{status === "error" ? "Wrong login or password." : !user[item].length ? "Field Required" : field.info}</span>
-                                                                </> :
-                                                                status === "error" ?
-                                                                    <span>Wrong login or password.</span>
-                                                                    : null
+                                                        null}
+                                                        {/*inputName.map(((item, index) => (*/}
+                                                        {/*    item === field.name ?*/}
+                                                        {/*        <>*/}
+                                                        {/*            <div className="test2"></div>*/}
+                                                        {/*            <span>{status === "error" ? "Wrong login or password." : !user[item].length ? "Field Required" : field.info}</span>*/}
+                                                        {/*        </> :*/}
+                                                        {/*        status === "error" ?*/}
+                                                        {/*            <span>Wrong login or password.</span>*/}
+                                                        {/*            : null*/}
 
-                                                        )))}
+                                                        {/*)))}*/}
                                                 </div>
                                             </div>
                                         ))}

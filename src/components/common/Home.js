@@ -161,8 +161,7 @@ const Home = () => {
             <article className="article-home">
                 <div className="title">
                     <h3>Popular products</h3>
-                    <Link to="/#">All products <FontAwesomeIcon icon={faAngleRight} className="user-arrow"
-
+                    <Link to="/products">All products <FontAwesomeIcon icon={faAngleRight} className="user-arrow"
                     /></Link>
                 </div>
                 <div className="article-block">

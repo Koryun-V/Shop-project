@@ -45,7 +45,7 @@ const OrderUniversal = ({order, status}) => {
 
                                 <div className="order-info">
                                     <span>{item.product.name}</span>
-                                    <strong>{item.amount.split(".")[0]} $</strong>
+                                    <strong>{Math.round(item.amount)} $</strong>
                                     <span>{item.quantity} pcs.</span>
 
 

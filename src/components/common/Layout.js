@@ -87,7 +87,7 @@ function Layout() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
+    console.log(window.location.pathname)
     console.log(stores,"a")
     const handleSearch = (e) => {
         navigate("/products")
@@ -149,7 +149,7 @@ function Layout() {
                                             {stores.map((item)=> (
                                                 <li>
                                                     <div className="store-logo">
-                                                        <img src={item.storeLogo[0].path} alt="logo"/>
+                                                        {/*<img src={item.storeLogo[0].path} alt="logo"/>*/}
                                                     </div>
                                                     {/*<div className="store-name">*/}
                                                     {/*    <span>{item.name}</span>*/}
@@ -294,17 +294,16 @@ function Layout() {
 
 
                             <div className="footer-block">
-                                <div className="footer-link"><Link>Profile</Link></div>
+                                <div className="footer-link"><Link to="/user">Profile</Link></div>
                                 <div className="footer-link"><Link to="/order">Order</Link></div>
                                 <div className="footer-link"><Link to="/basket">Basket</Link></div>
                             </div>
                             <div className="footer-block">
-                                <div className="footer-link"><Link>Category</Link></div>
-                                <div className="footer-link"><Link>Shares</Link></div>
+                                <div className="footer-link"><Link>Share</Link></div>
                                 <div className="footer-link"><Link>Contact</Link></div>
                             </div>
                             <div className="footer-block">
-                                <div className="footer-link"><Link>Стать продавцом</Link></div>
+                                <div className="footer-link"><Link>Become a seller</Link></div>
 
                             </div>
                         </div>

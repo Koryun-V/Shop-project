@@ -7,6 +7,13 @@ import {faCartShopping, faCheck} from "@fortawesome/free-solid-svg-icons";
 import {createCard, getCards} from "../../store/actions/products";
 import {setProduct, setProductId} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
+import {setIsOpenLogin} from "../../store/actions/login";
+
+
+
+
+const token = localStorage.getItem("token");
+
 
 const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading, statusProducts}) => {
     const [indexImg, setIndexImg] = useState(0);
@@ -120,8 +127,11 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                 </div>
                                                 <div className="product-name"><span>{product.name}</span></div>
                                                 <div className="product-description">
-                                                    <div className="text-block">
-                                                        <span>{product.description}</span>
+                                                    <div className="text-block" style={{
+                                                        display:product.description.length > 80 ? "flex" : "block"
+                                                    }}>
+                                                        <span className={product.description.length > 80 ? "line-description" : ""}>{product.description}</span>
+
                                                     </div>
                                                     <div className="store">
                                                         <div className="store-img">
@@ -135,6 +145,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                 <Button isProduct={true} isCard={isCard} index={index}
                                                         indexProduct={indexProduct}
                                                         status={statusEnd} onClick={() =>
+                                                        !token ? dispatch(setIsOpenLogin(true)) :
                                                         product.isInCart ? navigate(`/basket`) :
                                                         sendProduct(product.id, index)
                                                 }

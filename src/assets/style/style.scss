@@ -23,7 +23,6 @@
 
 @import url("oneProduct.scss");
 
-
 @import "variables";
 
 @import url("slide.scss");
@@ -119,7 +118,6 @@ input:-webkit-autofill:focus {
 }
 
 
-
 .main {
   width: 100%;
   height: 100%;
@@ -164,7 +162,7 @@ input:-webkit-autofill:focus {
   }
 
   .article-home-bg {
-    margin-top:50px;
+    margin-top: 50px;
     background: #F6F6F6;
     justify-content: center;
     align-items: center;
@@ -174,13 +172,12 @@ input:-webkit-autofill:focus {
     flex-direction: column;
 
 
-
     .review-title {
       width: 100%;
       margin-left: 10px;
       margin-bottom: 10px;
       font-family: "PoppinsMedium", "sans-serif";
-      font-size:34px;
+      font-size: 34px;
     }
 
 
@@ -193,9 +190,6 @@ input:-webkit-autofill:focus {
       flex-wrap: wrap;
       margin: -10px;
       padding: 50px 40px;
-
-
-
 
 
     }
@@ -465,7 +459,6 @@ a {
 
 .footer {
   background: #2F323A;
-  color: white;
   padding: 50px 50px 30px 50px;
   margin-top: 30px;
   width: 100%;
@@ -476,10 +469,9 @@ a {
   align-items: center;
 
 
-
   .footer-container {
-    padding:0 50px;
-
+    padding: 0 50px;
+    color:white;
     width: 100%;
     max-width: 1440px;
     height: 100%;
@@ -495,6 +487,15 @@ a {
       width: calc(100% / 4);
       display: flex;
       flex-direction: column;
+
+
+
+      a{
+        transition: 0.2s all
+      }
+      a:hover {
+        color:  #737373 !important;
+      }
 
       .footer-shop-info {
         .footer-icon {

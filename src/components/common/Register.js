@@ -210,8 +210,6 @@ const Register = () => {
             if (n === "email") {
                 dispatch(setDeleteEmail(""))
                 dispatch(setStatusRegister(""))
-
-
             }
         }
 

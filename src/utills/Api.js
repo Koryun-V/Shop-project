@@ -279,12 +279,8 @@ export default class Api {
     }
 
 
-    static getAllProducts({categoryId, limit, page, minPrice, maxPrice, storeId, s, id}) {
-        let category
+    static getAllProducts({categoryIds, limit, page, minPrice, maxPrice, storeId, s, id}) {
         let userId
-        if (categoryId) {
-            category = categoryId
-        }
         let store
         if (storeId) {
             store = storeId
@@ -298,16 +294,19 @@ export default class Api {
         }
 
         return api.get(`/products/list`, {
+
             params: {
                 userId,
-                categoryId: category,
                 limit,
                 page,
                 minPrice,
                 maxPrice,
                 s: search,
-                storeId: store
-            }
+                storeId: store,
+                categoryIds
+
+            },
+
         });
     }
 }

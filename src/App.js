@@ -16,11 +16,10 @@ import Category from "./components/common/Category";
 import Products from "./components/common/Products";
 import OneProduct from "./components/common/OneProduct";
 import Users from "./components/pages/User";
-import Test from "./components/common/Test";
+import Contact from "./components/common/Contact";
 
 
 const token = localStorage.getItem("token");
-
 function App() {
     return (
         <Routes>
@@ -33,22 +32,22 @@ function App() {
                 <Route path="/order" element={<Order/>}/>
                 <Route path="/category" element={<Category/>}/>
 
-                <Route path="/basket" element={<CartList/>}/>
-                <Route path="/cardok" element={<OrdersOk/>}/>
+              <Route path="/basket" element={<CartList/>}/>
+              <Route path="/cardok" element={<OrdersOk/>}/>
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
-                <Route path="/test" element={<Test/>}/>
-
                 <Route path="/one-product/:productId" element={<OneProduct/>}/>
+                <Route path="/contact" element={<Contact/>}/>
+
 
                 {/*<Route path="/products">*/}
-                {/*  <Route index element={<Products/>}/>*/}
-                {/*  <Route path=":productId" element={<OneProduct/>}/>*/}
-                {/*</Route>*/}
+              {/*  <Route index element={<Products/>}/>*/}
+              {/*  <Route path=":productId" element={<OneProduct/>}/>*/}
+              {/*</Route>*/}
 
-                <Route path="/user" element={<Users/>}/>
+              <Route path="/user" element={<Users/>}/>
 
-                {/*<Route path="/specialist" element={<Specialist/>}/>*/}
+              {/*<Route path="/specialist" element={<Specialist/>}/>*/}
                 <Route path="/register" element={<Register/>}/>
             </Route>
         </Routes>

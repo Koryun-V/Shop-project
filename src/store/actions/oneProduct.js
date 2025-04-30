@@ -1,4 +1,4 @@
-import {createAsyncThunk, } from "@reduxjs/toolkit";
+import {createAction, createAsyncThunk,} from "@reduxjs/toolkit";
 import api from "../../utills/Api";
 
 
@@ -20,6 +20,9 @@ export const getOneProduct = createAsyncThunk(
 )
 
 
+export const setOneProduct = createAction(
+    "one/product",
+)
 
 
 

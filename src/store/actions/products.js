@@ -24,7 +24,6 @@ export const createCard = createAsyncThunk(
             const {data} = await api.createCard(payload);
           console.log(payload, "created payload")
             return data;
-
         } catch (err) {
           console.log(err)
             return thunkAPI.rejectWithValue(err);

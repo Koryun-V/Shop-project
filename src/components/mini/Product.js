@@ -78,6 +78,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                             const date = product.discount ? new Date(product.discount.endDate) : null;
                             const day = product.discount ? date.getDate() : null;
                             const month = product.discount ? date.toLocaleString('en-us', {month: 'long'}) : null;
+                            console.log(products, "ssssssssssss")
                             return (
                                 <div className={className}>
                                     <>

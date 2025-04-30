@@ -23,11 +23,15 @@ import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId, get
 import Notifications from "./Notifications";
 import Profile from "./Profile";
 
+//main
 const token = localStorage.getItem("token");
 
 function Layout() {
+    const [limit, setLimit] = useState(12);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [haveNames, setHaveNames] = useState(false)
+
     const searchRef = useRef(null);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isOpenRegister, setIsOpenRegister] = useState(false)
@@ -36,12 +40,16 @@ function Layout() {
     const statusKey = useSelector(state => state.registration.statusKey)
     const isOpenLogin = useSelector(state => state.login.isOpenLogin)
     const [value, setValue] = useState("");
+    const [isProfile, setIsProfile] = useState(false)
+    const [isMouse, setIsMouse] = useState(false);
+    const statusUser = useSelector(state => state.login.statusUser)
+    const [avatar, setAvatar] = useState([])
+    const userRef = useRef(null);
     const searchValue = useSelector(state => state.home.searchValue);
     const selectId = useSelector(state => state.home.selectId);
     const page = useSelector(state => state.home.page);
     const minPrice = useSelector(state => state.home.minPrice);
     const maxPrice = useSelector(state => state.home.maxPrice);
-    const [limit, setLimit] = useState(12);
     const storeId = useSelector(state => state.home.storeId);
     const productsNames = useSelector(state => state.home.productsNames);
     const userId = useSelector(state => state.login.user?.id);
@@ -58,29 +66,28 @@ function Layout() {
         window.scrollTo(0, 0);
     }, [pathname])
 
-    useEffect(() => {
-        if (token) {
-            dispatch(getUser())
-        }
-    }, [token]);
 
     useEffect(() => {
-        if (user) {
+        if(user){
             dispatch(setUserId(user.id))
         }
     }, [user]);
 
-    useEffect(() => {
-        dispatch(getAllNames({page, limit, s: searchValue || " "}))
-    }, [searchValue]);
+  useEffect(() => {
+    dispatch(getAllNames({ page, limit, s: searchValue || " " }));
+  }, [searchValue]);
+
+  useEffect(() => {
+    setHaveNames(Array.isArray(productsNames) && productsNames.length > 0);
+  }, [productsNames]);
 
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
-                setIsSearchOpen(false);
-            }
-        };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
+    };
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -89,43 +96,41 @@ function Layout() {
     }, []);
     console.log(window.location.pathname)
     console.log(stores,"a")
+
     const handleSearch = (e) => {
-        navigate("/products")
         e.preventDefault();
-        if (searchValue.trim() !== " ") {
-            if (localStorage.getItem("token")) {
-                if (userId) {
-                    dispatch(getAllProducts({
-                        categoryId: selectId,
-                        page,
-                        limit,
-                        minPrice,
-                        maxPrice,
-                        s: searchValue ? searchValue : "",
-                        storeId,
-                        userId
-                    }));
-                }
-            } else {
-                dispatch(getAllProducts({
-                    categoryId: selectId,
-                    page,
-                    limit,
-                    minPrice,
-                    maxPrice,
-                    s: searchValue ? searchValue : "",
-                    storeId
-                }));
-            }
+
+        const trimmedSearch = searchValue.trim();
+
+        if (!trimmedSearch) {
+            // Don't do anything if search is empty
+            return;
         }
 
-    }
+        setIsSearchOpen(false);
+        navigate("/products");
 
-    const chooseName = (item) => {
-        dispatch(setNameData(item))
-        navigate(`one-product/${item.id}`)
-        dispatch(setSearchValue(""))
-    }
+        const searchParams = {
+            page,
+            limit,
+            minPrice,
+            maxPrice,
+            s: trimmedSearch,
+            storeId,
+        };
+
+        if (userId) {
+            searchParams.userId = userId;
+        }
+
+        dispatch(getAllProducts(searchParams));
+    };
+
+  const chooseName = (item) => {
+    dispatch(setNameData(item))
+    navigate(`one-product/${item.id}`)
+    dispatch(setSearchValue(""))
+  }
 
 
     return (
@@ -136,7 +141,7 @@ function Layout() {
                         <div className="container-header">
                             <Link to="/" className="logo-block">
                                 <div className="logo">
-                                    Logo
+                                    Multify
                                 </div>
                             </Link>
 
@@ -162,15 +167,13 @@ function Layout() {
                                         </ul>
                                     </li>
 
-                                    <Link
-                                        className={window.location.pathname === "/products" ? "nav-item-active" : "nav-item"}
-                                        to="/products">
-                                        <li>Products</li>
-                                    </Link>
-                                    <Link className="nav-item" to="/#">
-                                        <li>Contact</li>
-                                    </Link>
-                                </ul>
+                  <Link className="nav-item" to="/products">
+                    <li>Products</li>
+                  </Link>
+                  <Link className="nav-item" to="/contact">
+                    <li>Contact</li>
+                  </Link>
+                </ul>
 
                                 {/*<Link className="nav-item" to="/#">*/}
                                 {/*    <li>Specialist</li>*/}
@@ -192,54 +195,52 @@ function Layout() {
                             {/*  </form>*/}
                             {/*</div>*/}
 
-                            <div ref={searchRef} className="search-box">
-                                <div className="search-row">
-                                    <form
-                                        onSubmit={handleSearch}
-                                    >
-                                        <input
-                                            onFocus={() => setIsSearchOpen(true)}
-                                            className="new-search-input"
-                                            type="text"
-                                            placeholder="Search"
-                                            autoComplete="off"
-                                            value={searchValue}
-                                            onChange={(e) => dispatch(setSearchValue(e.target.value))}
-                                        />
-                                        <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>
-                                    </form>
+              <div ref={searchRef} className="search-box">
+                <div className="search-row">
+                  <form
+                    onSubmit={handleSearch}
+                  >
+                    <input
+                      onFocus={() => setIsSearchOpen(true)}
+                      className="new-search-input"
+                      type="text"
+                      placeholder="Search"
+                      autoComplete="off"
+                      value={searchValue}
+                      onChange={(e) => dispatch(setSearchValue(e.target.value))}
+                    />
+                    <FontAwesomeIcon onClick={handleSearch} icon={faMagnifyingGlass} className="glass"/>
+                  </form>
 
 
-                                </div>
+                </div>
 
-                                {!!searchValue.length && productsNames.length && isSearchOpen &&
-                                    <div className="result-box">
-                                        <div className="search-ul">
-                                            {productsNames.map(item => (
-                                                <div className="search-li" key={item.id}
-                                                     onClick={() => chooseName(item)}>
-                                                    {item.name}
-                                                </div>
-                                            ))}
-                                        </div>
-
-                                    </div>
-                                }
-                            </div>
+                {!!searchValue.length && haveNames && isSearchOpen && (
+                  <div className="result-box">
+                    <div className="search-ul">
+                      {productsNames.map((item) => (
+                        <div className="search-li" key={item.id} onClick={() => chooseName(item)}>
+                          {item.name}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
 
 
-                            <div className="user-block">
-                                {!token ?
-                                    <>
-                                        <div className="sign-block">
-                                            <Button text="LOGIN" className="active-button"
-                                                    onClick={() => dispatch(setIsOpenLogin(true))}></Button>
-                                        </div>
-                                        <div className="sign-block"
-                                        >
-                                            <Button text="REGISTER" className="register-button"
-                                                    onClick={() => navigate("/register")}></Button>
-                                        </div>
+              <div className="user-block">
+                {!token ?
+                  <>
+                    <div className="sign-block">
+                      <Button text="LOGIN" className="active-button"
+                              onClick={() => dispatch(setIsOpenLogin(true))}></Button>
+                    </div>
+                    <div className="sign-block"
+                    >
+                      <Button text="REGISTER" className="register-button"
+                              onClick={() => navigate("/register")}></Button>
+                    </div>
 
                                     </>
                                     :

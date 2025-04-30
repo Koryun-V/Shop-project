@@ -1,15 +1,25 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {getAllProducts, getRandomReviews, getStores, setSearchValue, setStoreId, setUserId} from "../actions/home";
-import {setSelectId, setProductId} from "../actions/home";
+import {
+  getAllProducts,
+  getRandomReviews,
+  getStores,
+  setCategoryId,
+  setSearchValue,
+  setStoreId,
+  setUserId,
+  setProductId
+} from "../actions/home";
+import {} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
 import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProduct} from "../actions/home";
+import {toast} from "react-toastify";
 
 const initialState = {
   status: "",
   product: {},
   productsList: [],
-  selectId: "",
+  categoryId: "",
   total: "",
   productId: "",
   minPrice: 0,
@@ -33,7 +43,10 @@ export const home = createReducer(initialState, (builder) => {
   builder
     .addCase(getAllProducts.pending, (state) => {
       state.status = "pending"
+      state.productsList = [];
     })
+
+
     .addCase(getAllProducts.fulfilled, (state, {payload}) => {
       state.status = "ok"
       // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
@@ -103,9 +116,11 @@ export const home = createReducer(initialState, (builder) => {
       state.status = "error"
     })
 
-    .addCase(setSelectId, (state, {payload}) => {
-      state.selectId = payload
+    .addCase(setCategoryId, (state, {payload}) => {
+      state.categoryId = payload
     })
+
+
     .addCase(setProductId, (state, {payload}) => {
       state.productId = payload
     })

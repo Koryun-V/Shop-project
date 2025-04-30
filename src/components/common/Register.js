@@ -247,46 +247,64 @@ const Register = () => {
 
 
     const test = () => {
-        fields.forEach(({validation, name, id}) => {
-                if (title === name) {
-                    let test = name !== "repeatPassword" ? validation.test(value) : null
-                    if (test === false || !value.length) {
-                        setInputName((prevState) => (_.uniq([...prevState, title])))
-                    } else {
-                        if (name === "firstName" || name === "lastName") {
-                            const filter = inputName.filter(item => item !== title)
-                            setInputName(filter)
+        let newInputName = [...inputName];
 
-                        } else if (name === "day" || name === "month" || name === "year") {
-                             if(user.day.length === 2 && user.month.length === 2 && user.year.length === 4 && isDate === "ok"){
-                                const filter = inputName.filter(item => item !== "day" && item !== "month" && item !== "year");
-                                setInputName(filter)
-                            }
-                            else if(user.day.length === 2 && user.month.length === 2 && user.year.length === 4 && isDate === "no"){
-                                 setInputName((prevState) => (_.uniq([...prevState, title])))
+        fields.forEach(({validation, name}) => {
+            if (title === name) {
+                let isValid = true;
 
-                             }
-                            else{
-                                const filter = inputName.filter(item => item !== title);
-                                setInputName(filter)
-                            }
+                if (name !== "repeatPassword") {
+                    isValid = validation ? validation.test(value) : true;
+                }
 
-                        } else if (name === "password" || name === "repeatPassword") {
-                            if (user.repeatPassword.length && user.password !== user.repeatPassword) {
-                                setInputName((prevState) => (_.uniq([...prevState, "repeatPassword"])))
-                            } else {
-                                const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
-                                setInputName(filter)
+                if (!isValid || !value.length) {
+                    if (!newInputName.includes(name)) {
+                        newInputName.push(name);
+                    }
+                } else {
+                    if (name === "firstName" || name === "lastName") {
+                        newInputName = newInputName.filter(item => item !== name);
+                    } else if (name === "day" || name === "month" || name === "year") {
+                        if (user.day.length === 2 && user.month.length === 2 && user.year.length === 4) {
+                            if (isDate === "ok") {
+                                newInputName = newInputName.filter(item => item !== "day" && item !== "month" && item !== "year");
+                            } else if (isDate === "no") {
+                                if (!newInputName.includes(name)) {
+                                    newInputName.push(name);
+                                }
                             }
+                        } else {
+                            newInputName = newInputName.filter(item => item !== name);
+                        }
+                    } else if (name === "password" || name === "repeatPassword") {
+                        if (user.repeatPassword.length && user.password !== user.repeatPassword) {
+                            if (!newInputName.includes("repeatPassword")) {
+                                newInputName.push("repeatPassword");
+                            }
+                        } else if (/^.{8,}$/.test(user.password)) {
+                            newInputName = newInputName.filter(item => item !== "repeatPassword" && item !== "password");
+                        } else {
+                            newInputName = newInputName.filter(item => item !== "repeatPassword");
+
                         }
                     }
                 }
             }
-        )
-    }
+        });
+
+        setInputName(_.uniq(newInputName));
+        return newInputName.length > 0;
+    };
+
     console.log(inputName)
     console.log(isDate, "IS")
     const register = (e) => {
+        e.preventDefault();
+        const hasErrors = test();
+        if (hasErrors) {
+            return;
+        }
+
         if (isRegister) {
             e.preventDefault();
             dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))

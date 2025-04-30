@@ -179,24 +179,22 @@ function ModalLogin({open, onClose}) {
         }
     }
 
-    // const test = () => {
-    //     if (!isModalClose) {
-    //         fields.forEach(({validation, name, id}) => {
-    //                 if (title === name) {
-    //                     let test = validation.test(value)
-    //                     if (test === false || !value.length) {
-    //                         setInputName((prevState) => (_.uniq([...prevState, title])))
-    //                         console.log("if")
-    //                     } else {
-    //                         const filter = inputName.filter(item => item !== title)
-    //                         setInputName(filter)
-    //                         console.log("else")
-    //                     }
-    //                 }
-    //             }
-    //         )
-    //     }
-    // }
+    const test = () => {
+        if (!isModalClose) {
+            fields.forEach(({validation, name, id}) => {
+                    if (title === name) {
+                        let test = validation.test(value)
+                        if (test === false || !value.length) {
+                            setInputName((prevState) => (_.uniq([...prevState, title])))
+                        } else {
+                            const filter = inputName.filter(item => item !== title)
+                            setInputName(filter)
+                        }
+                    }
+                }
+            )
+        }
+    }
 
     const forgotPassword = () => {
         setIsForgot(true);
@@ -359,7 +357,6 @@ function ModalLogin({open, onClose}) {
                                 :
                                 statusPassword !== "error" ?
                                     <ModalNewPassword isModalClose={isModalClose}/>
-
                                     :
                                     <div className="no-correct">
                                         <div className="message">

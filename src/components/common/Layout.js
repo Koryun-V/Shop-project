@@ -39,7 +39,6 @@ function Layout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [haveNames, setHaveNames] = useState(false)
-
   const searchRef = useRef(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isOpenRegister, setIsOpenRegister] = useState(false)

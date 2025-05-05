@@ -23,7 +23,7 @@ const initialState = {
   total: "",
   productId: "",
   minPrice: 0,
-  maxPrice: 2000,
+  maxPrice: 10000,
   page: "1",
   searchValue: "",
   storesList: [],

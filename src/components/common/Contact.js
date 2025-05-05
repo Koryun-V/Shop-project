@@ -9,7 +9,7 @@ const Contact = () => {
             width:320,
             height:30,
         }}>
-            <Button text="Click" className="active-button"/>
+
 
         </div>
 

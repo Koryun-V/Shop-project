@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {getOneProduct, setOneProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
-import default_image from "../../assets/icon/default_image.png";
 import {createCard, updateCard} from "../../store/actions/products";
 import {getReview} from "../../store/actions/order";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -11,6 +10,7 @@ import {useParams} from "react-router-dom";
 import Slider from "react-slick";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import Button from "../mini/Button";
 
 
 const OneProduct = () => {
@@ -33,6 +33,7 @@ const OneProduct = () => {
   const quantityNumber = oneProductInfo?.result?.product?.quantity;
   const reviews = useSelector(state => state.order.reviewsAll)
   const [index, setIndex] = useState([100])
+  const oneProductStatus = useSelector(state => state.oneProduct.oneProductStatus)
 
 
   const [more, setMore] = useState(false);
@@ -80,15 +81,6 @@ const OneProduct = () => {
 
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDelayedImages(images?.length ? images : null);
-    }, 850);
-
-    return () => clearTimeout(timer); // Cleanup on unmount
-  }, [images]);
-
-
-  useEffect(() => {
     if (localStorage.getItem("token")) {
       if (userId) {
         dispatch(setOneProduct([]))
@@ -127,7 +119,7 @@ const OneProduct = () => {
   }
 
 
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
     slidesToShow: 1,
@@ -150,23 +142,24 @@ const OneProduct = () => {
           <div className="product" key={id}>
 
             <div className="product__header">
-              {delayedImages?.length > 1 ? (
+              {oneProductStatus === "ok" && images?.length > 1 ? (
                 <Slider {...settings}>
-                  {delayedImages.map((item) => (
+                  {images.map((item) => (
                     <div className="product__image__container" key={item.url}>
                       <img src={item.url} alt="item" className="product__image"/>
                     </div>
                   ))}
                 </Slider>
-              ) : (
+              ) : oneProductStatus === "ok" ? (
                 <div className="product__image__container">
-                  <img src={delayedImages?.[0]?.url || default_image} alt="product" className="product__image"/>
+                  <img src={images?.[0]?.url} alt="product" className="product__image"/>
                 </div>
+              ) : (
+                <Skeleton height={500}/>
               )}
             </div>
-            <hr/>
             <div className="product__header__span">
-              {delayedImages ? (
+              {oneProductStatus === "ok" ? (
                 <>
 
                   <div className="product_info-container">
@@ -175,31 +168,48 @@ const OneProduct = () => {
                       <div className="new_store-img">
                         <img src={oneProductInfo?.result?.product?.store?.logo[0]?.logo} alt="img"/>
                       </div>
+
                     </div>
+
+                  </div>
+                  <div className='product_pers_count_container'>
+                    <span className="product__store_name">Quantity - {oneProductInfo?.result?.product?.quantity} </span>
                   </div>
 
 
                   <div className="product_pers_store_container">
+
                     {oneProductInfo?.result?.product?.discount && (
-                      <div style={{display: "flex", flexWrap: "wrap", gap: "15px", justifyContent: "center", marginBottom: "50px"}}>
+
+                      <div style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: "15px",
+                        justifyContent: "center",
+                        marginBottom: "50px"
+                      }}>
+
                         <span className="product__store_name"> Discount - </span>
                         <div className="persentage_info">
                           <span>- {Math.floor(oneProductInfo.result.product.discount.discountPercentage)}%</span>
                         </div>
                       </div>
+
                     )}
                   </div>
 
                   <div className="product-price_info">
                     {oneProductInfo?.result?.product?.discount ? (
                       <>
-                        <div style={{marginBottom: "40px"}}>
+                        <div style={{marginBottom: "50px"}}>
       <span>
         <span
-          className="product__store_name">Price -</span>{quantity * oneProductInfo.result.product.discount.discountPrice}$
+          className="product__store_name">Price -
+        </span>
+        {quantity * oneProductInfo.result.product.discount.discountPrice}$
       </span>
                         </div>
-                        <div style={{marginBottom: "40px"}}>
+                        <div style={{marginBottom: "45px"}}>
                         <span
                           style={{
                             color: "#a5a5a5",
@@ -214,16 +224,29 @@ const OneProduct = () => {
                       </>
                     ) : (
                       <span className="product__store_name">
-      <span className="product__store_name">Price -</span>{quantity * oneProductInfo?.result?.product?.price}$
+      <span className="product__store_name">Price -
+      </span>{quantity * oneProductInfo?.result?.product?.price}$
     </span>
                     )}
                   </div>
 
                   <div className="product__quantity">
-                    <button disabled={quantityNumber === 0}
-                            onClick={() => addCard()}
-                            className="product__button__cart">Add to cart
-                    </button>
+                    {/*<button disabled={quantityNumber === 0}*/}
+                    {/*        onClick={() => addCard()}*/}
+                    {/*        className="product__button__cart">Add to cart*/}
+                    {/*</button>*/}
+                    <div className="product__button__cart">
+                      <Button
+                        text="Add to cart"
+                        disabled={quantityNumber === 0}
+                        onClick={() => addCard()}
+                        type={"button"}
+                        className={!!quantityNumber ? "active-button" : "disabled"}
+                      >
+
+                      </Button>
+                    </div>
+
                     <button disabled={quantity <= 1} className="product__button" onClick={() => updateQuantity(-1)}>-
                     </button>
                     <input className="product__value" type="text" onBlur={quantityBlur} value={Number(quantity)}
@@ -239,7 +262,28 @@ const OneProduct = () => {
 
                 </>
               ) : (
-                <Skeleton height={500}/>
+                <div className="product-skeleton">
+                  <div className="skeleton-name-container">
+                    <div className="skeleton skeleton-text skeleton-title"></div>
+                    <div className="skeleton skeleton-image"></div>
+                  </div>
+
+
+                  <div className="skeleton skeleton-text skeleton-discount"></div>
+
+                  <div className="skeleton skeleton-text skeleton-price"></div>
+
+                  <div className="skeleton-button-container">
+                    <div className="skeleton skeleton-button"></div>
+
+                    <div className="skeleton skeleton-quantity-controls"></div>
+                  </div>
+
+
+                  <div className="skeleton skeleton-text skeleton-description"></div>
+                </div>
+
+
               )}
 
             </div>
@@ -250,7 +294,7 @@ const OneProduct = () => {
               <h3 className="product__description__h">Description</h3>
               {!description ? (
                 <>
-                  <Skeleton count={3} height={20} style={{ marginBottom: '10px' }} />
+                  <Skeleton count={3} height={20} style={{marginBottom: '10px'}}/>
                 </>
               ) : (
                 <>

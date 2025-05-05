@@ -120,4 +120,6 @@ export const setUserId = createAction(
 )
 
 
-
+export const clearProductNames  = createAction(
+  "products/clearProductNames",
+)

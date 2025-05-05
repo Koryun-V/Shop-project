@@ -12,30 +12,95 @@ import {categoriesRequest, setMaxPrice, setMinPrice, setPage} from "../../store/
 import {useParams} from "react-router-dom";
 import Slider from "react-slider";
 import {toast} from "react-toastify";
+import Button from "../mini/Button";
+import UseQuery from "../../utills/hooks/useQuery";
+import useQuery from "../../utills/hooks/useQuery";
 
 
 const Products = () => {
-  const [limit, setLimit] = useState(12);
+  const {query, setQuery} = useQuery();
+  const [isPageSubm, setIsPageSubm] = useState(false);
+  const [limit, setLimit] = useState(Number(query.limit) || 12);
   const clampMin = (value) => Math.min(Math.max(value, 0), 1700);
   const clampMax = (value) => Math.min(Math.max(value, 0), 2000);
-  const [categoryIds, setCategoryIds] = useState("");
+  const [categoryIds, setCategoryIds] = useState(query.categoryIds || " ");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {name} = useParams();
   const dispatch = useDispatch();
   const products = useSelector(state => state.home.productsList);
   const categories = useSelector(state => state.products.categories);
   const total = useSelector(state => state.home.total);
-  const page = useSelector(state => state.home.page);
+  const page = useSelector(state => state.home.page) || Number(query.page) || 1;
   const pageCount = Math.ceil(total / limit);
-  const minPrice = useSelector(state => state.home.minPrice);
-  const maxPrice = useSelector(state => state.home.maxPrice);
-  const searchValue = useSelector(state => state.home.searchValue);
+  const minPrice = useSelector(state => state.home.minPrice) || Number(query.minPrice) || 0;
+  const maxPrice = useSelector(state => state.home.maxPrice) || Number(query.maxPrice) || 2000;
+  const searchValue = useSelector(state => state.home.searchValue) || query.s || "";
   const categoryId = useSelector(state => state.home.categoryId);
-  const storeId = useSelector(state => state.home.storeId);
+  const storeId = useSelector(state => state.home.storeId) || query.storeId || "";
   const storeList = useSelector(state => state.home.storesList)
-  const userId = useSelector(state => state.home.userId);
+  const userId = useSelector(state => state.home.userId) || query.userId || "";
   const status = useSelector(state => state.products.statusCard);
   const statusProducts = useSelector(state => state.home.status);
+
+
+  useEffect(() => {
+
+    if (query.page && !isPageSubm) {
+      dispatch(setPage(Number(query.page)))
+    }
+    if (query.minPrice) {
+      dispatch(setMinPrice(Number(query.minPrice)))
+
+    }
+    if (query.maxPrice) {
+      dispatch(setMaxPrice(Number(query.maxPrice)))
+
+    }
+    if (query.s) {
+      dispatch(setSearchValue(query.s))
+
+    }
+
+    if (query.storeId) {
+      dispatch(setStoreId(query.storeId))
+
+    }
+    if (query.categoryIds) {
+      setCategoryIds(query.categoryIds || " ")
+    }
+  }, []);
+
+
+  console.log(query, "query")
+
+
+  const getProductsFunc = () => {
+    const searchParams = {
+      page,
+      limit,
+      minPrice,
+      maxPrice,
+      s: searchValue.trim(),
+      storeId,
+      categoryIds,
+    };
+
+    if (userId) {
+      searchParams.userId = userId;
+    }
+
+    // dispatch(setPage(1));
+
+    setQuery(searchParams);
+
+
+    dispatch(getAllProducts(searchParams));
+  }
+
+  useEffect(() => {
+    getProductsFunc();
+  }, [page]);
+
 
   useEffect(() => {
     dispatch(categoriesRequest({limit}));
@@ -47,40 +112,50 @@ const Products = () => {
   }, []);
 
 
-  useEffect(() => {
-    getProductsFunc()
-
-  }, [page, userId]);
-
-  const getProductsFunc = () => {
-    const searchParams = {
-      page,
-      limit,
-      minPrice,
-      maxPrice,
-      s: searchValue.trim(),
-      storeId,
-    };
-
-    if (userId) {
-      searchParams.userId = userId;
-    }
-    if (categoryIds) {
-      searchParams.categoryIds = categoryIds;
-    }
-    dispatch(getAllProducts(searchParams));
-  }
-
-
   const clearAllOptions = () => {
     dispatch(setMinPrice(0));
     dispatch(setMaxPrice(2000));
     dispatch(setPage(1));
     dispatch(setSearchValue(""));
-    dispatch(setStoreId(""))
-    setCategoryIds("")
-    toast.info("all fields have been cleaned, if didn't work please press APPLY")
+    dispatch(setStoreId(""));
+    setCategoryIds(" ");
+
+    setQuery({});
+
+
+    toast.info("All fields have been cleaned, if it didn't work please press APPLY");
   };
+
+
+  // const getProductsFunc = () => {
+  //   const searchParams = {
+  //     page,
+  //     limit,
+  //     minPrice,
+  //     maxPrice,
+  //     s: searchValue.trim(),
+  //     storeId,
+  //   };
+  //
+  //   if (userId) {
+  //     searchParams.userId = userId;
+  //   }
+  //   if (categoryIds) {
+  //     searchParams.categoryIds = categoryIds;
+  //   }
+  //   dispatch(getAllProducts(searchParams));
+  // }
+
+
+  // const clearAllOptions = () => {
+  //   dispatch(setMinPrice(0));
+  //   dispatch(setMaxPrice(2000));
+  //   dispatch(setPage(1));
+  //   dispatch(setSearchValue(""));
+  //   dispatch(setStoreId(""))
+  //   setCategoryIds("")
+  //   toast.info("all fields have been cleaned, if didn't work please press APPLY")
+  // };
 
 
   const handleClick = (pageInfo) => {
@@ -133,8 +208,12 @@ const Products = () => {
     });
   };
 
+  const applyFunc = () => {
+    setIsPageSubm(true);
+    getProductsFunc();
+  }
 
-  console.log(storeId, "storeID")
+
 
 
   return (
@@ -198,7 +277,16 @@ const Products = () => {
             </form>
 
             <div className="buttons-container">
-              <button onClick={() => getProductsFunc()} className="agree-button">Apply</button>
+              <div className="agree-button">
+                <Button
+                  text="Apply"
+                  type={"button"}
+                  onClick={() => applyFunc()}
+                  className={"active-button"}
+                >
+                  Apply
+                </Button>
+              </div>
               <button onClick={clearAllOptions} className="clear-button">Clear All</button>
             </div>
           </div>

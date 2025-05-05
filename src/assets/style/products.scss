@@ -182,15 +182,7 @@
       width: 100%;
       height: 50px;
       margin: 10px auto;
-      color: white;
-      cursor: pointer;
-      background-color: $interfaceColor;
 
-      &:hover {
-        background: rgb(0, 143, 13);
-        color: white;
-        transition: background-color .5s;
-      }
     }
 
     .clear-button {
@@ -203,7 +195,7 @@
 
       &:hover {
         background-color: #b7b7b7;
-        transition: background-color .5s;
+        transition: 0.5s all;
 
       }
     }
@@ -371,26 +363,26 @@
     }
   }
 }
-.no-products{
+
+.no-products {
   text-align: center;
   font-size: 18px;
   color: #888;
   padding: 20px;
 }
 
-  .no-products-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px; /* Adjust based on your layout */
-    width: 100%;
-  }
+.no-products-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Adjust based on your layout */
+  width: 100%;
+}
 
 
-
-  .info_span{
-    margin-bottom: 15px;
-    font-family: "monrope-bold", sans-serif;
-    font-size: 18px;
-    color: #171B24;
-  }
+.info_span {
+  margin-bottom: 15px;
+  font-family: "monrope-bold", sans-serif;
+  font-size: 18px;
+  color: #171B24;
+}

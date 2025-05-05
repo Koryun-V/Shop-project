@@ -6,10 +6,10 @@ import ModalLogin from "./Modal/ModalLogin";
 import Button from "../mini/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faMagnifyingGlass,
-    faAngleDown,
-    faCartShopping,
-    faCube, faEnvelope, faLocationDot,
+  faMagnifyingGlass,
+  faAngleDown,
+  faCartShopping,
+  faCube, faEnvelope, faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setIsOpenLogin} from "../../store/actions/login";
@@ -19,7 +19,15 @@ import group6 from "../../assets/icon/Group_6.svg"
 import sim from "../../assets/icon/sim.svg"
 
 
-import {getAllProducts, setSearchValue, getAllNames, setNameData, setUserId, getStores} from "../../store/actions/home";
+import {
+  getAllProducts,
+  setSearchValue,
+  getAllNames,
+  setNameData,
+  setUserId,
+  getStores,
+  clearProductNames
+} from "../../store/actions/home";
 import Notifications from "./Notifications";
 import Profile from "./Profile";
 
@@ -27,54 +35,55 @@ import Profile from "./Profile";
 const token = localStorage.getItem("token");
 
 function Layout() {
-    const [limit, setLimit] = useState(12);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [haveNames, setHaveNames] = useState(false)
+  const [limit, setLimit] = useState(12);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [haveNames, setHaveNames] = useState(false)
 
-    const searchRef = useRef(null);
-    const [isSearchOpen, setIsSearchOpen] = useState(false);
-    const [isOpenRegister, setIsOpenRegister] = useState(false)
-    const user = useSelector(state => state.login.user)
-    // const [isOpenLogin, setIsOpenLogin] = useState(false)
-    const statusKey = useSelector(state => state.registration.statusKey)
-    const isOpenLogin = useSelector(state => state.login.isOpenLogin)
-    const [value, setValue] = useState("");
-    const [isProfile, setIsProfile] = useState(false)
-    const [isMouse, setIsMouse] = useState(false);
-    const statusUser = useSelector(state => state.login.statusUser)
-    const [avatar, setAvatar] = useState([])
-    const userRef = useRef(null);
-    const searchValue = useSelector(state => state.home.searchValue);
-    const selectId = useSelector(state => state.home.selectId);
-    const page = useSelector(state => state.home.page);
-    const minPrice = useSelector(state => state.home.minPrice);
-    const maxPrice = useSelector(state => state.home.maxPrice);
-    const storeId = useSelector(state => state.home.storeId);
-    const productsNames = useSelector(state => state.home.productsNames);
-    const userId = useSelector(state => state.login.user?.id);
-    const nameData = useSelector(state => state.home.nameData);
-    const stores = useSelector(state=>state.home.storesList)
-
-
-    const {pathname} = useLocation()
-
-    useEffect(() => {
-        dispatch(getStores({page:1,limit:10}))
-    }, []);
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname])
+  const searchRef = useRef(null);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isOpenRegister, setIsOpenRegister] = useState(false)
+  const user = useSelector(state => state.login.user)
+  // const [isOpenLogin, setIsOpenLogin] = useState(false)
+  const statusKey = useSelector(state => state.registration.statusKey)
+  const isOpenLogin = useSelector(state => state.login.isOpenLogin)
+  const [value, setValue] = useState("");
+  const [isProfile, setIsProfile] = useState(false)
+  const [isMouse, setIsMouse] = useState(false);
+  const statusUser = useSelector(state => state.login.statusUser)
+  const [avatar, setAvatar] = useState([])
+  const userRef = useRef(null);
+  const searchValue = useSelector(state => state.home.searchValue);
+  const selectId = useSelector(state => state.home.selectId);
+  const page = useSelector(state => state.home.page);
+  const minPrice = useSelector(state => state.home.minPrice);
+  const maxPrice = useSelector(state => state.home.maxPrice);
+  const storeId = useSelector(state => state.home.storeId);
+  const productsNames = useSelector(state => state.home.productsNames);
+  const userId = useSelector(state => state.login.user?.id);
+  const nameData = useSelector(state => state.home.nameData);
+  const stores = useSelector(state => state.home.storesList)
 
 
-    useEffect(() => {
-        if(user){
-            dispatch(setUserId(user.id))
-        }
-    }, [user]);
+  const {pathname} = useLocation()
 
   useEffect(() => {
-    dispatch(getAllNames({ page, limit, s: searchValue || " " }));
+    dispatch(getStores({page: 1, limit: 10}))
+  }, []);
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname])
+
+
+  useEffect(() => {
+    if (user) {
+      dispatch(setUserId(user.id))
+    }
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(clearProductNames());
+    dispatch(getAllNames({page, limit, s: searchValue || ""}));
   }, [searchValue]);
 
   useEffect(() => {
@@ -89,42 +98,43 @@ function Layout() {
       }
     };
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
-    console.log(window.location.pathname)
-    console.log(stores,"a")
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-
-        const trimmedSearch = searchValue.trim();
-
-        if (!trimmedSearch) {
-            // Don't do anything if search is empty
-            return;
-        }
-
-        setIsSearchOpen(false);
-        navigate("/products");
-
-        const searchParams = {
-            page,
-            limit,
-            minPrice,
-            maxPrice,
-            s: trimmedSearch,
-            storeId,
-        };
-
-        if (userId) {
-            searchParams.userId = userId;
-        }
-
-        dispatch(getAllProducts(searchParams));
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
+  }, []);
+  console.log(window.location.pathname)
+
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    const trimmedSearch = searchValue.trim();
+
+    if (!trimmedSearch) {
+      // Don't do anything if search is empty
+      return;
+    }
+
+    setIsSearchOpen(false);
+    navigate("/products");
+
+    const searchParams = {
+      page,
+      limit,
+      minPrice,
+      maxPrice,
+      s: trimmedSearch,
+      storeId,
+    };
+
+    if (userId) {
+      searchParams.userId = userId;
+    }
+
+    dispatch(getAllProducts(searchParams));
+  };
+
 
   const chooseName = (item) => {
     dispatch(setNameData(item))
@@ -133,39 +143,39 @@ function Layout() {
   }
 
 
-    return (
-        <>
-            <div className="wrapper">
-                <header className="header">
-                    <div className="nav-header">
-                        <div className="container-header">
-                            <Link to="/" className="logo-block">
-                                <div className="logo">
-                                    Multify
-                                </div>
-                            </Link>
+  return (
+    <>
+      <div className="wrapper">
+        <header className="header">
+          <div className="nav-header">
+            <div className="container-header">
+              <Link to="/" className="logo-block">
+                <div className="logo">
+                  Multify
+                </div>
+              </Link>
 
-                            <nav className="nav">
-                                <ul className="nav-list">
+              <nav className="nav">
+                <ul className="nav-list">
 
-                                    <li className="nav-item">Store
-                                        <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
-                                        <ul className="nav-more">
-                                            {stores.map((item)=> (
-                                                <li>
-                                                    <div className="store-logo">
-                                                        {/*<img src={item.storeLogo[0].path} alt="logo"/>*/}
-                                                    </div>
-                                                    {/*<div className="store-name">*/}
-                                                    {/*    <span>{item.name}</span>*/}
-                                                    {/*</div>*/}
-                                                </li>
+                  <li className="nav-item">Store
+                    <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
+                    <ul className="nav-more">
+                      {stores.map((item) => (
+                        <li>
+                          <div className="store-logo">
+                            {/*<img src={item.storeLogo[0].path} alt="logo"/>*/}
+                          </div>
+                          {/*<div className="store-name">*/}
+                          {/*    <span>{item.name}</span>*/}
+                          {/*</div>*/}
+                        </li>
 
-                                            ))}
+                      ))}
 
 
-                                        </ul>
-                                    </li>
+                    </ul>
+                  </li>
 
                   <Link className="nav-item" to="/products">
                     <li>Products</li>
@@ -175,25 +185,9 @@ function Layout() {
                   </Link>
                 </ul>
 
-                                {/*<Link className="nav-item" to="/#">*/}
-                                {/*    <li>Specialist</li>*/}
-                                {/*</Link>*/}
 
-                            </nav>
+              </nav>
 
-                            {/*<div className="search-block">*/}
-                            {/*  <form onSubmit={handleSearch} className="form-search">*/}
-                            {/*    <div className="search-field">*/}
-                            {/*      <FontAwesomeIcon icon={faMagnifyingGlass} className="glass"/>*/}
-                            {/*      <Input*/}
-                            {/*        value={searchValue}*/}
-                            {/*        onChange={(e) => dispatch(setSearchValue(e.target.value))}*/}
-                            {/*        className="search-input"*/}
-                            {/*        placeholder="Search"*/}
-                            {/*      />*/}
-                            {/*    </div>*/}
-                            {/*  </form>*/}
-                            {/*</div>*/}
 
               <div ref={searchRef} className="search-box">
                 <div className="search-row">
@@ -242,103 +236,103 @@ function Layout() {
                               onClick={() => navigate("/register")}></Button>
                     </div>
 
-                                    </>
-                                    :
-                                    <>
-                                        <Notifications/>
+                  </>
+                  :
+                  <>
+                    <Notifications/>
 
-                                        <Link to="/basket">
-                                            <div className="cart">
+                    <Link to="/basket">
+                      <div className="cart">
 
-                                                <FontAwesomeIcon icon={faCartShopping}
-                                                                 className={window.location.pathname === "/basket" ? "cart-icon-active" : "cart-icon"}/>
+                        <FontAwesomeIcon icon={faCartShopping}
+                                         className={window.location.pathname === "/basket" ? "cart-icon-active" : "cart-icon"}/>
 
-                                            </div>
-                                        </Link>
-                                        <Link to="/order">
-                                            <div className="cart">
+                      </div>
+                    </Link>
+                    <Link to="/order">
+                      <div className="cart">
 
-                                                <FontAwesomeIcon icon={faCube}
-                                                                 className={window.location.pathname === "/order" ? "cart-icon-active" : "cart-icon"}/>
+                        <FontAwesomeIcon icon={faCube}
+                                         className={window.location.pathname === "/order" ? "cart-icon-active" : "cart-icon"}/>
 
-                                            </div>
-                                        </Link>
-                                        <Profile/>
-                                    </>
-                                }
-                            </div>
-                        </div>
-                    </div>
-
-                </header>
-
-                <main className="main">
-                    <Outlet/>
-                </main>
-
-                <footer className="footer">
-                    <div className="footer-container">
-                        <div className="footer-blocks">
-                            <div className="footer-block">
-                                <div className="footer-shop-info">
-                                    <h3>Logo Story</h3>
-                                </div>
-                                <div className="footer-shop-info">
-                                    <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
-                                    <span>info@stroykastore.ru</span>
-                                </div>
-                                <div className="footer-shop-info">
-                                    <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
-                                    <span>Москва, ул. Камушкина 10</span>
-                                </div>
-                            </div>
-
-
-                            <div className="footer-block">
-                                <div className="footer-link"><Link to="/user">Profile</Link></div>
-                                <div className="footer-link"><Link to="/order">Order</Link></div>
-                                <div className="footer-link"><Link to="/basket">Basket</Link></div>
-                            </div>
-                            <div className="footer-block">
-                                <div className="footer-link"><Link>Share</Link></div>
-                                <div className="footer-link"><Link>Contact</Link></div>
-                            </div>
-                            <div className="footer-block">
-                                <div className="footer-link"><Link>Become a seller</Link></div>
-
-                            </div>
-                        </div>
-                        <hr/>
-
-                        <div className="footer-end">
-                            <div className="footer-end-block">
-                                <span>&copy; STORY</span>
-                            </div>
-                            <div className="footer-end-block">
-                                <img src={visa} className="footer-cart"/>
-                                <img src={group5} className="footer-cart"/>
-                                <img src={group6} className="footer-cart"/>
-                                <img src={sim} className="footer-cart"/>
-                            </div>
-                            <div className="footer-end-block">
-                                <span>Cделано в KRUGLOV STUDIO</span>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                      </div>
+                    </Link>
+                    <Profile/>
+                  </>
+                }
+              </div>
             </div>
+          </div>
 
-            <ModalRegister
-                open={isOpenRegister} onClose={() => {
-                setIsOpenRegister(false)
-            }}/>
-            <ModalLogin
-                open={isOpenLogin} onClose={() => {
-                dispatch(setIsOpenLogin(false))
-            }}/>
-        </>
+        </header>
 
-    );
+        <main className="main">
+          <Outlet/>
+        </main>
+
+        <footer className="footer">
+          <div className="footer-container">
+            <div className="footer-blocks">
+              <div className="footer-block">
+                <div className="footer-shop-info">
+                  <h3>Logo Story</h3>
+                </div>
+                <div className="footer-shop-info">
+                  <FontAwesomeIcon icon={faEnvelope} className="footer-icon"/>
+                  <span>info@stroykastore.ru</span>
+                </div>
+                <div className="footer-shop-info">
+                  <FontAwesomeIcon icon={faLocationDot} className="footer-icon"/>
+                  <span>Москва, ул. Камушкина 10</span>
+                </div>
+              </div>
+
+
+              <div className="footer-block">
+                <div className="footer-link"><Link to="/user">Profile</Link></div>
+                <div className="footer-link"><Link to="/order">Order</Link></div>
+                <div className="footer-link"><Link to="/basket">Basket</Link></div>
+              </div>
+              <div className="footer-block">
+                <div className="footer-link"><Link>Share</Link></div>
+                <div className="footer-link"><Link>Contact</Link></div>
+              </div>
+              <div className="footer-block">
+                <div className="footer-link"><Link>Become a seller</Link></div>
+
+              </div>
+            </div>
+            <hr/>
+
+            <div className="footer-end">
+              <div className="footer-end-block">
+                <span>&copy; STORY</span>
+              </div>
+              <div className="footer-end-block">
+                <img src={visa} className="footer-cart"/>
+                <img src={group5} className="footer-cart"/>
+                <img src={group6} className="footer-cart"/>
+                <img src={sim} className="footer-cart"/>
+              </div>
+              <div className="footer-end-block">
+                <span>Cделано в KRUGLOV STUDIO</span>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+      <ModalRegister
+        open={isOpenRegister} onClose={() => {
+        setIsOpenRegister(false)
+      }}/>
+      <ModalLogin
+        open={isOpenLogin} onClose={() => {
+        dispatch(setIsOpenLogin(false))
+      }}/>
+    </>
+
+  );
 }
 
 export default Layout;

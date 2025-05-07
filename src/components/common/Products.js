@@ -24,7 +24,7 @@ const Products = () => {
   const { query, setQuery } = useQuery();
   const [isPageSubm, setIsPageSubm] = useState(false);
   const [limit, setLimit] = useState(Number(query.limit) || 12);
-  const clampMin = (value) => Math.min(Math.max(value, 0), 1700);
+  const clampMin = (value) => Math.min(Math.max(value, 0), 9700);
   const clampMax = (value) => Math.min(Math.max(value, 0), 10000);
   const [categoryIds, setCategoryIds] = useState(query.categoryIds || "");
   const dispatch = useDispatch();
@@ -51,13 +51,15 @@ const Products = () => {
     if (query.categoryIds) setCategoryIds(query.categoryIds);
   }, []);
 
-  const getProductsFunc = () => {
+  const getProductsFunc = (path, value) => {
     const searchParams = {
       page,
       limit,
       minPrice,
       maxPrice,
     };
+
+    searchParams[path] = value;
 
     if (searchValue.trim()) searchParams.s = searchValue.trim();
     if (storeId) searchParams.storeId = storeId;
@@ -69,8 +71,8 @@ const Products = () => {
   };
 
   useEffect(() => {
-    getProductsFunc();
-  }, [page, searchValue]);
+    setQuery({...query, s: searchValue})
+  }, [searchValue]);
 
   useEffect(() => {
     dispatch(categoriesRequest({ limit }));
@@ -88,11 +90,14 @@ const Products = () => {
     dispatch(setStoreId(""));
     setCategoryIds("");
     setQuery({});
-    toast.info("All fields have been cleaned, if it didn't work please press APPLY");
+    dispatch(getAllProducts({}));
   };
 
   const handleClick = (pageInfo) => {
-    dispatch(setPage(pageInfo.selected + 1));
+    const currentPage = pageInfo.selected + 1
+
+    dispatch(setPage(currentPage));
+    getProductsFunc("page",currentPage);
   };
 
   const handleSliderChange = (value) => {
@@ -142,7 +147,7 @@ const Products = () => {
   const applyFunc = async () => {
     setIsPageSubm(true);
     await dispatch(setPage(1));
-    getProductsFunc();
+    getProductsFunc("page", 1);
   };
 
   return (

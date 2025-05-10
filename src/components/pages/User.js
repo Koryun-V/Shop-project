@@ -20,13 +20,14 @@ import {ReactComponent as Pen} from "../../assets/icon/pen-solid.svg";
 import Modal from "../common/Modal";
 import DatePiker from "../common/DatePiker";
 import RadioButton from "../mini/RadioButton";
+import {ReactComponent as AddIcon} from "../../assets/icon/addIcon.svg";
 
 
 
 const fields = [
-  {name: 'firstName', label: 'First Name', type: 'text'},
-  {name: 'lastName', label: 'Last Name', type: 'text'},
-  {name: 'address', label: 'Address', type: 'text'}
+  {name: 'firstName', label: '👤First Name', type: 'text'},
+  {name: 'lastName', label:  '👤 Last Name', type: 'text'},
+  {name: 'address', label: '📍 Address', type: 'text'}
 ];
 
 const passwordFields = [
@@ -35,8 +36,8 @@ const passwordFields = [
 ];
 
 const genderOptions = [
-  {value: 'Male', label: 'Male'},
-  {value: 'Female', label: 'Female'},
+  {value: 'Male', label: '🧍 Male'},
+  {value: ' Female', label: '👩‍🦰  Female'},
 ];
 
 const Users = () => {
@@ -83,15 +84,17 @@ const Users = () => {
     }
   };
 
-  // Update profile data
+
   const changeProfileData = async (e) => {
     e.preventDefault();
+    const { id, ...newProfile } = profile;
     setIsSubmitting(true);
-    await dispatch(updateUserProfileRequest(profile));
+
+    await dispatch(updateUserProfileRequest(newProfile));
+
     setIsSubmitting(false);
   };
 
-  // Confirm Avatar Upload
   const confirmAvatar = () => {
     dispatch(setProfile({...profile, avatar}));
 
@@ -138,206 +141,220 @@ const Users = () => {
     <div className="user__profile">
 
       <h1 className="user__profile__title">Personal account</h1>
-      {loading  ? <Loader/>
-        :
-        <div className="user__profile__container">
-          <div className="user__profile__content">
-            <div style={{position: "relative", zIndex: 5,}}>
-              {user.avatar?.[0]?.path
-                ? <img src={profile?.avatar?._preview || user.avatar[0].path} alt="user-name"
-                       className="user__profile_img"/>
-                :
-                <div className="user__profile_img">
-                  <User/>
+      <div className="user__profile__container">
+        <div className="user__profile__content">
+          <div style={{position: "relative", zIndex: 5,}}>
+            {user.avatar?.[0]?.path
+              ? <img src={profile?.avatar?._preview || user.avatar[0].path} alt="user-name"
+                     className="user__profile_img"/>
+              :
+              <div className="user__profile_img">
+                <User/>
               </div>
+            }
+
+            <label htmlFor="upload_file" className="active-button upload_file">
+              {user.avatar?.[0]?.path
+                ? <Pen/>
+                : <AddIcon/>
               }
-
-              {/*<label htmlFor="upload_file" className="upload_file">*/}
-              <label htmlFor="upload_file" className="active-button upload_file">
-                {user.avatar?.[0]?.path
-                  ? <Pen/>
-                  : <>+</>
-                }
-              </label>
-            </div>
-
-            <p className="user__profile__desc">Personal information</p>
+            </label>
           </div>
 
-          <input
-            type="file"
-            id="upload_file"
-            accept=".jpg, .png"
-            style={{display: 'none'}}
-            onChange={uploadFile}
+          <p className="user__profile__desc">Personal information</p>
+        </div>
+        {loading ?
+          <Loader
+            height="50"
+            width="100%"
+            count={8}
+           className="user__profile"
+            iCount={2}
+            iHeight="50"
+            iWidth="100%"
+            iClassname={"field-block"}
           />
-
-
-          <Modal
-            className="big"
-            onClose={handleClose}
-            isOpen={Boolean(avatarPreview)}
-          >
-            <div className="preview__block">
-              <img
-                src={avatarPreview || avatar?.url}
-                alt="Avatar Preview"
-                className="preview__img"
-              />
-            </div>
-
-            <div className="modal-actions">
-              <Button
-                onClick={confirmAvatar}
-                className="active-button confirm"
-              >
-                Confirm
-              </Button>
-              <Button
-                onClick={cancelAvatar}
-                className="cancel-btn"
-              >Cancel</Button>
-            </div>
-          </Modal>
-
-          {error && <Error/>}
-
-          <form onSubmit={changeProfileData}>
-            <div className="user__profile_wrapper">
-              <div className="user__profile__data">
-                {fields.map((field) => (
-
-                  <div className="field-profile" key={field.name}>
-                    <div className="field-block ">
-                      <div style={{height: 50}}>
-                        <Input
-                          label={field.label}
-                          name={field.name}
-                          value={profile[field.name]}
-                          onChange={(e) => onChangeInputValue(e, field.type)}
-                          type={field.type}
-                          className="input"
-                          classNameLabel={profile[field.name] ? 'active' : 'label'}
-                        />
-                      </div>
-                      {validationErrors?.[field.name] && (
-                        <div className="validation-info user">
-                         <span>{validationErrors[field.name]}</span> </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Date of Birth */}
-
-              <div className="user__profile__wrapper">
-                {/*<div className="user__profile__data">*/}
-                <div className="user__profile__label">
-                  <label className="user__label date">Date of Birth</label>
-
-                  <div className="user__profile__data">
-                    <DatePiker
-                      selected={selectedDate}
-                      placeholderText="Date of Birth"
-                      onChange={(date) => onChangeInputValue({
-                        target: {
-                          name: 'dateOfBirth',
-                          value: date
-                        }
-                      }, 'date')}
-                      showYearDropdown
-                      showMonthDropdown
-                      minDate={new Date('09-10-1940')}
-                      maxDate={new Date('09-10-2010')}
-                    />
-                  </div>
-                </div>
-
-                <div className="user__profile__label">
-                  <label className="user__label">E-mail</label>
-                  <div className="field-profile">
-                    <p>{user.email}</p>
-                  </div>
-                </div>
-
-                                {/* Gender */}
-                                <div className="user__profile__gender">
-                                    {genderOptions.map((option) => (
-                                        <RadioButton
-                                            key={option.value}
-                                            name="gender"
-                                            value={option.value}
-                                            checked={profile.gender.toLowerCase() === option.value.toLowerCase()}
-                                            onChange={onChangeInputValue}
-                                            label={option.label}
-                                        />
-                                    ))}
-                                </div>
-
-              </div>
-            </div>
-
-            {successMessage && <p className="successMessage">{successMessage}</p>}
-
-            <div className="user__profile__button">
-              <Button
-                type="submit"
-                disabled={isSubmitting || !_.isEmpty(validationErrors)}
-                loading={isSubmitting}
-                className="active-button"
-              >
-                Change Profile
-              </Button>
-            </div>
-          </form>
-
-          {/* Change Password Form */}
+          :
           <div>
-            <p className="user__profile__desc">Change Password</p>
-            <form onSubmit={handlePasswordChange}>
-              <div className="user__profile__content">
-                {passwordFields.map((field) => (
-                  <div className="field-block" key={field.name}>
-                    <div style={{height: 50}}>
-                      <Input
-                        name={field.name}
-                        value={passwordData[field.name]}
-                        onChange={onPasswordChange}
-                        type={field.type}
-                        className="input"
-                        classNameLabel={passwordData[field.name] ? 'active' : 'label'}
+
+
+            <input
+              type="file"
+              id="upload_file"
+              accept=".jpg, .png"
+              style={{display: 'none'}}
+              onChange={uploadFile}
+            />
+
+
+            <Modal
+              className="big"
+              onClose={handleClose}
+              isOpen={Boolean(avatarPreview)}
+            >
+              <div className="preview__block">
+                <img
+                  src={avatarPreview || avatar?.url}
+                  alt="Avatar Preview"
+                  className="preview__img"
+                />
+              </div>
+
+              <div className="modal-actions">
+                <Button
+                  onClick={confirmAvatar}
+                  className="active-button confirm"
+                >
+                  Confirm
+                </Button>
+                <Button
+                  onClick={cancelAvatar}
+                  className="cancel-btn"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Modal>
+
+            {error && <Error/>}
+
+            <form onSubmit={changeProfileData}>
+              <div className="user__profile_wrapper">
+                <div className="user__profile__data">
+                  {fields.map((field) => (
+
+                    <div className="field-profile" key={field.name}>
+                      <div className="field-block ">
+                        <div style={{height: 50}}>
+                          <Input
+                            label={field.label}
+                            name={field.name}
+                            value={profile[field.name]}
+                            onChange={(e) => onChangeInputValue(e, field.type)}
+                            type={field.type}
+                            className="input"
+                            classNameLabel={profile[field.name] ? 'active' : 'label'}
+                          />
+                        </div>
+                        {validationErrors?.[field.name] && (
+                          <div className="validation-info user">
+                            <span>{validationErrors[field.name]}</span></div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Date of Birth */}
+
+                <div className="user__profile__wrapper">
+                  {/*<div className="user__profile__data">*/}
+                  <div className="user__profile__label">
+                    <label className="user__label date">🎂 Date of Birth</label>
+
+                    <div className="user__profile__data">
+                      <DatePiker
+                        selected={selectedDate}
+                        placeholderText="Date of Birth"
+                        onChange={(date) => onChangeInputValue({
+                          target: {
+                            name: 'dateOfBirth',
+                            value: date
+                          }
+                        }, 'date')}
+                        showYearDropdown
+                        showMonthDropdown
+                        minDate={new Date('09-10-1940')}
+                        maxDate={new Date('09-10-2010')}
                       />
                     </div>
                   </div>
-                ))}
 
+                  <div className="user__profile__label">
+                    <label className="user__label">📧 E-mail</label>
+                    <div className="field-profile">
+                      <p>{user.email}</p>
+                    </div>
+                  </div>
+
+                  {/* Gender */}
+                  <div className="user__profile__gender">
+                    {genderOptions.map((option) => (
+                      <RadioButton
+                        key={option.value}
+                        name="gender"
+                        value={option.value}
+                        checked={profile.gender.toLowerCase() === option.value.toLowerCase()}
+                        onChange={onChangeInputValue}
+                        label={option.label}
+                      />
+                    ))}
+                  </div>
+
+                </div>
               </div>
 
-              {passwordError?.password && (
-                <div className="validation-info user">
-                  <span> {passwordError.password}</span>
-                 </div>
-              )}
+              {successMessage && <p className="successMessage">{successMessage}</p>}
 
               <div className="user__profile__button">
                 <Button
                   type="submit"
-                  disabled={isChangePassword || !_.isEmpty(passwordError)}
-                  loading={isChangePassword}
+                  disabled={isSubmitting || !_.isEmpty(validationErrors)}
+                  loading={isSubmitting}
                   className="active-button"
                 >
-                  Change Password
+                  Change Profile
                 </Button>
               </div>
             </form>
+
+            {/* Change Password Form */}
+            <div>
+              <p className="user__profile__desc">Change Password</p>
+              <form onSubmit={handlePasswordChange}>
+                <div className="user__profile__content">
+                  {passwordFields.map((field) => (
+                    <div className="field-block" key={field.name}>
+                      <div style={{height: 50}}>
+                        <Input
+                          name={field.name}
+                          value={passwordData[field.name]}
+                          onChange={onPasswordChange}
+                          type={field.type}
+                          className="input"
+                          classNameLabel={passwordData[field.name] ? 'active' : 'label'}
+                        />
+                      </div>
+                    </div>
+                  ))}
+
+                </div>
+
+                {passwordError?.password && (
+                  <div className="validation-info password">
+                    <span> {passwordError.password}</span>
+                  </div>
+                )}
+
+                <div className="user__profile__button">
+                  <Button
+                    type="submit"
+                    disabled={isChangePassword || !_.isEmpty(passwordError)}
+                    loading={isChangePassword}
+                    className="active-button"
+                  >
+                    Change Password
+                  </Button>
+                </div>
+              </form>
+            </div>
+
           </div>
-
-        </div>
-      }
-
+        }
+      </div>
     </div>
   );
 };
 
 export default Users;
+

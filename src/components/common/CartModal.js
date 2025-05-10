@@ -2,7 +2,7 @@ import React from 'react';
 import Button from "../mini/Button";
 import Modal from "./Modal";
 
-const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild}) => {
+const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild,loading}) => {
 
   return (
     <Modal
@@ -18,11 +18,12 @@ const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild}) => {
             <Button
               onClick={onConfirm}
               className="active-button confirm"
+              loading={loading}
             >
               {buttonChild}
             </Button>
 
-            <Button onClick={onClose} className="cancel-btn">No</Button>
+            <Button onClick={onClose} className="cancel-btn">Cancel</Button>
           </div>
         }
 

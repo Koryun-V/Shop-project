@@ -192,7 +192,6 @@ export default class Api {
     }
 
     static async updateUser({data}) {
-        console.log(data, "api")
         return api.put("users/update", data, {
             headers: {
                 "Content-Type": "multipart/form-data",
@@ -234,6 +233,10 @@ export default class Api {
         });
     }
 
+    static updatedCard({cardId, quantity}) {
+        return api.put(`/cards/update/${cardId}`, {...quantity}
+        );
+    }
     static getStores({page, limit}) {
         return api.get(`/products/stores`, {
             params: {

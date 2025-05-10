@@ -10,23 +10,49 @@ import Button from "../mini/Button";
 import CustomCheckbox from "./CostumCheckBox";
 import _ from "lodash";
 import moment from "moment";
+import {ReactComponent as AddIcon} from "../../assets/icon/addIcon.svg";
+import {ReactComponent as MinusIcon} from "../../assets/icon/minusIcon.svg";
+import {Link} from "react-router-dom";
 
 
 const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) => {
 
   const dispatch = useDispatch();
-  const {deleting} = useSelector((state) => state.card);
+  const deleting = useSelector((state) => state.card.deleting);
+  const updating = useSelector((state) => state.card.updating);
+
+  const loading = useSelector((state) => state.card.loading);
+
   const [localQuantity, setLocalQuantity] = useState(card.quantity);
 
-
-  const handleQuantityChange = async (cardId, quantity, type) => {
-    const newQuantity = type === 'increment' ? quantity + 1 : quantity - 1;
-    setLocalQuantity(newQuantity);
-
-    await dispatch(updateCard({cardId, quantity: newQuantity}));
+  const updateQuantity = async ({cardId, value}) => {
+    setLocalQuantity((prev) => Math.max(1, prev + value));
+    await dispatch(updateCard({
+      cardId,
+      quantity: value === 1 ? { add: 1 } : { remove: 1 },
+      value: value === 1 ? localQuantity + 1 : localQuantity - 1
+    }));
 
     dispatch(loadTransformedArray());
   };
+
+  const onChange = async ({cardId, value}) => {
+
+    const numericValue = value - localQuantity
+    if (/^\d*$/.test(value)) {
+      setLocalQuantity(value === "" ? "" : Math.max(1, Number(value)));
+    }
+
+    await dispatch(updateCard({
+      cardId,
+      quantity: numericValue > 1 ? { add: numericValue } : { remove: -numericValue},
+      value
+    }));
+
+    dispatch(loadTransformedArray());
+  };
+
+
 
   const handleProductDelete = async (cardId) => {
     dispatch(deleteCard(cardId));
@@ -38,13 +64,6 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
     dispatch(loadTransformedArray());
   };
 
-  const handleInputChange = ({target: {value}}) => {
-
-    if (/^\d*$/.test(value)) {
-      setLocalQuantity(value === "" ? "" : Math.max(1, Number(value)));
-      value && dispatch(updateCard({cardId: card.id, quantity: Number(value)}));
-    }
-  };
 
   const updateSelectedProducts = (productId, isSelected) => {
     setCheckedAll(false)
@@ -66,7 +85,9 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
       />
 
       <div className="card_image_block">
-        <img key={card.id} src={card?.product?.productImage[0]?.path} alt="Product Image" className="card_image"/>
+        <Link to={`/one-product/${card.product.id}`} key={card.id}>
+          <img key={card.id} src={card?.product?.productImage[0]?.path} alt="Product Image" className="card_image"/>
+        </Link>
       </div>
 
       <div className="p">
@@ -79,10 +100,12 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
           </span>
             {!_.isEmpty(card.product.discount) &&
               <>
+                <div>
                 < span className="card-price discountPercentage">{parseFloat(card.product?.discount?.discountPercentage)}%</span>
 
                 <span
                   className="loading-gradient-endDate cart">Until {moment(card.product?.discount?.endDate).format("D MMMM")} </span>
+                </div>
               </>
 
             }
@@ -95,24 +118,28 @@ const CartItem = ({card, selectedProducts, setSelectedProducts, setCheckedAll}) 
           <div className="quantity">
             <Button
               className="active-button decrement"
-              onClick={() => handleQuantityChange(card.id, localQuantity, 'decrement')}
-              disabled={localQuantity <= 1}
+              onClick={() => updateQuantity({cardId: card.id, value: -1})}
+              disabled={(localQuantity <= 1 || loading) && updating.includes(card.id)}
             >
-              -
+              <MinusIcon/>
             </Button>
 
-            <input
-              type="text"
-              value={Number(localQuantity)}
-              onChange={handleInputChange}
-              className="quantity-input"
-            />
+            <div className={`quantity-input-wrapper ${loading && updating.includes(card.id) ? 'loading' : ''}`}>
+              <input
+                type="text"
+                className="quantity-input"
+                value={Number(localQuantity)}
+                disabled={loading && updating.includes(card.id)}
+                onChange={({target: {value}}) => onChange({cardId: card.id, value: Number(value)})}
+              />
+            </div>
 
             <Button
               className="active-button decrement"
-              onClick={() => handleQuantityChange(card.id, localQuantity, 'increment')}
+              disabled={loading && updating.includes(card.id)}
+              onClick={() => updateQuantity({cardId: card.id, value: 1})}
             >
-              +
+              <AddIcon/>
             </Button>
           </div>
         </div>

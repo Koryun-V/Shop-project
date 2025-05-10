@@ -20,10 +20,11 @@ export const createCard = createAsyncThunk(
   }
 )
 
+
 export const updateCard = createAsyncThunk(
   'cart/updateCard', async (payload) => {
-    const {cardId, quantity} = payload;
-    await Api.updateCard({cardId, quantity});
+    const {cardId, quantity,} = payload;
+    await Api.updatedCard({cardId, quantity});
     return payload;
   });
 

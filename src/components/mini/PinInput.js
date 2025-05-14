@@ -78,7 +78,8 @@ const PinInput = () => {
                             || code[i] !== "" && status !== "error"
                                 ? "2px solid black" :
                                 status === "error" ? "2px solid red" :
-                                    "1px solid #d1d1d1",
+                                    id ?
+                                    "1px solid #d1d1d1" : "none",
                     }}
                 />
             ))}

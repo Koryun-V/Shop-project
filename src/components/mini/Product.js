@@ -4,40 +4,45 @@ import Button from "./Button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {createCard, getCards} from "../../store/actions/products";
-import {setProduct, setProductId} from "../../store/actions/home";
+import {createCard} from "../../store/actions/products";
+import {setProduct} from "../../store/actions/home";
 import {useDispatch, useSelector} from "react-redux";
 import {setIsOpenLogin} from "../../store/actions/login";
-
-
+import {fetchCards} from "../../store/actions/card";
 
 
 const token = localStorage.getItem("token");
 
 
-const Product = ({products, className, classNameImg, quantity, classNameActive, classNameLoading, statusProducts}) => {
+const Product = ({
+                     products,
+                     className,
+                     classNameImg,
+                     quantity,
+                     classNameActive,
+                     start
+                 }) => {
     const [indexImg, setIndexImg] = useState(0);
     const [imgLength, setImgLength] = useState(0);
     const [test, setTest] = useState(0);
     const [isPlay, setIsPlay] = useState(false);
     const dispatch = useDispatch();
-    const productId = useSelector(state => state.home.productId);
     const status = useSelector(state => state.products.statusCard);
-    const cards = useSelector(state => state.products.cardsList)
-    const [indexProduct, setIndexProduct] = useState("")
-    const page = useSelector(state => state.products.page)
-    const navigate = useNavigate()
+    const cards = useSelector(state => state.card.card)
+    const statusCard = useSelector(state => state.card.statusGet)
     const total = useSelector(state => state.home.total)
+    const [indexProduct, setIndexProduct] = useState("")
+    const navigate = useNavigate()
     const [statusEnd, setStatusEnd] = useState("");
 
 
     useEffect(() => {
-        if (statusProducts === "pending" || status === "pending") {
+        if (statusCard === "pending" || status === "pending") {
             setStatusEnd("pending");
         } else {
             setStatusEnd("");
         }
-    }, [statusProducts, status]);
+    }, [statusCard, status]);
 
     useEffect(() => {
         if (isPlay && imgLength > 1) {
@@ -46,39 +51,33 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
             }, 700)
             return () => clearTimeout(time)
         }
-
     });
+
     const goToProduct = (product, id) => {
         dispatch(setProduct(product))
         navigate(`/one-product/${id}`)
     }
 
-    // useEffect(() => {
-    //     //total
-    //     dispatch(getCards({page:1, limit: total || 100}))
-    // }, [ status]);
-
-
     const changeImage = () => {
         setIndexImg(indexImg === imgLength - 1 ? 0 : indexImg + 1)
     }
 
-    const sendProduct = (id, index) => {
-        dispatch(createCard({productId: id, quantity: 1}))
+    const sendProduct = async (id, index) => {
         setIndexProduct(index)
+        await dispatch(createCard({productId: id, quantity: 1}))
+        await dispatch(fetchCards({page: 1, limit: total || 100}))
     }
-
 
     return (
         <>
             {
                 products.length ?
-                    products.slice(0, quantity ? quantity : products.length).map((product, index) => {
-                            const isCard = cards ? cards.find(id => id === product.id) : false;
+                    products.slice(start || 0, quantity ? quantity : products.length).map((product, index) => {
+                            const isCard = cards ? cards.find(item => item.product.id === product.id) : false;
+                            console.log(cards)
                             const date = product.discount ? new Date(product.discount.endDate) : null;
                             const day = product.discount ? date.getDate() : null;
                             const month = product.discount ? date.toLocaleString('en-us', {month: 'long'}) : null;
-                            // console.log(products, "ssssssssssss")
                             return (
                                 <div className={className}>
                                     <>
@@ -129,9 +128,10 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                                 <div className="product-name"><span>{product.name}</span></div>
                                                 <div className="product-description">
                                                     <div className="text-block" style={{
-                                                        display:product.description.length > 80 ? "flex" : "block"
+                                                        display: product.description.length > 80 ? "flex" : "block"
                                                     }}>
-                                                        <span className={product.description.length > 80 ? "line-description" : ""}>{product.description}</span>
+                                                        <span
+                                                            className={product.description.length > 80 ? "line-description" : ""}>{product.description}</span>
 
                                                     </div>
                                                     <div className="store">
@@ -143,17 +143,17 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
                                             </div>
 
                                             <div className="product-button">
-                                                <Button isProduct={true} isCard={isCard} index={index}
+                                                <Button isProduct={true}  index={index}
                                                         indexProduct={indexProduct}
                                                         status={statusEnd} onClick={() =>
-                                                        !token ? dispatch(setIsOpenLogin(true)) :
-                                                        product.isInCart ? navigate(`/basket`) :
-                                                        sendProduct(product.id, index)
+                                                    !token ? dispatch(setIsOpenLogin(true)) :
+                                                        isCard ? navigate(`/basket`) :
+                                                            sendProduct(product.id, index)
                                                 }
                                                         icon={<FontAwesomeIcon style={{marginLeft: 20, fontSize: 20}}
-                                                                               icon={product.isInCart ? faCheck : faCartShopping}/>}
-                                                        text={product.isInCart ? "In cart" : "Add to cart"}
-                                                        className={product.isInCart ? "disabled-cart" : "active-button"}
+                                                                               icon={isCard ? faCheck : faCartShopping}/>}
+                                                        text={isCard ? "In cart" : "Add to cart"}
+                                                        className={isCard ? "disabled-cart" : "active-button"}
                                                 >
                                                 </Button>
                                             </div>
@@ -166,7 +166,7 @@ const Product = ({products, className, classNameImg, quantity, classNameActive, 
 
                         // <div>{product.id}</div>
                     ) :
-                    Array.from({length: quantity}).map(() => (
+                    Array.from({length: start ? quantity - start : quantity}).map(() => (
 
                         <div className={className} style={{border: "1px solid transparent"}}>
 

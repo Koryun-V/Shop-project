@@ -3,19 +3,20 @@
 .review-block {
   margin-top: 10px;
   transition: 0.2s all;
+  width: 400px;
 
   .product-review {
+    gap:10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
 
     .img-review {
+      width:70px;
+      height: 70px;
       display: flex;
-      padding: 5px;
       justify-content: center;
       align-items: center;
-      width: 50%;
-      height: 70px;
 
       img {
         width: auto;
@@ -27,8 +28,7 @@
 
     .title-review {
       justify-content: space-evenly;
-      margin-left: 20px;
-      width: 100%;
+      width: 80%;
       display: flex;
       flex-direction: column;
       font-family: "PoppinsMedium", "sans-serif";
@@ -46,6 +46,7 @@
   }
 
   .user-review {
+    gap:10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -53,15 +54,15 @@
 
 
     .img-user {
+      width:70px;
+      height: 70px;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 50%;
-      height: 70px;
-      padding: 5px;
 
       .img-block-r {
-        width: 70px;
+        width: 20%;
+        min-width: 70px;
         height: 70px;
         display: flex;
         justify-content: center;
@@ -70,7 +71,7 @@
 
         img {
           border-radius: 100px;
-          width: auto;
+          width: 100%;
           height: 100%;
           object-fit: cover;
         }
@@ -95,8 +96,7 @@
 
     .title-user {
       justify-content: space-evenly;
-      margin-left: 20px;
-      width: 100%;
+      width:80%;
       display: flex;
       flex-direction: column;
       font-family: "PoppinsMedium", "sans-serif";
@@ -152,7 +152,7 @@
 }
 
 .star-active {
-  color: rgba(255, 195, 0, 0.9);
+  color: rgb(255, 234, 0);
 }
 
 .loading-gradient-r {

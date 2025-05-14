@@ -4,26 +4,27 @@ import {
     getOrderReceived,
     getReview, getReviewList, orderConfirm, orderRetry,
     sendReview,
-    setIsOpenReview,
+    setIsOpenReview, setOrder, setReviewList,
     setReviews,
     setReviewStatus
 } from "../actions/order";
 
 const initialState = {
     status: "",
-    statusReceived:"",
+    statusReceived: "",
     order: [],
-    orderReceived:[],
+    orderReceived: [],
     isOpenReview: false,
     statusReviewSend: "",
     statusReviewGetList: "",
-    reviews:{},
-    reviewsAll:[],
-    orderRetryStatus:"",
-    orderConfirmStatus:"",
-    url:"",
-    totalOrder:""
-
+    reviews: {},
+    reviewsAll: [],
+    orderRetryStatus: "",
+    orderConfirmStatus: "",
+    url: "",
+    totalOrder: 0,
+    totalReceived: 0,
+    total: 0,
 
 }
 export const order = createReducer(initialState, (builder) => {
@@ -34,8 +35,8 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getOrder.fulfilled, (state, {payload}) => {
             state.status = "ok"
             state.order = payload.data
-            state.totalOrder = payload.total
-
+            let total =  payload.data.filter(item => item.status === "paid")
+            state.totalOrder = total.length
         })
         .addCase(getOrder.rejected, (state) => {
             state.status = "error"
@@ -46,6 +47,8 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getOrderReceived.fulfilled, (state, {payload}) => {
             state.statusReceived = "ok"
             state.orderReceived = payload
+            state.totalReceived = payload.total
+
         })
         .addCase(getOrderReceived.rejected, (state) => {
             state.statusReceived = "error"
@@ -87,7 +90,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(orderRetry.fulfilled, (state, {payload}) => {
             state.orderRetryStatus = "ok"
             state.url = payload
-            console.log(state.url,"url")
+            console.log(state.url, "url")
         })
         .addCase(orderRetry.rejected, (state) => {
             state.orderRetryStatus = "error"
@@ -105,19 +108,20 @@ export const order = createReducer(initialState, (builder) => {
         })
 
 
-
-
-
-
-
         .addCase(setIsOpenReview, (state, {payload}) => {
             state.isOpenReview = payload
         })
         .addCase(setReviews, (state, {payload}) => {
             state.reviews = payload
         })
+        .addCase(setReviewList, (state, {payload}) => {
+            state.reviewsAll = payload
+        })
         .addCase(setReviewStatus, (state, {payload}) => {
             state.statusReviewGet = payload
+        })
+        .addCase(setOrder, (state, {payload}) => {
+            state.order = payload
         })
 
 

@@ -6,7 +6,7 @@ const Button = ({onClick, type, className, text, status, children, disabled, loa
 
     return (
 
-        <button disabled={status === "pending" || disabled} className={className} onClick={onClick}
+        <button disabled={status === "pending" || disabled } className={className} onClick={onClick}
                 type={type}>
             {status === "pending" && index === indexProduct
             || loading ?

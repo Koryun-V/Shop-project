@@ -51,7 +51,10 @@ const OrderUniversal = ({order, status}) => {
 
                                 </div>
                                 <div className="order-status">
-                                    <div className="order-status-block">
+                                    <div className="order-status-block" style={{
+                                        minWidth: 170,
+
+                                    }}>
                                         <strong>Order from {day} {month} </strong>
                                         <div className="review">
                                             {item.status === "received"
@@ -152,9 +155,16 @@ const OrderUniversal = ({order, status}) => {
 
                                         </div>
                                     </div>
-                                    <div className="order-status-block">
-                                        <strong>Status</strong>
-                                        <span>{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
+                                    <div className="status-container" style={{
+
+                                    }}>
+                                        <div className="order-status-block" style={{
+                                            width:150,
+                                        }}>
+                                            <strong>Status</strong>
+                                            <span>{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
+                                        </div>
+
                                     </div>
 
                                 </div>
@@ -162,7 +172,7 @@ const OrderUniversal = ({order, status}) => {
                             : null}
                     </>
                 )
-            }) : <span>loading</span>}
+            }) : null}
             <ModalReview
                 product={product}
                 open={reviewOpen} onClose={() => {

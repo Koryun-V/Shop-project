@@ -126,8 +126,6 @@ export default class Api {
                 params: {
                     limit,
                 },
-
-
                 headers: {
                     Authorization: `${token}`
                 }
@@ -237,13 +235,8 @@ export default class Api {
         return api.put(`/cards/update/${cardId}`, {...quantity}
         );
     }
-    static getStores({page, limit}) {
-        return api.get(`/products/stores`, {
-            params: {
-                page,
-                limit,
-            }
-        })
+    static getStores() {
+        return api.get(`/super-admin/stores`)
     }
 
 

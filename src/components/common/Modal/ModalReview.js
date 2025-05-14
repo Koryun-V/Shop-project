@@ -65,13 +65,18 @@ function ModalReview({open, onClose, product}) {
         if (open) {
             (async () => {
                 try {
-                    document.body.style.width = ` ${document.body.getBoundingClientRect().width}px`
+                    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                    document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
                     document.body.style.overflowY = 'hidden';
                     document.body.ontouchmove = () => false;
                     window.addEventListener('keydown', handleEsc);
 
+                    const header = document.querySelector('.nav-header');
+                    if (header) {
+                        header.style.paddingRight = `${scrollbarWidth}px`;
+                    }
                 } catch (err) {
-                    console.log(err)
+                    console.log(err);
                 }
             })()
         } else {
@@ -82,6 +87,10 @@ function ModalReview({open, onClose, product}) {
             dispatch(setReviews({}))
             dispatch(setReviewStatus(""))
             scrollModal()
+            const header = document.querySelector('.nav-header');
+            if (header) {
+                header.style.paddingRight = '';
+            }
         }
     }, [open]);
 
@@ -219,7 +228,8 @@ function ModalReview({open, onClose, product}) {
 
                                 <div className="user-review">
                                     <div className="img-user loading-gradient-r" style={{
-                                        borderRadius: 5,
+                                        borderRadius: 100,
+
                                     }}>
                                     </div>
                                     <div className="title-user">

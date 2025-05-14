@@ -92,6 +92,13 @@ export const setIsOpenReview = createAction(
 export const setReviews = createAction(
     "login/reviews",
 )
+export const setReviewList = createAction(
+    "set/reviews",
+)
 export const setReviewStatus = createAction(
     "login/review-status",
 )
+export const setOrder = createAction(
+    "set/order",
+)
+

@@ -8,38 +8,40 @@ import {
     faUser
 } from "@fortawesome/free-solid-svg-icons";
 import Button from "../mini/Button";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
+import {getUser} from "../../store/actions/login";
 
 const Profile = () => {
+    const dispatch = useDispatch()
     const user = useSelector(state => state.login.user)
     const [isProfile, setIsProfile] = useState(false)
     const userRef = useRef(null);
-
     const statusUser = useSelector(state => state.login.statusUser)
 
-    useEffect(() => {
-        const element = document.querySelector(".user-ref");
 
-        let handler = (e) => {
-            if (element && !userRef.current.contains(e.target)) {
+    useEffect(() => {
+        dispatch(getUser())
+    }, []);
+
+    useEffect(() => {
+        const handler = (e) => {
+            if (userRef.current && !userRef.current.contains(e.target)) {
                 setIsProfile(false);
             }
-        }
+        };
+
         document.addEventListener("mousedown", handler);
         return () => {
-            document.removeEventListener("mousemove", handler);
-        }
-    },[userRef.current])
+            document.removeEventListener("mousedown", handler); // ճիշտ event անունը
+        };
+    }, []);
 
 
     const openProfile = () => {
-        if (!isProfile) {
-            setIsProfile(true);
-        } else {
-            setIsProfile(false);
-        }
+        setIsProfile(prev => !prev);
     }
+
     return (
         <div ref={userRef} className="user-ref">
             <div className="user" onClick={openProfile}>
@@ -74,7 +76,7 @@ const Profile = () => {
                                                 <FontAwesomeIcon icon={faUser} className="icon"/>
                                             </div>
                                         }
-                                        <span>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</span>
+                                        <span>{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)} {user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)}</span>
                                     </li>
                                     <li>
                                         <div className="profile-modal-icon">

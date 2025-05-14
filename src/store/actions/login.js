@@ -57,6 +57,7 @@ export const getUser = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getUser(payload);
+
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)

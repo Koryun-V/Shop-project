@@ -123,3 +123,9 @@ export const setUserId = createAction(
 export const clearProductNames  = createAction(
   "products/clearProductNames",
 )
+export const setPopularProducts  = createAction(
+    "set/Products-Popular",
+)
+export const setSharesProducts  = createAction(
+    "set/Products-shares",
+)

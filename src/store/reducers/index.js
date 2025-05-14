@@ -2,13 +2,14 @@ import {combineReducers} from "redux";
 import {login} from "./login";
 import {registration} from "./registration";
 import {order} from "./order";
-import {cardSlice} from "./cardSlice";
+import {card} from "./card";
 import {products} from "./products"
 import {category} from "./category";
 import {oneProduct} from "./oneProduct";
 import {home} from "./home";
 import {userSlice} from "./users";
 import notifications from "./notifications";
+import authRedirect from "../slices/authRedirect";
 
 
 
@@ -20,7 +21,8 @@ export const rootReducer = combineReducers({
     products,
     oneProduct,
     order,
-    card: cardSlice,
+    card,
     users: userSlice,
-    notifications
+    notifications,
+    authRedirect
 })

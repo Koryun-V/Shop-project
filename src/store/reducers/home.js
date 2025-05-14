@@ -1,13 +1,13 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {
-  getAllProducts,
-  getRandomReviews,
-  getStores,
-  setCategoryId,
-  setSearchValue,
-  setStoreId,
-  setUserId,
-  setProductId
+    getAllProducts,
+    getRandomReviews,
+    getStores,
+    setCategoryId,
+    setSearchValue,
+    setStoreId,
+    setUserId,
+    setProductId, setPopularProducts, setSharesProducts
 } from "../actions/home";
 import {} from "../actions/home";
 
@@ -16,146 +16,150 @@ import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProd
 import {toast} from "react-toastify";
 
 const initialState = {
-  status: "",
-  product: {},
-  productsList: [],
-  categoryId: "",
-  total: "",
-  productId: "",
-  minPrice: 0,
-  maxPrice: 10000,
-  page: "1",
-  searchValue: "",
-  storesList: [],
-  storeId: "",
-  statusShares: "",
-  products: [],
-  popularProducts: [],
-  productsShares: [],
-  statusPopular: "",
-  reviews: [],
-  statusReviews: "",
-  productsNames: [],
-  nameData: {},
-  userId:""
+    status: "",
+    statusStore:"",
+    product: {},
+    productsList: [],
+    categoryId: "",
+    total: "",
+    productId: "",
+    minPrice: 0,
+    maxPrice: 10000,
+    page: "1",
+    searchValue: "",
+    storesList: [],
+    storeId: "",
+    statusShares: "",
+    products: [],
+    popularProducts: [],
+    productsShares: [],
+    statusPopular: "",
+    reviews: [],
+    statusReviews: "",
+    productsNames: [],
+    nameData: {},
+    userId: ""
 }
 export const home = createReducer(initialState, (builder) => {
-  builder
-    .addCase(getAllProducts.pending, (state) => {
-      state.status = "pending"
-      state.productsList = [];
-    })
+    builder
+        .addCase(getAllProducts.pending, (state) => {
+            state.status = "pending"
+        })
+        .addCase(getAllProducts.fulfilled, (state, {payload}) => {
+            state.status = "ok"
+            // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
+            state.productsList = payload.productsList
+            state.total = payload.total
+        })
+        .addCase(getAllProducts.rejected, (state) => {
+            state.status = "error"
+        })
+        .addCase(getAllNames.pending, (state) => {
+            state.status = "pending"
+        })
+        .addCase(getAllNames.fulfilled, (state, {payload}) => {
+            state.status = "ok"
+
+            state.productsNames = payload.productsList
+            state.total = payload.total
+        })
+
+        .addCase(getAllNames.rejected, (state) => {
+            state.status = "error"
+        })
+
+        .addCase(getPopularProducts.pending, (state) => {
+            state.statusPopular = "pending"
+        })
+        .addCase(getPopularProducts.fulfilled, (state, {payload}) => {
+            state.statusPopular = "ok"
+            state.popularProducts = payload
+        })
+        .addCase(getPopularProducts.rejected, (state) => {
+            state.statusPopular = "error"
+        })
+
+        .addCase(getSharesProducts.pending, (state) => {
+            state.statusShares = "pending"
+        })
+        .addCase(getSharesProducts.fulfilled, (state, {payload}) => {
+            state.statusShares = "ok"
+            state.productsShares = payload
+        })
+        .addCase(getSharesProducts.rejected, (state) => {
+            state.statusShares = "error"
+        })
+        .addCase(getRandomReviews.pending, (state) => {
+            state.statusReviews = "pending"
+        })
+        .addCase(getRandomReviews.fulfilled, (state, {payload}) => {
+            state.statusReviews = "ok"
+            state.reviews = payload
+        })
+        .addCase(getRandomReviews.rejected, (state) => {
+            state.statusReviews = "error"
+        })
 
 
-    .addCase(getAllProducts.fulfilled, (state, {payload}) => {
-      state.status = "ok"
-      // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
-      state.productsList = payload.productsList
-      state.total = payload.total
-    })
-    .addCase(getAllProducts.rejected, (state) => {
-      state.status = "error"
-    })
-    .addCase(getAllNames.pending, (state) => {
-      state.status = "pending"
-    })
-    .addCase(getAllNames.fulfilled, (state, {payload}) => {
-      state.status = "ok"
+        .addCase(getStores.pending, (state) => {
+            state.statusStore = "ok"
+        })
 
-      state.productsNames = payload.productsList
-      state.total = payload.total
-    })
+        .addCase(getStores.fulfilled, (state, {payload}) => {
+            state.statusStore = "ok"
+            state.storesList = payload.stores
+        })
 
-    .addCase(getAllNames.rejected, (state) => {
-      state.status = "error"
-    })
+        .addCase(getStores.rejected, (state) => {
+            state.statusStore = "error"
+        })
 
-    .addCase(getPopularProducts.pending, (state) => {
-      state.statusPopular = "pending"
-    })
-    .addCase(getPopularProducts.fulfilled, (state, {payload}) => {
-      state.statusPopular = "ok"
-      state.popularProducts = payload
-    })
-    .addCase(getPopularProducts.rejected, (state) => {
-      state.statusPopular = "error"
-    })
-
-    .addCase(getSharesProducts.pending, (state) => {
-      state.statusShares = "pending"
-    })
-    .addCase(getSharesProducts.fulfilled, (state, {payload}) => {
-      state.statusShares = "ok"
-      state.productsShares = payload
-    })
-    .addCase(getSharesProducts.rejected, (state) => {
-      state.statusShares = "error"
-    })
-    .addCase(getRandomReviews.pending, (state) => {
-      state.statusReviews = "pending"
-    })
-    .addCase(getRandomReviews.fulfilled, (state, {payload}) => {
-      state.statusReviews = "ok"
-      state.reviews = payload
-    })
-    .addCase(getRandomReviews.rejected, (state) => {
-      state.statusReviews = "error"
-    })
+        .addCase(setCategoryId, (state, {payload}) => {
+            state.categoryId = payload
+        })
 
 
-    .addCase(getStores.pending, (state) => {
-      state.status = "ok"
-    })
-
-    .addCase(getStores.fulfilled, (state, {payload}) => {
-      state.status = "ok"
-      state.storesList = payload.stores
-    })
-
-    .addCase(getStores.rejected, (state) => {
-      state.status = "error"
-    })
-
-    .addCase(setCategoryId, (state, {payload}) => {
-      state.categoryId = payload
-    })
+        .addCase(setProductId, (state, {payload}) => {
+            state.productId = payload
+        })
 
 
-    .addCase(setProductId, (state, {payload}) => {
-      state.productId = payload
-    })
+        .addCase(setPage, (state, {payload}) => {
+            state.page = payload
+        })
+
+        .addCase(setMinPrice, (state, {payload}) => {
+
+            state.minPrice = payload
+        })
+
+        .addCase(setMaxPrice, (state, {payload}) => {
+            state.maxPrice = payload
+        })
+
+        .addCase(setSearchValue, (state, {payload}) => {
+            state.searchValue = payload
+        })
+        .addCase(setStoreId, (state, {payload}) => {
+            state.storeId = payload
+        })
 
 
-    .addCase(setPage, (state, {payload}) => {
-      state.page = payload
-    })
+        .addCase(setProduct, (state, {payload}) => {
+            state.product = payload
+        })
 
-    .addCase(setMinPrice, (state, {payload}) => {
-
-      state.minPrice = payload
-    })
-
-    .addCase(setMaxPrice, (state, {payload}) => {
-      state.maxPrice = payload
-    })
-
-    .addCase(setSearchValue, (state, {payload}) => {
-      state.searchValue = payload
-    })
-    .addCase(setStoreId, (state, {payload}) => {
-      state.storeId = payload
-    })
-
-
-    .addCase(setProduct, (state, {payload}) => {
-      state.product = payload
-    })
-
-    .addCase(setNameData, (state, {payload}) => {
-      state.nameData = payload
-    })
-      .addCase(setUserId, (state, {payload}) => {
-        state.userId = payload
-      })
+        .addCase(setNameData, (state, {payload}) => {
+            state.nameData = payload
+        })
+        .addCase(setUserId, (state, {payload}) => {
+            state.userId = payload
+        })
+        .addCase(setPopularProducts, (state, {payload}) => {
+          state.popularProducts = payload
+        })
+        .addCase(setSharesProducts, (state, {payload}) => {
+            state.productsShares = payload
+        })
 
 });

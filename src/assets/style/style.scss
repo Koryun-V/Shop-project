@@ -22,11 +22,14 @@
 @import "loader";
 @import url("orderModal.scss");
 
+
 @import url("oneProduct.scss");
 
 @import "variables";
+@import "store";
 
-@import url("slide.scss");
+
+@import "slide";
 @import url("product.scss");
 @import url("home.scss");
 
@@ -118,11 +121,52 @@ input:-webkit-autofill:focus {
   transition: background-color 0s 600000s, color 0s 600000s !important;
 }
 
-
-
+body {
+  overflow-y: scroll;
+}
 .main {
   width: 100%;
   height: 100%;
+}
+
+.opacity-loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: 0;
+  right: 0;
+  left: 0;
+  z-index: 100;
+}
+.opacity-loading .smooth {
+  transition: opacity 0.2s ease;
+}
+
+.container-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-loading {
+  width: 150px;
+  height: 100%;
+  border-radius: 5px;
+  position: absolute;
+  bottom: 80px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+.loading-block {
+  position: fixed;
+  bottom: 50%;
+  z-index: 101;
 }
 
 .wrapper {
@@ -141,16 +185,60 @@ input:-webkit-autofill:focus {
     align-items: center;
   }
 
+  .section-block {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1440px;
+    padding: 0 50px;
+
+  }
+
+  .section-block-home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    flex-direction: column;
+
+  }
+
   .container {
     width: 100%;
     height: 100%;
     display: flex;
     position: relative;
-    max-width: 1440px;
     justify-content: center;
     flex-direction: column;
+  }
+  .container.smooth {
+    transition: opacity 0.2s ease;
+  }
 
+  .background-header {
+    width: 100%;
+    height: 250px;
+    position: relative;
+    display: flex;
+    align-items: center;
 
+    h1 {
+      cursor: default;
+      position: absolute;
+      font-family: "PoppinsBold", "sans-serif";
+      font-size: 50px;
+      left: 100px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
   form {
@@ -168,7 +256,6 @@ input:-webkit-autofill:focus {
     background: #F6F6F6;
     justify-content: center;
     align-items: center;
-
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -184,21 +271,11 @@ input:-webkit-autofill:focus {
 
 
     .article-block-bg {
-      width: 100%;
-      max-width: 1440px;
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
       margin: -10px;
-      padding: 50px 40px;
-
-
-
-
-
+      padding:40px 0;
     }
-
   }
 
   .article-home {
@@ -291,6 +368,7 @@ input:-webkit-autofill:focus {
   .form-button-block {
     width: 100%;
     height: 50px;
+    margin-top:5px;
   }
 }
 
@@ -476,7 +554,7 @@ a {
 
   .footer-container {
     padding: 0 50px;
-    color:white;
+    color: white;
     width: 100%;
     max-width: 1440px;
     height: 100%;
@@ -494,12 +572,20 @@ a {
       flex-direction: column;
 
 
-
-      a{
+      a {
         transition: 0.2s all
       }
+
       a:hover {
-        color:  #737373 !important;
+        color: #737373 !important;
+      }
+
+      .login-f {
+        transition: 0.2s all
+      }
+
+      .login-f:hover {
+        color: #737373 !important;
       }
 
       .footer-shop-info {
@@ -524,6 +610,7 @@ a {
         margin-top: 0;
       }
 
+
       .footer-link {
         margin-top: 10px;
 
@@ -532,6 +619,14 @@ a {
           margin-top: 10px;
           text-decoration: none;
           color: white;
+        }
+
+        .login-f {
+          font-size: 16px;
+          margin-top: 10px;
+          text-decoration: none;
+          color: white;
+          cursor: pointer;
         }
 
       }

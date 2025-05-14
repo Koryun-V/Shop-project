@@ -4,7 +4,6 @@ import {
     registrationUser,
     setDeleteEmail,
     setStatus,
-    setStatusActive,
     setStatusKey, setStatusRegister, userDelete
 } from "../../store/actions/registration";
 import _ from "lodash"
@@ -20,7 +19,6 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Timer from "../mini/Timer";
 import {useNavigate} from "react-router-dom";
 import {setIsOpenLogin} from "../../store/actions/login";
-import {login} from "../../store/reducers/login";
 
 const fields = [
     {
@@ -74,7 +72,6 @@ const fields = [
         validation: /^.{8,}$/,
         info: "Your password must be at least 8 characters long, or a mismatch.",
     },
-    // long or password does not match /^(?=.*\d).{8,}$/,
     {
         id: 8,
         name: "repeatPassword",
@@ -100,10 +97,11 @@ const Register = () => {
     const {value, title} = userInfo
     const status = useSelector(state => state.registration.status)
     const statusKey = useSelector(state => state.registration.statusKey)
-    const isEmail = useSelector(state => state.registration.deleteEmail)
     const [inputName, setInputName] = useState([]);
     const [isRegister, setIsRegister] = useState(false)
+    const [date, setDate] = useState("")
     const [dateOfBirth, setDateOfBirth] = useState("")
+
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -115,10 +113,8 @@ const Register = () => {
         password: "",
         repeatPassword: ""
     })
-    const emailRedux = useSelector(state => state.registration.email)
     const {firstName, lastName, gender, email, password, repeatPassword} = user
     const statusRegister = useSelector(state => state.registration.statusRegister)
-    const statusActive = useSelector(state => state.registration.statusActive)
     const [isCheck, setIsCheck] = useState(false)
     const statusDelete = useSelector(state => state.registration.statusDelete)
 
@@ -126,7 +122,8 @@ const Register = () => {
 
     useEffect(() => {
         setIsDate("")
-        setDateOfBirth(`${user.day}-${user.month}-${user.year}`);
+        setDate(`${user.day}-${user.month}-${user.year}`);
+        setDateOfBirth(`${user.month}-${user.day}-${user.year}`);
         return () => {
             dispatch(setStatusKey(""))
             dispatch(setStatus(""))
@@ -153,11 +150,11 @@ const Register = () => {
         if (user.day.length === 2 &&
             user.month.length === 2
             && user.year.length === 4) {
-            validateDate(dateOfBirth)
+            validateDate(date)
         } else if (user.day > 29 && user.month === "02") {
-            validateDate(dateOfBirth)
+            validateDate(date)
         }
-    }, [dateOfBirth]);
+    }, [date]);
 
 
     const validateDate = (value) => {
@@ -176,7 +173,6 @@ const Register = () => {
         }
     };
 
-    console.log(isDate, "isDate")
     useEffect(() => {
         inputName.forEach((item) => {
             if (item === title && value.length) {
@@ -261,8 +257,39 @@ const Register = () => {
                     if (!newInputName.includes(name)) {
                         newInputName.push(name);
                     }
-                } else {
-                    if (name === "firstName" || name === "lastName") {
+                }
+
+
+                else if (name === "password" || name === "repeatPassword") {
+                    const passwordsMatch = user.password === user.repeatPassword;
+                    const passwordValid = /^.{8,}$/.test(user.password);
+
+                    if (passwordValid && passwordsMatch) {
+                        newInputName = newInputName.filter(
+                            item => item !== "password" && item !== "repeatPassword"
+                        );
+                    }
+                    else if (user.repeatPassword.length > 0 && !passwordsMatch) {
+                        if (!newInputName.includes("repeatPassword")) {
+                            newInputName.push("repeatPassword");
+                        }
+                        if (!newInputName.includes("password")) {
+                            newInputName.push("password");
+                        }
+                    }
+                    if (!passwordValid) {
+                        if (!newInputName.includes("password")) {
+                            newInputName.push("password");
+                        }
+                    }
+
+                    if (passwordValid && user.repeatPassword.length === 0) {
+                        newInputName = newInputName.filter(item => item !== "password");
+                    }
+
+                }
+                else {
+                    if (name === "firstName" || name === "lastName" || "email") {
                         newInputName = newInputName.filter(item => item !== name);
                     } else if (name === "day" || name === "month" || name === "year") {
                         if (user.day.length === 2 && user.month.length === 2 && user.year.length === 4) {
@@ -273,19 +300,6 @@ const Register = () => {
                                     newInputName.push(name);
                                 }
                             }
-                        } else {
-                            newInputName = newInputName.filter(item => item !== name);
-                        }
-                    } else if (name === "password" || name === "repeatPassword") {
-                        if (user.repeatPassword.length && user.password !== user.repeatPassword) {
-                            if (!newInputName.includes("repeatPassword")) {
-                                newInputName.push("repeatPassword");
-                            }
-                        } else if (/^.{8,}$/.test(user.password)) {
-                            newInputName = newInputName.filter(item => item !== "repeatPassword" && item !== "password");
-                        } else {
-                            newInputName = newInputName.filter(item => item !== "repeatPassword");
-
                         }
                     }
                 }
@@ -296,24 +310,17 @@ const Register = () => {
         return newInputName.length > 0;
     };
 
-    console.log(inputName)
-    console.log(isDate, "IS")
+
     const register = (e) => {
         e.preventDefault();
         const hasErrors = test();
         if (hasErrors) {
             return;
         }
-
         if (isRegister) {
             e.preventDefault();
             dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
         }
-
-        // if(isRegister && statusDelete === "ok"){
-        //     e.preventDefault();
-        //     dispatch(registrationUser({firstName, lastName, gender, email, password, dateOfBirth}))
-        // }
     }
 
 

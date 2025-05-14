@@ -62,7 +62,9 @@ export const setSelectedProducts = createAction('card/setSelectedProducts');
 
 export const loadTransformedArray = createAction('card/loadTransformedArray');
 
-
+export const setCards  = createAction(
+    "set/cards",
+)
 
 
 

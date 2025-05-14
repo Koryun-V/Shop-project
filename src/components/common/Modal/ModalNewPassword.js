@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {changePasswordUser, resendCode, setEmail, setStatusCode, setStatusForgot} from "../../../store/actions/login";
 import {resendActivateUser} from "../../../store/actions/registration";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faClock, faStopwatch20} from "@fortawesome/free-solid-svg-icons";
+import {faClock} from "@fortawesome/free-solid-svg-icons";
 
 const fields = [
     {
@@ -33,7 +33,7 @@ const fields = [
     },
 ]
 
-const ModalNewPassword = ({isModalClose}) => {
+const ModalNewPassword = () => {
     const dispatch = useDispatch()
     const [inputName, setInputName] = useState([]);
     const status = useSelector(state => state.login.statusNewPassword)
@@ -106,16 +106,6 @@ const ModalNewPassword = ({isModalClose}) => {
 
         let v = event.target.value
         let n = event.target.name
-        // if (n === "key") {
-        //     setNewPassword((prevState) => (
-        //         {...prevState, [n]: v.replace(/[^0-9+]/g, '')}
-        //     ))
-        //     setUserInfo({value: v.replace(/[^0-9+]/g, ''), title: n,})
-        // } else {
-        //     setNewPassword((prevState) => (
-        //         {...prevState, [event.target.name]: event.target.value}
-        //     ))
-        //     setUserInfo({value: v, title: n})
         setNewPassword((prevState) => (
             {...prevState, [event.target.name]: event.target.value}
         ))
@@ -125,38 +115,55 @@ const ModalNewPassword = ({isModalClose}) => {
     }
 
     const test = () => {
-        if (!isModalClose) {
-            fields.forEach(({validation, name, id}) => {
-                    if (title === name) {
-                        let test = name !== "repeatPassword" ? validation.test(value) : null
-
-                        if (test === false || !value.length ||
-                            newPassword["repeatPassword"].length && newPassword["password"] !== newPassword["repeatPassword"]) {
-                            setInputName((prevState) => (_.uniq([...prevState, title])))
-                        } else if (title === "password" || title === "repeatPassword" && newPassword.repeatPassword === newPassword.password) {
-                            const filter = inputName.filter(item => item !== "repeatPassword" && item !== "password");
-                            setInputName(filter)
-
-                        } else {
-                            const filter = inputName.filter(item => item !== title)
-                            setInputName(filter)
-                        }
-
-
+        let newInputName = [...inputName];
+        fields.forEach(({validation, name}) => {
+            if (name === title) {
+                const isValid = validation ? validation.test(value) : true;
+                if (!isValid || !value.length) {
+                    if (!newInputName.includes(name)) {
+                        newInputName.push(name);
                     }
+                } else if (title === "key" && isValid) {
+                    newInputName = newInputName.filter(item => item !== title);
+                } else {
+                    const passwordsMatch = newPassword.password === newPassword.repeatPassword;
+                    const passwordValid = /^.{8,}$/.test(newPassword.password);
 
+                    if (passwordValid && passwordsMatch) {
+                        newInputName = newInputName.filter(
+                            item => item !== "password" && item !== "repeatPassword"
+                        );
+                    }
+                    else if (newPassword.repeatPassword.length > 0 && !passwordsMatch) {
+                        if (!newInputName.includes("repeatPassword")) {
+                            newInputName.push("repeatPassword");
+                        }
+                        if (!newInputName.includes("password")) {
+                            newInputName.push("password");
+                        }
+                    }
+                    if (!passwordValid) {
+                        if (!newInputName.includes("password")) {
+                            newInputName.push("password");
+                        }
+                    }
+                    if (passwordValid && newPassword.repeatPassword.length === 0) {
+                        newInputName = newInputName.filter(item => item !== "password");
+                    }
                 }
-            )
-        }
-
-    }
+            }
+        })
+        setInputName(_.uniq(newInputName));
+        return newInputName.length > 0;
+    };
     const changePassword = (e) => {
         e.preventDefault();
+        const hasErrors = test();
+        if (hasErrors) {
+            return;
+        }
         if (isChangePassword) {
             dispatch(changePasswordUser({newPassword: password, key}))
-            // dispatch(setStatusCode(""))
-            // dispatch(setStatusForgot(""))
-            // dispatch(setEmail(""))
         }
     }
     return (

@@ -12,6 +12,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell, faEnvelopeCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
 import {FallingLines} from "react-loader-spinner";
+import {Link} from "react-router-dom";
 
 const serverUrl = 'https://world-of-construction.onrender.com';
 const socket = io(serverUrl);
@@ -29,7 +30,7 @@ const Notifications = () => {
     const [isNotification, setIsNotification] = useState(false);
     let menuRef = useRef(null);
     const [id, setId] = useState([])
-    console.log(statusRead, 's')
+
     useEffect(() => {
         if (user.id) {
             socket.emit('register', user.id);
@@ -58,21 +59,23 @@ const Notifications = () => {
     }, [user.id, dispatch]);
 
 
-    // убрали unreadCount
 
 
     useEffect(() => {
-        const element = document.querySelector(".notifications-ref");
-        let handler = (e) => {
-            if (element && !menuRef.current.contains(e.target)) {
+        const handler = (e) => {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
                 setIsNotification(false);
             }
-        }
+        };
+
         document.addEventListener("mousedown", handler);
         return () => {
-            document.removeEventListener("mousemove", handler);
-        }
-    },[menuRef.current])
+            document.removeEventListener("mousedown", handler);
+        };
+    }, []);
+
+
+
     useEffect(() => {
         if (statusRead === "ok" && status === "ok") {
             setId([])
@@ -124,9 +127,10 @@ const Notifications = () => {
 
                             return (
                                 <>
-                                    <div className={!id.includes(notification.id) ? `messages-block ${notification.read ? 'read' : 'unread'}` : "messages-loading"} >
-                                        <div className="message-block" style={{
-                                            opacity:!id.includes(notification.id) ? 1 : 0.2
+                                    <div key={notification.id}
+                                         className={!id.includes(notification.id) ? `messages-block ${notification.read ? 'read' : 'unread'}` : "messages-loading"}>
+                                        <Link to={`/one-product/${notification.productId}#review-${notification.userId}`}  className="message-block" style={{
+                                            opacity: !id.includes(notification.id) ? 1 : 0.2
                                         }}>
                                             <div className="img-block">
                                                 {notification.productImage ?
@@ -151,7 +155,7 @@ const Notifications = () => {
                                                 }}>
 
                                                 </div>}
-                                        </div>
+                                        </Link>
 
                                         <FontAwesomeIcon icon={faEnvelopeCircleCheck}
                                                          className={id.includes(notification.id) ? "envelope-active" : "envelope"}
@@ -205,108 +209,3 @@ const Notifications = () => {
 export default Notifications;
 
 
-// import React, { useState } from 'react';
-// import axios from 'axios';
-//
-// function ProductForm() {
-//     const [formData, setFormData] = useState({
-//         name: '',
-//         size: '',
-//         price: '',
-//         description: '',
-//         brandName: '',
-//         productImage: null,
-//     });
-//
-//     const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYxLCJlbWFpbCI6ImFkbWluQG1haWwucnUiLCJpYXQiOjE3NDE1MjA0MDMsImV4cCI6MTc0NDExMjQwM30.OnQGtsVYvHjvOvQ1Xv06ZrJHofwSXDc2e6vJJ61MhUo";
-//
-//     const handleChange = (e) => {
-//         const { name, value, files } = e.target;
-//         setFormData((prevData) => ({
-//             ...prevData,
-//             [name]: files ? files : value,
-//         }));
-//     };
-//
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         const categoryId = 24;
-//         const form = new FormData();
-//         Object.keys(formData).forEach((key) => {
-//             if (key === 'productImage' && formData.productImage) {
-//                 for (let i = 0; i < formData.productImage.length; i++) {
-//                     form.append(key, formData.productImage[i]);
-//                 }
-//             } else {
-//                 form.append(key, formData[key]);
-//             }
-//         });
-//
-//         try {
-//             const response = await axios.post(
-//                 `https://world-of-construction.onrender.com/admin/product/${categoryId}`,
-//                 form,
-//                 {
-//                     headers: {
-//                         Authorization: token,
-//                     },
-//                 }
-//             );
-//             console.log(response.data);
-//         } catch (error) {
-//             console.error(error.response ? error.response.data : error.message);
-//         }
-//     };
-//
-//     return (
-//         <div>
-//             <h1>Test</h1>
-//             <form onSubmit={handleSubmit}>
-//                 <input
-//                     type="text"
-//                     name="name"
-//                     value={formData.name}
-//                     onChange={handleChange}
-//                     placeholder="Name"
-//                 />
-//                 <input
-//                     type="text"
-//                     name="size"
-//                     value={formData.size}
-//                     onChange={handleChange}
-//                     placeholder="Size"
-//                 />
-//                 <input
-//                     type="text"
-//                     name="price"
-//                     value={formData.price}
-//                     onChange={handleChange}
-//                     placeholder="Price"
-//                 />
-//                 <input
-//                     type="text"
-//                     name="description"
-//                     value={formData.description}
-//                     onChange={handleChange}
-//                     placeholder="Description"
-//                 />
-//                 <input
-//                     type="text"
-//                     name="brandName"
-//                     value={formData.brandName}
-//                     onChange={handleChange}
-//                     placeholder="Brand Name"
-//                 />
-//                 <input
-//                     type="file"
-//                     name="productImage"
-//                     onChange={handleChange}
-//                     multiple
-//                 />
-//                 <button type="submit">Submit</button>
-//             </form>
-//         </div>
-//     );
-// }
-//
-// export default ProductForm;

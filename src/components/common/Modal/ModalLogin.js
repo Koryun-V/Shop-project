@@ -11,6 +11,7 @@ import {
     setStatusForgot
 } from "../../../store/actions/login";
 import Input from "../../mini/Input";
+
 import Button from "../../mini/Button";
 import {ReactComponent as Close} from "../../../assets/icon/close-x.svg"
 import _ from "lodash";
@@ -20,6 +21,7 @@ import ModalNewPassword from "./ModalNewPassword";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCommentDots, faEnvelope, faMobileScreenButton} from "@fortawesome/free-solid-svg-icons";
 import {setDeleteEmail} from "../../../store/actions/registration";
+import {clearRedirectPath} from "../../../store/slices/authRedirect";
 
 
 const fields = [
@@ -27,15 +29,13 @@ const fields = [
         id: 1,
         name: "email",
         label: "E-mail",
-        // validation: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        // info: "Please enter correct e-mail.",
+        validation: /^[^\s@]+@[a-zA-Z]+\.[a-zA-Z]+$/,
+        info: "Please enter correct e-mail.",
     },
     {
         id: 2,
         name: "password",
         label: "Password",
-        // validation: /^.{8,}$/,
-        // info: "Your password must be at least 8 characters long, or a mismatch.",
     },
 ]
 
@@ -50,9 +50,9 @@ function ModalLogin({open, onClose}) {
     const [inputName, setInputName] = useState([]);
     const [isForgot, setIsForgot] = useState(false)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
-
+    const statusEmail = useSelector(state => state.login.emailError)
+    const [isTest, setIsTest] = useState(true)
     const statusPassword = useSelector(state => state.login.statusNewPassword)
-    const [isModalClose, setIsMoadlClose] = useState(false);
     const [userInfo, setUserInfo] = useState({
         value: "",
         title: ""
@@ -64,6 +64,7 @@ function ModalLogin({open, onClose}) {
         email: "",
         password: "",
     })
+    const redirectPath = useSelector(state => state.authRedirect.path); // ավելացրու
 
 
     const {email, password} = user
@@ -99,15 +100,28 @@ function ModalLogin({open, onClose}) {
     }, []);
 
 
+    // useEffect(() => {
+    //     if (token) {
+    //         localStorage.setItem("token", token)
+    //         window.location.reload(true);
+    //     }
+    // }, [token]);
+
     useEffect(() => {
         if (token) {
-            localStorage.setItem("token", token)
-            window.location.reload(true);
+            localStorage.setItem("token", token);
+            dispatch(setIsOpenLogin(false));
+            if (redirectPath) {
+                navigate(redirectPath);
+                dispatch(clearRedirectPath());
+                window.location.reload(true);
+
+            }
         }
     }, [token]);
 
     useEffect(() => {
-        if(statusPassword === "ok"){
+        if (statusPassword === "ok") {
             setIsForgot(false);
             dispatch(setStatusForgot(""))
             dispatch(setEmail(""))
@@ -118,34 +132,39 @@ function ModalLogin({open, onClose}) {
         if (open) {
             (async () => {
                 try {
-                    document.body.style.width = ` ${document.body.getBoundingClientRect().width}px`
+                    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+                    document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
                     document.body.style.overflowY = 'hidden';
                     document.body.ontouchmove = () => false;
                     window.addEventListener('keydown', handleEsc);
 
-                } catch (err) {
-                    console.log(err)
-                }
-            })()
-        } else {
+                    const header = document.querySelector('.nav-header');
+                    if (header) {
+                        header.style.paddingRight = `${scrollbarWidth}px`;
+                    }
 
-            scrollModal()
-            setIsForgot(false)
-            setUser({
-                email: "",
-                password: ""
-            })
-            setInputName([])
-            setUserInfo({
-                title: "",
-                value: "",
-            })
-            dispatch(setStatusCode(""))
-            dispatch(setStatusForgot(""))
-            dispatch(setEmail(""))
-            setIsMoadlClose(false)
-            dispatch(setDeleteEmail(false))
+                } catch (err) {
+                    console.log(err);
+                }
+            })();
+        } else {
+            scrollModal();
+            setIsForgot(false);
+            setUser({email: "", password: ""});
+            setInputName([]);
+            setUserInfo({title: "", value: ""});
+            dispatch(setStatusCode(""));
+            dispatch(setStatusForgot(""));
+            dispatch(setEmail(""));
+            dispatch(setDeleteEmail(false));
+            setIsTest(true);
+
+            const header = document.querySelector('.nav-header');
+            if (header) {
+                header.style.paddingRight = '';
+            }
         }
+
     }, [open]);
 
 
@@ -153,7 +172,6 @@ function ModalLogin({open, onClose}) {
 
         let v = event.target.value
         let n = event.target.name
-
 
         setUser((prevState) => (
             {...prevState, [event.target.name]: event.target.value}
@@ -163,38 +181,52 @@ function ModalLogin({open, onClose}) {
         if (statusForgot === "error") dispatch(setStatusForgot(""))
 
     }
+    const test = () => {
+        if (isTest) {
+            let newInputName = [...inputName];
+            fields.forEach(({validation, name}) => {
+                if (name === title) {
+                    let isValid = true;
+                    if (name === "email") {
+                        isValid = validation ? validation.test(value) : true;
+                    }
+                    if (!isValid || !value.length) {
+                        if (!newInputName.includes(name)) {
+                            newInputName.push(name);
+                        }
+                    } else {
+                        newInputName = newInputName.filter(item => item !== name);
+                    }
+                }
+            });
+            setInputName(_.uniq(newInputName));
+            return newInputName.length > 0;
+        }
+    };
 
 
     const login = (e) => {
         e.preventDefault();
+        const hasErrors = test();
+        if (hasErrors) {
+            return;
+        }
         if (email && password) {
             dispatch(loginUser({email, password}))
         }
     }
     const getForgotPassword = (e) => {
         e.preventDefault();
+        const hasErrors = test();
+        if (hasErrors) {
+            return;
+        }
         if (isForgotPassword) {
             dispatch(setEmail(email))
             dispatch(forgotPasswordUser({email}))
         }
     }
 
-    const test = () => {
-        if (!isModalClose) {
-            fields.forEach(({validation, name, id}) => {
-                    if (title === name) {
-                        let test = validation.test(value)
-                        if (test === false || !value.length) {
-                            setInputName((prevState) => (_.uniq([...prevState, title])))
-                        } else {
-                            const filter = inputName.filter(item => item !== title)
-                            setInputName(filter)
-                        }
-                    }
-                }
-            )
-        }
-    }
 
     const forgotPassword = () => {
         setIsForgot(true);
@@ -210,11 +242,10 @@ function ModalLogin({open, onClose}) {
     }
 
 
-
     if (!open) return null
     return ReactDom.createPortal(
         <div id="modal">
-            <div onClick={onClose} className="shadow">
+            <div className="shadow">
             </div>
             <div id="modal_window">
                 <div className="close">
@@ -222,8 +253,8 @@ function ModalLogin({open, onClose}) {
                         <span>{statusPassword === "error" ? "Notification" : isForgot ? "Reset password" : "LOGIN"}</span>
                     </div>
                     <div className="close-block" onClick={onClose}
-                         onMouseEnter={() => setIsMoadlClose(true)}
-                         onMouseLeave={() => setIsMoadlClose(false)}>
+                         onMouseEnter={() => setIsTest(false)}
+                         onMouseLeave={() => setIsTest(true)}>
                         <Close className="icon"/>
                     </div>
                 </div>
@@ -245,7 +276,7 @@ function ModalLogin({open, onClose}) {
                                                         name={field.name}
                                                         className="input"
                                                         {...field}
-                                                        // onBlur={test}
+                                                        onBlur={test}
                                                         onChange={onChange}
                                                         value={user[field.name]}
                                                         // type={field.name === "password" && eye === faEyeSlash ? "password" : "text"}
@@ -256,23 +287,15 @@ function ModalLogin({open, onClose}) {
                                                     />
                                                 </div>
 
-                                                <div className="validation-info">
-
-                                                    {status === "error" && field.name === "password" ?
-                                                        <span>Wrong login or password.</span>
-                                                        :
-                                                        null}
-                                                        {/*inputName.map(((item, index) => (*/}
-                                                        {/*    item === field.name ?*/}
-                                                        {/*        <>*/}
-                                                        {/*            <div className="test2"></div>*/}
-                                                        {/*            <span>{status === "error" ? "Wrong login or password." : !user[item].length ? "Field Required" : field.info}</span>*/}
-                                                        {/*        </> :*/}
-                                                        {/*        status === "error" ?*/}
-                                                        {/*            <span>Wrong login or password.</span>*/}
-                                                        {/*            : null*/}
-
-                                                        {/*)))}*/}
+                                                <div className="validation-info-login">
+                                                    {field.name === "email" ?
+                                                        <>
+                                                            {inputName.includes(field.name) ?
+                                                                <span>{field.info}</span> : null}
+                                                        </>
+                                                        : status === "error" ?
+                                                            <span>Wrong login or password.</span>
+                                                            : null}
                                                 </div>
                                             </div>
                                         ))}
@@ -331,17 +354,12 @@ function ModalLogin({open, onClose}) {
                                                 />
                                             </div>
 
-                                            <div className="validation-info">
-                                                {statusForgot === "error" && fields[0].name === "email" ?
-                                                    <span>No such user exists</span>
+                                            <div className="validation-info-login">
+                                                {statusForgot === "error" ?
+                                                    <span>{statusEmail}</span>
                                                     :
-                                                    inputName.map(((item, index) => (
-                                                        item === fields[0].name ?
-                                                            <>
-                                                                <div className="test2"></div>
-                                                                <span>{!user[item].length ? "Field Required" : fields[0].info}</span>
-                                                            </> : null)))
-                                                }
+                                                    inputName[0] === "email" ?
+                                                        <span>{!email.length ? "Field Required" : fields[0].info}</span> : null}
                                             </div>
                                         </div>
 
@@ -356,7 +374,7 @@ function ModalLogin({open, onClose}) {
                                 </div>
                                 :
                                 statusPassword !== "error" ?
-                                    <ModalNewPassword isModalClose={isModalClose}/>
+                                    <ModalNewPassword/>
                                     :
                                     <div className="no-correct">
                                         <div className="message">
@@ -364,7 +382,7 @@ function ModalLogin({open, onClose}) {
                                             <FontAwesomeIcon icon={faCommentDots} className="icon-message"/>
                                         </div>
 
-                                        <span>OTP is not correct</span>
+                                        <span>The six-digit code does not match!</span>
 
                                     </div>
 

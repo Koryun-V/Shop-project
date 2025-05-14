@@ -12,24 +12,7 @@
   cursor: pointer;
   z-index: 10;
 
-  .count {
-    position: absolute;
-    background: red;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-    right: 0;
-    top: 0;
 
-    strong {
-      font-size: 14px;
-      color: white;
-      font-family: "RobotoMedium", sans-serif;
-    }
-  }
 
 
   .bell-icon {
@@ -42,7 +25,25 @@
 
 
 }
+.count {
+  position: absolute;
+  background: red;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  right: 0;
+  top: 0;
+  z-index: 10;
 
+  strong {
+    font-size: 14px;
+    color: white;
+    font-family: "RobotoMedium", sans-serif;
+  }
+}
 .bell:hover .bell-icon {
   transform: scale(1.1, 1.1);
   opacity: 1;

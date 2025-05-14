@@ -17,7 +17,8 @@ const initialState = {
     token:"",
     isOpenLogin:false,
     user:{},
-    email:""
+    email:"",
+    emailError:""
 }
 export const login = createReducer(initialState, (builder) => {
     builder
@@ -37,8 +38,10 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(forgotPasswordUser.fulfilled, (state, {payload}) => {
             state.statusForgot = "ok"
         })
-        .addCase(forgotPasswordUser.rejected, (state) => {
+        .addCase(forgotPasswordUser.rejected, (state,error) => {
             state.statusForgot = "error"
+            state.emailError = error.payload.response.data.message
+
         })
         .addCase(changePasswordUser.pending, (state) => {
             state.statusNewPassword = "pending"

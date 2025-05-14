@@ -115,6 +115,9 @@ function ModalLogin({open, onClose}) {
                 navigate(redirectPath);
                 dispatch(clearRedirectPath());
                 window.location.reload(true);
+            }
+            else{
+                window.location.reload(true);
 
             }
         }

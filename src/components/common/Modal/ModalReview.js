@@ -21,8 +21,8 @@ function ModalReview({open, onClose, product}) {
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const [isStar, setIsStar] = useState(false);
-    const [id, setId] = useState("");
     const [paymentId, setPaymentId] = useState("");
+
 
     useEffect(() => {
         if (reviews.review) {
@@ -30,7 +30,7 @@ function ModalReview({open, onClose, product}) {
         } else {
             setIsReview(false)
         }
-    }, [status, statusSend]);
+    }, [status]);
 
     useEffect(() => {
         if (statusSend === "ok") {
@@ -66,37 +66,58 @@ function ModalReview({open, onClose, product}) {
             (async () => {
                 try {
                     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-                    document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
+                    // document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
                     document.body.style.overflowY = 'hidden';
                     document.body.ontouchmove = () => false;
                     window.addEventListener('keydown', handleEsc);
 
                     const header = document.querySelector('.nav-header');
+                    const main = document.querySelector('.main');
+                    const footer = document.querySelector('.footer');
+
+
+
                     if (header) {
                         header.style.paddingRight = `${scrollbarWidth}px`;
                     }
+                    if (main) {
+                        main.style.paddingRight = `${scrollbarWidth}px`;
+                    }
+                    if (footer) {
+                        footer.style.paddingRight = `${scrollbarWidth}px`;
+                    }
+
                 } catch (err) {
                     console.log(err);
                 }
             })()
         } else {
-            setId("")
             setReview("")
             setRating("")
+            setPaymentId("")
             setIsStar(false)
             dispatch(setReviews({}))
             dispatch(setReviewStatus(""))
             scrollModal()
+
             const header = document.querySelector('.nav-header');
+            const main = document.querySelector('.main');
+            const footer = document.querySelector('.footer');
+
             if (header) {
                 header.style.paddingRight = '';
+            }
+            if (main) {
+                main.style.paddingRight = '';
+            }
+            if (footer) {
+                footer.style.paddingRight = '';
             }
         }
     }, [open]);
 
 
     const send = (productId, review, rating) => {
-        setId(productId)
         dispatch(sendReview({
             productId,
             review,
@@ -199,12 +220,11 @@ function ModalReview({open, onClose, product}) {
                                 </div>
                                 <div className="send-block">
                                     <Button
-
                                         status={statusSend}
                                         disabled={isReview}
                                         onClick={() => {
                                             send(product.productId, review, rating)
-                                            setPaymentId(product.id)
+                                            setPaymentId(product.paymentId)
                                         }}
                                         text="Send" className={isReview ? "disabled" : "active-button"}/>
 

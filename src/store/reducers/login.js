@@ -18,7 +18,7 @@ const initialState = {
     isOpenLogin:false,
     user:{},
     email:"",
-    emailError:""
+    emailError:"",
 }
 export const login = createReducer(initialState, (builder) => {
     builder
@@ -78,8 +78,5 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(setEmail, (state, {payload}) => {
             state.email = payload
         })
-
-
-
 
 });

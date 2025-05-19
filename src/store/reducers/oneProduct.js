@@ -1,7 +1,5 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {getOneProduct, setOneProduct} from "../actions/oneProduct";
-import {setEmail} from "../actions/login";
-
 
 const initialState = {
   oneProductStatus: "",
@@ -18,7 +16,6 @@ export const oneProduct = createReducer(initialState, (builder) => {
 
     .addCase(getOneProduct.fulfilled, (state, {payload}) => {
       state.oneProductStatus = "ok"
-      // console.log(payload, "oneProduct payload",)
       state.oneProduct = payload
     })
 

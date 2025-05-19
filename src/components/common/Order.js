@@ -36,6 +36,7 @@ const Order = () => {
     useEffect(() => {
         dispatch(setOrder([]))
     }, []);
+
     useEffect(() => {
         dispatch(getOrder({limit: 100}))
         dispatch(getOrderReceived())
@@ -50,7 +51,6 @@ const Order = () => {
 
 
     return (
-
         <section className="section">
             <article className="section-block">
                 <Loading isLoading={!order.order.length && status === "pending"}/>
@@ -61,7 +61,6 @@ const Order = () => {
                         <h1>Orders</h1>
                         <img src={orderBg}/>
                     </div>
-
 
                     <div className="container-order">
                         {order.order.length ?
@@ -105,13 +104,9 @@ const Order = () => {
                                 </div> : null
                         }
                     </div>
-
-
                 </div>
             </article>
         </section>
-
-
     );
 };
 

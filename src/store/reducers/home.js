@@ -9,11 +9,9 @@ import {
     setUserId,
     setProductId, setPopularProducts, setSharesProducts
 } from "../actions/home";
-import {} from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
 import {getPopularProducts, getSharesProducts, getAllNames, setNameData, setProduct} from "../actions/home";
-import {toast} from "react-toastify";
 
 const initialState = {
     status: "",
@@ -143,7 +141,6 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(setStoreId, (state, {payload}) => {
             state.storeId = payload
         })
-
 
         .addCase(setProduct, (state, {payload}) => {
             state.product = payload

@@ -1,47 +1,94 @@
 import React, {useEffect} from 'react';
 import YouTube from "react-youtube";
-import orderBg from "../../assets/background/order.jpg";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {getStore, setStore} from "../../store/actions/storePage";
+import {useNavigate, useParams} from "react-router-dom";
+import Button from "../mini/Button";
 
 const Store = () => {
-    const dipatch = useDispatch()
+    const dispatch = useDispatch()
+    const {id} = useParams()
+    const store = useSelector(state => state.storePage.store)
+    const navigate = useNavigate();
 
     useEffect(() => {
+        dispatch(setStore([]))
+        dispatch(getStore({id}))
+    }, [id]);
 
-    }, []);
 
-
-
+    console.log(store, "store")
 
 
     return (
         <section className="section">
             <article className="section-block">
                 <div className="container">
-                    <div className="store-header">
-                        <h1> About the ideal store</h1>
-                    </div>
-                    <div className="store-block">
-                        <div className="container-video">
-                            <YouTube videoId="8JaFaJSfoX8" className="you-tube"/>
-                            <div className="store-link">
-                                <div className="link-block">
-                                    <span>Official website</span><a target="_blank"  href="https://www.idealsystem.am/">idealsystem.am</a>
+                    {store.name ?
+                        <>
+                            <div className="store-header">
+                                <h1> About the {store.name.charAt(0).toUpperCase() + store.name.slice(1)}</h1>
+                            </div>
+                            <div className="store-block">
+                                <div className="container-video">
+                                    <YouTube videoId={store.videoUrl} className="you-tube"/>
+                                    <div className="store-link">
+                                        <div className="link-block">
+                                            <span>Products on the Multify website</span>
+                                            <div className="products-button">
+                                                <Button text="Products" className="active-button"
+                                                        onClick={() => navigate(`/products`)}/>
+                                            </div>
+                                        </div>
+                                        <div className="link-block">
+                                            <span>Official website</span><a target="_blank"
+                                                                            href={store.webSiteUrl}>{store.webSiteUrl}</a>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div className="link-block">
-                                    <span>Products on the Multify website</span><a
-                                    href="#">idealsystem.am</a>
+                                <div className="store-info">
+                                    <span>{store.about}</span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="store-info">
-                            <span>Ideal System is today the largest chain of building materials stores in the region. It is represented by spacious and comfortable stores, 14 of which operate in the regions of Armenia: Gyumri, Vanadzor, Artashat, Armavir, Echmiadzin, Martuni, Ijevan, Artik, Ararat, Masis Kapan and Hrazdan, in the cities of Ashtarak. Ideal System presents more than 30,000 product types to the population of the republic and provides more than 100 high-quality services.
+                        </>
+                        :   <>
+                            <div className="store-header">
+                                <h1 style={{
+                                    width:"100%",
+                                }} className="loading-gradient-p"></h1>
+                            </div>
+                            <div className="store-block">
+                                <div className="container-video">
+                                    <div className="you-tube loading-gradient-p"/>
+                                    <div className="store-link">
+                                        <div className="link-block loading-gradient-p" style={{
+                                            width:"100%",
+                                            height:40,
+                                        }} >
 
-Ideal System cooperates with more than 180 European companies. Ideal System presents itself to Armenian consumers with stores that, with their size, range, level of service and convenience of choice, form a new culture of choosing construction products and services in Armenia.</span>
-                        </div>
-                    </div>
+                                        </div>
+                                        <div className="link-block loading-gradient-p" style={{
+                                            width:"100%",
+                                            height:40,
+                                        }} >
 
+                                        </div>
 
+                                    </div>
+                                </div>
+                                <div className="store-info">
+                                    <div className="span-block">
+                                        <span className="span-loading loading-gradient-p"></span>
+                                        <span className="span-loading loading-gradient-p"></span>
+                                        <span className="span-loading loading-gradient-p"></span>
+                                        <span className="span-loading loading-gradient-p"></span>
+                                        <span className="span-loading loading-gradient-p"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </>}
 
 
                 </div>

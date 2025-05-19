@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from "../../assets/icon/logo.png";
 import {ProgressBar} from "react-loader-spinner";
-import {useSelector} from "react-redux";
 
 const Loading = ({isLoading}) => {
 

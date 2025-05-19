@@ -1,4 +1,3 @@
-// src/App.js
 import React, {useEffect, useRef, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import io from 'socket.io-client';
@@ -59,21 +58,17 @@ const Notifications = () => {
     }, [user.id, dispatch]);
 
 
-
-
     useEffect(() => {
         const handler = (e) => {
             if (menuRef.current && !menuRef.current.contains(e.target)) {
                 setIsNotification(false);
             }
         };
-
         document.addEventListener("mousedown", handler);
         return () => {
             document.removeEventListener("mousedown", handler);
         };
     }, []);
-
 
 
     useEffect(() => {
@@ -97,7 +92,6 @@ const Notifications = () => {
         await dispatch(loadUnreadNotifications());
     };
 
-    console.log(notifications, "A")
     return (
         <div ref={menuRef} className="notifications-ref">
             <div className="bell" onClick={openNotifications}>
@@ -129,7 +123,8 @@ const Notifications = () => {
                                 <>
                                     <div key={notification.id}
                                          className={!id.includes(notification.id) ? `messages-block ${notification.read ? 'read' : 'unread'}` : "messages-loading"}>
-                                        <Link to={`/one-product/${notification.productId}#review-${notification.userId}`}  className="message-block" style={{
+                                        <Link to={`/one-product/${notification.productId}#review-${notification.userId}`}
+                                              onClick={() => setIsNotification(false)} className="message-block" style={{
                                             opacity: !id.includes(notification.id) ? 1 : 0.2
                                         }}>
                                             <div className="img-block">
@@ -202,7 +197,6 @@ const Notifications = () => {
                 </div>
             </div> : null}
         </div>
-
     );
 }
 

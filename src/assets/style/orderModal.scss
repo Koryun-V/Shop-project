@@ -34,6 +34,9 @@
       font-family: "PoppinsMedium", "sans-serif";
 
       strong {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       span {

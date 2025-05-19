@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import img from "../../esim/1.jpg";
 import Button from "./Button";
 import {useNavigate} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -74,12 +73,11 @@ const Product = ({
                 products.length ?
                     products.slice(start || 0, quantity ? quantity : products.length).map((product, index) => {
                             const isCard = cards ? cards.find(item => item.product.id === product.id) : false;
-                            console.log(cards)
                             const date = product.discount ? new Date(product.discount.endDate) : null;
                             const day = product.discount ? date.getDate() : null;
                             const month = product.discount ? date.toLocaleString('en-us', {month: 'long'}) : null;
                             return (
-                                <div className={className}>
+                                <div className={className} key={product.id}>
                                     <>
                                         <div className="product-link" onClick={() => goToProduct(product, product.id)}
                                              onMouseEnter={() => {
@@ -143,7 +141,7 @@ const Product = ({
                                             </div>
 
                                             <div className="product-button">
-                                                <Button isProduct={true}  index={index}
+                                                <Button key={product.id}  isProduct={true}  index={index}
                                                         indexProduct={indexProduct}
                                                         status={statusEnd} onClick={() =>
                                                     !token ? dispatch(setIsOpenLogin(true)) :
@@ -166,9 +164,9 @@ const Product = ({
 
                         // <div>{product.id}</div>
                     ) :
-                    Array.from({length: start ? quantity - start : quantity}).map(() => (
+                    Array.from({length: start ? quantity - start : quantity}).map((_,id) => (
 
-                        <div className={className} style={{border: "1px solid transparent"}}>
+                        <div className={className} style={{border: "1px solid transparent"}} key={id}>
 
                             {classNameImg === "product-img" ?
 

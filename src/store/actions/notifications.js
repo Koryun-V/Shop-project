@@ -1,4 +1,3 @@
-// redux/actions/notificationsActions.js
 import axios from 'axios';
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 

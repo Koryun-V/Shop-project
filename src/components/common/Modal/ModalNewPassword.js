@@ -3,8 +3,7 @@ import Input from "../../mini/Input";
 import Button from "../../mini/Button";
 import _ from "lodash";
 import {useDispatch, useSelector} from "react-redux";
-import {changePasswordUser, resendCode, setEmail, setStatusCode, setStatusForgot} from "../../../store/actions/login";
-import {resendActivateUser} from "../../../store/actions/registration";
+import {changePasswordUser, resendCode, setStatusCode} from "../../../store/actions/login";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-solid-svg-icons";
 
@@ -97,8 +96,6 @@ const ModalNewPassword = () => {
             }, 60);
 
         }
-
-
     }, [start]);
 
 

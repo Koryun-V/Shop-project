@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Layout from "./components/common/Layout";
 import Register from "./components/common/Register";
 import Home from "./components/common/Home";
@@ -13,6 +13,7 @@ import Users from "./components/pages/User";
 import Contact from "./components/common/Contact";
 import Store from "./components/common/Store";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import NotFound from "./components/common/NotFound";
 
 function App() {
     return (
@@ -21,7 +22,7 @@ function App() {
                 <Route index element={<Home/>}/>
                 <Route path="/shares" element={<Shares/>}/>
                 <Route path="/input" element={<PinInput/>}/>
-                <Route path="/order" element={
+                <Route path="/orders" element={
                     <ProtectedRoute>
                         <Order />
                     </ProtectedRoute>
@@ -35,7 +36,7 @@ function App() {
                 <Route path="/products" element={<Products/>}/>
                 <Route path="/products/:name" element={<Products/>}/>
                 <Route path="/one-product/:productId" element={<OneProduct/>}/>
-                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/contacts" element={<Contact/>}/>
                 <Route path="/store/:id" element={<Store/>}/>
                 <Route path="/user" element={
                     <ProtectedRoute>
@@ -43,6 +44,8 @@ function App() {
                     </ProtectedRoute>
                 }/>
                 <Route path="/register" element={<Register/>}/>
+                <Route path="404" element={<NotFound/>}/>
+                <Route path="*" element={<Navigate to="/404" replace/>}/>
             </Route>
         </Routes>
     );

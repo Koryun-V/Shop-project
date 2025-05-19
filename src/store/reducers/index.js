@@ -10,6 +10,7 @@ import {home} from "./home";
 import {userSlice} from "./users";
 import notifications from "./notifications";
 import authRedirect from "../slices/authRedirect";
+import {storePage} from "./storePage";
 
 
 
@@ -24,5 +25,6 @@ export const rootReducer = combineReducers({
     card,
     users: userSlice,
     notifications,
-    authRedirect
+    authRedirect,
+    storePage,
 })

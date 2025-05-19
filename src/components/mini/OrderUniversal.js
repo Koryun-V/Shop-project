@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import Button from "./Button";
 import {getReview, orderConfirm, orderRetry, setIsOpenReview} from "../../store/actions/order";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faClock, faCube, faMoneyCheck, faSquarePen} from "@fortawesome/free-solid-svg-icons";
+import {faCube, faMoneyCheck, faSquarePen} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import ModalReview from "../common/Modal/ModalReview";
-import {Form, Link} from "react-router-dom";
+import { Link} from "react-router-dom";
 import {Watch} from "react-loader-spinner";
 
 const OrderUniversal = ({order, status}) => {
@@ -19,7 +19,8 @@ const OrderUniversal = ({order, status}) => {
     const [activeItem, setActiveItem] = useState("");
     const [indexProduct, setIndexProduct] = useState("")
     const [product, setProduct] = useState({
-        productId: "",
+        paymentId: "",
+        productId:"",
         productImg: "",
         productName: "",
     });
@@ -34,11 +35,10 @@ const OrderUniversal = ({order, status}) => {
                 const day = date.getDate();
                 const month = date.toLocaleString('en-us', {month: 'long'});
                 return (
-
                     <>
                         {item.status === status || status === "" ?
                             <div key={index} className={index === activeItem ? "order-item-active loading-gradient-order" : "order-item"}>
-                                <Link to="/products" className="product-link"></Link>
+                                <Link to={`/one-product/${item.product.id}`} className="product-link"></Link>
                                 <div className="order-img">
                                     <img src={item.product.productImage[0].path} alt=""/>
                                 </div>
@@ -66,7 +66,8 @@ const OrderUniversal = ({order, status}) => {
                                                             dispatch(getReview({paymentId: item.id}))
                                                             dispatch(setIsOpenReview(true))
                                                             setProduct({
-                                                                productId: item.product.id,
+                                                                paymentId: item.id,
+                                                                productId:item.product.id,
                                                                 productImg: item.product.productImage[0].path,
                                                                 productName: item.product.name,
                                                             })
@@ -144,15 +145,12 @@ const OrderUniversal = ({order, status}) => {
                                                                     <span>The order will be in <strong style={{
                                                                         color: "#7b00ff"
 
-                                                                    }}>{deadline}</strong> days</span>
+                                                                    }}>{Math.round(deadline)}</strong> days</span>
 
                                                                 </div>
                                                             </div>
                                                         : null
-
                                             }
-
-
                                         </div>
                                     </div>
                                     <div className="status-container" style={{
@@ -162,7 +160,7 @@ const OrderUniversal = ({order, status}) => {
                                             width:150,
                                         }}>
                                             <strong>Status</strong>
-                                            <span>{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
+                                            <span className="status-order">{item.status.charAt(0).toUpperCase() + item.status.slice(1)}</span>
                                         </div>
 
                                     </div>

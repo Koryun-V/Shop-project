@@ -68,12 +68,12 @@ const Slide = ({products}) => {
     return (
         <Slider key={key} {...settings}>
             <div onMouseDown={handleMouseDown} onMouseUp={(e) => handleMouseUp(e, products[0].id)}>
-                <div className="steklo"/>
+                <div className="glass-slide"/>
                 <img src={background} className="img-b" alt="background"/>
                 <SlideProduct product={products[0]}/>
             </div>
             <div onMouseDown={handleMouseDown} onMouseUp={(e) => handleMouseUp(e, products[1].id)}>
-                <div className="steklo"/>
+                <div className="glass-slide"/>
                 <img src={background2} className="img-b" alt="background"/>
                 <SlideProduct product={products[1]}/>
             </div>

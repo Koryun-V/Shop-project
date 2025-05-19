@@ -42,6 +42,11 @@ const Profile = () => {
         setIsProfile(prev => !prev);
     }
 
+    const logOut = () => {
+        localStorage.removeItem("token")
+        window.location.reload(true)
+    }
+
     return (
         <div ref={userRef} className="user-ref">
             <div className="user" onClick={openProfile}>
@@ -117,10 +122,7 @@ const Profile = () => {
 
                     <div className="log-out">
                         <div className="button-block">
-                            <Button onClick={() => {
-                                localStorage.removeItem("token")
-                                window.location.reload(true)
-                            }}
+                            <Button onClick={logOut}
                                     text={<>
                                         <FontAwesomeIcon icon={faArrowRightFromBracket}
                                                          style={{

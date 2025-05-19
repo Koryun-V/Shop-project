@@ -90,7 +90,7 @@ export const setIsOpenReview = createAction(
 )
 
 export const setReviews = createAction(
-    "login/reviews",
+    "set/review",
 )
 export const setReviewList = createAction(
     "set/reviews",

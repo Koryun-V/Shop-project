@@ -129,15 +129,15 @@
         font-family: "Manrope-Medium", sans-serif;
       }
 
-      .product__description__p {
-        margin-top: 20px;
-        font-size: 20px;
-        color: #8e8e8e;
-        font-family: "Inter", sans-serif;
-      }
+
     }
 
-
+    .product__description__p {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #8e8e8e;
+      font-family: "Inter", sans-serif;
+    }
     .product__quantity {
       display: flex;
       align-items: center;
@@ -209,10 +209,13 @@
     }
 
     .product__store_name {
+      display: flex;
+      align-items: center;
       font-family: "Manrope-Medium", sans-serif;
       font-size: 30px;
       font-weight: bold;
     }
+
 
     .product__store_name_desc {
       font-family: "Manrope-Medium", sans-serif;
@@ -322,11 +325,13 @@
     }
 
     .product-price_info {
-
       display: flex;
       align-items: center;
+      margin-bottom: 50px;
+
 
       .price-block {
+
         display: flex;
         justify-content: center;
         align-items: center;

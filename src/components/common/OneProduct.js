@@ -54,7 +54,6 @@ const OneProduct = () => {
     };
 
 
-
     useEffect(() => {
         checkOverflow(); // սկզբնական ստուգում
         window.addEventListener("resize", checkOverflow);
@@ -70,7 +69,7 @@ const OneProduct = () => {
                 setMore(true);
                 const element = document.querySelector(hash);
                 if (element) {
-                    element.scrollIntoView({behavior: 'smooth'});
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }
             }
         }
@@ -252,32 +251,31 @@ const OneProduct = () => {
                                                 <div className="product-price_info">
                                                     {oneProductInfo?.result?.product?.discount ? (
                                                         <>
-                                                            <div style={{marginBottom: "50px"}}>
-      <span>
-        <span
-            className="product__store_name">Price -
-        </span>
-          {quantity * oneProductInfo.result.product.discount.discountPrice}$
-      </span>
+                                                            <div >
+                                                                          <span className="product__store_name">
+                                                                            <span>Price -</span>
+                                                                             <span>{quantity * oneProductInfo.result.product.discount.discountPrice}$</span>
+                                                                          </span>
                                                             </div>
-                                                            <div style={{marginBottom: "45px"}}>
-                        <span
-                            style={{
-                                color: "#a5a5a5",
-                                fontSize: "25px",
-                                fontWeight: "bold",
-                                textDecorationLine: "line-through",
-                            }}
-                        >
-        {quantity * oneProductInfo?.result?.product?.price}$
-      </span>
+
+                                                            <div className="product__store_name">
+                                                                    <span
+                                                                        style={{
+                                                                            color: "#a5a5a5",
+                                                                            fontSize: "25px",
+                                                                            fontWeight: "bold",
+                                                                            textDecorationLine: "line-through",
+                                                                        }}
+                                                                    >
+                                                                 {quantity * oneProductInfo?.result?.product?.price}$
+                                                                      </span>
                                                             </div>
                                                         </>
                                                     ) : (
                                                         <span className="product__store_name">
-      <span className="product__store_name">Price -
-      </span>{quantity * oneProductInfo?.result?.product?.price}$
-    </span>
+                                                  <span className="product__store_name">Price -
+                                                  </span>{quantity * oneProductInfo?.result?.product?.price}$
+                                                </span>
                                                     )}
                                                 </div>
 
@@ -436,7 +434,7 @@ const OneProduct = () => {
                                                                 <div>
                                                                     <strong>Seller's response</strong>
                                                                 </div>
-                                                                                    <div className="message__info">
+                                                                <div className="message__info">
                                                                   <span
                                                                       ref={el => replyRefs.current[i] = el}
                                                                       className={index.includes(i) ? "message__text-more" : "message__text"}
@@ -447,7 +445,7 @@ const OneProduct = () => {
                                                                         <span
                                                                             className="message__more"
                                                                             onClick={() => setIndex(prev => _.uniq([...prev, i]))}
-                                                                                                >
+                                                                        >
                                                                           more
                                                                         </span>
                                                                     )}
@@ -468,13 +466,15 @@ const OneProduct = () => {
                                                     <div className="line"></div>
 
                                                 </div> : null}
-                                        </div> : null}
-                                </div>
+                                        </div> :
+                                        <p className="product__description__p">No reviews</p>
+                           }
+                            </div>
 
 
-                                <article className="article-home" style={{
-                                    padding: 0
-                                }}>
+                            <article className="article-home" style={{
+                                padding: 0
+                            }}>
                                     <div className="title">
                                         <h3>Popular products</h3>
                                     </div>

@@ -539,17 +539,27 @@ a {
   text-decoration: none;
   color: inherit;
 }
+.footer-fixed{
 
-.footer {
+}
+
+.footer{
+  width: 100%;
+  height: 100%;
   background: #2F323A;
+
+}
+
+.footer-block-c {
   padding: 50px 50px 30px 50px;
   margin-top: 30px;
-  width: 100%;
   height: auto;
   min-width: 900px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+
 
 
   .footer-container {
@@ -559,6 +569,7 @@ a {
     max-width: 1440px;
     height: 100%;
     font-family: "PoppinsMedium", sans-serif;
+
 
     .footer-blocks {
       display: flex;
@@ -696,3 +707,11 @@ a {
 }
 
 
+.error{
+  width: 100%;
+  height: 500px;
+  h1{
+    font-family: "PoppinsMedium", sans-serif;
+    font-size: 50px;
+  }
+}

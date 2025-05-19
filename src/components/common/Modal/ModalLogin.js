@@ -19,7 +19,7 @@ import {useNavigate} from "react-router-dom";
 import bg from "../../../assets/background/login.jpg"
 import ModalNewPassword from "./ModalNewPassword";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCommentDots, faEnvelope, faMobileScreenButton} from "@fortawesome/free-solid-svg-icons";
+import {faCommentDots, faMobileScreenButton} from "@fortawesome/free-solid-svg-icons";
 import {setDeleteEmail} from "../../../store/actions/registration";
 import {clearRedirectPath} from "../../../store/slices/authRedirect";
 
@@ -58,7 +58,6 @@ function ModalLogin({open, onClose}) {
         title: ""
     })
     const {value, title} = userInfo
-
 
     const [user, setUser] = useState({
         email: "",
@@ -118,7 +117,6 @@ function ModalLogin({open, onClose}) {
             }
             else{
                 window.location.reload(true);
-
             }
         }
     }, [token]);
@@ -136,16 +134,23 @@ function ModalLogin({open, onClose}) {
             (async () => {
                 try {
                     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-                    document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
+                    // document.body.style.width = `${document.body.getBoundingClientRect().width}px`;
                     document.body.style.overflowY = 'hidden';
                     document.body.ontouchmove = () => false;
                     window.addEventListener('keydown', handleEsc);
-
                     const header = document.querySelector('.nav-header');
+                    const main = document.querySelector('.main');
+                    const footer = document.querySelector('.footer');
+
                     if (header) {
                         header.style.paddingRight = `${scrollbarWidth}px`;
                     }
-
+                    if (main) {
+                        main.style.paddingRight = `${scrollbarWidth}px`;
+                    }
+                    if (footer) {
+                        footer.style.paddingRight = `${scrollbarWidth}px`;
+                    }
                 } catch (err) {
                     console.log(err);
                 }
@@ -163,11 +168,18 @@ function ModalLogin({open, onClose}) {
             setIsTest(true);
 
             const header = document.querySelector('.nav-header');
+            const main = document.querySelector('.main');
+            const footer = document.querySelector('.footer');
             if (header) {
                 header.style.paddingRight = '';
             }
+            if (main) {
+                main.style.paddingRight = '';
+            }
+            if (footer) {
+                footer.style.paddingRight = '';
+            }
         }
-
     }, [open]);
 
 

@@ -153,20 +153,25 @@ const CartList = () => {
     };
 
     const onOrder = async () => {
+        if (user.address) {
 
-        setOrderLoading(true);
+            setOrderLoading(true);
 
-        try {
-            if (!!transformedArray.length) {
-                await dispatch(makePayment(transformedArray));
-            } else {
-                setShow(true);
+            try {
+                if (!!transformedArray.length) {
+                    await dispatch(makePayment(transformedArray));
+                } else {
+                    setShow(true);
+                }
+
+            } catch (error) {
+                console.error("Error making payment:", error);
             }
-
-        } catch (error) {
-            console.error("Error making payment:", error);
+            setOrderLoading(false);
         }
-        setOrderLoading(false);
+        else{
+            navigate(`/user/#address`)
+        }
 
     };
 
@@ -238,7 +243,7 @@ const CartList = () => {
 
                                         <div className="total__group">
                                             <Button className="active-button total"
-                                                    onClick={() => user.address ? onOrder : navigate(`/user/#address`)}
+                                                    onClick={onOrder}
                                                     loading={orderLoading}>
                                                 <span>Place an order</span>
                                                 <span>{totalProductPrice ? parseFloat(totalProductPrice) : ''}</span>

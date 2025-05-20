@@ -7,7 +7,7 @@ export const getPopularProducts = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getPopularProducts(payload)
-            // console.log(data, "data")
+
             return data.data
         } catch (err) {
             return thunkAPI.rejectWithValue(err)
@@ -19,7 +19,7 @@ export const getSharesProducts = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getSharesProducts(payload)
-            // console.log(data, "data")
+
             return data.discounts
         } catch (err) {
             return thunkAPI.rejectWithValue(err)

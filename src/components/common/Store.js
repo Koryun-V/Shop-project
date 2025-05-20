@@ -17,7 +17,7 @@ const Store = () => {
     }, [id]);
 
 
-    console.log(store, "store")
+
 
 
     return (

@@ -14,12 +14,9 @@ import {
     setMinPrice,
     setPage,
 } from "../../store/actions/products";
-import {useParams} from "react-router-dom";
 import Slider from "react-slider";
-import {toast} from "react-toastify";
 import Button from "../mini/Button";
 import useQuery from "../../utills/hooks/useQuery";
-import orderBg from "../../assets/background/order.jpg";
 import Loading from "../mini/Loading";
 
 const Products = () => {
@@ -44,7 +41,6 @@ const Products = () => {
     const storeList = useSelector((state) => state.home.storesList);
     const userId = useSelector((state) => state.home.userId) || query.userId || "";
     const statusProducts = useSelector((state) => state.home.status);
-    const status = useSelector(state => state.products.statusCard);
     const id = useSelector(state => state.home.userId);
 
 

@@ -34,7 +34,7 @@ const Timer = ({email}) => {
     }
 
 
-    console.log(email,"email")
+
 
     return (
         <div className="code-again">

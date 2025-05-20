@@ -144,13 +144,14 @@ function Layout() {
             minPrice,
             maxPrice,
             s: trimmedSearch,
-            storeId,
         };
 
         if (userId) {
             searchParams.userId = userId;
         }
-
+        if (storeId){
+            searchParams.storeId = storeId;
+        }
         dispatch(getAllProducts(searchParams));
     };
 
@@ -168,7 +169,7 @@ function Layout() {
         }, 300); // 300 мс, например, для завершения CSS-анимации
     }
 
-    console.log(id, "is")
+
 
     return (
         <>

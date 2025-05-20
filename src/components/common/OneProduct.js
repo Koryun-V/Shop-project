@@ -41,7 +41,6 @@ const OneProduct = () => {
     const products = useSelector(state => state.home.popularProducts);
     const [showMoreButton, setShowMoreButton] = useState([]);
     const replyRefs = useRef([]);
-
     const [more, setMore] = useState(false);
     const {hash} = useLocation();
 
@@ -107,18 +106,23 @@ const OneProduct = () => {
     }
 
 
-    const addCard = () => {
+    const addCard = async () => {
         if (quantityNumber === 0) return;
-        if (cardId) {
-            dispatch(updateCard({cardId, add: quantity}));
-        } else {
-            dispatch(createCard({productId, quantity}));
-        }
 
-        if (userId) {
-            dispatch(getOneProduct({id: productId, userId}));
-        } else {
-            dispatch(getOneProduct({id: productId}));
+        try {
+            if (cardId) {
+                await dispatch(updateCard({ cardId, add: quantity }));
+            } else {
+                await dispatch(createCard({ productId, quantity }));
+            }
+
+            if (userId) {
+                await dispatch(getOneProduct({ id: productId, userId }));
+            } else {
+                await dispatch(getOneProduct({ id: productId }));
+            }
+        } catch (error) {
+            console.error("Failed to update cart or fetch product:", error);
         }
     };
 
@@ -162,6 +166,13 @@ const OneProduct = () => {
     }
 
     console.log(hash.split("-")[1], "hash")
+
+
+    console.log(oneProductInfo, 'info');
+
+    console.log(cardId, "cartId")
+
+
 
     const settings = {
         dots: true,

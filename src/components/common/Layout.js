@@ -184,17 +184,33 @@ function Layout() {
                                 </Link>
 
                                 <div className="store-add">
-                                    {stores.map((item) => (
-                                        Number(id) === item.id
-                                            ?
-                                            <div className="store-item">
-                                                <FontAwesomeIcon icon={faArrowRight} className="icon"/>
-                                                <div className="store-logo">
-                                                    <img src={item.storeLogo[0].path} alt="logo"/>
+                                    {location.pathname === `/store/${id}`
+                                        ?
+                                        <>
+                                            {stores.length ?
+                                                stores.map((item) => (
+                                                    Number(id) === item.id
+                                                        ?
+                                                        <div className="store-item">
+                                                            <FontAwesomeIcon icon={faArrowRight} className="icon"/>
+                                                            <div className="store-logo">
+                                                                <img src={item.storeLogo[0].path} alt="logo"/>
+                                                            </div>
+                                                        </div>
+                                                        : null))
+
+                                                : <div className="store-item">
+                                                    <FontAwesomeIcon icon={faArrowRight} className="icon"/>
+                                                    <div className="store-logo loading-gradient-p">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            : null
-                                    ))}
+                                            }
+
+                                        </>
+                                        : null
+
+                                    }
+
                                 </div>
 
                                 <nav className="nav">
@@ -202,7 +218,9 @@ function Layout() {
 
                                         <li className="nav-item">Store
                                             <FontAwesomeIcon icon={faAngleDown} className="store-arrow"/>
-                                            <ul className={moreAnim}>
+                                            <ul className={moreAnim} style={{
+                                                // height:stores.length ? stores.length  * 100 : 0,
+                                            }}>
                                                 {stores.map((item) => (
                                                     Number(id) !== item.id && moreAnim === "nav-more" ?
                                                         <li className="store-list" key={item.id}
@@ -365,7 +383,7 @@ function Layout() {
                                 }
                                 <div className="footer-block">
                                     <div className="footer-link"><Link to="/shares">Share</Link></div>
-                                    <div className="footer-link"><Link>Contact</Link></div>
+                                    <div className="footer-link"><Link to="/contacts">Contact</Link></div>
                                 </div>
                                 <div className="footer-block">
                                     <div className="footer-link"><Link>Become a seller</Link></div>

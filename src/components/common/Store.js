@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getStore, setStore} from "../../store/actions/storePage";
 import {useNavigate, useParams} from "react-router-dom";
 import Button from "../mini/Button";
+import {setStoreId} from "../../store/actions/home";
 
 const Store = () => {
     const dispatch = useDispatch()
@@ -37,7 +38,10 @@ const Store = () => {
                                             <span>Products on the Multify website</span>
                                             <div className="products-button">
                                                 <Button text="Products" className="active-button"
-                                                        onClick={() => navigate(`/products`)}/>
+                                                        onClick={() => {
+                                                            navigate(`/products`)
+                                                            dispatch(setStoreId(store.id))
+                                                        }}/>
                                             </div>
                                         </div>
                                         <div className="link-block">

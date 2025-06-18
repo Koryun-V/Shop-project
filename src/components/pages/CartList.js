@@ -61,7 +61,7 @@ const CartList = () => {
       if (!isMounted) return;
 
       setLoading(true);
-      await dispatch(setCards([]));
+       await dispatch(setCards([]));
 
       const data = await dispatch(fetchCards({page}));
 
@@ -74,7 +74,6 @@ const CartList = () => {
       if (currentPage < maxPageCount) {
         await fetchAllCards(page + 1);
       } else {
-        // Stop loading if all pages are fetched
         setLoading(false);
       }
     };
@@ -181,6 +180,8 @@ const CartList = () => {
     }
   }, [confirmationUrl]);
 
+
+  console.log(cards)
   return (
     <section className="section">
       <article className="section-block">

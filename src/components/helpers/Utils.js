@@ -35,12 +35,25 @@ class Utils {
       }
     };
 
+
+    const validateAddress = (address) => {
+      const fieldName = 'Address';
+      if (!address || !address.trim()) {
+        errors.address = `${fieldName} should not be empty`;
+      } else if (address.trim().length < 5) {
+        errors.address = `${fieldName} must be at least 5 characters long`;
+      }
+    };
+
+
     validateName(firstName, 'firstName');
     validateName(lastName, 'lastName');
-    validateName(address, 'address');
+    validateAddress(address);
 
     return errors;
   };
+
+
 
 
   static deleteEmptyKeys = (object) => {

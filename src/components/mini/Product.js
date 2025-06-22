@@ -141,7 +141,7 @@ const Product = ({
                                             </div>
 
                                             <div className="product-button">
-                                                <Button key={product.id}  isProduct={true}  index={index}
+                                                <Button key={product.id} isProduct={true} index={index}
                                                         indexProduct={indexProduct}
                                                         status={statusEnd} onClick={() =>
                                                     !token ? dispatch(setIsOpenLogin(true)) :
@@ -163,66 +163,72 @@ const Product = ({
                         }
 
                         // <div>{product.id}</div>
-                    ) :
-                    Array.from({length: start ? quantity - start : quantity}).map((_,id) => (
+                    )
+                    :
+                    status === "ok" && !products.length ?
 
-                        <div className={className} style={{border: "1px solid transparent"}} key={id}>
+                        Array.from({length: start ? quantity - start : quantity}).map((_, id) => (
 
-                            {classNameImg === "product-img" ?
+                            <div className={className} style={{border: "1px solid transparent"}} key={id}>
+
+                                {classNameImg === "product-img" ?
 
 
-                                <div className="loading-img-p">
-                                    <div className={`${classNameImg} loading-gradient-p`}
-                                         style={{border: "1px solid transparent"}}>
+                                    <div className="loading-img-p">
+                                        <div className={`${classNameImg} loading-gradient-p`}
+                                             style={{border: "1px solid transparent"}}>
+                                        </div>
+
                                     </div>
 
-                                </div>
+                                    :
+                                    <div className="loading-img-s">
+                                        <div className={`${classNameImg} loading-gradient-p`}
+                                             style={{border: "1px solid transparent"}}>
+                                        </div>
 
-                                :
-                                <div className="loading-img-s">
-                                    <div className={`${classNameImg} loading-gradient-p`}
-                                         style={{border: "1px solid transparent"}}>
                                     </div>
 
-                                </div>
+
+                                }
 
 
-                            }
-
-
-                            <div className={classNameActive}>
-                                <div className="product-info ">
-                                    <div className="loading-span">
-                                        <div className="product-price loading-gradient-p"
-                                             style={{
-                                                 height: 20,
-                                             }}><span></span>
+                                <div className={classNameActive}>
+                                    <div className="product-info ">
+                                        <div className="loading-span">
+                                            <div className="product-price loading-gradient-p"
+                                                 style={{
+                                                     height: 20,
+                                                 }}><span></span>
+                                            </div>
+                                        </div>
+                                        <div className="loading-span">
+                                            <div className="product-name loading-gradient-p"
+                                                 style={{
+                                                     height: 20,
+                                                 }}><span></span></div>
+                                        </div>
+                                        <div className="loading-span">
+                                            <div className="product-description loading-gradient-p" style={{
+                                                height: 50,
+                                            }}><span></span></div>
                                         </div>
                                     </div>
-                                    <div className="loading-span">
-                                        <div className="product-name loading-gradient-p"
-                                             style={{
-                                                 height: 20,
-                                             }}><span></span></div>
+                                    <div className="product-button loading-gradient-p"
+                                         style={{
+                                             height: 45,
+                                             background: "#00d143"
+                                         }}>
                                     </div>
-                                    <div className="loading-span">
-                                        <div className="product-description loading-gradient-p" style={{
-                                            height: 50,
-                                        }}><span></span></div>
-                                    </div>
-                                </div>
-                                <div className="product-button loading-gradient-p"
-                                     style={{
-                                         height: 45,
-                                         background: "#00d143"
-                                     }}>
                                 </div>
                             </div>
+                        ))
+                        : <div className="not-found">
+                            <h1>No products</h1>
                         </div>
-                    ))}
+
+            }
         </>)
-
-
 };
 
 export default Product;

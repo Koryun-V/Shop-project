@@ -7,7 +7,6 @@ import {
     setPasswordData,
     setAvatar
 } from '../actions/users';
-import Utils from "../../components/helpers/Utils";
 
 const initialState = {
     profile: {},
@@ -40,20 +39,18 @@ export const userSlice = createReducer(initialState, (builder) => {
         })
         .addCase(getUserProfileRequest.rejected, (state) => {
             state.error = 'Error fetching user profile data';
-
         })
+        //-----------------------------------------------------------------------------------
         .addCase(updateUserProfileRequest.pending, (state) => {
             state.validationErrors = {};
             state.successMessage = null;
             state.status = "pending"
-
         })
         .addCase(updateUserProfileRequest.fulfilled, (state, {payload}) => {
             state.profileUpdated = payload;
             state.successMessage = payload.message;
             state.validationErrors = {};
             state.status = "ok"
-
         })
         .addCase(updateUserProfileRequest.rejected, (state, {payload}) => {
             if (payload) {
@@ -61,10 +58,8 @@ export const userSlice = createReducer(initialState, (builder) => {
             }
             state.successMessage = null;
             state.status = "error"
-
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(updatePassword.pending, (state) => {
             state.passwordError = {};
             state.successMessage = null;
@@ -82,8 +77,7 @@ export const userSlice = createReducer(initialState, (builder) => {
             state.passwordError = payload;
             state.successMessage = null;
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(setProfile, (state, {payload}) => {
             const {dateOfBirth} = payload;
 

@@ -54,9 +54,3 @@ function App() {
 export default App;
 
 
-{/*<Route path="/products">*/}
-{/*  <Route index element={<Products/>}/>*/}
-{/*  <Route path=":productId" element={<OneProduct/>}/>*/}
-{/*</Route>*/}
-
-{/*<Route path="/specialist" element={<Specialist/>}/>*/}

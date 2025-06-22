@@ -25,8 +25,8 @@ const initialState = {
     totalOrder: 0,
     totalReceived: 0,
     total: 0,
-
 }
+
 export const order = createReducer(initialState, (builder) => {
     builder
         .addCase(getOrder.pending, (state) => {
@@ -41,6 +41,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getOrder.rejected, (state) => {
             state.status = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(getOrderReceived.pending, (state) => {
             state.statusReceived = "pending"
         })
@@ -48,11 +49,11 @@ export const order = createReducer(initialState, (builder) => {
             state.statusReceived = "ok"
             state.orderReceived = payload
             state.totalReceived = payload.total
-
         })
         .addCase(getOrderReceived.rejected, (state) => {
             state.statusReceived = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(sendReview.pending, (state) => {
             state.statusReviewSend = "pending"
         })
@@ -62,6 +63,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(sendReview.rejected, (state) => {
             state.statusReviewSend = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(getReview.pending, (state) => {
             state.statusReviewGet = "pending"
         })
@@ -72,6 +74,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getReview.rejected, (state) => {
             state.statusReviewGet = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(getReviewList.pending, (state) => {
             state.statusReviewGetList = "pending"
         })
@@ -82,8 +85,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(getReviewList.rejected, (state) => {
             state.statusReviewGetList = "error"
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(orderRetry.pending, (state) => {
             state.orderRetryStatus = "pending"
         })
@@ -95,8 +97,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(orderRetry.rejected, (state) => {
             state.orderRetryStatus = "error"
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(orderConfirm.pending, (state) => {
             state.orderConfirmStatus = "pending"
         })
@@ -106,8 +107,7 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(orderConfirm.rejected, (state) => {
             state.orderConfirmStatus = "error"
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(setIsOpenReview, (state, {payload}) => {
             state.isOpenReview = payload
         })
@@ -123,6 +123,4 @@ export const order = createReducer(initialState, (builder) => {
         .addCase(setOrder, (state, {payload}) => {
             state.order = payload
         })
-
-
 });

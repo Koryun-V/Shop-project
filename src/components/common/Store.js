@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import YouTube from "react-youtube";
 import {useDispatch, useSelector} from "react-redux";
 import {getStore, setStore} from "../../store/actions/storePage";
 import {useNavigate, useParams} from "react-router-dom";
@@ -18,9 +17,6 @@ const Store = () => {
     }, [id]);
 
 
-
-
-
     return (
         <section className="section">
             <article className="section-block">
@@ -32,7 +28,16 @@ const Store = () => {
                             </div>
                             <div className="store-block">
                                 <div className="container-video">
-                                    <YouTube videoId={store.videoUrl} className="you-tube"/>
+                                    <iframe
+                                        className="you-tube"
+                                        width="100%"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${store.videoUrl}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
                                     <div className="store-link">
                                         <div className="link-block">
                                             <span>Products on the Multify website</span>
@@ -42,6 +47,7 @@ const Store = () => {
                                                             navigate(`/products`)
                                                             dispatch(setStoreId(store.id))
                                                         }}/>
+
                                             </div>
                                         </div>
                                         <div className="link-block">
@@ -55,11 +61,22 @@ const Store = () => {
                                     <span>{store.about}</span>
                                 </div>
                             </div>
+                            <iframe
+                                src={`https://maps.google.com/maps?q=${store.location.latitude},${store.location.longitude}&hl=en&z=17&output=embed`}
+                                style={{
+                                    width: "100%",
+                                    height: "340px",
+                                    border: "0",
+                                    allowFullScreen: "",
+                                    loading: "lazy"
+                                }}
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
                         </>
-                        :   <>
+                        : <>
                             <div className="store-header">
                                 <h1 style={{
-                                    width:"100%",
+                                    width: "100%",
                                 }} className="loading-gradient-p"></h1>
                             </div>
                             <div className="store-block">
@@ -67,15 +84,15 @@ const Store = () => {
                                     <div className="you-tube loading-gradient-p"/>
                                     <div className="store-link">
                                         <div className="link-block loading-gradient-p" style={{
-                                            width:"100%",
-                                            height:40,
-                                        }} >
+                                            width: "100%",
+                                            height: 40,
+                                        }}>
 
                                         </div>
                                         <div className="link-block loading-gradient-p" style={{
-                                            width:"100%",
-                                            height:40,
-                                        }} >
+                                            width: "100%",
+                                            height: 40,
+                                        }}>
 
                                         </div>
 
@@ -92,11 +109,12 @@ const Store = () => {
 
                                 </div>
                             </div>
+                            <div className="store-map loading-gradient-p">
+                            </div>
                         </>}
-
-
                 </div>
             </article>
+
         </section>
     );
 };

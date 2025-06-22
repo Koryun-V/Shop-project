@@ -30,8 +30,6 @@ export const updateUserProfileRequest = createAsyncThunk(
         return rejectWithValue(error.response?.data);
       }
     }
-
-
   }
 );
 
@@ -43,10 +41,8 @@ export const updatePassword = createAsyncThunk(
     if (!_.isEmpty(validationErrors)) {
       return rejectWithValue(validationErrors);
     }
-
     try {
       const data = await Api.updateUserPassword({newPassword});
-
       toast.success(data.data.message);
       return data;
     } catch (error) {

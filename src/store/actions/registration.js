@@ -1,12 +1,12 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "../../utills/Api";
 
+
 export const registrationUser = createAsyncThunk(
     "user/registration",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.registrationUser(payload);
-            console.log(data, "data-register")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -25,6 +25,7 @@ export const activateUser = createAsyncThunk(
         }
     }
 );
+
 export const resendActivateUser = createAsyncThunk(
     "user/resend-activate",
     async (payload, thunkAPI) => {

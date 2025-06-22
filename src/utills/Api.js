@@ -16,51 +16,47 @@ api.interceptors.request.use((config) => {
 });
 
 export default class Api {
-    static getPopularProducts({ id }) {
-        return api.get("/products/popular", {
-            params: { userId: id }
-        });
+    static getPopularProducts() {
+        return api.get("/products/popular");
     }
 
     static getRandomReviews() {
         return api.get("/reviews/random");
     }
 
-    static sendReview({ productId, review, rating }) {
-        return api.post(`/reviews/create/${productId}`, { review, rating });
+    static sendReview({productId, review, rating}) {
+        return api.post(`/reviews/create/${productId}`, {review, rating});
     }
 
-    static getSharesProducts({ id }) {
-        return api.get("/products/discounts", {
-            params: { userId: id }
-        });
+    static getSharesProducts() {
+        return api.get("/products/discounts",);
     }
 
-    static getReview({ paymentId }) {
+    static getReview({paymentId}) {
         return api.get(`/reviews/${paymentId}`);
     }
 
-    static getReviewList({ productId }) {
+    static getReviewList({productId}) {
         return api.get(`/reviews/list/${productId}`);
     }
 
-    static loginUser({ email, password }) {
-        return api.post("/users/login", { email, password });
+    static loginUser({email, password}) {
+        return api.post("/users/login", {email, password});
     }
 
     static getAllCategories(params) {
-        return api.get("/categories/list", { params });
+        return api.get("/categories/list", {params});
     }
 
-    static forgotPasswordUser({ email }) {
-        return api.post("/users/forgot/password", { email });
+    static forgotPasswordUser({email}) {
+        return api.post("/users/forgot/password", {email});
     }
 
-    static changePasswordUser({ newPassword, key }) {
-        return api.put("/users/update/password", { newPassword, key });
+    static changePasswordUser({newPassword, key}) {
+        return api.put("/users/update/password", {newPassword, key});
     }
 
-    static registrationUser({ firstName, lastName, gender, dateOfBirth, email, password }) {
+    static registrationUser({firstName, lastName, gender, dateOfBirth, email, password}) {
         return api.post("/users/registration", {
             firstName,
             lastName,
@@ -75,21 +71,21 @@ export default class Api {
         });
     }
 
-    static activateUser({ key }) {
-        return api.post("/users/activate", { key });
+    static activateUser({key}) {
+        return api.post("/users/activate", {key});
     }
 
-    static resendActivateUser({ email }) {
-        return api.post("/users/resend-activation-key", { email });
+    static resendActivateUser({email}) {
+        return api.post("/users/resend-activation-key", {email});
     }
 
-    static resendCode({ email }) {
-        return api.post("/users/resend-code", { email });
+    static resendCode({email}) {
+        return api.post("/users/resend-code", {email});
     }
 
-    static getOrder({ limit }) {
+    static getOrder({limit}) {
         return api.get("/payment/history/", {
-            params: { limit }
+            params: {limit}
         });
     }
 
@@ -97,21 +93,21 @@ export default class Api {
         return api.get("/payment/received");
     }
 
-    static orderRetry({ paymentId }) {
-        return api.post("/payment/retry", { paymentId });
+    static orderRetry({paymentId}) {
+        return api.post("/payment/retry", {paymentId});
     }
 
-    static orderConfirm({ paymentId }) {
-        return api.post("/payment/confirm-receipt", { paymentId });
+    static orderConfirm({paymentId}) {
+        return api.post("/payment/confirm-receipt", {paymentId});
     }
 
     static getUser() {
         return api.get("/users/profile");
     }
 
-    static userDelete({ email }) {
+    static userDelete({email}) {
         return api.delete("/users/delete-user", {
-            data: { email }
+            data: {email}
         });
     }
 
@@ -119,7 +115,7 @@ export default class Api {
         return api.get("/users/profile");
     }
 
-    static updateUser({ data }) {
+    static updateUser({data}) {
         return api.put("/users/update", data, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -127,17 +123,17 @@ export default class Api {
         });
     }
 
-    static updateUserPassword({ newPassword }) {
-        return api.put("/users/password", { newPassword });
+    static updateUserPassword({newPassword}) {
+        return api.put("/users/password", {newPassword});
     }
 
-    static getCardList({ page, limit }) {
+    static getCardList({page, limit}) {
         return api.get("/cards/list", {
-            params: { page, limit }
+            params: {page, limit}
         });
     }
 
-    static deleteCart({ cardId }) {
+    static deleteCart({cardId}) {
         return api.delete(`/cards/delete/${cardId}`);
     }
 
@@ -145,36 +141,37 @@ export default class Api {
         return api.delete("/cards/all");
     }
 
-    static payment({ products }) {
-        return api.post("/payment/place", { products });
+    static payment({products}) {
+        return api.post("/payment/place", {products});
     }
 
-    static updatedCard({ cardId, quantity }) {
+    static updatedCard({cardId, quantity}) {
         return api.put(`/cards/update/${cardId}`, quantity);
     }
 
     static getStores() {
         return api.get("/products/stores");
     }
+
     static getStore({id}) {
         return api.get(`/products/store/information/${id}`);
     }
 
-    static getOneProduct({ id, userId }) {
+    static getOneProduct({id, userId}) {
         return api.get(`/products/${id}`, {
-            params: { userId }
+            params: {userId}
         });
     }
 
-    static updateCard({ cardId, add, remove }) {
-        return api.put(`/cards/update/${cardId}`, { add, remove });
+    static updateCard({cardId, add, remove}) {
+        return api.put(`/cards/update/${cardId}`, {add, remove});
     }
 
-    static createCard({ productId, quantity }) {
-        return api.post("/cards/create", { productId, quantity });
+    static createCard({productId, quantity}) {
+        return api.post("/cards/create", {productId, quantity});
     }
 
-    static getAllProducts({ categoryIds, limit, page, minPrice, maxPrice, storeId, s, id }) {
+    static getAllProducts({categoryIds, limit, page, minPrice, maxPrice, storeId, s}) {
         return api.get("/products/list", {
             params: {
                 categoryIds,
@@ -184,7 +181,6 @@ export default class Api {
                 maxPrice,
                 storeId,
                 s,
-                userId: id
             }
         });
     }

@@ -1,6 +1,5 @@
 @import "variables";
 
-
 .bell {
   display: flex;
   justify-content: center;
@@ -12,9 +11,6 @@
   cursor: pointer;
   z-index: 10;
 
-
-
-
   .bell-icon {
     width: 30px;
     height: 30px;
@@ -22,9 +18,8 @@
     transition: 0.2s all;
     opacity: 0.8;
   }
-
-
 }
+
 .count {
   position: absolute;
   background: red;
@@ -44,11 +39,10 @@
     font-family: "RobotoMedium", sans-serif;
   }
 }
+
 .bell:hover .bell-icon {
   transform: scale(1.1, 1.1);
   opacity: 1;
-
-
 }
 
 .bell-icon-active {
@@ -107,14 +101,12 @@
     &::-webkit-scrollbar-track {
       background: #f1f1f1;
       border-radius: 10px;
-
     }
 
     /* Handle */
     &::-webkit-scrollbar-thumb {
       background: $interfaceColor;
       border-radius: 10px;
-
     }
 
     /* Handle on hover */
@@ -132,7 +124,6 @@
       border-top: 1px solid #d1d1d1;
       color: black;
     }
-
 
     .envelope {
       position: absolute;
@@ -165,7 +156,6 @@
     }
 
     .envelope:active {
-
       border: 2px solid $interfaceColor;
     }
   }
@@ -176,7 +166,6 @@
     display: flex;
     cursor: pointer;
     gap: 5px;
-
 
     .img-block {
       display: flex;
@@ -195,7 +184,6 @@
           height: 100%;
           object-fit: cover;
           border-radius: 100px;
-
         }
       }
     }
@@ -210,13 +198,10 @@
       text-overflow: ellipsis;
       position: relative;
 
-
       .message-data {
         font-family: "RobotoMedium", "sans-serif";
         font-size: 14px;
         position: relative;
-
-
       }
 
       .message-name {
@@ -226,8 +211,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-
       }
 
       .message-m {
@@ -237,11 +220,9 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
       }
     }
   }
-
 
   .messages-block:nth-child(1) {
     border: none;
@@ -250,7 +231,6 @@
   .messages-loading:nth-child(1) {
     border: none;
   }
-
 
   .messages-block:hover .message-block {
     color: $interfaceColor;
@@ -267,9 +247,7 @@
   .message-block:active {
     background: #d1d1d1 !important;
   }
-
 }
-
 
 .loading-n {
   z-index: 9;

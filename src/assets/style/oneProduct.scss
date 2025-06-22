@@ -1,6 +1,5 @@
 @import "variables";
 
-
 .new-big-container {
   display: flex;
   flex-wrap: wrap;
@@ -25,10 +24,7 @@
       height: 500px;
       width: 100%;
       margin-bottom: 70px;
-
     }
-
-
 
     .product__header {
       flex: 1;
@@ -46,7 +42,6 @@
       height: auto;
       flex-direction: column;
       margin-left: 45px;
-
     }
 
     .product__image__container {
@@ -68,26 +63,17 @@
       cursor: pointer;
     }
 
-
-    .product__quantity {
-    }
-
-
     @media (max-width: 768px) {
       .product {
         flex-direction: column;
         align-items: center;
       }
-
       .product__header,
       .product__header__span {
         width: 100%;
         text-align: center;
       }
-
-
     }
-
 
     .product__button__cart {
       max-width: 250px;
@@ -95,19 +81,12 @@
       margin-right: 70px;
     }
 
-
-
-
-
-
     .product__name {
-      font-family: "Manrope-Medium", sans-serif;
       font-size: 30px;
       font-weight: bold;
       display: inline-block;
       width: 450px;
     }
-
 
     .product___price {
       width: 40px;
@@ -115,8 +94,6 @@
       font-size: 20px;
       margin-top: 50px;
       margin-bottom: 30px;
-
-
     }
 
     .product__description {
@@ -126,39 +103,32 @@
 
       .product__description__h {
         font-size: 30px;
-        font-family: "Manrope-Medium", sans-serif;
       }
-
-
     }
 
     .product__description__p {
       margin-top: 20px;
       font-size: 20px;
       color: #8e8e8e;
-      font-family: "Inter", sans-serif;
     }
+
     .product__quantity {
       display: flex;
       align-items: center;
       ft: 100px;
       margin-bottom: 30px;
-
-
     }
 
     .product__button {
       width: 50px;
       height: 60px;
       font-size: 25px;
-      font-family: "Manrope-Medium", sans-serif;
       border: 1px solid #8e8e8e;
       background-color: $interfaceColor;
       color: white;
       cursor: pointer;
       text-align: center;
       transition: 0.2s all;
-
 
       &:disabled {
         background-color: #ddd;
@@ -169,7 +139,6 @@
         background-color: #00b63b;
         color: white;
       }
-
     }
 
     .product__quantity {
@@ -191,14 +160,12 @@
       height: 60px;
       text-align: center;
       font-size: 25px;
-      font-family: "Inter", sans-serif;
       border-top: 1px solid #8e8e8e;
       border-bottom: 1px solid #8e8e8e;
       border-right: none;
       border-left: none;
       background-color: white;
       color: #000000;
-
     }
 
     .pop_product_container {
@@ -211,14 +178,12 @@
     .product__store_name {
       display: flex;
       align-items: center;
-      font-family: "Manrope-Medium", sans-serif;
       font-size: 30px;
       font-weight: bold;
     }
 
 
     .product__store_name_desc {
-      font-family: "Manrope-Medium", sans-serif;
       font-size: 16px;
       color: #454950;
     }
@@ -236,7 +201,6 @@
       flex-direction: column;
       text-align: inherit;
     }
-
 
     @media (max-width: 768px) {
       .product {
@@ -308,7 +272,6 @@
       }
     }
 
-
     .persentage_info {
       background: red;
       width: 100px;
@@ -331,12 +294,10 @@
 
 
       .price-block {
-
         display: flex;
         justify-content: center;
         align-items: center;
       }
-
 
       span {
         font-weight: bold;
@@ -354,7 +315,6 @@
         margin-right: 15px;
       }
     }
-
 
     .reviews {
       margin-top:20px;
@@ -375,6 +335,7 @@
         box-shadow: 0px 0px 15px -10px rgba(66, 68, 90, 1);
         margin-top: 20px;
       }
+
       .review__item__active {
         min-height: 231.6px;
         font-family: "PoppinsMedium", "sans-serif";
@@ -387,7 +348,6 @@
         box-shadow: 0px 0px 30px 0px rgba(0, 209, 67, 1);
         margin-top: 20px;
       }
-
 
         .review__header {
           display: flex;
@@ -410,7 +370,6 @@
                 height: 100%;
                 object-fit: cover;
                 border-radius: 100px;
-
               }
 
               .review__icon {
@@ -440,28 +399,18 @@
               width: 100%;
               display: flex;
               justify-content: space-between;
-
-
             }
 
             span {
               color: #737373;
               font-family: "RobotoMedium", "sans-serif";
             }
-
-
           }
-
-
         }
 
         .review-info {
           margin: 10px 131px 0 60px;
           font-family: "RobotoMedium", "sans-serif";
-
-          span {
-
-          }
         }
 
         .message {
@@ -477,25 +426,19 @@
             overflow: hidden;
             text-overflow: ellipsis;
             font-family: "RobotoMedium", "sans-serif";
-            max-height: 60px; /* կամ որևէ սահման */
-
-
+            max-height: 60px;
           }
 
           .message__text-more {
             font-family: "RobotoMedium", "sans-serif";
             display: block;
-
           }
-
 
           strong {
             color: white;
             background: $interfaceColor;
             padding: 5px;
             border-radius: 5px;
-
-
           }
 
           .message__info {
@@ -513,13 +456,10 @@
               position: absolute;
               bottom: 0;
               right: 0;
-
               background: linear-gradient(270deg, #f6f6f9 calc(100% - 30px), rgba(246, 246, 249, 0) 100%);
               padding: 0 0 0 35px;
             }
           }
-
-
         }
       }
 
@@ -549,7 +489,6 @@
       }
     }
 
-
     .new_store {
       width: 70px;
       display: flex;
@@ -557,8 +496,6 @@
       align-items: center;
       background-color: green;
       border-radius: 100px;
-
-
 
       .new_store-img {
         width: 70px;
@@ -580,17 +517,11 @@
       flex-wrap: wrap;
       gap: 20px;
       align-items: center;
-
     }
-
 
 .product_pers_count_container{
   margin-bottom: 30px;
 }
-
-
-
-
 
     .slick-slider {
       width: 100%;
@@ -679,7 +610,6 @@
       justify-content: center;
       align-items: center;
       transition: 0.1s;
-      //opacity: 0.7;
     }
 
     .arrow:hover {
@@ -693,7 +623,6 @@
     .prev {
       left: 0;
       border-radius: 0 50px 50px 0;
-
     }
 
     .next {
@@ -706,7 +635,6 @@
       height: 30px;
       color: limegreen;
       transition: 0.1s;
-
     }
 
     .icon-prev {
@@ -717,18 +645,12 @@
       margin-left: 7px;
     }
 
-
     .default-image {
       width: 100%;
       height: 300px;
       object-fit: contain;
     }
-
   }
-
-
-
-@import "variables";
 
 .new-big-container {
   display: flex;
@@ -827,7 +749,6 @@
   }
 }
 
-
 /* Large Desktop View (1025px and up) */
 @media (min-width: 1025px) {
   .product {
@@ -836,6 +757,7 @@
     display: flex;
     flex-wrap: nowrap;
   }
+
   .product__description {
     width: 50%;
     padding: 40px;
@@ -863,8 +785,6 @@
   }
 }
 
-
-
 .product_info-container{
   width: 100%;
   margin-bottom: 30px;
@@ -873,15 +793,11 @@
   align-items: center;
 }
 
-
-
-
 .skeleton {
   background-color: #e0e0e0;
   border-radius: 4px;
   margin: 10px 0;
   animation: pulse 1.5s infinite ease-in-out;
-
 }
 
 .skeleton-text {
@@ -889,6 +805,7 @@
   width: 50%;
   margin-right: 150px;
 }
+
 .skeleton-image {
   height: 70px;
   width: 70px;
@@ -915,15 +832,11 @@
   border-radius: 5px;
 }
 
-
 .skeleton-name-container{
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-
 }
-
-
 
 @keyframes pulse {
   0% {
@@ -936,7 +849,6 @@
     background-color: #e0e0e0;
   }
 }
-
 
 .skeleton-button-container{
   display: flex;

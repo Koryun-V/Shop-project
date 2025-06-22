@@ -16,7 +16,6 @@ export const categoriesRequest = createAsyncThunk(
     }
 )
 
-
 export const createCard = createAsyncThunk(
     "products/createCard",
     async (payload, thunkAPI) => {
@@ -30,7 +29,6 @@ export const createCard = createAsyncThunk(
         }
     }
 )
-
 
 export const updateCard = createAsyncThunk(
   "products/updateCard",
@@ -46,15 +44,11 @@ export const updateCard = createAsyncThunk(
   }
 )
 
-
-
-
 export const setPage = createAction(
     "products/page",
     (payload) => ({
         payload,
     }))
-
 
 export const setMinPrice = createAction(
     "products/setMinPrice",
@@ -62,7 +56,6 @@ export const setMinPrice = createAction(
         payload,
     })
 )
-
 
 export const setMaxPrice = createAction(
     "products/setMaxPrice",

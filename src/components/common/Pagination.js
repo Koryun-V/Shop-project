@@ -9,8 +9,6 @@ pages.push(i)
     }
 
 
-
-
     return (
         <div className="pagination">
             {pages.map((page, i) => (

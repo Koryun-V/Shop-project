@@ -53,12 +53,11 @@ const PinInput = () => {
             inputRef[i !== 5 ? i + 1 : i].current.focus()
         }
     }
-    // console.log(isFormat)
     return (
 
         <div className="pin-input">
             {code.map((data, i) => (
-                <input
+                <input key={i}
                     onKeyPress={(e) => formatNumber(e, i)}
                     onBlur={() => setId("")}
                     onClick={() => setIsFormat(true)}

@@ -32,10 +32,8 @@ const Input = ({status,value, onChange, maxLength, onBlur, id, autoComplete, typ
                     onClick={() => {
                     setEye(eye === faEye
                         ? faEyeSlash : faEye)
-                    // inputRef.current.focus()
                 }
                 } icon={eye}
-                    // style={{color: focus ? "#0098FF" : "black"}}
                                  className="eye"/> : null}
         </div>
 

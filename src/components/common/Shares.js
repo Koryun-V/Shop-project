@@ -8,8 +8,6 @@ import Loading from "../mini/Loading";
 const Shares = () => {
     const dispatch = useDispatch();
     const productsShares = useSelector(state => state.home.productsShares);
-    const id = useSelector(state => state.home.userId);
-    const status = useSelector(state => state.products.statusCard);
     const statusShare = useSelector(state => state.home.statusShares);
     const [isPlay, setIsPlay] = useState(false);
 
@@ -23,8 +21,8 @@ const Shares = () => {
 
     useEffect(() => {
         dispatch(setSharesProducts([]))
-        dispatch(getSharesProducts({id}))
-    }, [id]);
+        dispatch(getSharesProducts())
+    }, []);
 
 
     return (

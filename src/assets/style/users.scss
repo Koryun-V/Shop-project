@@ -1,6 +1,5 @@
 @import "variables";
 
-
 .user__profile {
   margin: 0 auto ;
   width: 100%;
@@ -20,7 +19,6 @@
     margin-top: 10px;
   }
 
-
   .user__profile_img{
     width: 100px;
     height: 100px;
@@ -30,24 +28,24 @@
     border-radius: 50%;
     padding: 8px;
     border:1px solid black;
-
   }
 
   &__title {
     margin: 0 0 8px 0;
-    font-family: Manrope, sans-serif;
     font-size: 44px;
     font-weight: 700;
     line-height: 57px;
-    color: #171B24;;
+    color: #171B24;
+    font-family: "PoppinsMedium", sans-serif;
   }
 
   &__desc {
-    font-family: Manrope, sans-serif;
     font-size: 32px;
     font-weight: 600;
     line-height: 44px;
     color: #3a2f31;
+    font-family: "PoppinsRegular", sans-serif;
+
   }
 
   &_wrapper{
@@ -55,14 +53,12 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-
   }
 
   &__data {
     display: flex;
     flex-direction: column;
     gap: 40px;
-
   }
 
   &__wrapper {
@@ -71,7 +67,6 @@
     gap: 40px;
     width: 320px;
     height: 100%;
-
   }
 
   &__label{
@@ -91,7 +86,6 @@
     width: 100%;
     margin: 45px 0 20px 0;
   }
-
 }
 
 .upload_file{
@@ -101,7 +95,6 @@
   padding: 4px ;
   background: $interfaceColor;
   border-radius: 100%;
-
 }
 
 .successMessage{
@@ -112,11 +105,12 @@
   bottom: 1px;
 }
 
-
 .field-profile{
   background: #F6F6F6;
 
   p{
+    font-size: 14px;
+    font-family: "PoppinsMedium", sans-serif;
     height: 35px;
     margin-top: 10px;
     color: #8B8D92;
@@ -126,7 +120,6 @@
 
 .preview__block{
   padding: 30px;
-
 }
 
 .preview__img{
@@ -139,14 +132,12 @@
   border-radius: 100%;
   padding: 8px;
   border:1px solid black;
-
 }
 
 .validation-info.user{
   position: absolute;
   width: 100%;
 }
-
 
 .user__label{
   font-size: 15px;

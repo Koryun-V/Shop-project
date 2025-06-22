@@ -26,7 +26,6 @@ const CartModal = ({isOpen, onClose, onConfirm, desc, buttonChild,loading}) => {
             <Button onClick={onClose} className="cancel-btn">Cancel</Button>
           </div>
         }
-
       </div>
     </Modal>
   );

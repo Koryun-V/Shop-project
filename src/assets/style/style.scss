@@ -1,14 +1,14 @@
 @import "variables";
 
-@import url("input.scss");
-@import url("button.scss");
-@import url("radioButton.scss");
-@import url("pinInput.scss");
-@import url("header.scss");
-@import url("loginModal.scss");
-@import url("registerPage.scss");
-@import url("order.scss");
-@import url("contact.scss");
+@import "input";
+@import "button";
+@import "radioButton";
+@import "pinInput";
+@import "header";
+@import "loginModal";
+@import "registerPage";
+@import "order";
+@import "contact";
 @import "card";
 @import "error";
 @import "modal";
@@ -20,23 +20,14 @@
 @import "bell";
 @import "datePiker";
 @import "loader";
-@import url("orderModal.scss");
-
-
-@import url("oneProduct.scss");
-
+@import "orderModal";
+@import "oneProduct";
 @import "variables";
 @import "store";
-
-
 @import "slide";
-@import url("product.scss");
-@import url("home.scss");
-
-@import url("category.scss");
-//@import url("slide.scss");
-@import url("products.scss");
-@import url("product.scss");
+@import "home";
+@import "products";
+@import "product";
 
 
 * {
@@ -48,71 +39,94 @@
 }
 
 @font-face {
-  font-family: RobotoBold;
-  src: url(../fonts/Roboto-Bold.ttf);
+  font-family: 'PoppinsRegular';
+  src: url('../fonts/Poppins-Regular.eot');
+  src: url('../fonts/Poppins-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Poppins-Regular.woff2') format('woff2'),
+  url('../fonts/Poppins-Regular.woff') format('woff'),
+  url('../fonts/Poppins-Regular.ttf') format('truetype'),
+  url('../fonts/Poppins-Regular.svg#Poppins-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: RobotoRegular;
-  src: url(../fonts/Roboto-Regular.ttf);
+  font-family: 'PoppinsMedium';
+  src: url('../fonts/Poppins-Medium.eot');
+  src: url('../fonts/Poppins-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Poppins-Medium.woff2') format('woff2'),
+  url('../fonts/Poppins-Medium.woff') format('woff'),
+  url('../fonts/Poppins-Medium.ttf') format('truetype'),
+  url('../fonts/Poppins-Medium.svg#Poppins-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: RobotoMedium;
-  src: url(../fonts/Roboto-Medium.ttf);
-}
-
-
-@font-face {
-  font-family: MontserratBold;
-  src: url(../fonts/Montserrat-Bold.ttf);
-}
-
-@font-face {
-  font-family: MontserratRegular;
-  src: url(../fonts/Montserrat-Regular.ttf);
+  font-family: 'RobotoRegular';
+  src: url('../fonts/Roboto-Regular.eot');
+  src: url('../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Roboto-Regular.woff2') format('woff2'),
+  url('../fonts/Roboto-Regular.woff') format('woff'),
+  url('../fonts/Roboto-Regular.ttf') format('truetype'),
+  url('../fonts/Roboto-Regular.svg#Roboto-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: MontserratMedium;
-  src: url(../fonts/Montserrat-Medium.ttf);
-}
-
-
-@font-face {
-  font-family: PoppinsBold;
-  src: url(../fonts/Poppins-Bold.ttf);
-}
-
-@font-face {
-  font-family: PoppinsRegular;
-  src: url(../fonts/Poppins-Regular.ttf);
+  font-family: 'PoppinsBold';
+  src: url('../fonts/Poppins-Bold.eot');
+  src: url('../fonts/Poppins-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Poppins-Bold.woff2') format('woff2'),
+  url('../fonts/Poppins-Bold.woff') format('woff'),
+  url('../fonts/Poppins-Bold.ttf') format('truetype'),
+  url('../fonts/Poppins-Bold.svg#Poppins-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: PoppinsMedium;
-  src: url(../fonts/Poppins-Medium.ttf);
+  font-family: 'PoppinsExtra';
+  src: url('../fonts/Poppins-ExtraBold.eot');
+  src: url('../fonts/Poppins-ExtraBold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Poppins-ExtraBold.woff2') format('woff2'),
+  url('../fonts/Poppins-ExtraBold.woff') format('woff'),
+  url('../fonts/Poppins-ExtraBold.ttf') format('truetype'),
+  url('../fonts/Poppins-ExtraBold.svg#Poppins-ExtraBold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: PoppinsExtra;
-  src: url(../fonts/Poppins-ExtraBold.ttf);
-}
-
-
-@font-face {
-  font-family: InterRegular;
-  src: url(../fonts/Inter_18pt-Regular.ttf);
-}
-
-@font-face {
-  font-family: InterMedium;
-  src: url(../fonts/Inter_18pt-Medium.ttf);
+  font-family: 'RobotoMedium';
+  src: url('../fonts/Roboto-Medium.eot');
+  src: url('../fonts/Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Roboto-Medium.woff2') format('woff2'),
+  url('../fonts/Roboto-Medium.woff') format('woff'),
+  url('../fonts/Roboto-Medium.ttf') format('truetype'),
+  url('../fonts/Roboto-Medium.svg#Roboto-Medium') format('svg');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: InterBold;
-  src: url(../fonts/Inter_18pt-Bold.ttf);
+  font-family: 'RobotoBold';
+  src: url('../fonts/Roboto-Bold.eot');
+  src: url('../fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/Roboto-Bold.woff2') format('woff2'),
+  url('../fonts/Roboto-Bold.woff') format('woff'),
+  url('../fonts/Roboto-Bold.ttf') format('truetype'),
+  url('../fonts/Roboto-Bold.svg#Roboto-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
 }
 
 
@@ -123,7 +137,26 @@ input:-webkit-autofill:focus {
 
 body {
   overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: #111;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #111;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $interfaceColor;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #04a504;
+  }
 }
+
 .main {
   width: 100%;
   height: 100%;
@@ -139,6 +172,7 @@ body {
   left: 0;
   z-index: 100;
 }
+
 .opacity-loading .smooth {
   transition: opacity 0.2s ease;
 }
@@ -194,7 +228,6 @@ body {
     flex-direction: column;
     max-width: 1440px;
     padding: 0 50px;
-
   }
 
   .section-block-home {
@@ -204,7 +237,6 @@ body {
     position: relative;
     justify-content: center;
     flex-direction: column;
-
   }
 
   .container {
@@ -215,6 +247,7 @@ body {
     justify-content: center;
     flex-direction: column;
   }
+
   .container.smooth {
     transition: opacity 0.2s ease;
   }
@@ -260,7 +293,6 @@ body {
     display: flex;
     flex-direction: column;
 
-
     .review-title {
       width: 100%;
       margin-left: 10px;
@@ -269,12 +301,11 @@ body {
       font-size: 34px;
     }
 
-
     .article-block-bg {
       display: flex;
       flex-wrap: wrap;
       margin: -10px;
-      padding:40px 0;
+      padding: 40px 0;
     }
   }
 
@@ -286,11 +317,14 @@ body {
     justify-content: center;
     padding: 0 50px;
 
-
     .article-block-img {
       position: relative;
       display: flex;
       align-items: center;
+      width: 100%;
+      flex-wrap: wrap;
+      height: 450px;
+      margin: 50px 0;
 
       .about-home {
         margin-left: 250px;
@@ -306,13 +340,7 @@ body {
           font-size: 16px;
           margin-top: 30px;
         }
-
       }
-
-      width: 100%;
-      flex-wrap: wrap;
-      height: 450px;
-      margin: 50px 0;
 
       .img {
         width: 100%;
@@ -328,12 +356,10 @@ body {
 
       h3 {
         font-size: 34px;
-
       }
 
       a {
         font-size: 20px;
-
         color: black;
         text-decoration: none;
         border: 2px solid #d1d1d1;
@@ -345,7 +371,6 @@ body {
       a:hover {
         color: $interfaceColor;
         border: 2px solid $interfaceColor;
-
       }
     }
 
@@ -353,10 +378,7 @@ body {
       display: flex;
       flex-wrap: wrap;
       margin: -10px;
-
-
     }
-
   }
 }
 
@@ -368,10 +390,9 @@ body {
   .form-button-block {
     width: 100%;
     height: 50px;
-    margin-top:5px;
+    margin-top: 5px;
   }
 }
-
 
 .loading {
   display: flex;
@@ -382,11 +403,9 @@ body {
   position: relative;
 }
 
-
 .email-text {
   display: flex;
   margin-top: 30px;
-
   flex-direction: column;
   text-align: center;
 
@@ -447,7 +466,6 @@ body {
   }
 }
 
-
 .check-circle {
   width: 100%;
   height: 100%;
@@ -463,7 +481,6 @@ body {
     transition: 1.5s;
   }
 }
-
 
 .key {
   display: flex;
@@ -490,14 +507,12 @@ body {
     span {
       font-family: "PoppinsMedium", sans-serif;
       color: $interfaceColor;
-
     }
   }
 }
 
 .timer {
   margin-bottom: 50px;
-
 }
 
 .check-block {
@@ -506,10 +521,7 @@ body {
   align-items: center;
   flex-direction: column;
   position: absolute;
-
   transition: 3s;
-
-
 }
 
 .code-again {
@@ -539,15 +551,11 @@ a {
   text-decoration: none;
   color: inherit;
 }
-.footer-fixed{
 
-}
-
-.footer{
+.footer {
   width: 100%;
   height: 100%;
   background: #2F323A;
-
 }
 
 .footer-block-c {
@@ -559,9 +567,6 @@ a {
   justify-content: center;
   align-items: center;
 
-
-
-
   .footer-container {
     padding: 0 50px;
     color: white;
@@ -570,18 +575,15 @@ a {
     height: 100%;
     font-family: "PoppinsMedium", sans-serif;
 
-
     .footer-blocks {
       display: flex;
       width: 100%;
-
     }
 
     .footer-block {
       width: calc(100% / 4);
       display: flex;
       flex-direction: column;
-
 
       a {
         transition: 0.2s all
@@ -613,14 +615,12 @@ a {
 
         span {
           font-size: 16px;
-
         }
       }
 
       .footer-shop-info:nth-child(1) {
         margin-top: 0;
       }
-
 
       .footer-link {
         margin-top: 10px;
@@ -639,14 +639,11 @@ a {
           color: white;
           cursor: pointer;
         }
-
       }
 
       .footer-link:nth-child(1) {
         margin-top: 0;
-
       }
-
     }
 
     .footer-block:nth-child(1) {
@@ -671,47 +668,48 @@ a {
         height: 100%;
 
         .footer-cart {
-          //flex-shrink: 1;
-          //flex-grow: 1;
           margin: 0 10px;
           width: 75px;
-          //height: 50px;
         }
       }
 
       .footer-end-block:nth-child(2) {
         display: flex;
         justify-content: center;
-        //img{
-        //  flex-shrink: 1;
-        //  flex-grow: 1;
-        //  width: 50px;
-        //
-        //}
-
-
       }
 
       .footer-end-block:nth-child(3) {
         display: flex;
         justify-content: flex-end;
-
       }
 
       span {
         font-size: 16px;
-
       }
     }
   }
 }
 
 
-.error{
+.not-found {
   width: 100%;
   height: 500px;
-  h1{
+
+  h1 {
     font-family: "PoppinsMedium", sans-serif;
     font-size: 50px;
   }
+}
+
+
+.Toastify__close-button {
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

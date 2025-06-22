@@ -7,7 +7,7 @@ import {
     setSearchValue,
     setStoreId,
     setUserId,
-    setProductId, setPopularProducts, setSharesProducts
+    setProductId, setPopularProducts, setSharesProducts, setProductsList
 } from "../actions/home";
 
 import {setMaxPrice, setMinPrice, setPage} from "../actions/products";
@@ -45,27 +45,25 @@ export const home = createReducer(initialState, (builder) => {
         })
         .addCase(getAllProducts.fulfilled, (state, {payload}) => {
             state.status = "ok"
-            // state.productsList = state.selectId ? payload.productsList.map(({product}) => product) : payload.productsList
             state.productsList = payload.productsList
             state.total = payload.total
         })
         .addCase(getAllProducts.rejected, (state) => {
             state.status = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(getAllNames.pending, (state) => {
             state.status = "pending"
         })
         .addCase(getAllNames.fulfilled, (state, {payload}) => {
             state.status = "ok"
-
             state.productsNames = payload.productsList
             state.total = payload.total
         })
-
         .addCase(getAllNames.rejected, (state) => {
             state.status = "error"
         })
-
+        //-----------------------------------------------------------------------------------
         .addCase(getPopularProducts.pending, (state) => {
             state.statusPopular = "pending"
         })
@@ -76,7 +74,7 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(getPopularProducts.rejected, (state) => {
             state.statusPopular = "error"
         })
-
+        //-----------------------------------------------------------------------------------
         .addCase(getSharesProducts.pending, (state) => {
             state.statusShares = "pending"
         })
@@ -87,6 +85,7 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(getSharesProducts.rejected, (state) => {
             state.statusShares = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(getRandomReviews.pending, (state) => {
             state.statusReviews = "pending"
         })
@@ -97,55 +96,45 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(getRandomReviews.rejected, (state) => {
             state.statusReviews = "error"
         })
-
-
+        //-----------------------------------------------------------------------------------
         .addCase(getStores.pending, (state) => {
             state.statusStore = "ok"
         })
-
         .addCase(getStores.fulfilled, (state, {payload}) => {
             state.statusStore = "ok"
             state.storesList = payload.stores
         })
-
         .addCase(getStores.rejected, (state) => {
             state.statusStore = "error"
         })
-
+        //-----------------------------------------------------------------------------------
         .addCase(setCategoryId, (state, {payload}) => {
             state.categoryId = payload
         })
-
-
         .addCase(setProductId, (state, {payload}) => {
             state.productId = payload
         })
-
-
         .addCase(setPage, (state, {payload}) => {
             state.page = payload
         })
-
         .addCase(setMinPrice, (state, {payload}) => {
-
             state.minPrice = payload
         })
-
         .addCase(setMaxPrice, (state, {payload}) => {
             state.maxPrice = payload
         })
-
         .addCase(setSearchValue, (state, {payload}) => {
             state.searchValue = payload
         })
         .addCase(setStoreId, (state, {payload}) => {
             state.storeId = payload
         })
-
         .addCase(setProduct, (state, {payload}) => {
             state.product = payload
         })
-
+        .addCase(setProductsList, (state, {payload}) => {
+            state.productsList = payload
+        })
         .addCase(setNameData, (state, {payload}) => {
             state.nameData = payload
         })
@@ -158,5 +147,4 @@ export const home = createReducer(initialState, (builder) => {
         .addCase(setSharesProducts, (state, {payload}) => {
             state.productsShares = payload
         })
-
 });

@@ -15,7 +15,6 @@ const initialState = {
     updateCardStatus: "",
 }
 
-
 export const products = createReducer(initialState, (builder) => {
     builder
         .addCase(categoriesRequest.pending, (state) => {
@@ -24,24 +23,22 @@ export const products = createReducer(initialState, (builder) => {
         .addCase(categoriesRequest.fulfilled, (state, {payload}) => {
             state.status = "ok"
             state.categories = [{id: "", name: "All"}, ...payload.categories,]
-
         })
         .addCase(categoriesRequest.rejected, (state) => {
             state.status = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(createCard.pending, (state) => {
             state.statusCard = "pending"
         })
-
         .addCase(createCard.fulfilled, (state, {payload}) => {
             state.statusCard = "ok"
             toast.success("Card created successfully.")
-
         })
         .addCase(createCard.rejected, (state) => {
             state.statusCard = "error"
         })
-
+        //-----------------------------------------------------------------------------------
         .addCase(updateCard.pending, (state) => {
             state.updateCardStatus = "pending"
         })
@@ -49,9 +46,7 @@ export const products = createReducer(initialState, (builder) => {
             state.updateCardStatus = "ok"
             toast.success("Card updated successfully.")
         })
-
         .addCase(updateCard.rejected, (state) => {
             state.updateCardStatus = "error"
         })
-
 });

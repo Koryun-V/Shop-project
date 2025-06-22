@@ -2,10 +2,8 @@
 
 .modal-content {
   padding: 20px;
-
   display: flex;
   flex-direction: column;
-
 
   &_title{
     margin-top: 20px;
@@ -21,7 +19,6 @@
   justify-content: center;
   gap: 50px;
   margin-top: 30px;
-
 }
 
 .active-button.confirm, .cancel-btn {

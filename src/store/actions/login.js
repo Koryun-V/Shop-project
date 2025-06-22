@@ -13,18 +13,19 @@ export const loginUser = createAsyncThunk(
         }
     }
 );
+
 export const forgotPasswordUser = createAsyncThunk(
     "user/forgot-password",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.forgotPasswordUser(payload);
-            console.log(data,"forgot")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
     }
 );
+
 export const changePasswordUser = createAsyncThunk(
     "user/change-password",
     async (payload, thunkAPI) => {
@@ -36,6 +37,7 @@ export const changePasswordUser = createAsyncThunk(
         }
     }
 );
+
 export const getUser = createAsyncThunk(
     "user/profile",
     async (payload, thunkAPI) => {

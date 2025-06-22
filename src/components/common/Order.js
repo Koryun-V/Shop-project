@@ -21,8 +21,6 @@ const Order = () => {
     const url = useSelector(state => state.order.url);
     const status = useSelector(state => state.order.status);
     const [isPlay, setIsPlay] = useState(false);
-
-
     const [orderStatus, setOrderStatus] = useState("");
     useEffect(() => {
         if (status === "pending" ) {
@@ -31,7 +29,6 @@ const Order = () => {
             setIsPlay(false);
         }
     }, [status]);
-
 
     useEffect(() => {
         dispatch(setOrder([]))
@@ -55,7 +52,7 @@ const Order = () => {
             <article className="section-block">
                 <Loading isLoading={!order.order.length && status === "pending"}/>
                 <div className={`container ${!isPlay ? "smooth" : ""}`} style={{
-                    opacity: isPlay ? 0.4 : 1,
+                    opacity: isPlay && !order.order.length ? 0.4 : 1,
                 }}>
                     <div className="background-header">
                         <h1>Orders</h1>
@@ -71,15 +68,23 @@ const Order = () => {
                                         <span
                                             className={orderStatus === "" ? "active_all" : "disabled__filter"}>All</span>
                                         </div>
-                                        <div className="order__filter__item" onClick={() => setOrderStatus("received")}>
+                                        <div className="order__filter__item" onClick={() => {
+                                            setOrderStatus("received")
+                                        }}>
                                 <span
                                     className={orderStatus === "received" ? "active_received" : "disabled__filter"}>Received</span>
                                         </div>
-                                        <div className="order__filter__item" onClick={() => setOrderStatus("paid")}>
+                                        <div className="order__filter__item" onClick={() => {
+                                            setOrderStatus("paid")
+
+                                        }}>
                                 <span
                                     className={orderStatus === "paid" ? "active_paid" : "disabled__filter"}>Paid</span>
                                         </div>
-                                        <div className="order__filter__item" onClick={() => setOrderStatus("failed")}>
+                                        <div className="order__filter__item" onClick={() => {
+                                            setOrderStatus("failed")
+
+                                        }}>
                                 <span
                                     className={orderStatus === "failed" ? "active_failed" : "disabled__filter"}>Failed</span>
                                         </div>
@@ -94,6 +99,7 @@ const Order = () => {
                                     </div>
                                 </div>
                                 <OrderUniversal status={orderStatus}
+                                                orderPaid={order.order}
                                                 order={orderStatus === "" ? orderReceived.concat(order.order) : orderStatus === "received" ? orderReceived : order.order}/>
                             </>
                             :

@@ -1,6 +1,7 @@
 import {createAction, createAsyncThunk} from "@reduxjs/toolkit";
 import api from "../../utills/Api";
 
+
 export const getOrder = createAsyncThunk(
     "user/order",
     async (payload, thunkAPI) => {
@@ -13,7 +14,6 @@ export const getOrder = createAsyncThunk(
     }
 );
 
-
 export const sendReview = createAsyncThunk(
     "user/send-review",
     async (payload, thunkAPI) => {
@@ -25,6 +25,7 @@ export const sendReview = createAsyncThunk(
         }
     }
 );
+
 export const getReview = createAsyncThunk(
     "user/get-review",
     async (payload, thunkAPI) => {
@@ -36,19 +37,18 @@ export const getReview = createAsyncThunk(
         }
     }
 );
+
 export const getReviewList = createAsyncThunk(
     "user/get-review-list",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.getReviewList(payload);
-            console.log(data,"data")
             return data.productsReviews
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
     }
 );
-
 
 export const getOrderReceived = createAsyncThunk(
     "user/get-review-received",
@@ -61,6 +61,7 @@ export const getOrderReceived = createAsyncThunk(
         }
     }
 );
+
 export const orderRetry = createAsyncThunk(
     "user/order-retry",
     async (payload, thunkAPI) => {
@@ -72,12 +73,12 @@ export const orderRetry = createAsyncThunk(
         }
     }
 );
+
 export const orderConfirm = createAsyncThunk(
     "user/order-confirm",
     async (payload, thunkAPI) => {
         try {
             const {data} = await api.orderConfirm(payload);
-            console.log(data,"data")
             return data
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
@@ -88,7 +89,6 @@ export const orderConfirm = createAsyncThunk(
 export const setIsOpenReview = createAction(
     "login/modalOpen-review",
 )
-
 export const setReviews = createAction(
     "set/review",
 )

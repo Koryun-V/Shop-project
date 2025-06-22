@@ -43,6 +43,7 @@ export const addNotification = (notification) => {
         payload: notification,
     };
 };
+
 export const setReadStatus = createAction(
     "read/status",
 )

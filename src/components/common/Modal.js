@@ -46,8 +46,6 @@ const Modal = memo(({children, isOpen, onClose, className}) => {
           <div className="close__button">
             <XIcon className="close__modal" onClick={onClose}></XIcon>
           </div>
-
-
           {children}
         </div>
       </div>

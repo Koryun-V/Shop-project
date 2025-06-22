@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {TailSpin} from "react-loader-spinner";
 import {resendActivateUser} from "../../store/actions/registration";
@@ -7,7 +7,6 @@ const Timer = ({email}) => {
     const dispatch = useDispatch()
     const [start, setStart] = useState(true);
     const status = useSelector(state => state.registration.statusKey);
-
     const [time, setTime] = useState(60);
 
     useEffect(() => {
@@ -32,8 +31,6 @@ const Timer = ({email}) => {
         seconds = String(seconds).padStart(2, "0");
         return `${minutes}:${seconds}`
     }
-
-
 
 
     return (

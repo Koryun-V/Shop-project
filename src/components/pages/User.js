@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import moment from 'moment';
-
 import Input from "../mini/Input";
 import Button from "../mini/Button";
 import Loader from "../common/Loader";
@@ -21,7 +20,6 @@ import Modal from "../common/Modal";
 import DatePiker from "../common/DatePiker";
 import RadioButton from "../mini/RadioButton";
 import {ReactComponent as AddIcon} from "../../assets/icon/addIcon.svg";
-import orderBg from "../../assets/background/order.jpg";
 import {useLocation} from "react-router-dom";
 
 
@@ -240,7 +238,7 @@ const Users = () => {
                                             {fields.map((field) => (
 
                                                 <div className="field-profile" key={field.name}>
-                                                    <div className={!user.address && status !== "ok" &&  hash.split("#") && field.name === "address"  ? "field-block address" :"field-block "}>
+                                                    <div className={!user.address && status !== "ok" &&  hash && field.name === "address"  ? "field-block address" :"field-block "}>
                                                         <div style={{height: 50}}>
                                                             <Input
                                                                 label={field.label}

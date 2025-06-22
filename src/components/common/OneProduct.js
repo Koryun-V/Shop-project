@@ -3,24 +3,23 @@ import {useSelector, useDispatch} from "react-redux";
 import {getOneProduct, setOneProduct} from "../../store/actions/oneProduct";
 import _ from "lodash";
 import {createCard, updateCard} from "../../store/actions/products";
-import {getReview, getReviewList, setReviewList, setReviews} from "../../store/actions/order";
+import {getReviewList, setReviewList} from "../../store/actions/order";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleLeft, faAngleRight, faCheck, faStar, faUser} from "@fortawesome/free-solid-svg-icons";
-import {Link, useLocation, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import Slider from "react-slick";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import Button from "../mini/Button";
 import Product from "../mini/Product";
 import {getPopularProducts, setPopularProducts} from "../../store/actions/home";
-import Loading from "../mini/Loading";
+import {setIsOpenLogin} from "../../store/actions/login";
 
+const token = localStorage.getItem("token");
 
 const OneProduct = () => {
     const [quantity, setQuantity] = useState(1);
-    const [delayedImages, setDelayedImages] = useState(null);
     const dispatch = useDispatch();
-    // const productId = useSelector(state => state.home.productId);
     const oneProductInfo = useSelector(state => state.oneProduct.oneProduct);
     const name = oneProductInfo?.result?.product?.name;
     const id = oneProductInfo?.result?.product?.id;
@@ -165,14 +164,6 @@ const OneProduct = () => {
         );
     }
 
-    console.log(hash.split("-")[1], "hash")
-
-
-    console.log(oneProductInfo, 'info');
-
-    console.log(cardId, "cartId")
-
-
 
     const settings = {
         dots: true,
@@ -299,7 +290,7 @@ const OneProduct = () => {
                                                         <Button
                                                             text="Add to cart"
                                                             disabled={quantityNumber === 0}
-                                                            onClick={() => addCard()}
+                                                            onClick={() =>  !token ? dispatch(setIsOpenLogin(true)) : addCard()}
                                                             type={"button"}
                                                             className={!!quantityNumber ? "active-button" : "disabled"}
                                                         >
@@ -388,6 +379,7 @@ const OneProduct = () => {
                                                 const month = date.toLocaleString('en-us', {month: 'long'});
                                                 return (
                                                     <div
+                                                        key={review.id}
                                                         className={Number(hash.split("-")[1]) === review.userId ? "review__item__active" : "review__item"}
                                                         id={`review-${review.userId}`}>
 
@@ -419,6 +411,7 @@ const OneProduct = () => {
                                                                 <div className="review__star">
                                                                     {Array.from({length: 5}).map((_, i) => (
                                                                         <FontAwesomeIcon
+                                                                            key={i}
                                                                             style={{
                                                                                 fontSize: 20
                                                                             }}

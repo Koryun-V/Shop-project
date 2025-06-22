@@ -3,6 +3,7 @@
 .custom-radio-input {
   display: none;
 }
+
 .gender-radio-group{
   width: 320px;
   height: 50px;
@@ -11,19 +12,17 @@
   padding:0 15px;
   font-family: "PoppinsMedium", sans-serif;
   font-size: 15px;
+
   span{
     color: #2e2e2e;
-
-
   }
-
-
 }
+
 .gender-block{
   margin-top:9px;
   display:flex;
-
 }
+
 .custom-radio-container {
   display: inline-block;
   margin-right: 20px;
@@ -37,8 +36,6 @@
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-
-    //padding-left: 35px;
 
     .custom-radio-circle {
       position: absolute;
@@ -95,4 +92,3 @@
     background-color: white;
   }
 }
-//rgba(4, 224, 21, 0.9)

@@ -19,5 +19,4 @@ export const category = createReducer(initialState, (builder) => {
     .addCase(getCategory.rejected, (state) => {
       state.status = "error"
     })
-
 });

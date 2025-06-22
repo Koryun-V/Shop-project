@@ -3,7 +3,7 @@ import {getStore, setStore} from "../actions/storePage";
 
 const initialState = {
     status: "",
-    store:[],
+    store: [],
 }
 export const storePage = createReducer(initialState, (builder) => {
     builder
@@ -17,6 +17,7 @@ export const storePage = createReducer(initialState, (builder) => {
         .addCase(getStore.rejected, (state) => {
             state.status = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(setStore, (state, {payload}) => {
             state.store = payload
         })

@@ -220,10 +220,10 @@ const ModalNewPassword = () => {
                         <div className="validation-info">
                             {inputName.map(((item, index) => (
                                 item === field.name ?
-                                    <>
+                                    <div key={index}>
                                         <div className="test2"></div>
                                         <span>{!newPassword[item].length ? "Field Required" : field.info}</span>
-                                    </> : null
+                                    </div> : null
                             )))}
                         </div>
                     </div>

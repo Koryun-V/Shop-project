@@ -29,7 +29,6 @@ const Home = () => {
     const products = useSelector(state => state.home.popularProducts);
     const reviews = useSelector(state => state.home.reviews)
     const productsShares = useSelector(state => state.home.productsShares);
-    const id = useSelector(state => state.home.userId);
     const statusShares = useSelector(state => state.home.statusShares);
     const statusPopular = useSelector(state => state.home.statusPopular);
     const statusReview = useSelector(state => state.home.statusReviews);
@@ -45,9 +44,9 @@ const Home = () => {
     }, [statusShares, statusPopular, statusReview]);
 
     useEffect(() => {
-        dispatch(getPopularProducts({id}))
-        dispatch(getSharesProducts({id}))
-    }, [id]);
+        dispatch(getPopularProducts())
+        dispatch(getSharesProducts())
+    }, []);
 
 
     useEffect(() => {
@@ -213,53 +212,53 @@ const Home = () => {
                                     :
 
                                     Array.from({length: 4}).map((_, i) => (
-                                            <div className="random__review" key={i}>
-                                                <div className="review_container">
-                                                    <div className="random__product" style={{
-                                                        height: 228
-                                                    }}>
+                                        <div className="random__review" key={i}>
+                                            <div className="review_container">
+                                                <div className="random__product" style={{
+                                                    height: 228
+                                                }}>
 
-                                                        <div className="random__product__img loading-gradient-r"
-                                                             style={{
-                                                                 width: 150,
-                                                             }}>
-                                                        </div>
-                                                        <div className="random__product__name loading-gradient-r"
-                                                             style={{
-                                                                 marginLeft: 5
-                                                             }}>
-                                                        </div>
+                                                    <div className="random__product__img loading-gradient-r"
+                                                         style={{
+                                                             width: 150,
+                                                         }}>
                                                     </div>
-                                                    <div className="random__user ">
-                                                        <div className="user-img-block loading-gradient-r ">
-                                                            <div className="random__user__img ">
-                                                            </div>
-                                                        </div>
-                                                        <div className="random__user__name loading-gradient-r">
-                                                        </div>
+                                                    <div className="random__product__name loading-gradient-r"
+                                                         style={{
+                                                             marginLeft: 5
+                                                         }}>
                                                     </div>
-
                                                 </div>
-                                                <div style={{
-                                                    padding: 15,
+                                                <div className="random__user ">
+                                                    <div className="user-img-block loading-gradient-r ">
+                                                        <div className="random__user__img ">
+                                                        </div>
+                                                    </div>
+                                                    <div className="random__user__name loading-gradient-r">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div style={{
+                                                padding: 15,
+                                                width: "100%",
+                                                height: "100%",
+                                            }}>
+                                                <div className="loading-gradient-r " style={{
                                                     width: "100%",
                                                     height: "100%",
                                                 }}>
-                                                    <div className="loading-gradient-r " style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                    }}>
-                                                    </div>
-                                                </div>
-                                                <div style={{
-                                                    width: "100%",
-                                                    padding: 15,
-                                                }}>
-                                                    <div className="time__random loading-gradient-r">
-                                                    </div>
                                                 </div>
                                             </div>
-                                        ))})
+                                            <div style={{
+                                                width: "100%",
+                                                padding: 15,
+                                            }}>
+                                                <div className="time__random loading-gradient-r">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))})
 
                             </div>
                         </div>
@@ -271,21 +270,16 @@ const Home = () => {
                         <div className="article-block-img">
                             <div className="about-home">
                                 <h2>About the company</h2>
-                                <p>At StroykaStor you can always buy all the necessary goods for home and
-                                    garden renovation.
-                                    Want to renovate your apartment? Are you building a country house? Use
-                                    construction and
-                                    finishing materials from our catalog.
+                                <p>At MultifyMarket you can always buy all the necessary goods for home and garden
+                                    renovation. Want to renovate your apartment? Are you building a country house? Use
+                                    construction and finishing materials from our catalog.
                                 </p>
                                 <p>
-                                    Fast delivery of construction goods at low prices will make your
-                                    shopping more enjoyable.
-                                    Renovation can be cheap if you do it with us. We always have more than
-                                    30,000 construction
-                                    goods in stock for you at low prices every day.
-                                    StroykaStor is a wide range of goods for home and renovation at a low
-                                    price; Possibility to
-                                    order construction and finishing materials for home and garden.</p>
+                                    Fast delivery of construction goods at low prices will make your shopping more
+                                    enjoyable. Renovation can be cheap if you do it with us. We always have more than
+                                    30,000 construction goods in stock for you at low prices every day. MultifyMarket is
+                                    a wide range of goods for home and renovation at a low price; Possibility to order
+                                    construction and finishing materials for home and garden.</p>
                             </div>
                             <img className="img" src={about}/>
                         </div>

@@ -331,8 +331,6 @@ const Register = () => {
             }}>
                 <div className="register-block">
                     <div className="container-register">
-                        {/*<button onClick={() => dispatch(userDelete())}>click</button>*/}
-
                         <div className="container-form" style={{width: 320}}>
                             <div className="title">
                                 <span>Create a new Account</span>
@@ -366,10 +364,10 @@ const Register = () => {
                                                     :
                                                     inputName.map(((item, index) => (
                                                         item === field.name ?
-                                                            <>
+                                                            <div key={index}>
                                                                 <div className="test2"></div>
                                                                 <span>{!user[item].length ? "Field Required" : field.info}</span>
-                                                            </>
+                                                            </div>
                                                             : null)))}
                                             </div>
                                         </div>

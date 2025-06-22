@@ -99,13 +99,6 @@ function ModalLogin({open, onClose}) {
     }, []);
 
 
-    // useEffect(() => {
-    //     if (token) {
-    //         localStorage.setItem("token", token)
-    //         window.location.reload(true);
-    //     }
-    // }, [token]);
-
     useEffect(() => {
         if (token) {
             localStorage.setItem("token", token);

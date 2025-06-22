@@ -20,6 +20,7 @@ const initialState = {
     email:"",
     emailError:"",
 }
+
 export const login = createReducer(initialState, (builder) => {
     builder
         .addCase(loginUser.pending, (state) => {
@@ -32,6 +33,7 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(loginUser.rejected, (state) => {
             state.status = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(forgotPasswordUser.pending, (state) => {
             state.statusForgot = "pending"
         })
@@ -41,8 +43,8 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(forgotPasswordUser.rejected, (state,error) => {
             state.statusForgot = "error"
             state.emailError = error.payload.response.data.message
-
         })
+        //-----------------------------------------------------------------------------------
         .addCase(changePasswordUser.pending, (state) => {
             state.statusNewPassword = "pending"
         })
@@ -63,6 +65,7 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(getUser.rejected, (state) => {
             state.statusUser = "error"
         })
+        //-----------------------------------------------------------------------------------
         .addCase(setStatus, (state, {payload}) => {
             state.status = payload
         })
@@ -78,5 +81,4 @@ export const login = createReducer(initialState, (builder) => {
         .addCase(setEmail, (state, {payload}) => {
             state.email = payload
         })
-
 });

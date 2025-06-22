@@ -1,5 +1,4 @@
 import React from 'react';
-import img from "../../esim/1.jpg";
 
 const SlideProduct = ({product}) => {
 
@@ -105,12 +104,11 @@ const SlideProduct = ({product}) => {
                     <div className="store-img loading-gradient-r">
                     </div>
                 </div>
-                <div className="product-slider-img loading-gradient-r" >
+                <div className="product-slider-img loading-gradient-r">
                 </div>
 
             </div>
-    )
-        ;
+    );
 };
 
 export default SlideProduct;

@@ -13,7 +13,6 @@ export const getStore = createAsyncThunk(
     }
 );
 
-
 export const setStore = createAction(
     "set/store",
 )

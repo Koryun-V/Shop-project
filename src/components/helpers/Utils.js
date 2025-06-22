@@ -64,6 +64,7 @@ class Utils {
         && (typeof obj[propName] === "object" ? _.isEmpty(obj[propName]) : !obj[propName].trim())) {
         delete obj[propName];
       }
+
     }
     return obj
   }

@@ -63,7 +63,6 @@ const notifications = createReducer(initialState, (builder) => {
         .addCase(setReadStatus, (state, {payload}) => {
             state.statusRead = payload
         });
-
 });
 
 export default notifications;

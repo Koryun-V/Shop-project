@@ -1,19 +1,15 @@
 import React from 'react';
-import Button from "../mini/Button";
 import about from "../../assets/background/about.jpg";
-import orderBg from "../../assets/background/order.jpg";
 
 const Contact = () => {
     return (
         <section className="section">
             <article className="section-block">
-
                 <div className="container">
-
                     <div className="new-big-container">
                         <div className="new-container">
                             <div className="concat_container">
-                                <span className="contact_header_desc">Contacts</span>
+                                <h1 className="contact_header_desc">Contacts</h1>
                                 <iframe
                                     style={{
                                         width: "100%",
@@ -28,78 +24,81 @@ const Contact = () => {
 
 
                                 <span className="contact_name">
-              LLC  Stroyka Store
+              Multify Market
           </span>
 
 
                                 <div className="contact_big_description">
                                     <div className="contact_desc">
                                         <div className="contact_mini_desc">
-                 <span className="contact_mini_desc_text">
-115114, Moscow, Derbenevskaya embankment, 7, bldg. 8
-                 </span>
-                                        </div>
-                                        <div className="contact_mini_desc">
-                <span className="contact_mini_desc_text">
-Paveletskaya Buses 13, 106, 158, 184, 632 Stop "Derbenevskaya emb., 7"
-                </span>
+                                              <span className="contact_mini_desc_text">
+                                                     Office address
+                                                      </span>
+                                            <span className="contact_mini_desc_text">
+                                                 4 Tsulukidze St, Gyumri
+                                            </span>
                                         </div>
                                     </div>
-                                    <div className="contact_desc">
-                                        <div className="contact_mini_desc">
-                                            <span className="contact_mini_desc_text">OGRN: 1047796688554</span>
-                                            <span className="contact_mini_desc_text">INN 7703528301</span>
-                                            <span className="contact_mini_desc_text">KPP 774850001</span>
-                                            <span className="contact_mini_desc_text">OKTMO 45380000</span>
-                                            <span className="contact_mini_desc_text">OGRN 1047796688554</span>
-                                            <span className="contact_mini_desc_text">Current ruble account: 40702810900001403352</span>
-                                            <span className="contact_mini_desc_text">Bank: JSC Sberbank</span>
-                                            <span className="contact_mini_desc_text">Moscow</span>
-                                            <span className="contact_mini_desc_text">Correspondent account: 30101810200000000700</span>
-                                            <span className="contact_mini_desc_text">BIC: 044525700</span>
-                                        </div>
+                                    {/*<div className="contact_desc">*/}
+                                    {/*    <div className="contact_mini_desc">*/}
+                                    {/*        <span className="contact_mini_desc_text">OGRN: 1047796688554</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">INN 7703528301</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">KPP 774850001</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">OKTMO 45380000</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">OGRN 1047796688554</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">Current ruble account: 40702810900001403352</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">Bank: JSC Sberbank</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">Moscow</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">Correspondent account: 30101810200000000700</span>*/}
+                                    {/*        <span className="contact_mini_desc_text">BIC: 044525700</span>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
+                                    <div className="contact_mini_desc">
+                                            <span className="contact_mini_desc_text">
+                        Made in
+                </span>
+                                        <span className="contact_mini_desc_text">
+                      Techno-Educational Academy
+                </span>
                                     </div>
 
                                     <div className="contact_desc">
                                         <div className="contact_mini_desc">
                 <span className="contact_mini_desc_text">
-                 Customer support info@stroykastore.ru
+                 Customer support Multifymarket@gmail.com
                 </span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <article className="article-home" style={{
-                                    padding: 0,
+                                    padding:0,
                                 }}>
                                     <div className="article-block-img">
                                         <div className="about-home">
                                             <h2>About the company</h2>
-                                            <p>At StroykaStor you can always buy all the necessary goods for home and
-                                                garden renovation.
-                                                Want to renovate your apartment? Are you building a country house? Use
-                                                construction and
-                                                finishing materials from our catalog.
+                                            <p>At MultifyMarket you can always buy all the necessary goods for home and
+                                                garden
+                                                renovation. Want to renovate your apartment? Are you building a country
+                                                house? Use
+                                                construction and finishing materials from our catalog.
                                             </p>
                                             <p>
                                                 Fast delivery of construction goods at low prices will make your
-                                                shopping more enjoyable.
-                                                Renovation can be cheap if you do it with us. We always have more than
-                                                30,000 construction
-                                                goods in stock for you at low prices every day.
-                                                StroykaStor is a wide range of goods for home and renovation at a low
-                                                price; Possibility to
-                                                order construction and finishing materials for home and garden.</p>
+                                                shopping more
+                                                enjoyable. Renovation can be cheap if you do it with us. We always have
+                                                more than
+                                                30,000 construction goods in stock for you at low prices every day.
+                                                MultifyMarket is
+                                                a wide range of goods for home and renovation at a low price;
+                                                Possibility to order
+                                                construction and finishing materials for home and garden.</p>
                                         </div>
                                         <img className="img" src={about}/>
                                     </div>
                                 </article>
-
-
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </article>

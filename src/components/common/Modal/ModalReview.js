@@ -76,7 +76,6 @@ function ModalReview({open, onClose, product}) {
                     const footer = document.querySelector('.footer');
 
 
-
                     if (header) {
                         header.style.paddingRight = `${scrollbarWidth}px`;
                     }
@@ -175,7 +174,7 @@ function ModalReview({open, onClose, product}) {
 
 
                                     <div className="title-user">
-                                        <strong>{user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)} {user.firstName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
+                                        <strong>{user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)} {user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)}</strong>
                                     </div>
                                 </div>
 
@@ -197,7 +196,7 @@ function ModalReview({open, onClose, product}) {
                                         isReview ?
 
                                             <FontAwesomeIcon
-
+                                                key={i}
                                                 icon={faStar}
                                                 className={i + 1 <= reviews.rating ?
                                                     "star-active icon"
@@ -205,7 +204,7 @@ function ModalReview({open, onClose, product}) {
                                             :
 
                                             <FontAwesomeIcon
-
+                                                key={i}
                                                 onClick={() => {
                                                     setRating(i + 1)
                                                     setIsStar(true)
